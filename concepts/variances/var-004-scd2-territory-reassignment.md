@@ -176,3 +176,14 @@ with the underlying reasoning traced in more depth than the canon's terse note.
 - [/concepts/tables/oms-prod-customer-territory-hist.md](/concepts/tables/oms-prod-customer-territory-hist.md) — source-side territory history the SCD2 logic reads
 - [/concepts/tables/oms-prod-customer.md](/concepts/tables/oms-prod-customer.md) — natural-key source of `DIM_CUSTOMER`
 - [/concepts/tables/bcpl-edw-fact-invoice-line.md](/concepts/tables/bcpl-edw-fact-invoice-line.md) — the fact table that double-joins against the two current rows
+- [ETL_ERROR_LOG](/concepts/tables/bcpl-edw-etl-error-log.md)
+
+## Referenced by
+
+- [Progress](/context/progress.md)
+
+## Related decisions
+
+- [ADR-002 — DIM_CUSTOMER keeps history (SCD2)](/decisions/20260506-dim-customer-scd2.md)
+- [Go-live date moves from 15-Sep to 30-Oct-2026](/decisions/20260819-golive-date-slip-to-30oct.md)
+- [Go-live date moves from 30-Oct to 12-Nov-2026 (final)](/decisions/20260922-golive-date-final-12nov.md)

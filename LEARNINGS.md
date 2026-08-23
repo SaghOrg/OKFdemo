@@ -17,3 +17,7 @@
 
 3. VERIFIED GENERATED BLOCKS: All 69 content files (excluding index and log) have valid generated blocks with both 'by' and 'at' fields present and well-formed. The 'by' field matches pattern ^process:claude-[a-z0-9.-]+/[a-z0-9-]+$ on all files. No files were missing or malformed generated blocks — all had been authored by prior stages with correct metadata.
 - **S9 review**: Stage 8 Validation complete. All 71 concept files pass schema validation with zero violations. No PII leaks detected — all 5 planted test values remain contained in _sources/. Link integrity verified: 71 of 75 links point to existing files; 5 missing links are all classified as EXPECTED valid OKF forward references to unwritten knowledge (architectural and variance decision records). Overall: PASS
+
+- **S5 repair**: The three original 'Decisions referenced' entries had zero markdown links at all (not invented paths, but pure prose restatement), so the fix was pure link-insertion rather than path substitution. The task's own instructions flagged the one subtlety worth preserving: this meeting only raised (propos
+
+- **S9 review**: an adversarial pass by a stronger model caught a systemic sourcing defect, a mislabelled constraint, an invented date, and a false backlink claim that schema validation alone reported as clean.

@@ -20,9 +20,9 @@ sources:
     title: ORION OLTP Schema Notes
     author: Aniruddh Deshpande
     last_modified: "2026-03-01"
-  - resource: /_canon/schema_canon.sql
+  - resource: /_sources/technical/schema_oltp.sql
     id: SCHEMA
-    title: ORION schema DDL (canonical)
+    title: ORION / BCPL_EDW DDL extract
     last_modified: "2026-03-15"
   - resource: /_sources/docs/DOC-05_edw_target_model_notes.docx
     id: DOC-05
@@ -137,3 +137,15 @@ The warehouse mapping `MAP_FACT_INVOICE_LINE` loads this table nightly via the i
 - **[VAR-002 — Month-end boundary drift](/concepts/variances/var-002-date-key-timezone.md)**: via INVOICE_HEADER.CREATED_TS (UTC), described above.
 - **[VAR-003 — Scheme discount double-count](/concepts/variances/var-003-scheme-discount-double-count.md)**: SCHEME_DISC_AMT rewritten additively by FIN_PROD.PKG_MONTH_END, described above.
 - **[VAR-005 — Credit notes absent from warehouse](/concepts/variances/var-005-credit-notes-absent.md)**: referenced above in connection with Finance's manual netting process.
+
+## Related concepts
+
+- [Scheme Master (OMS_PROD.SCHEME_MASTER)](/concepts/tables/oms-prod-scheme-master.md)
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)
+
+## Related decisions
+
+- [ADR-004 — VAR-003 remediation: rebuild MAP_FACT_INVOICE_LINE as a key-based merge](/decisions/20260506-var003-remediation-key-based-merge.md)

@@ -18,7 +18,7 @@ sources:
     id: DOC-01
     title: ORION OLTP Schema Notes
     last_modified: "2026-08-22"
-  - resource: /_canon/schema_canon.sql
+  - resource: /_sources/technical/schema_oltp.sql
     id: schema-canon
     title: ORION Schema DDL
     last_modified: "2026-08-22"
@@ -138,3 +138,7 @@ All refer to the same entity: promotional discounts applied at the line level on
 
 - **[VAR-007 — Late-arriving SKUs to UNKNOWN member](/concepts/variances/var-007-late-arriving-sku-unknown-member.md)**: referenced above under Relationships.
 - **[VAR-003 — Scheme discount double-count](/concepts/variances/var-003-scheme-discount-double-count.md)**: SCHEME_MASTER slab definitions are what FIN_PROD.PKG_MONTH_END.P_RECALC_SCHEME_DISCOUNT reads when it recomputes entitlement; the defect is in how that recomputation is written back to OMS_PROD.INVOICE_LINE, not in this table.
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)

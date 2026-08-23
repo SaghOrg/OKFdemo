@@ -75,3 +75,7 @@ As noted in oms-prod-credit-note.md, there is no FACT_CREDIT_NOTE in BCPL_EDW. C
 ## Related variances
 
 - **[VAR-005 — Credit notes absent from warehouse](/concepts/variances/var-005-credit-notes-absent.md)**: this table's lines are never replicated to BCPL_EDW; there is no FACT_CREDIT_NOTE, so revenue-affecting credit notes are netted by hand in Excel outside the warehouse.
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)

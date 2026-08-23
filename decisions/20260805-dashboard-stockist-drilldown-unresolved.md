@@ -128,3 +128,7 @@ artifact in the read corpus records that call taking place or its outcome.
 - [/decisions/20260922-dashboard-scope-reinstated-7-to-9.md](/decisions/20260922-dashboard-scope-reinstated-7-to-9.md)
 - [/concepts/tables/bcpl-edw-fact-secondary-sales.md](/concepts/tables/bcpl-edw-fact-secondary-sales.md)
 - [/concepts/tables/bcpl-edw-dim-customer.md](/concepts/tables/bcpl-edw-dim-customer.md) — the stockist/distributor/customer dimension this drill-down would resolve against
+
+## Referenced by
+
+- [Progress](/context/progress.md)

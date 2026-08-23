@@ -14,15 +14,15 @@ generated:
   by: process:claude-haiku/tables
   at: 2026-08-23T10:37:25Z
 sources:
-  - resource: /_canon/schema_canon.sql
+  - resource: /_sources/technical/schema_edw.sql
     id: TECH-SQL-EDW
     last_modified: "2026-08-23"
-  - resource: /_build/corpus_text/docs/DOC-01_orion_oltp_schema_notes.docx.txt
+  - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
     id: DOC-01
     title: "ORION OLTP schema notes"
     author: Aniruddh Deshpande
     last_modified: "2026-03-03"
-  - resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
+  - resource: /_sources/docs/DOC-05_edw_target_model_notes.docx
     id: DOC-05
     title: "EDW target model notes"
     last_modified: "2026-05-15"
@@ -125,3 +125,13 @@ The DDL comment following the index creation is: `-- *** THERE IS NO UNIQUE CONS
 - **[VAR-004 — Duplicate facts on distributor reassignment](/concepts/variances/var-004-scd2-territory-reassignment.md)**: a fact row here joins to two DIM_CUSTOMER rows when the SCD2 bug fires, doubling the affected customer's revenue.
 - **[VAR-007 — Late-arriving SKUs to UNKNOWN member](/concepts/variances/var-007-late-arriving-sku-unknown-member.md)**: PRODUCT_KEY resolves to -1 on this fact when the SKU dimension hasn't caught up yet.
 - **[VAR-008 — Feb duplicate load](/concepts/variances/var-008-feb-duplicate-load.md)**: batch duplication, described above under Data Quality Issues.
+- [VAR-005 — Credit notes absent from warehouse](/concepts/variances/var-005-credit-notes-absent.md)
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)
+
+## Related decisions
+
+- [ADR-005 — DATE_KEY on FACT_INVOICE_LINE derived from INVOICE_DT, not CREATED_TS](/decisions/20260506-var002-date-key-fix.md)
+- [ADR-004 — VAR-003 remediation: rebuild MAP_FACT_INVOICE_LINE as a key-based merge](/decisions/20260506-var003-remediation-key-based-merge.md)

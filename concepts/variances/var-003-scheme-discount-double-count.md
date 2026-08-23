@@ -274,3 +274,19 @@ open question over the 30-Sep close date — which the canon register does not c
 - [/concepts/tables/fin-prod-scheme-accrual.md](/concepts/tables/fin-prod-scheme-accrual.md) — the accrual table `P_RECALC_SCHEME_DISCOUNT` also writes, correctly, alongside the flawed invoice-line update
 - [/concepts/tables/fin-prod-period-control.md](/concepts/tables/fin-prod-period-control.md) — drives which period `P_ADJUST_REVENUE` resolves and adjusts; closing a period does not stop the nightly job
 - [/concepts/tables/fin-prod-gl-journal-hdr.md](/concepts/tables/fin-prod-gl-journal-hdr.md) and [/concepts/tables/fin-prod-gl-journal-line.md](/concepts/tables/fin-prod-gl-journal-line.md) — posted by `P_POST_GL_SUMMARY`, downstream of the same driver
+- [Order Header (OMS_PROD.ORDER_HEADER)](/concepts/tables/oms-prod-order-header.md)
+
+## Related variances
+
+- [VAR-008 — Feb duplicate load](/concepts/variances/var-008-feb-duplicate-load.md)
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)
+- [Progress](/context/progress.md)
+
+## Related decisions
+
+- [ADR-004 — VAR-003 remediation: rebuild MAP_FACT_INVOICE_LINE as a key-based merge](/decisions/20260506-var003-remediation-key-based-merge.md)
+- [Go-live dashboard scope reinstated to 9 (D04, D11 return)](/decisions/20260922-dashboard-scope-reinstated-7-to-9.md)
+- [Open question — VAR-003 close date not committed at the steering committee](/decisions/20260922-var003-close-date-not-committed.md)

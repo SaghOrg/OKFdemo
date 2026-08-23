@@ -16,7 +16,7 @@ sources:
     id: DOC-01
     title: ORION OLTP Schema Notes
     last_modified: "2026-08-22"
-  - resource: /_canon/schema_canon.sql
+  - resource: /_sources/technical/schema_oltp.sql
     id: schema-canon
     title: ORION Schema DDL
     last_modified: "2026-08-22"
@@ -93,3 +93,7 @@ This means CUST_ID values in ORDER_HEADER may not have a matching CUSTOMER recor
 ## Related variances
 
 - **[VAR-003 — Scheme discount double-count](/concepts/variances/var-003-scheme-discount-double-count.md)**: referenced above for the general point that ORION order/invoice status changes are not history-tracked, which is part of why reconciliation problems like VAR-003 are hard to trace after the fact.
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)

@@ -136,3 +136,8 @@ Product Mix and Contribution dashboard's stated purpose.
 - [/concepts/tables/bcpl-edw-dim-product.md](/concepts/tables/bcpl-edw-dim-product.md)
 - [/decisions/20260414-dim-product-scd1-proposed.md](/decisions/20260414-dim-product-scd1-proposed.md) — the position this record supersedes
 - [/decisions/20260506-dim-customer-scd2.md](/decisions/20260506-dim-customer-scd2.md) — the companion SCD2 decision taken the same day, ADR-002
+
+## Referenced by
+
+- [Progress](/context/progress.md)
+- [Design sign-off](/meetings/2026-05-06_design_signoff.md)

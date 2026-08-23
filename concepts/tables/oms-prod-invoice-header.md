@@ -16,9 +16,9 @@ sources:
     title: ORION OLTP Schema Notes
     author: Aniruddh Deshpande
     last_modified: "2026-03-01"
-  - resource: /_canon/schema_canon.sql
+  - resource: /_sources/technical/schema_oltp.sql
     id: SCHEMA
-    title: ORION schema DDL (canonical)
+    title: ORION / BCPL_EDW DDL extract
     last_modified: "2026-03-15"
 generated:
   by: process:claude-haiku/tables
@@ -116,3 +116,11 @@ The index name `UX_INVHDR_NO` could reasonably abbreviate either name. The DDL i
 ## Related variances
 
 - **[VAR-002 — Month-end boundary drift](/concepts/variances/var-002-date-key-timezone.md)**: CREATED_TS (UTC) vs INVOICE_DT (IST), described above under Known data-quality issues.
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)
+
+## Related decisions
+
+- [ADR-005 — DATE_KEY on FACT_INVOICE_LINE derived from INVOICE_DT, not CREATED_TS](/decisions/20260506-var002-date-key-fix.md)

@@ -17,9 +17,9 @@ sources:
   title: ORION OLTP Schema Notes
   author: Aniruddh Deshpande
   last_modified: '2026-03-01'
-- resource: /_canon/schema_canon.sql
+- resource: /_sources/technical/schema_oltp.sql
   id: SCHEMA
-  title: ORION schema DDL (canonical)
+  title: ORION / BCPL_EDW DDL extract
   last_modified: '2026-03-15'
 generated:
   by: process:claude-haiku/tables

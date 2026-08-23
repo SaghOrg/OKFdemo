@@ -126,3 +126,8 @@ confirmation), which is a genuinely softer close than the bare "Closed" status s
 - [/concepts/tables/bcpl-edw-dim-tax-rate.md](/concepts/tables/bcpl-edw-dim-tax-rate.md) — the effective-dated remediation
 - [/concepts/tables/fin-prod-tax-rate-master.md](/concepts/tables/fin-prod-tax-rate-master.md) — the correctly effective-dated ORION source
 - [/concepts/tables/oms-prod-sku-master.md](/concepts/tables/oms-prod-sku-master.md) — carries `HSN_CODE`, the join key into the tax rate tables
+- [DIM_PRODUCT](/concepts/tables/bcpl-edw-dim-product.md)
+
+## Referenced by
+
+- [Progress](/context/progress.md)

@@ -19,7 +19,7 @@ sources:
   title: ORION - schema notes (OLTP side)
   author: Aniruddh Deshpande
   last_modified: '2026-03-09'
-- resource: /_canon/schema_canon.sql
+- resource: /_sources/technical/schema_oltp.sql
   id: SCHEMA_CANON
   last_modified: '2026-08-23'
 generated:

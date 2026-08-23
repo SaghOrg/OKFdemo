@@ -99,3 +99,7 @@ who would have to reaffirm it.
 
 - [/concepts/variances/var-003-scheme-discount-double-count.md](/concepts/variances/var-003-scheme-discount-double-count.md)
 - [/decisions/20260506-var003-remediation-key-based-merge.md](/decisions/20260506-var003-remediation-key-based-merge.md) — the ADR-004 record whose target date is in question here
+
+## Referenced by
+
+- [Progress](/context/progress.md)

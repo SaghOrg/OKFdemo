@@ -104,3 +104,7 @@ for the actual resolution and its reasoning.
 - [/concepts/variances/var-008-feb-duplicate-load.md](/concepts/variances/var-008-feb-duplicate-load.md)
 - [/concepts/variances/var-001-q1-revenue-overstated.md](/concepts/variances/var-001-q1-revenue-overstated.md) — the missing DELETE_FLAG filter that made "truncate and reload" the riskiest option
 - [/decisions/20260402-var008-february-restatement-and-batch-guard.md](/decisions/20260402-var008-february-restatement-and-batch-guard.md) — the actual resolution
+
+## Referenced by
+
+- [First variance findings](/meetings/2026-03-24_first_variance_findings.md)

@@ -183,3 +183,8 @@ no, I am not blocking it, I am saying it is a risk and it stays on the risk list
 - [/concepts/tables/bcpl-edw-dim-customer.md](/concepts/tables/bcpl-edw-dim-customer.md)
 - [/concepts/variances/var-004-scd2-territory-reassignment.md](/concepts/variances/var-004-scd2-territory-reassignment.md) — the closing-rule invariant this decision required is exactly the rule `VAR-004` broke in the build
 - [/decisions/20260506-dim-product-scd2.md](/decisions/20260506-dim-product-scd2.md) — the companion SCD2 decision taken the same day, ADR-003
+
+## Referenced by
+
+- [Progress](/context/progress.md)
+- [Design sign-off](/meetings/2026-05-06_design_signoff.md)

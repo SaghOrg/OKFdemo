@@ -14,7 +14,7 @@ sources:
 - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
   id: DOC-01
   last_modified: '2026-03-03'
-- resource: /_canon/schema_canon.sql
+- resource: /_sources/technical/schema_oltp.sql
   id: SCHEMA
   last_modified: '2026-02-11'
 generated:

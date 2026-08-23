@@ -13,15 +13,15 @@ generated:
   by: process:claude-haiku/tables
   at: 2026-08-23T10:36:54Z
 sources:
-  - resource: /_sources/schema_canon.sql
+  - resource: /_sources/technical/schema_edw.sql
     id: SCHEMA
     last_modified: "2026-08-23"
-  - resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
+  - resource: /_sources/docs/DOC-05_edw_target_model_notes.docx
     id: DOC-05
     title: BCPL_EDW target model - working notes
     author: Ishaan Bhatt
     last_modified: "2026-04-08"
-  - resource: /_build/corpus_text/docs/DOC-01_orion_oltp_schema_notes.docx.txt
+  - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
     id: DOC-01
     title: ORION - schema notes (OLTP side)
     author: Aniruddh Deshpande
@@ -141,3 +141,11 @@ Loaded nightly as part of the standard warehouse load (LP_DAILY_SALES), typicall
 ## Related variances
 
 - **[VAR-006 — GST rate change mishandled](/concepts/variances/var-006-tax-rate-retroactive.md)**: DIM_TAX_RATE is the direct remediation for this variance, described in full above under Variance linkage.
+
+## Related concepts
+
+- [TAX_RATE_MASTER](/concepts/tables/bcpl-edw-tax-rate-master.md)
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)

@@ -133,3 +133,12 @@ discrepancy found.
 - [/concepts/tables/bcpl-edw-fact-invoice-line.md](/concepts/tables/bcpl-edw-fact-invoice-line.md) — target fact, `SRC_DELETE_FLAG` column
 - [/concepts/variances/var-002-date-key-timezone.md](/concepts/variances/var-002-date-key-timezone.md) — deployed in the same change window, same mapping
 - [/concepts/variances/var-008-feb-duplicate-load.md](/concepts/variances/var-008-feb-duplicate-load.md) — different mechanism, same "green batch does not mean correct data" family of finding
+
+## Referenced by
+
+- [Progress](/context/progress.md)
+
+## Related decisions
+
+- [Open question — whether to re-run February's load (VAR-008)](/decisions/20260324-var008-february-reload-deferred.md)
+- [VAR-008 resolved: Finance restates February internally; batch-id guard rides with R2026.07](/decisions/20260402-var008-february-restatement-and-batch-guard.md)

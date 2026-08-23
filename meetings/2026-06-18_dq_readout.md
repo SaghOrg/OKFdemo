@@ -36,15 +36,18 @@ All profiling numbers come from the 31-May-2026 run. Two fixes (DELETE_FLAG filt
 
 Shalini Iyer (Head of Finance Systems) joined late from the closing call and immediately positioned her constraint: "whatever we discuss today, i need to be able to tie it back to the trial balance. If it is a rule failure that does not move a number i will look at it, but it is not my priority this month." Neha agreed to flag which items carry rupee impact and which do not.
 
-## Decisions referenced
+## Variances referenced
 
-- [/decisions/var-004-dim-customer-scd2-current-flag.md](/decisions/var-004-dim-customer-scd2-current-flag.md) — DQ-R-07 and DQ-R-23: eighteen customers carry two rows with CURRENT_FLG='Y' due to territory reassignment SCD2 logic closing the old row with the same timestamp as the new row opens, leaving both live. Value: 65 lakh (FY26). Farida Contractor owns this; effective-dating fix committed to 03-Jul-2026. A worked example (Mahalaxmi Distributors, DIST-W-0241, reassigned 17-Apr-2026 from TER-W-014 to TER-W-011) makes the issue concrete.
+Everything below is a variance concept, not a decision record — no decision was taken on any of
+these in this meeting; each was surfaced or advanced by a DQ rule failure.
 
-- [/decisions/var-006-tax-rate-master-effective-dating.md](/decisions/var-006-tax-rate-master-effective-dating.md) — DQ-R-15 (validity): warehouse TAX_RATE_MASTER holds current rates only, no effective dating. Chandanaa HSN 3401 (soap; note: the transcript's ASR transcribed this as "buddy plant" but Priya clarified the brand is made at the Baddi plant—the rate change itself is not plant-specific) changed from 18% to 12% effective 01-Oct-2025. The warehouse applied 12% retrospectively to Apr-Sep-2025 (FY26 Q1), overstating tax by 40 lakh. Neha will raise VAR-006 and propose remediation by 24-Jun. Shalini asked whether this touches filing or only reporting; Neha declined to answer a tax question on a DQ call and will check filing separately.
+- [/concepts/variances/var-004-scd2-territory-reassignment.md](/concepts/variances/var-004-scd2-territory-reassignment.md) — surfaced by DQ-R-07 and DQ-R-23 (dual CURRENT_FLG='Y' rows on DIM_CUSTOMER after territory reassignment); Farida owns the effective-dating fix, committed 03-Jul-2026.
 
-- [/decisions/var-007-late-arriving-dimensions.md](/decisions/var-007-late-arriving-dimensions.md) — DQ-R-04 (completeness): 2.0% of invoiced volume (average 8,140 lines/month, peak 11,902 in Jan-2026) lands on PRODUCT_KEY = -1 (UNKNOWN). No late-arriving dimension handling exists in the fact mapping. Once a row lands on -1 nothing re-points it when the dimension catches up. This becomes VAR-007 assigned to reporting workstream by 24-Jun.
+- [/concepts/variances/var-006-tax-rate-retroactive.md](/concepts/variances/var-006-tax-rate-retroactive.md) — surfaced by DQ-R-15 (validity, no effective dating on TAX_RATE_MASTER); Neha to raise VAR-006 with a remediation proposal by 24-Jun.
 
-- [/decisions/var-005-credit-notes-absent-from-warehouse.md](/decisions/var-005-credit-notes-absent-from-warehouse.md) — Shalini asked about credit notes. Ananya confirmed it is VAR-005, "Credit notes absent from warehouse", open since 24-Apr-2026 with Shalini as owner. Earlier sizing (May deck, unvalidated) was 2.4 Cr for FY26, but Shalini disputes this: "I see the rate difference ones every single month and just from memory it is more than that in a year." She will re-check against trial balance by 10-Jul.
+- [/concepts/variances/var-007-late-arriving-sku-unknown-member.md](/concepts/variances/var-007-late-arriving-sku-unknown-member.md) — surfaced by DQ-R-04 (completeness, no late-arriving dimension handling); to be raised as VAR-007 and assigned to reporting workstream by 24-Jun.
+
+- [/concepts/variances/var-005-credit-notes-absent.md](/concepts/variances/var-005-credit-notes-absent.md) — raised by Shalini on credit notes; Ananya confirmed the open VAR-005, Shalini owner; Shalini to re-check sizing against trial balance by 10-Jul.
 
 ## Action items
 

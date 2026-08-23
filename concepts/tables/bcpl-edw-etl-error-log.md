@@ -14,10 +14,10 @@ generated:
   by: process:claude-haiku/tables
   at: 2026-08-23T10:37:25Z
 sources:
-  - resource: /_canon/schema_canon.sql
+  - resource: /_sources/docs/DOC-05_edw_target_model_notes.docx
     id: TECH-SQL-EDW
     last_modified: "2026-08-23"
-  - resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
+  - resource: /_sources/docs/DOC-05_edw_target_model_notes.docx
     id: DOC-05
     title: "EDW target model notes"
     last_modified: "2026-05-15"
@@ -79,3 +79,7 @@ If OBJECT_NM, ERROR_TS and ERROR_TEXT are reviewed alongside ETL_BATCH_CONTROL a
 - **[VAR-007 — Late-arriving SKUs to UNKNOWN member](/concepts/variances/var-007-late-arriving-sku-unknown-member.md)**: a row substituting PRODUCT_KEY = -1 is never rejected and never logged here — this is precisely why the issue was invisible to load-audit monitoring.
 - **[VAR-008 — Feb duplicate load](/concepts/variances/var-008-feb-duplicate-load.md)**: a duplicated row from a manual resubmit is a clean insert, not a constraint violation, so it never appears in this log either.
 - **[VAR-004 — Duplicate facts on distributor reassignment](/concepts/variances/var-004-scd2-territory-reassignment.md)**: a fact joining to two current DIM_CUSTOMER rows is not rejected; it becomes a fact row with ambiguous lineage rather than an error-log entry.
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)

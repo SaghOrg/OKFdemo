@@ -173,3 +173,12 @@ asserting a deferral decision I did not find evidence for.
 - [/concepts/tables/oms-prod-credit-note-line.md](/concepts/tables/oms-prod-credit-note-line.md) — source line table, same gap
 - [/concepts/tables/bcpl-edw-fact-invoice-line.md](/concepts/tables/bcpl-edw-fact-invoice-line.md) — the revenue fact that runs gross of credit notes as a consequence
 - [/concepts/tables/fin-prod-ar-open-item.md](/concepts/tables/fin-prod-ar-open-item.md) — the AR-side table that does exist in the warehouse and is the nearest thing to receivables visibility
+- [OMS_PROD.INVOICE_LINE](/concepts/tables/oms-prod-invoice-line.md)
+
+## Referenced by
+
+- [Progress](/context/progress.md)
+
+## Related decisions
+
+- [Go-live dashboard scope reinstated to 9 (D04, D11 return)](/decisions/20260922-dashboard-scope-reinstated-7-to-9.md)

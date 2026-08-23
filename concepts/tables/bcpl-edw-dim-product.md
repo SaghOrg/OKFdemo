@@ -13,15 +13,15 @@ generated:
   by: process:claude-haiku/tables
   at: 2026-08-23T10:36:54Z
 sources:
-  - resource: /_sources/schema_canon.sql
+  - resource: /_sources/technical/schema_edw.sql
     id: SCHEMA
     last_modified: "2026-08-23"
-  - resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
+  - resource: /_sources/docs/DOC-05_edw_target_model_notes.docx
     id: DOC-05
     title: BCPL_EDW target model - working notes
     author: Ishaan Bhatt
     last_modified: "2026-04-08"
-  - resource: /_build/corpus_text/docs/DOC-01_orion_oltp_schema_notes.docx.txt
+  - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
     id: DOC-01
     title: ORION - schema notes (OLTP side)
     author: Aniruddh Deshpande
@@ -174,3 +174,12 @@ Proposed SCD1 on 14-Apr-2026 (ADR-003) but superseded to remain SCD2 to preserve
 
 - **[VAR-007 — Late-arriving SKUs to UNKNOWN member](/concepts/variances/var-007-late-arriving-sku-unknown-member.md)**: the PRODUCT_KEY = -1 UNKNOWN-member issue, described in full above under Variance linkage.
 - **[VAR-006 — GST rate change mishandled](/concepts/variances/var-006-tax-rate-retroactive.md)**: indirect — DIM_PRODUCT.HSN_CODE is the join key into the tax rate tables DIM_TAX_RATE replaced after this variance.
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)
+
+## Related decisions
+
+- [DIM_PRODUCT proposed as SCD1 (overwrite, no history)](/decisions/20260414-dim-product-scd1-proposed.md)
+- [ADR-003 — DIM_PRODUCT keeps history (SCD2), reversing the April position](/decisions/20260506-dim-product-scd2.md)

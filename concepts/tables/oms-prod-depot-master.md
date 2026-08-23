@@ -82,3 +82,7 @@ In BCPL_EDW, DEPOT_MASTER is the source for the DIM_DEPOT dimension. The warehou
 - /concepts/tables/oms-prod-order-header.md (DEPOT_CD links orders to fulfillment depot)
 - /concepts/tables/oms-prod-territory-master.md (separate geography hierarchy for sales management)
 - /concepts/tables/oms-prod-customer.md (CUSTOMER.DEPOT_CD links customers to their home depot)
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)

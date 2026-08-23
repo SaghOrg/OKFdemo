@@ -148,3 +148,18 @@ correspondence contradicts.
 - [/concepts/tables/bcpl-edw-fact-invoice-line.md](/concepts/tables/bcpl-edw-fact-invoice-line.md) — the fact table that received the duplicated night's data
 - [/concepts/tables/bcpl-edw-etl-batch-control.md](/concepts/tables/bcpl-edw-etl-batch-control.md) — batch tracking table; the guard targets `BATCH_ID` on this table's population
 - [/concepts/variances/var-003-scheme-discount-double-count.md](/concepts/variances/var-003-scheme-discount-double-count.md) — shares the same underlying load weakness (control-append, no merge, no natural-key constraint) but a different trigger
+- [ETL_ERROR_LOG](/concepts/tables/bcpl-edw-etl-error-log.md)
+
+## Related variances
+
+- [VAR-001 — FY26 Q1 revenue overstated](/concepts/variances/var-001-q1-revenue-overstated.md)
+
+## Referenced by
+
+- [Progress](/context/progress.md)
+
+## Related decisions
+
+- [Open question — whether to re-run February's load (VAR-008)](/decisions/20260324-var008-february-reload-deferred.md)
+- [VAR-008 resolved: Finance restates February internally; batch-id guard rides with R2026.07](/decisions/20260402-var008-february-restatement-and-batch-guard.md)
+- [ADR-004 — VAR-003 remediation: rebuild MAP_FACT_INVOICE_LINE as a key-based merge](/decisions/20260506-var003-remediation-key-based-merge.md)

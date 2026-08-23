@@ -135,3 +135,12 @@ change" (Shalini Iyer) / "no, it is a rebuild, I am not pretending otherwise" (K
 - [/concepts/tables/bcpl-edw-fact-invoice-line.md](/concepts/tables/bcpl-edw-fact-invoice-line.md)
 - [/concepts/tables/oms-prod-invoice-line.md](/concepts/tables/oms-prod-invoice-line.md)
 - [/decisions/20260922-var003-close-date-not-committed.md](/decisions/20260922-var003-close-date-not-committed.md) — open question on whether the target date still holds
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)
+- [Design sign-off](/meetings/2026-05-06_design_signoff.md)
+
+## Related decisions
+
+- [VAR-008 resolved: Finance restates February internally; batch-id guard rides with R2026.07](/decisions/20260402-var008-february-restatement-and-batch-guard.md)

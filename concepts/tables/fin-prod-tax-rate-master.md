@@ -16,10 +16,10 @@ sources:
   - resource: /_sources/docs/DOC-05_edw_target_model_notes.docx
     id: DOC-05
     last_modified: "2026-05-15"
-  - resource: /_canon/schema_canon.sql
+  - resource: /_sources/technical/schema_oltp.sql
     id: SCHEMA
     last_modified: "2026-02-11"
-  - resource: /_canon/variance_register_canon.csv
+  - resource: /_sources/trackers/XL-01_variance_tracker_v7.xlsx
     id: VARIANCE_REGISTER
     last_modified: "2026-09-22"
 generated:
@@ -104,3 +104,7 @@ On a date with multiple overlapping rates (an error condition), the query would 
 ## Related variances
 
 - **[VAR-006 — GST rate change mishandled](/concepts/variances/var-006-tax-rate-retroactive.md)**: this table is the correctly effective-dated ORION source; the defect was entirely in the warehouse copy (BCPL_EDW.TAX_RATE_MASTER) failing to carry that effective dating across.
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)

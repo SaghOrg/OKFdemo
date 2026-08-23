@@ -30,8 +30,10 @@ UAT is scheduled for October 2026 with confirmed slots, nine named testers, and 
 
 ## Decisions referenced
 
-- /decisions/20261112-go-live-date.md ← Cutover 7–8 November, go-live 12 November 2026, driven by group close blackout constraint
-- /decisions/go-live-reporting-scope.md ← Nine dashboards (seven committed plus D04 and D11)
+- [Go-live date moves from 30-Oct to 12-Nov-2026 (final)](/decisions/20260922-golive-date-final-12nov.md) — cutover weekend 7–8 November, historical reload 9–11 November, business go-live 12 November 2026, driven by the Klarissen group close blackout.
+- [Go-live date moves from 15-Sep to 30-Oct-2026](/decisions/20260819-golive-date-slip-to-30oct.md) — the prior committed date, set six weeks earlier, that this meeting superseded a second time.
+- [Go-live dashboard scope reinstated to 9 (D04, D11 return)](/decisions/20260922-dashboard-scope-reinstated-7-to-9.md) — confirms nine dashboards live at go-live: the seven committed plus D04 and D11.
+- [Open question — VAR-003 close date not committed at the steering committee](/decisions/20260922-var003-close-date-not-committed.md) — records Karthik's refusal to commit a close date in this session.
 
 ## Action items
 

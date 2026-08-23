@@ -14,10 +14,10 @@ generated:
   by: process:claude-haiku/tables
   at: 2026-08-23T10:37:25Z
 sources:
-  - resource: /_canon/schema_canon.sql
+  - resource: /_sources/technical/schema_edw.sql
     id: TECH-SQL-EDW
     last_modified: "2026-08-23"
-  - resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
+  - resource: /_sources/docs/DOC-05_edw_target_model_notes.docx
     id: DOC-05
     title: "EDW target model notes"
     last_modified: "2026-05-15"
@@ -97,3 +97,7 @@ BCPL_EDW.TAX_RATE_MASTER (the warehouse copy) is a degenerate snapshot:
 ## Related variances
 
 - **[VAR-006 — GST rate change mishandled](/concepts/variances/var-006-tax-rate-retroactive.md)**: this table is the defective object at the center of the variance, described in full above.
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)

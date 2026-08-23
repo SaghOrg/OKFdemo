@@ -113,3 +113,7 @@ as ADR-005, the change is CHG0021207" (Karthik Subramanian).
 - [/concepts/tables/bcpl-edw-fact-invoice-line.md](/concepts/tables/bcpl-edw-fact-invoice-line.md)
 - [/concepts/tables/oms-prod-invoice-header.md](/concepts/tables/oms-prod-invoice-header.md)
 - [/concepts/tables/bcpl-edw-dim-date.md](/concepts/tables/bcpl-edw-dim-date.md)
+
+## Referenced by
+
+- [Design sign-off](/meetings/2026-05-06_design_signoff.md)

@@ -12,10 +12,10 @@ generated:
   by: process:claude-haiku/tables
   at: 2026-08-23T10:36:54Z
 sources:
-  - resource: /_sources/schema_canon.sql
+  - resource: /_sources/technical/schema_edw.sql
     id: SCHEMA
     last_modified: "2026-08-23"
-  - resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
+  - resource: /_sources/docs/DOC-05_edw_target_model_notes.docx
     id: DOC-05
     title: BCPL_EDW target model - working notes
     author: Ishaan Bhatt
@@ -110,3 +110,11 @@ The UNKNOWN row at DATE_KEY = -1 is intentional: it allows facts with unmapped d
 ## Related variances
 
 - **[VAR-002 — Month-end boundary drift](/concepts/variances/var-002-date-key-timezone.md)**: not a defect in DIM_DATE itself, but the reason FACT_INVOICE_LINE.DATE_KEY was corrected to derive from INVOICE_DT rather than the UTC-written CREATED_TS.
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)
+
+## Related decisions
+
+- [ADR-005 — DATE_KEY on FACT_INVOICE_LINE derived from INVOICE_DT, not CREATED_TS](/decisions/20260506-var002-date-key-fix.md)

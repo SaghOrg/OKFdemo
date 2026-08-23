@@ -16,10 +16,10 @@ generated:
   by: process:claude-haiku/tables
   at: 2026-08-23 10:37:25+00:00
 sources:
-- resource: /_canon/schema_canon.sql
+- resource: /_sources/technical/schema_edw.sql
   id: TECH-SQL-EDW
   last_modified: '2026-08-23'
-- resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
+- resource: /_sources/docs/DOC-05_edw_target_model_notes.docx
   id: DOC-05
   title: EDW target model notes
   last_modified: '2026-05-15'

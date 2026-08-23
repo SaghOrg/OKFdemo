@@ -132,3 +132,12 @@ completeness.
 - [/concepts/tables/bcpl-edw-fact-invoice-line.md](/concepts/tables/bcpl-edw-fact-invoice-line.md) — target fact, `DATE_KEY` column
 - [/concepts/tables/bcpl-edw-dim-date.md](/concepts/tables/bcpl-edw-dim-date.md) — the date dimension the corrected key joins to
 - [/concepts/variances/var-001-q1-revenue-overstated.md](/concepts/variances/var-001-q1-revenue-overstated.md) — deployed in the same change window, same mapping
+- [OMS_PROD.INVOICE_LINE](/concepts/tables/oms-prod-invoice-line.md)
+
+## Referenced by
+
+- [Progress](/context/progress.md)
+
+## Related decisions
+
+- [ADR-005 — DATE_KEY on FACT_INVOICE_LINE derived from INVOICE_DT, not CREATED_TS](/decisions/20260506-var002-date-key-fix.md)

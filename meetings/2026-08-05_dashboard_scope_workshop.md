@@ -40,8 +40,8 @@ The team surfaced two dashboard candidates (D04 Scheme Effectiveness, D11 Credit
 
 ## Decisions referenced
 
-- *Pending:* [/decisions/20260805-seven-committed-dashboards.md](link) — which seven dashboards are in scope for go-live and which are candidates
-- *Pending:* [/decisions/20260805-secondary-sales-data-quality-on-pages.md](link) — whether and how to show secondary sales on the revenue dashboards
+- [/decisions/20260330-dashboard-scope-cut-12-to-7.md](/decisions/20260330-dashboard-scope-cut-12-to-7.md) — the prior scope decision (seven committed, five deferred to Phase 2) this workshop designed against; the two candidates raised here (D04, D11) are drawn from its deferred five.
+- *Unresolved:* [/decisions/20260805-dashboard-stockist-drilldown-unresolved.md](/decisions/20260805-dashboard-stockist-drilldown-unresolved.md) — records the stockist-level drill-down and primary/secondary side-by-side disagreement this workshop left open with no owner assigned.
 
 ## Action items
 

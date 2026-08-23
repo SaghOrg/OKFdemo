@@ -13,10 +13,10 @@ generated:
   by: process:claude-haiku/tables
   at: 2026-08-23T10:37:25Z
 sources:
-  - resource: /_canon/schema_canon.sql
+  - resource: /_sources/docs/DOC-05_edw_target_model_notes.docx
     id: TECH-SQL-EDW
     last_modified: "2026-08-23"
-  - resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
+  - resource: /_sources/docs/DOC-05_edw_target_model_notes.docx
     id: DOC-05
     title: "EDW target model notes"
     last_modified: "2026-05-15"
@@ -87,3 +87,7 @@ The nightly load (LP_DAILY_SALES) typically completes within ~58 minutes (01:00 
 ## Related variances
 
 - **[VAR-008 — Feb duplicate load](/concepts/variances/var-008-feb-duplicate-load.md)**: the batch-duplication variance this table's BATCH_ID guard (added with R2026.07, deployed 08-Jul-2026) was built to prevent, described in full above.
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)

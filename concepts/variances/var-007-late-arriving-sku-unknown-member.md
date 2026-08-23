@@ -146,3 +146,12 @@ evidence in the corpus of this variance's user-facing cost, distinct from its da
 - [/concepts/tables/oms-prod-sku-master.md](/concepts/tables/oms-prod-sku-master.md) — source table; the 37 null-`CATEGORY_CD` rows are a related but distinct issue
 - [/concepts/tables/bcpl-edw-fact-invoice-line.md](/concepts/tables/bcpl-edw-fact-invoice-line.md) — the fact carrying the unresolved `PRODUCT_KEY`
 - [/concepts/tables/bcpl-edw-etl-error-log.md](/concepts/tables/bcpl-edw-etl-error-log.md) — confirms nothing is logged when a row substitutes the UNKNOWN member; this is precisely why the issue is invisible to load-audit monitoring
+- [Scheme Master (OMS_PROD.SCHEME_MASTER)](/concepts/tables/oms-prod-scheme-master.md)
+
+## Referenced by
+
+- [Progress](/context/progress.md)
+
+## Related decisions
+
+- [Go-live date moves from 15-Sep to 30-Oct-2026](/decisions/20260819-golive-date-slip-to-30oct.md)

@@ -19,7 +19,7 @@ sources:
   title: ORION - schema notes (OLTP side)
   author: Aniruddh Deshpande
   last_modified: '2026-03-09'
-- resource: /_canon/schema_canon.sql
+- resource: /_sources/technical/schema_oltp.sql
   id: SCHEMA_CANON
   last_modified: '2026-08-23'
 generated:
@@ -32,7 +32,7 @@ generated:
 
 **Purpose:** Central customer registry for the ORION order-to-cash application. Holds all parties who are involved in the business: distributors, modern trade outlets, institutional buyers, and others. The table also serves as the hierarchy root for territory assignments and depot relationships.
 
-**Grain:** One row per customer relationship. Approximately 2,140 rows as of March 2026, of which 340 are classified as DISTRIBUTOR; the remainder are MODERN_TRADE or INSTITUTIONAL. The count is subject to growth as new parties are added.
+**Grain:** One row per customer relationship. Approximately 2,140 rows, of which 340 are classified as DISTRIBUTOR. Note the source hedges this figure: DOC-01 says "around 2,140 rows the last time i counted, and that count is probably a year old so it will be a few more now" — treat the number as indicative, not current; the remainder are MODERN_TRADE or INSTITUTIONAL. The count is subject to growth as new parties are added.
 
 ## Key attributes
 
@@ -60,7 +60,7 @@ generated:
 ## Constraints and indexes
 
 - **Primary key:** `PK_CUSTOMER` on CUST_ID.
-- **Unique constraint:** `CK_CUSTOMER_TYPE` enforces CUST_TYPE ∈ {DISTRIBUTOR, MODERN_TRADE, INSTITUTIONAL}.
+- **Check constraint:** `CK_CUSTOMER_TYPE` enforces CUST_TYPE ∈ {DISTRIBUTOR, MODERN_TRADE, INSTITUTIONAL}.
 - **Delete flag constraint:** `CK_CUSTOMER_DEL` enforces DELETE_FLAG ∈ {Y, N}.
 - **Unique index:** `UX_CUSTOMER_CODE` on CUST_CODE supports lookups by business code.
 - **Last-updated index:** `IX_CUSTOMER_LUD` on LAST_UPD_DT. This index exists solely to support the nightly ODI incremental extract, which uses LAST_UPD_DT as the change-detection predicate.

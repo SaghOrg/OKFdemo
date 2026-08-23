@@ -18,7 +18,7 @@ sources:
   id: DOC-01
   title: ORION OLTP Schema Notes
   last_modified: '2026-08-22'
-- resource: /_canon/schema_canon.sql
+- resource: /_sources/technical/schema_oltp.sql
   id: schema-canon
   title: ORION Schema DDL
   last_modified: '2026-08-22'

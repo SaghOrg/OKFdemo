@@ -106,3 +106,7 @@ In BCPL_EDW, SKU_MASTER is the source for the DIM_PRODUCT dimension with grain o
 - /concepts/tables/oms-prod-order-line.md (SKU_ID links order lines to products)
 - /concepts/tables/oms-prod-credit-note-line.md (SKU_ID links credit note lines to products)
 - /concepts/tables/oms-prod-scheme-master.md (schemes apply to SKUs via SCHEME_ID on invoices)
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)

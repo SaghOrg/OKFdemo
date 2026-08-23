@@ -16,10 +16,10 @@ sources:
     title: ORION - schema notes (OLTP side)
     author: Aniruddh Deshpande
     last_modified: "2026-03-09"
-  - resource: /_canon/schema_canon.sql
+  - resource: /_sources/technical/schema_oltp.sql
     id: SCHEMA_CANON
     last_modified: "2026-08-23"
-  - resource: /_canon/variance_register_canon.csv
+  - resource: /_sources/trackers/XL-01_variance_tracker_v7.xlsx
     id: VAR_REGISTER
     last_modified: "2026-08-23"
 generated:
@@ -98,3 +98,7 @@ Ani's note (DOC-01) emphasizes that **anybody joining this table to anything mus
 ## Related variances
 
 - **[VAR-004 — Duplicate facts on distributor reassignment](/concepts/variances/var-004-scd2-territory-reassignment.md)**: the source-side territory history this table carries; the SCD2 defect itself lives in the warehouse's DIM_CUSTOMER, not here, but the worked example (DIST-W-0241) originates from a change recorded in this table.
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)

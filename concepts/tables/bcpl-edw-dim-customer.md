@@ -12,15 +12,15 @@ generated:
   by: process:claude-haiku/tables
   at: 2026-08-23T10:36:54Z
 sources:
-  - resource: /_sources/schema_canon.sql
+  - resource: /_sources/technical/schema_edw.sql
     id: SCHEMA
     last_modified: "2026-08-23"
-  - resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
+  - resource: /_sources/docs/DOC-05_edw_target_model_notes.docx
     id: DOC-05
     title: BCPL_EDW target model - working notes
     author: Ishaan Bhatt
     last_modified: "2026-04-08"
-  - resource: /_build/corpus_text/docs/DOC-01_orion_oltp_schema_notes.docx.txt
+  - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
     id: DOC-01
     title: ORION - schema notes (OLTP side)
     author: Aniruddh Deshpande
@@ -160,3 +160,12 @@ From DOC-05: "CREDIT_LIMIT_AMT bothers me slightly. It is a current state number
 ## Related variances
 
 - **[VAR-004 — Duplicate facts on distributor reassignment](/concepts/variances/var-004-scd2-territory-reassignment.md)**: the SCD2 close-out bug on this table, described in full above under Variance linkage.
+
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)
+
+## Related decisions
+
+- [ADR-002 — DIM_CUSTOMER keeps history (SCD2)](/decisions/20260506-dim-customer-scd2.md)
+- [Open question — stockist-level drill-down on every dashboard page](/decisions/20260805-dashboard-stockist-drilldown-unresolved.md)
