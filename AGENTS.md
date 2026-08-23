@@ -106,22 +106,21 @@ citation is invisible to a reader; an admitted gap is not.
 - **Name the decider, claim nobody else.** `Deciders:` is whoever
   actually signed off. `Consulted:` and `Informed:` are `none recorded`
   unless you know otherwise. Never reconstruct an attendee list.
-- **Separate context provenance from decision provenance.** `sources`
-  may still carry the artifacts behind the numbers, the gap and the
-  history in the record — that is provenance for those claims, not for
-  the decision. Mark the decision line itself as unsourced in the
-  Evidence table. If nothing in the record is sourced, leave `sources`
-  empty and say why.
+- **Separate context provenance from decision provenance.** Cite the
+  context that surrounds the decision — the prior discussion, the
+  analysis, the emails leading up to it. Mark the decision line itself
+  as unsourced. If nothing at all is evidenced, leave `sources: []`.
 - **Flag it in `/log.md`.** Carry the verbal sign-off, the decider and
   the date in the Notes column, so a reader scanning the log can tell
   which rows rest on an artifact and which rest on a capture.
 
 The worked example this convention was taken from: a verbal sign-off
 from the client's Head of Finance Systems, with no minuted meeting
-behind it. It was recorded with an empty `sources` array, the decider
-named and nobody else claimed, and the absence of evidence stated
-plainly in the body of the record and again in the `/log.md` Notes
-column.
+behind it. It was recorded with `sources` carrying only the context —
+the surrounding discussion and analysis — with the decision line itself
+marked unsourced, the decider named and nobody else claimed, and the
+absence of evidence for that line stated in the record body and again
+in the `/log.md` Notes column.
 
 When a fact changes:
 - **Supersede, do not overwrite.** Set the old record's
