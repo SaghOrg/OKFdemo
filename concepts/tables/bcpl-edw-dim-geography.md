@@ -9,7 +9,6 @@ tags:
   - conformed-dimension
   - geography
   - depot
-status: null
 generated:
   by: process:claude-haiku/tables
   at: 2026-08-23T10:36:54Z
