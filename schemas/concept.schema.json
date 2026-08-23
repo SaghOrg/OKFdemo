@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bharadwaj.example/schemas/concept.schema.json",
+  "title": "OKF concept frontmatter",
+  "description": "Validates the YAML frontmatter of every markdown concept, decision, meeting note and context file in this knowledge base. OKF core fields plus four documented local extensions. `type` is the only required field; absent `status` means stable.",
+  "type": "object",
+  "required": ["type"],
+  "additionalProperties": false,
+
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "What kind of record this is. Free-form, but these are the values in use.",
+      "examples": [
+        "oltp-table", "warehouse-table", "variance", "decision",
+        "meeting-note", "metric", "dashboard", "glossary", "context", "index", "log"
+      ],
+      "minLength": 1
+    },
+
+    "title": {
+      "type": "string",
+      "description": "Human-readable name. Not required by OKF, but required by local convention: set it on every file.",
+      "minLength": 1
+    },
+
+    "description": {
+      "type": "string",
+      "description": "One or two sentences on what this concept covers."
+    },
+
+    "resource": {
+      "type": "string",
+      "description": "What this concept is *about* in the outside world, e.g. an Oracle object reference such as OMS_PROD.INVOICE_LINE, an ODI mapping name, or a URL.",
+      "minLength": 1
+    },
+
+    "tags": {
+      "type": "array",
+      "description": "Free-form retrieval aids. Include vocabulary variants so grep finds this file under any of the terms people actually use.",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+
+    "status": {
+      "type": "string",
+      "description": "Omit when the concept is stable — absent means stable. Use `draft` for a deferred or unresolved matter, `deprecated`/`superseded` when replaced.",
+      "enum": ["draft", "proposed", "accepted", "deprecated", "superseded"]
+    },
+
+    "stale_after": {
+      "type": "string",
+      "description": "ISO 8601 date after which this record should be re-checked against sources.",
+      "format": "date"
+    },
+
+    "generated": {
+      "type": "object",
+      "description": "Machine provenance. Required on every authored concept.",
+      "required": ["by", "at"],
+      "additionalProperties": false,
+      "properties": {
+        "by": {
+          "type": "string",
+          "description": "process:claude-<model>/<stage-name>",
+          "pattern": "^process:claude-[a-z0-9.-]+/[a-z0-9-]+$"
+        },
+        "at": {
+          "type": "string",
+          "description": "ISO 8601 timestamp.",
+          "format": "date-time"
+        }
+      }
+    },
+
+    "verified": {
+      "type": "object",
+      "description": "Human review record. NOT to be written by any transform stage — human review is recorded separately.",
+      "required": ["by", "at"],
+      "additionalProperties": false,
+      "properties": {
+        "by": { "type": "string", "minLength": 1 },
+        "at": { "type": "string", "format": "date-time" }
+      }
+    },
+
+    "sources": {
+      "type": "array",
+      "description": "Provenance for the factual claims in this file. Every claim must trace to a /_sources/ artifact.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["resource"],
+        "additionalProperties": false,
+        "properties": {
+          "resource": {
+            "type": "string",
+            "description": "Bundle-relative absolute path, e.g. /_sources/docs/DOC-03_stored_procedure_walkthrough.docx",
+            "minLength": 1
+          },
+          "id": { "type": "string", "description": "Artifact ID from the manifest, e.g. DOC-03, EM-055, T-04." },
+          "title": { "type": "string" },
+          "author": { "type": "string" },
+          "last_modified": {
+            "type": "string",
+            "description": "Date of the source artifact. Note: last_modified, NOT date.",
+            "format": "date"
+          }
+        }
+      }
+    },
+
+    "owner": {
+      "type": "string",
+      "description": "LOCAL EXTENSION (not OKF). Person accountable for the thing described, e.g. a variance owner."
+    },
+
+    "updated": {
+      "type": "string",
+      "description": "LOCAL EXTENSION (not OKF). Date this record last changed. Consulted when deciding which of two conflicting statements is current.",
+      "format": "date"
+    },
+
+    "supersedes": {
+      "type": "string",
+      "description": "LOCAL EXTENSION (not OKF). Bundle-relative path to the record this replaces.",
+      "minLength": 1
+    },
+
+    "superseded_by": {
+      "type": "string",
+      "description": "LOCAL EXTENSION (not OKF). Bundle-relative path to the record that replaces this one. Set alongside status: superseded — never delete the old file.",
+      "minLength": 1
+    }
+  }
+}
