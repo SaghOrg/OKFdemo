@@ -116,3 +116,7 @@ approved.
 
 - [/decisions/20260819-golive-date-slip-to-30oct.md](/decisions/20260819-golive-date-slip-to-30oct.md) — the record this supersedes
 - [/concepts/variances/var-004-scd2-territory-reassignment.md](/concepts/variances/var-004-scd2-territory-reassignment.md) — motivates the pre-cutover master data freeze
+
+## Referenced by
+
+- [Steering committee — 22 September 2026](/meetings/2026-09-22_steering_committee.md)

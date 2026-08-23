@@ -101,3 +101,7 @@ history we will change it, it is a smaller change than the customer one" (Karthi
 
 - [/concepts/tables/bcpl-edw-dim-product.md](/concepts/tables/bcpl-edw-dim-product.md)
 - [/decisions/20260506-dim-product-scd2.md](/decisions/20260506-dim-product-scd2.md) — supersedes this record, ADR-003
+
+## Referenced by
+
+- [Architecture review](/meetings/2026-04-14_architecture_review.md)

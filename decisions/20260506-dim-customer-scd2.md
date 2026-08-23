@@ -188,3 +188,4 @@ no, I am not blocking it, I am saying it is a risk and it stays on the risk list
 
 - [Progress](/context/progress.md)
 - [Design sign-off](/meetings/2026-05-06_design_signoff.md)
+- [Architecture review](/meetings/2026-04-14_architecture_review.md)

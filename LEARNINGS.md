@@ -21,3 +21,4 @@
 - **S5 repair**: The three original 'Decisions referenced' entries had zero markdown links at all (not invented paths, but pure prose restatement), so the fix was pure link-insertion rather than path substitution. The task's own instructions flagged the one subtlety worth preserving: this meeting only raised (propos
 
 - **S9 review**: an adversarial pass by a stronger model caught a systemic sourcing defect, a mislabelled constraint, an invented date, and a false backlink claim that schema validation alone reported as clean.
+- **S5 repair follow-up**: repairing links creates new one-directional edges. The backlink pass has to run *after* every link-editing change, not once — link symmetry is a property to re-establish, not a one-time fix.

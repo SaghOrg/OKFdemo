@@ -103,3 +103,4 @@ who would have to reaffirm it.
 ## Referenced by
 
 - [Progress](/context/progress.md)
+- [Steering committee — 22 September 2026](/meetings/2026-09-22_steering_committee.md)

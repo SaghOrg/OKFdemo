@@ -108,3 +108,7 @@ Klarissen."
 - [/decisions/20260922-golive-date-final-12nov.md](/decisions/20260922-golive-date-final-12nov.md) — supersedes this record
 - [/concepts/variances/var-004-scd2-territory-reassignment.md](/concepts/variances/var-004-scd2-territory-reassignment.md)
 - [/concepts/variances/var-007-late-arriving-sku-unknown-member.md](/concepts/variances/var-007-late-arriving-sku-unknown-member.md)
+
+## Referenced by
+
+- [Steering committee — 22 September 2026](/meetings/2026-09-22_steering_committee.md)

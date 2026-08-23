@@ -178,6 +178,7 @@ asserting a deferral decision I did not find evidence for.
 ## Referenced by
 
 - [Progress](/context/progress.md)
+- [Data quality readout](/meetings/2026-06-18_dq_readout.md)
 
 ## Related decisions
 

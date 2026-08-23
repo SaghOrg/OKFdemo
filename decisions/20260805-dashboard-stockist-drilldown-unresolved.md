@@ -132,3 +132,4 @@ artifact in the read corpus records that call taking place or its outcome.
 ## Referenced by
 
 - [Progress](/context/progress.md)
+- [Dashboard scope workshop — T-07 — 05 Aug 2026](/meetings/2026-08-05_dashboard_scope_workshop.md)

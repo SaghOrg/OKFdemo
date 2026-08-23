@@ -134,3 +134,7 @@ Because Klarissen Group funded both dashboards specifically in response to two o
 - [/concepts/variances/var-003-scheme-discount-double-count.md](/concepts/variances/var-003-scheme-discount-double-count.md) — motivation for D04
 - [/concepts/variances/var-005-credit-notes-absent.md](/concepts/variances/var-005-credit-notes-absent.md) — motivation for D11
 - [/concepts/tables/fin-prod-ar-open-item.md](/concepts/tables/fin-prod-ar-open-item.md) — D11 is built on receivables ageing from this extract
+
+## Referenced by
+
+- [Steering committee — 22 September 2026](/meetings/2026-09-22_steering_committee.md)

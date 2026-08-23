@@ -181,6 +181,7 @@ with the underlying reasoning traced in more depth than the canon's terse note.
 ## Referenced by
 
 - [Progress](/context/progress.md)
+- [Data quality readout](/meetings/2026-06-18_dq_readout.md)
 
 ## Related decisions
 

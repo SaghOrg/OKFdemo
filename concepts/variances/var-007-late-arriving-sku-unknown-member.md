@@ -151,6 +151,7 @@ evidence in the corpus of this variance's user-facing cost, distinct from its da
 ## Referenced by
 
 - [Progress](/context/progress.md)
+- [Data quality readout](/meetings/2026-06-18_dq_readout.md)
 
 ## Related decisions
 

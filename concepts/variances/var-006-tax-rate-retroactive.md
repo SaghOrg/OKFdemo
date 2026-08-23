@@ -131,3 +131,4 @@ confirmation), which is a genuinely softer close than the bare "Closed" status s
 ## Referenced by
 
 - [Progress](/context/progress.md)
+- [Data quality readout](/meetings/2026-06-18_dq_readout.md)

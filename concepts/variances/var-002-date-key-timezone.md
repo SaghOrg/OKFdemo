@@ -137,6 +137,7 @@ completeness.
 ## Referenced by
 
 - [Progress](/context/progress.md)
+- [Architecture review](/meetings/2026-04-14_architecture_review.md)
 
 ## Related decisions
 

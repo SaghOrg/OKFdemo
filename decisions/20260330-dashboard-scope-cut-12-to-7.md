@@ -113,3 +113,7 @@ business could not properly UAT twelve dashboards with the testers actually avai
 
 - [/decisions/20260922-dashboard-scope-reinstated-7-to-9.md](/decisions/20260922-dashboard-scope-reinstated-7-to-9.md) — D04 and D11 reinstated from this deferred set
 - [/decisions/20260805-dashboard-stockist-drilldown-unresolved.md](/decisions/20260805-dashboard-stockist-drilldown-unresolved.md) — the dashboard-build workshop that followed this scope cut
+
+## Referenced by
+
+- [Dashboard scope workshop — T-07 — 05 Aug 2026](/meetings/2026-08-05_dashboard_scope_workshop.md)

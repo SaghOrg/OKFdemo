@@ -84,7 +84,7 @@ Until CHG0021184 on 03-Jun-2026, the extract mapping MAP_FACT_INVOICE_LINE carri
 
 SCHEME_DISC_AMT on the fact row carries the amount of scheme discount that was applied on that invoice line. However, the business's understanding of scheme discount (the accrual basis in FIN_PROD.SCHEME_ACCRUAL) is a separate table at customer-scheme-period grain that does not reconcile line-by-line to FACT_INVOICE_LINE. DOC-01 notes: "SCHEME DISCOUNT amount you see on a line is the outcome of a decision that is not recorded anywhere in ORION."
 
-The issue is structural: the warehouse is carrying both the line-level transactional amount and Finance is maintaining an accrual amount outside the warehouse (in Excel). This double-counts scheme discount in reconciliations. Open. See [ADR-004](/decisions/adr-004-scheme-discount-handling.md).
+The issue is structural: the warehouse is carrying both the line-level transactional amount and Finance is maintaining an accrual amount outside the warehouse (in Excel). This double-counts scheme discount in reconciliations. Open. See [ADR-004](/decisions/20260506-var003-remediation-key-based-merge.md).
 
 ### VAR-008: Batch Duplication (CLOSED)
 
