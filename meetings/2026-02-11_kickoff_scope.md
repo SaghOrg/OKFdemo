@@ -1,16 +1,25 @@
 ---
 type: meeting-note
 title: T-01 — Kickoff and scope
-description: Project Drishti kickoff, establishing scope, workstream structure, discovery approach, and initial commitments from BCPL and Klarissen leadership.
-tags: [kickoff, scope, discovery, variance, warehouse, go-live, phase-planning]
+description: Project Drishti kickoff, establishing scope, workstream structure, discovery
+  approach, and initial commitments from BCPL and Klarissen leadership.
+tags:
+- kickoff
+- scope
+- discovery
+- variance
+- warehouse
+- go-live
+- phase-planning
 sources:
-  - resource: /_sources/meetings/2026-02-11_kickoff_scope.vtt
-    id: T-01
-    last_modified: "2026-02-11"
+- resource: /_sources/meetings/2026-02-11_kickoff_scope.vtt
+  id: T-01
+  last_modified: '2026-02-11'
 generated:
   by: process:claude-haiku/meetings
-  at: 2026-08-23T11:14:55Z
+  at: 2026-08-23 11:14:55+00:00
 ---
+
 
 ## Summary
 
@@ -72,3 +81,7 @@ Project Drishti kickoff on 11 February 2026, 15:00-16:00 IST in the Nashik board
 **Primary vs. secondary definition (Vikram confirmed):** Vikram's regional coordinators manually add TPR (trade promotion rebate, loosely; also "secondary scheme") and secondary scheme amounts from scheme circulars and depot staff directly. These things do not come properly in the extract. Karthik asked for written definitions and Shalini confirmed she can help.
 
 **Go-live date tightness in close window (Shalini flagged, Rajeev accepted risk):** Shalini asked whether 15 September is firm because if so, testing falls in the middle of the close cycle. Ananya said the plan is built around it and is tight but holds. Rajeev said "Shalini if it moves it moves, but let us plan for the fifteenth." Shalini asked for this to be noted.
+## Referenced by
+
+- [Knowledge Base Index](/index.md)
+

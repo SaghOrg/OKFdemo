@@ -1,29 +1,31 @@
 ---
 type: oltp-table
 title: OMS_PROD.INVOICE_LINE_ARCHIVE
-description: Pre-01-Apr-2016 line-item archive. Closed, not extracted. Same shape as INVOICE_LINE minus DELETE_FLAG.
+description: Pre-01-Apr-2016 line-item archive. Closed, not extracted. Same shape
+  as INVOICE_LINE minus DELETE_FLAG.
 resource: OMS_PROD.INVOICE_LINE_ARCHIVE
 tags:
-  - invoice
-  - archive
-  - historical
-  - inactive
-  - oltp
-  - pre-2016
+- invoice
+- archive
+- historical
+- inactive
+- oltp
+- pre-2016
 sources:
-  - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
-    id: DOC-01
-    title: ORION OLTP Schema Notes
-    author: Aniruddh Deshpande
-    last_modified: "2026-03-01"
-  - resource: /_canon/schema_canon.sql
-    id: SCHEMA
-    title: ORION schema DDL (canonical)
-    last_modified: "2026-03-15"
+- resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
+  id: DOC-01
+  title: ORION OLTP Schema Notes
+  author: Aniruddh Deshpande
+  last_modified: '2026-03-01'
+- resource: /_canon/schema_canon.sql
+  id: SCHEMA
+  title: ORION schema DDL (canonical)
+  last_modified: '2026-03-15'
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:03Z
+  at: 2026-08-23 10:37:03+00:00
 ---
+
 
 ## Purpose and scope
 
@@ -107,3 +109,7 @@ Ani explicitly documents: "do not let anybody add the sixth [column] to make it 
 ## Relationship to active INVOICE_LINE table
 
 See `/concepts/tables/oms-prod-invoice-line.md` for details on the active transactional table. The archive represents a fixed-state backup with no ongoing changes.
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)
+

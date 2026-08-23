@@ -1,27 +1,31 @@
 ---
 type: meeting-note
 title: OLTP discovery with Ani
-description: Detailed walkthrough of ORION source system architecture, table structures, audit columns, and data quality constraints. Ani provided institutional knowledge about the order-to-cash system built in 2009 and discovered several data issues requiring investigation.
+description: Detailed walkthrough of ORION source system architecture, table structures,
+  audit columns, and data quality constraints. Ani provided institutional knowledge
+  about the order-to-cash system built in 2009 and discovered several data issues
+  requiring investigation.
 tags:
-  - OLTP
-  - ORION
-  - source discovery
-  - customer master
-  - invoice
-  - order
-  - scheme
-  - data quality
-  - audit columns
-  - delete flag
-  - SCD2
+- OLTP
+- ORION
+- source discovery
+- customer master
+- invoice
+- order
+- scheme
+- data quality
+- audit columns
+- delete flag
+- SCD2
 sources:
-  - resource: /_sources/meetings/2026-03-03_oltp_discovery_ani.vtt
-    id: T-02
-    last_modified: "2026-03-03"
+- resource: /_sources/meetings/2026-03-03_oltp_discovery_ani.vtt
+  id: T-02
+  last_modified: '2026-03-03'
 generated:
   by: process:claude-haiku/meetings
-  at: 2026-08-23T11:15:05Z
+  at: 2026-08-23 11:15:05+00:00
 ---
+
 
 ## Summary
 
@@ -94,3 +98,7 @@ The team noted that the plant-to-brand derivation in the OBIEE Despatch report s
 **Attendance note.** Priya joined late (she had a report issue in the morning). Ani participated from home on a laptop (headset in office). Ishaan stepped away briefly for a courier delivery. Farida left early for a vendor call at 12:30.
 
 **Office note.** Karthik mentioned the team will be in the Andheri East office next week (Tuesday and Wednesday, 04-05 March).
+## Referenced by
+
+- [Knowledge Base Index](/index.md)
+

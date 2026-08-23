@@ -1,27 +1,29 @@
 ---
 type: warehouse-table
 title: SEC_USER_REGION
-description: Security mapping table for Power BI row-level security, linking user UPNs to regions they are authorized to see.
+description: Security mapping table for Power BI row-level security, linking user
+  UPNs to regions they are authorized to see.
 resource: BCPL_EDW.SEC_USER_REGION
 tags:
-  - security
-  - row-level-security
-  - RLS
-  - Power-BI
-  - SEC_USER_REGION
-  - access-control
+- security
+- row-level-security
+- RLS
+- Power-BI
+- SEC_USER_REGION
+- access-control
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:25Z
+  at: 2026-08-23 10:37:25+00:00
 sources:
-  - resource: /_canon/schema_canon.sql
-    id: TECH-SQL-EDW
-    last_modified: "2026-08-23"
-  - resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
-    id: DOC-05
-    title: "EDW target model notes"
-    last_modified: "2026-05-15"
+- resource: /_canon/schema_canon.sql
+  id: TECH-SQL-EDW
+  last_modified: '2026-08-23'
+- resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
+  id: DOC-05
+  title: EDW target model notes
+  last_modified: '2026-05-15'
 ---
+
 
 ## Purpose
 
@@ -78,4 +80,7 @@ As a result:
 ## Data Quality and Known Gaps
 
 No discrepancies between DDL and prose are documented. However, auditing of who has access to which regions should be part of ongoing GRC (Governance, Risk, Compliance) procedures.
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)
 

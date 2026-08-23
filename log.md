@@ -1,112 +1,117 @@
 ---
 type: log
 title: Change log
-description: Append-only record of every fact in this knowledge base that had one value earlier in the engagement and a different, current value later — both values, both source artifacts, and the date it changed. The authoritative answer to "which number is current."
+description: Append-only record of every fact in this knowledge base that had one
+  value earlier in the engagement and a different, current value later — both values,
+  both source artifacts, and the date it changed. The authoritative answer to "which
+  number is current."
 generated:
   by: process:claude-sonnet/context
-  at: 2026-08-23T11:45:00Z
+  at: 2026-08-23 11:45:00+00:00
 sources:
-  - resource: /_sources/decks/DK-01_kickoff_v3_FINAL.pptx
-    id: DK-01
-    title: "Kickoff: Data, Analytics & Reporting Transformation"
-    author: Ananya Krishnan
-    last_modified: "2026-02-11"
-  - resource: /_sources/meetings/2026-02-11_kickoff_scope.txt
-    id: T-01
-    title: Kickoff and scope
-    author: Ananya Krishnan
-    last_modified: "2026-02-11"
-  - resource: /_sources/meetings/2026-03-24_first_variance_findings.txt
-    id: T-03
-    title: First variance findings
-    author: Ananya Krishnan
-    last_modified: "2026-03-24"
-  - resource: /_sources/email/EM-023_dashboard_scope_cut.eml
-    id: EM-023
-    title: "RE: RE: FW: Drishti - discovery close out pack and Friday actions"
-    author: Shalini Iyer
-    last_modified: "2026-03-30"
-  - resource: /_sources/meetings/2026-04-14_architecture_review.txt
-    id: T-04
-    title: Architecture review
-    author: Karthik Subramanian
-    last_modified: "2026-04-14"
-  - resource: /_sources/email/EM-041_farida_scd2_concern.eml
-    id: EM-041
-    title: "RE: DIM_CUSTOMER dimension design - your comments"
-    author: Farida Contractor
-    last_modified: "2026-04-16"
-  - resource: /_sources/trackers/XL-03_scd2_load_impact.xlsx
-    id: XL-03
-    title: SCD2 load impact - assumptions, scenarios and conclusion
-    author: Karthik Subramanian
-    last_modified: "2026-04-22"
-  - resource: /_sources/email/EM-047_karthik_scd2_counter.eml
-    id: EM-047
-    title: "RE: RE: FW: RE: SCD2 load window, measured on DEV"
-    author: Karthik Subramanian
-    last_modified: "2026-04-23"
-  - resource: /_sources/docs/DOC-03_stored_procedure_walkthrough.docx
-    id: DOC-03
-    title: "PKG_MONTH_END and the batch close proc - walkthrough of the five routines"
-    author: Aniruddh Deshpande
-    last_modified: "2026-04-28"
-  - resource: /_sources/meetings/2026-05-06_design_signoff.txt
-    id: T-05
-    title: Design sign-off
-    author: Karthik Subramanian
-    last_modified: "2026-05-06"
-  - resource: /_sources/docs/DOC-04_dimension_strategy.docx
-    id: DOC-04
-    title: BCPL_EDW Dimension Strategy (Appendix A, ADR-001 to ADR-005)
-    author: Karthik Subramanian
-    last_modified: "2026-05-11"
-  - resource: /_sources/decks/DK-03_variance_rootcause_v2.pptx
-    id: DK-03
-    title: Variance root cause - working readout, v2
-    author: Karthik Subramanian
-    last_modified: "2026-05-05"
-  - resource: /_sources/email/EM-055_var004_handover_ishaan.eml
-    id: EM-055
-    title: "VAR-004 duplicate rows on DIM_CUSTOMER - handover to Ishaan"
-    author: Farida Contractor
-    last_modified: "2026-07-09"
-  - resource: /_sources/email/EM-063_shalini_validated_credit_note_impact.eml
-    id: EM-063
-    title: "RE: FW: India FY2026 - channel partner credit notes"
-    author: Shalini Iyer
-    last_modified: "2026-07-21"
-  - resource: /_sources/email/EM-068_golive_slip_30oct.eml
-    id: EM-068
-    title: "RE: RE: FW: Drishti - revised go live date (was: wk28 status pack)"
-    author: Ananya Krishnan
-    last_modified: "2026-08-19"
-  - resource: /_sources/email/EM-072_feb_duplicate_load_chain.eml
-    id: EM-072
-    title: "February reconciliation - LP_DAILY_SALES re-run 14-Feb (five-level forwarded chain)"
-    author: Farida Contractor
-    last_modified: "2026-08-21"
-  - resource: /_sources/email/EM-089_uat_scheduling.eml
-    id: EM-089
-    title: "RE: RE: UAT - dates, scripts, and who signs what"
-    author: Sneha Pillai
-    last_modified: "2026-09-28"
-  - resource: /_sources/trackers/XL-01_variance_tracker_v7.xlsx
-    id: XL-01
-    title: Variance tracker v7
-    author: Sneha Pillai
-    last_modified: "2026-09-18"
-  - resource: /_sources/decks/DK-06_steerco_sep2026.pptx
-    id: DK-06
-    title: Steering Committee, 22 September 2026
-    author: Ananya Krishnan
-    last_modified: "2026-09-22"
-  - resource: /_sources/meetings/2026-09-22_steering_committee.txt
-    id: T-08
-    title: Steering committee
-    author: Rajeev Menon
-    last_modified: "2026-09-22"
+- resource: /_sources/decks/DK-01_kickoff_v3_FINAL.pptx
+  id: DK-01
+  title: 'Kickoff: Data, Analytics & Reporting Transformation'
+  author: Ananya Krishnan
+  last_modified: '2026-02-11'
+- resource: /_sources/meetings/2026-02-11_kickoff_scope.txt
+  id: T-01
+  title: Kickoff and scope
+  author: Ananya Krishnan
+  last_modified: '2026-02-11'
+- resource: /_sources/meetings/2026-03-24_first_variance_findings.txt
+  id: T-03
+  title: First variance findings
+  author: Ananya Krishnan
+  last_modified: '2026-03-24'
+- resource: /_sources/email/EM-023_dashboard_scope_cut.eml
+  id: EM-023
+  title: 'RE: RE: FW: Drishti - discovery close out pack and Friday actions'
+  author: Shalini Iyer
+  last_modified: '2026-03-30'
+- resource: /_sources/meetings/2026-04-14_architecture_review.txt
+  id: T-04
+  title: Architecture review
+  author: Karthik Subramanian
+  last_modified: '2026-04-14'
+- resource: /_sources/email/EM-041_farida_scd2_concern.eml
+  id: EM-041
+  title: 'RE: DIM_CUSTOMER dimension design - your comments'
+  author: Farida Contractor
+  last_modified: '2026-04-16'
+- resource: /_sources/trackers/XL-03_scd2_load_impact.xlsx
+  id: XL-03
+  title: SCD2 load impact - assumptions, scenarios and conclusion
+  author: Karthik Subramanian
+  last_modified: '2026-04-22'
+- resource: /_sources/email/EM-047_karthik_scd2_counter.eml
+  id: EM-047
+  title: 'RE: RE: FW: RE: SCD2 load window, measured on DEV'
+  author: Karthik Subramanian
+  last_modified: '2026-04-23'
+- resource: /_sources/docs/DOC-03_stored_procedure_walkthrough.docx
+  id: DOC-03
+  title: PKG_MONTH_END and the batch close proc - walkthrough of the five routines
+  author: Aniruddh Deshpande
+  last_modified: '2026-04-28'
+- resource: /_sources/meetings/2026-05-06_design_signoff.txt
+  id: T-05
+  title: Design sign-off
+  author: Karthik Subramanian
+  last_modified: '2026-05-06'
+- resource: /_sources/docs/DOC-04_dimension_strategy.docx
+  id: DOC-04
+  title: BCPL_EDW Dimension Strategy (Appendix A, ADR-001 to ADR-005)
+  author: Karthik Subramanian
+  last_modified: '2026-05-11'
+- resource: /_sources/decks/DK-03_variance_rootcause_v2.pptx
+  id: DK-03
+  title: Variance root cause - working readout, v2
+  author: Karthik Subramanian
+  last_modified: '2026-05-05'
+- resource: /_sources/email/EM-055_var004_handover_ishaan.eml
+  id: EM-055
+  title: VAR-004 duplicate rows on DIM_CUSTOMER - handover to Ishaan
+  author: Farida Contractor
+  last_modified: '2026-07-09'
+- resource: /_sources/email/EM-063_shalini_validated_credit_note_impact.eml
+  id: EM-063
+  title: 'RE: FW: India FY2026 - channel partner credit notes'
+  author: Shalini Iyer
+  last_modified: '2026-07-21'
+- resource: /_sources/email/EM-068_golive_slip_30oct.eml
+  id: EM-068
+  title: 'RE: RE: FW: Drishti - revised go live date (was: wk28 status pack)'
+  author: Ananya Krishnan
+  last_modified: '2026-08-19'
+- resource: /_sources/email/EM-072_feb_duplicate_load_chain.eml
+  id: EM-072
+  title: February reconciliation - LP_DAILY_SALES re-run 14-Feb (five-level forwarded
+    chain)
+  author: Farida Contractor
+  last_modified: '2026-08-21'
+- resource: /_sources/email/EM-089_uat_scheduling.eml
+  id: EM-089
+  title: 'RE: RE: UAT - dates, scripts, and who signs what'
+  author: Sneha Pillai
+  last_modified: '2026-09-28'
+- resource: /_sources/trackers/XL-01_variance_tracker_v7.xlsx
+  id: XL-01
+  title: Variance tracker v7
+  author: Sneha Pillai
+  last_modified: '2026-09-18'
+- resource: /_sources/decks/DK-06_steerco_sep2026.pptx
+  id: DK-06
+  title: Steering Committee, 22 September 2026
+  author: Ananya Krishnan
+  last_modified: '2026-09-22'
+- resource: /_sources/meetings/2026-09-22_steering_committee.txt
+  id: T-08
+  title: Steering committee
+  author: Rajeev Menon
+  last_modified: '2026-09-22'
 ---
+
 
 # Change log
 
@@ -159,3 +164,7 @@ from a single document. Each hop is its own row.
   corrected, reversed, or clarified later in the engagement.
 - This file is deliberately a flat table, not a narrative. For the full diagnostic history behind any
   single row — especially VAR-003's false trail — follow the linked concept and decision files.
+## Referenced by
+
+- [Knowledge Base Index](/index.md)
+

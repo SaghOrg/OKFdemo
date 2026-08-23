@@ -1,24 +1,26 @@
 ---
 type: oltp-table
 title: GL_JOURNAL_LINE (FIN_PROD)
-description: General ledger journal entry detail lines; one or more debit/credit lines per journal header.
+description: General ledger journal entry detail lines; one or more debit/credit lines
+  per journal header.
 resource: FIN_PROD.GL_JOURNAL_LINE
 tags:
-  - general ledger
-  - journal lines
-  - GL posting
-  - debit credit
-  - GL accounts
-  - OLTP
+- general ledger
+- journal lines
+- GL posting
+- debit credit
+- GL accounts
+- OLTP
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:09Z
+  at: 2026-08-23 10:37:09+00:00
 sources:
-  - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
-    id: DOC-01
-    author: Aniruddh Deshpande
-    last_modified: 2026-03-08
+- resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
+  id: DOC-01
+  author: Aniruddh Deshpande
+  last_modified: 2026-03-08
 ---
+
 
 ## Purpose
 
@@ -56,3 +58,8 @@ One row per account that is debited or credited in a journal entry.
 - Multiple lines per journal header are normal; a journal entry typically affects several accounts
 - DR_AMT and CR_AMT must sum to match at the header level to maintain GL integrity
 - Always NVL the delete flag: `NVL(DELETE_FLAG,'N') = 'N'`
+## Referenced by
+
+- [VAR-003 — Scheme discount double-count](/concepts/variances/var-003-scheme-discount-double-count.md)
+- [Data Architecture](/context/data-architecture.md)
+

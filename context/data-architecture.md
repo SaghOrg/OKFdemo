@@ -1,45 +1,48 @@
 ---
 type: context
 title: Data Architecture
-description: The pipeline from ORION (OLTP) through ODI and Control-M into BCPL_EDW (the warehouse) and out to Power BI — the map. Table detail lives in /concepts/tables/, not here.
+description: The pipeline from ORION (OLTP) through ODI and Control-M into BCPL_EDW
+  (the warehouse) and out to Power BI — the map. Table detail lives in /concepts/tables/,
+  not here.
 tags:
-  - data-architecture
-  - orion
-  - oms-prod
-  - fin-prod
-  - odi
-  - control-m
-  - bcpl-edw
-  - star-schema
-  - obiee
-  - power-bi
-  - nightly-load
-  - lp-daily-sales
+- data-architecture
+- orion
+- oms-prod
+- fin-prod
+- odi
+- control-m
+- bcpl-edw
+- star-schema
+- obiee
+- power-bi
+- nightly-load
+- lp-daily-sales
 generated:
   by: process:claude-sonnet/context
-  at: 2026-08-23T11:30:00Z
+  at: 2026-08-23 11:30:00+00:00
 sources:
-  - resource: /_sources/docs/DOC-02_odi_job_inventory.docx
-    id: DOC-02
-    title: "ODI job inventory - SALES_FIN folder"
-    author: Farida Contractor
-    last_modified: "2026-03-20"
-  - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
-    id: DOC-01
-    title: ORION OLTP schema notes
-    author: Aniruddh Deshpande
-    last_modified: "2026-03-09"
-  - resource: /_sources/technical/control_m_schedule.txt
-    id: TECH-CTLM
-    title: Control-M job schedule export, folder BCPL_EDW_DAILY
-    author: Farida Contractor
-    last_modified: "2026-03-18"
-  - resource: /_sources/technical/db_config_snippet.properties
-    id: TECH-PROPS
-    title: ODI/JDBC connection properties fragment
-    author: Farida Contractor
-    last_modified: "2026-03-12"
+- resource: /_sources/docs/DOC-02_odi_job_inventory.docx
+  id: DOC-02
+  title: ODI job inventory - SALES_FIN folder
+  author: Farida Contractor
+  last_modified: '2026-03-20'
+- resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
+  id: DOC-01
+  title: ORION OLTP schema notes
+  author: Aniruddh Deshpande
+  last_modified: '2026-03-09'
+- resource: /_sources/technical/control_m_schedule.txt
+  id: TECH-CTLM
+  title: Control-M job schedule export, folder BCPL_EDW_DAILY
+  author: Farida Contractor
+  last_modified: '2026-03-18'
+- resource: /_sources/technical/db_config_snippet.properties
+  id: TECH-PROPS
+  title: ODI/JDBC connection properties fragment
+  author: Farida Contractor
+  last_modified: '2026-03-12'
 ---
+
 
 # Data architecture
 
@@ -238,3 +241,23 @@ record for what each dashboard covers.
 - `MAP_STG_CREDIT_NOTE` disabled since 14-Nov-2022, never revived → `VAR-005` (open, no fact table).
 - Version control for interface XML and DDL is a SharePoint library, not Git — an accepted, documented
   gap (`DOC-02` §2.2), not a variance.
+## Referenced by
+
+- [DIM_GEOGRAPHY](/concepts/tables/bcpl-edw-dim-geography.md)
+- [DIM_SALESREP](/concepts/tables/bcpl-edw-dim-salesrep.md)
+- [DIM_SCHEME](/concepts/tables/bcpl-edw-dim-scheme.md)
+- [ETL_PARAM](/concepts/tables/bcpl-edw-etl-param.md)
+- [FACT_ORDER_LINE](/concepts/tables/bcpl-edw-fact-order-line.md)
+- [FACT_SECONDARY_SALES](/concepts/tables/bcpl-edw-fact-secondary-sales.md)
+- [SEC_USER_REGION](/concepts/tables/bcpl-edw-sec-user-region.md)
+- [AR_OPEN_ITEM (FIN_PROD)](/concepts/tables/fin-prod-ar-open-item.md)
+- [GL_ACCOUNT_MASTER (FIN_PROD)](/concepts/tables/fin-prod-gl-account-master.md)
+- [GL_JOURNAL_HDR (FIN_PROD)](/concepts/tables/fin-prod-gl-journal-hdr.md)
+- [GL_JOURNAL_LINE (FIN_PROD)](/concepts/tables/fin-prod-gl-journal-line.md)
+- [PERIOD_CONTROL](/concepts/tables/fin-prod-period-control.md)
+- [SCHEME_ACCRUAL](/concepts/tables/fin-prod-scheme-accrual.md)
+- [OMS_PROD.CUSTOMER](/concepts/tables/oms-prod-customer.md)
+- [OMS_PROD.INVOICE_LINE_ARCHIVE](/concepts/tables/oms-prod-invoice-line-archive.md)
+- [Order Line (OMS_PROD.ORDER_LINE)](/concepts/tables/oms-prod-order-line.md)
+- [OMS_PROD.TERRITORY_MASTER](/concepts/tables/oms-prod-territory-master.md)
+

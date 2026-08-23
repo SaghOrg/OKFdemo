@@ -1,30 +1,32 @@
 ---
 type: oltp-table
 title: OMS_PROD.CUSTOMER
-description: The party master table holding all customers, distributors, modern trade retailers and institutional buyers in the ORION order-to-cash system.
+description: The party master table holding all customers, distributors, modern trade
+  retailers and institutional buyers in the ORION order-to-cash system.
 resource: OMS_PROD.CUSTOMER
 tags:
-  - customer
-  - party
-  - distributor
-  - modern-trade
-  - institutional
-  - master-data
-  - CUST_ID
-  - CUST_CODE
+- customer
+- party
+- distributor
+- modern-trade
+- institutional
+- master-data
+- CUST_ID
+- CUST_CODE
 sources:
-  - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
-    id: DOC-01
-    title: ORION - schema notes (OLTP side)
-    author: Aniruddh Deshpande
-    last_modified: "2026-03-09"
-  - resource: /_canon/schema_canon.sql
-    id: SCHEMA_CANON
-    last_modified: "2026-08-23"
+- resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
+  id: DOC-01
+  title: ORION - schema notes (OLTP side)
+  author: Aniruddh Deshpande
+  last_modified: '2026-03-09'
+- resource: /_canon/schema_canon.sql
+  id: SCHEMA_CANON
+  last_modified: '2026-08-23'
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:14Z
+  at: 2026-08-23 10:37:14+00:00
 ---
+
 
 ## Purpose and grain
 
@@ -88,3 +90,8 @@ Standard ORION audit columns:
 - LAST_UPD_BY, LAST_UPD_DT: Last modification metadata. LAST_UPD_DT is used for incremental extracts.
 - ACTIVE_FLG (CHAR(1), Y/N): Audit flag indicating whether the row is logically active in the system, distinct from STATUS_FLG.
 - DELETE_FLAG (CHAR(1), Y/N): Logical deletion flag. Y means logically deleted; N means live.
+## Referenced by
+
+- [VAR-004 — Duplicate facts on distributor reassignment](/concepts/variances/var-004-scd2-territory-reassignment.md)
+- [Data Architecture](/context/data-architecture.md)
+

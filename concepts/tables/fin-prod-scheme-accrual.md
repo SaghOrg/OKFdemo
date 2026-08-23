@@ -1,26 +1,28 @@
 ---
 type: oltp-table
 title: SCHEME_ACCRUAL
-description: Period-end accrual of scheme discounts (trade promotions) at the customer-scheme-period grain, written by the month-end close procedure.
+description: Period-end accrual of scheme discounts (trade promotions) at the customer-scheme-period
+  grain, written by the month-end close procedure.
 resource: FIN_PROD.SCHEME_ACCRUAL
 tags:
-  - scheme-discount
-  - trade-promotion
-  - accrual
-  - month-end
-  - customer
-  - financial
+- scheme-discount
+- trade-promotion
+- accrual
+- month-end
+- customer
+- financial
 sources:
-  - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
-    id: DOC-01
-    last_modified: "2026-03-03"
-  - resource: /_canon/schema_canon.sql
-    id: SCHEMA
-    last_modified: "2026-02-11"
+- resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
+  id: DOC-01
+  last_modified: '2026-03-03'
+- resource: /_canon/schema_canon.sql
+  id: SCHEMA
+  last_modified: '2026-02-11'
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:17Z
+  at: 2026-08-23 10:37:17+00:00
 ---
+
 
 ## Purpose
 
@@ -77,3 +79,8 @@ CREATED_TS is recorded in UTC, not IST. This differs from other OLTP tables wher
 ## Implementation Notes
 
 The table is populated only during the month-end close, not in real-time. It is a standard accrual reserve table for financial reporting. The posting flag allows for a two-step process: calculate accrual, then post to GL.
+## Referenced by
+
+- [VAR-003 — Scheme discount double-count](/concepts/variances/var-003-scheme-discount-double-count.md)
+- [Data Architecture](/context/data-architecture.md)
+

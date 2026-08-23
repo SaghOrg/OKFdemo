@@ -1,0 +1,99 @@
+---
+type: index
+title: Knowledge Base Index
+description: Complete catalog of concepts, decisions, meetings, and context for Project Drishti.
+generated:
+  by: process:claude-haiku/mechanics
+  at: 2026-08-23T11:32:04Z
+---
+
+# Knowledge Base Index
+
+Complete catalog of all concepts, decisions, meetings, and context for Project Bharadwaj (Drishti).
+
+## CONCEPTS
+
+### tables
+
+- [DIM_CUSTOMER](/concepts/tables/bcpl-edw-dim-customer.md) — Customer (distributor, modern trade, institutional) dimension with SCD2 history tracking effective date changes and territory reassignments. Subject to VAR-004.
+- [DIM_DATE](/concepts/tables/bcpl-edw-dim-date.md) — Calendar and fiscal calendar dimension covering 01-Apr-2015 to 31-Mar-2031, with IST timezone anchoring all warehouse dates.
+- [DIM_GEOGRAPHY](/concepts/tables/bcpl-edw-dim-geography.md) — Physical geography dimension covering depots, cities, states, and regions. SCD1 (no history). Natural key is DEPOT_CODE from ORION DEPOT_MASTER. 22 rows plus UNKNOWN.
+- [DIM_PRODUCT](/concepts/tables/bcpl-edw-dim-product.md) — SKU (stock-keeping unit) dimension with SCD2 history tracking MRP and pack changes. Includes UNKNOWN member for late-arriving products (VAR-007). Natural key is SKU_ID from ORION SKU_MASTER.
+- [DIM_SALESREP](/concepts/tables/bcpl-edw-dim-salesrep.md) — Sales representative dimension with SCD2 history. Employee codes only, no names. 610 current rows. Refreshed ad hoc (not nightly). Feeds D10 Sales Rep Productivity report, dropped at go-live.
+- [DIM_SCHEME](/concepts/tables/bcpl-edw-dim-scheme.md) — Trade promotion schemes dimension (QPS, monthly, slab, TPR). Only 5 rows. SCD1. Validity windows are set retrospectively causing lookup misses. Natural key is SCHEME_ID from ORION SCHEME_MASTER.
+- [DIM_TAX_RATE](/concepts/tables/bcpl-edw-dim-tax-rate.md) — Effective-dated tax rate lookup dimension. Remediation for VAR-006 (retroactive tax rate application). Joined by HSN_CODE and invoice date. Replaced TAX_RATE_MASTER on 26-Aug-2026 (CHG0021339).
+- [ETL_BATCH_CONTROL](/concepts/tables/bcpl-edw-etl-batch-control.md) — Control table recording metadata for each load plan run, including status, row counts, and high-water mark for incremental loads.
+- [ETL_ERROR_LOG](/concepts/tables/bcpl-edw-etl-error-log.md) — Log of rejected rows from ODI load plans, capturing constraint violations and other ETL failures.
+- [ETL_PARAM](/concepts/tables/bcpl-edw-etl-param.md) — Parameter store for ETL configuration, holding key-value pairs that control load behavior.
+- [FACT_INVOICE_LINE](/concepts/tables/bcpl-edw-fact-invoice-line.md) — Primary fact table recording one row per invoice line from OMS_PROD, with grain at the line level and links to all core dimensions.
+- [FACT_ORDER_LINE](/concepts/tables/bcpl-edw-fact-order-line.md) — Fact table recording one row per order line, capturing order quantities and served quantities for fill-rate analysis.
+- [FACT_SECONDARY_SALES](/concepts/tables/bcpl-edw-fact-secondary-sales.md) — Fact table of distributor-to-retailer sales (off-take) from the DMS feed, with structural incompleteness as a key caveat.
+- [SEC_USER_REGION](/concepts/tables/bcpl-edw-sec-user-region.md) — Security mapping table for Power BI row-level security, linking user UPNs to regions they are authorized to see.
+- [TAX_RATE_MASTER](/concepts/tables/bcpl-edw-tax-rate-master.md) — Snapshot table of GST rates by HSN code, truncate-and-reload with no effective dating (see VAR-006 and DIM_TAX_RATE for remediation).
+- [AR_OPEN_ITEM (FIN_PROD)](/concepts/tables/fin-prod-ar-open-item.md) — Receivables ageing at invoice level, the sole source of ageing data for D11 Credit and Receivables Exposure dashboard.
+- [GL_ACCOUNT_MASTER (FIN_PROD)](/concepts/tables/fin-prod-gl-account-master.md) — Chart of accounts; master data for GL account codes with types and names used in journal entries.
+- [GL_JOURNAL_HDR (FIN_PROD)](/concepts/tables/fin-prod-gl-journal-hdr.md) — General ledger journal entry headers; one row per journal posting, parent record for GL_JOURNAL_LINE.
+- [GL_JOURNAL_LINE (FIN_PROD)](/concepts/tables/fin-prod-gl-journal-line.md) — General ledger journal entry detail lines; one or more debit/credit lines per journal header.
+- [PERIOD_CONTROL](/concepts/tables/fin-prod-period-control.md) — Fiscal period status tracking table that marks whether each month is open for transaction entry, in the closing process, or closed.
+- [SCHEME_ACCRUAL](/concepts/tables/fin-prod-scheme-accrual.md) — Period-end accrual of scheme discounts (trade promotions) at the customer-scheme-period grain, written by the month-end close procedure.
+- [TAX_RATE_MASTER](/concepts/tables/fin-prod-tax-rate-master.md) — Effective-dated GST tax rates by HSN code, supporting the tracking of tax rate changes over time in ORION.
+- [Credit Note Line](/concepts/tables/oms-prod-credit-note-line.md) — Detail line items for credit notes, mapping SKUs and amounts to parent credit note headers.
+- [Credit Note](/concepts/tables/oms-prod-credit-note.md) — Header table for credit notes issued against invoices, covering damage claims, returns, rate adjustments, off-invoice adjustments, and scheme-related credits.
+- [OMS_PROD.CUSTOMER_TERRITORY_HIST](/concepts/tables/oms-prod-customer-territory-hist.md) — Territory assignment history for customers. Tracks effective-dated territory transitions with known overlapping periods and no primary key constraint.
+- [OMS_PROD.CUSTOMER](/concepts/tables/oms-prod-customer.md) — The party master table holding all customers, distributors, modern trade retailers and institutional buyers in the ORION order-to-cash system.
+- [Depot Master](/concepts/tables/oms-prod-depot-master.md) — Master data for BCPL's 22 distribution centers (depots) organized by region and state.
+- [OMS_PROD.INVOICE_HEADER](/concepts/tables/oms-prod-invoice-header.md) — Master invoice record for all document types (invoices, SCN, SMP). One row per invoice issued.
+- [OMS_PROD.INVOICE_LINE_ARCHIVE](/concepts/tables/oms-prod-invoice-line-archive.md) — Pre-01-Apr-2016 line-item archive. Closed, not extracted. Same shape as INVOICE_LINE minus DELETE_FLAG.
+- [OMS_PROD.INVOICE_LINE](/concepts/tables/oms-prod-invoice-line.md) — Line-item detail for all invoices, credit notes, and service memos. Contains quantities, pricing, and scheme discounts.
+- [Order Header (OMS_PROD.ORDER_HEADER)](/concepts/tables/oms-prod-order-header.md) — Source order header records holding the master data for each order placed with BCPL.
+- [Order Line (OMS_PROD.ORDER_LINE)](/concepts/tables/oms-prod-order-line.md) — Order line detail, one row per SKU per order, recording quantities in the ordering unit of measure.
+- [Scheme Master (OMS_PROD.SCHEME_MASTER)](/concepts/tables/oms-prod-scheme-master.md) — Master table of promotional schemes applied to invoice lines, holding discount calculations, slab definitions, and validity windows.
+- [SKU Master](/concepts/tables/oms-prod-sku-master.md) — Product master data covering codes, descriptions, pack sizes, units of measure, pricing, and tax classification for all items BCPL manufactures or distributes.
+- [OMS_PROD.TERRITORY_MASTER](/concepts/tables/oms-prod-territory-master.md) — Territory master data defining sales territories, region assignments, and territory ownership by employee ID.
+
+### variances
+
+- [VAR-001 — FY26 Q1 revenue overstated](/concepts/variances/var-001-q1-revenue-overstated.md) — MAP_FACT_INVOICE_LINE carried no DELETE_FLAG filter at all, so cancelled and logically-deleted invoice lines were loaded into FACT_INVOICE_LINE and counted as live revenue, overstating FY26 Q1 (Apr-Jun 2025) by INR 4.20 Cr.
+- [VAR-002 — Month-end boundary drift](/concepts/variances/var-002-date-key-timezone.md) — DATE_KEY on FACT_INVOICE_LINE was derived from INVOICE_HEADER.CREATED_TS, which the application server writes in UTC, so invoices raised after roughly 18:30 IST on the last day of a month were keyed into the following month.
+- [VAR-003 — Scheme discount double-count](/concepts/variances/var-003-scheme-discount-double-count.md) — A finance procedure inside ORION (FIN_PROD.PKG_MONTH_END.P_RECALC_SCHEME_DISCOUNT) additively rewrites SCHEME_DISC_AMT on invoice lines every night after the warehouse extract has already run, so the same delta is re-read and appended a second time. A database-link latency hypothesis was raised and ruled out before this was found.
+- [VAR-004 — Duplicate facts on distributor reassignment](/concepts/variances/var-004-scd2-territory-reassignment.md) — On a distributor territory reassignment, DIM_CUSTOMER's SCD2 close logic sets the old row's EFF_END_DT to the same timestamp as the new row's EFF_START_DT and leaves CURRENT_FLG='Y' on both, so a fact row joins to two dimension rows and revenue doubles for that customer. 61 customers affected, 18 with two current rows.
+- [VAR-005 — Credit notes absent from warehouse](/concepts/variances/var-005-credit-notes-absent.md) — No credit note fact table was ever built in BCPL_EDW; the staging mapping for OMS_PROD.CREDIT_NOTE was disabled in 2022 and never revived. Finance nets revenue-affecting credit notes by hand in Excel, so the warehouse revenue line runs gross of them. Validated FY26 impact INR 3.11 Cr across 1,206 documents.
+- [VAR-006 — GST rate change mishandled](/concepts/variances/var-006-tax-rate-retroactive.md) — BCPL_EDW.TAX_RATE_MASTER was a truncate-and-reload snapshot of FIN_PROD.TAX_RATE_MASTER holding current rates only, with no effective dating, even though the source is effective-dated. The Chandanaa HSN 3401 rate change from 18% to 12% effective 01-Oct-2025 was therefore applied retrospectively to Apr-Sep 2025. Remediated by the effective-dated DIM_TAX_RATE.
+- [VAR-007 — Late-arriving SKUs to UNKNOWN member](/concepts/variances/var-007-late-arriving-sku-unknown-member.md) — MAP_FACT_INVOICE_LINE has no late-arriving dimension handling. A SKU invoiced before MAP_DIM_PRODUCT has seen it routes to PRODUCT_KEY = -1 (UNKNOWN) and is never re-pointed once the dimension row arrives. Averages 8,140 lines a month, peaked at 11,902 in Jan-2026, 2.0% of invoiced volume.
+- [VAR-008 — Feb duplicate load](/concepts/variances/var-008-feb-duplicate-load.md) — LP_DAILY_SALES failed on the night of Saturday 14-Feb-2026 and was resubmitted manually as session SESS_884012. IKM Oracle Control Append has no update branch, so the entire night's invoice lines were appended a second time. INR 2.9 Cr of duplicated sales sat in the February figures for three weeks.
+
+## DECISIONS
+
+- [Open question — whether to re-run February's load (VAR-008)](/decisions/20260324-var008-february-reload-deferred.md) — With February's figures known to carry a duplicated batch, the team debates three remediation shapes for the already-loaded month (leave it with a Finance adjustment, delete the duplicate batch, or truncate and reload the whole month) and explicitly defers the choice to the next session rather than pick one under time pressure, at Shalini Iyer's insistence that the deferral be recorded as a deferral, not an agreement.
+- [Go-live dashboard scope cut from 12 to 7](/decisions/20260330-dashboard-scope-cut-12-to-7.md) — Shalini Iyer cuts the go-live dashboard list from the 12 scoped at kickoff to 7, moving D02, D04, D08, D10 and D11 to Phase 2. Driven by a Group capex freeze on the BI licence uplift and by UAT tester availability in Sales Operations, not by a change in what the business wants.
+- [VAR-008 resolved: Finance restates February internally; batch-id guard rides with R2026.07](/decisions/20260402-var008-february-restatement-and-batch-guard.md) — The February reload question parked at T-03 is resolved by mail, before the architecture review it was deferred to. Chosen approach is effectively Option 1 from T-03 (no reload; Finance restates the month internally) plus a structural fix — a batch-id guard on the load plan, deployed with the June/July release rather than as a one-off patch, so a deliberate re-run cannot duplicate a batch again.
+- [DIM_PRODUCT proposed as SCD1 (overwrite, no history)](/decisions/20260414-dim-product-scd1-proposed.md) — At the architecture review, Karthik Subramanian proposed DIM_PRODUCT as SCD1 rather than SCD2, on the grounds that SKU attributes rarely change and unit price/gross amount are frozen on the fact row regardless. Agreed in the room with no objection. Superseded three weeks later.
+- [ADR-002 — DIM_CUSTOMER keeps history (SCD2)](/decisions/20260506-dim-customer-scd2.md) — DIM_CUSTOMER is built as an SCD2 dimension, effective-dated on TERRITORY_CODE, REGION_CODE, STATE_CODE, DEPOT_CODE and CUSTOMER_TYPE, so a territory reassignment does not restate sales already reported for a closed period. Proposed at the architecture review, objected to on load-window grounds, the objection resolved by measurement, and formally approved by the business sponsor at design sign-off.
+- [ADR-003 — DIM_PRODUCT keeps history (SCD2), reversing the April position](/decisions/20260506-dim-product-scd2.md) — DIM_PRODUCT is rebuilt as SCD2, tracking PACK_SIZE, MRP_AMT, BRAND_CODE, CATEGORY_CODE and UOM, reversing the SCD1 proposal agreed three weeks earlier. Driven by the Product Mix and Contribution dashboard's need to resolve the MRP and pack size in force at the time of a historic invoice, not today's values.
+- [ADR-005 — DATE_KEY on FACT_INVOICE_LINE derived from INVOICE_DT, not CREATED_TS](/decisions/20260506-var002-date-key-fix.md) — Fix for VAR-002 (month-end boundary drift). DATE_KEY is derived from the IST business date INVOICE_HEADER.INVOICE_DT instead of the UTC application-server timestamp CREATED_TS, so invoices raised late on the last day of a month stop keying into the next month. Signed off at design sign-off; deployed under CHG0021207 in the June release alongside VAR-001.
+- [ADR-004 — VAR-003 remediation: rebuild MAP_FACT_INVOICE_LINE as a key-based merge](/decisions/20260506-var003-remediation-key-based-merge.md) — Remediation approach for VAR-003 (scheme discount double-count), agreed at design sign-off. Leaves the ORION-side finance procedure untouched in Phase 1 and instead rebuilds MAP_FACT_INVOICE_LINE as a key-based merge on INVOICE_LINE_ID with a versioned re-extract, so a re-extracted line updates in place instead of appending again. Approach agreed; VAR-003 itself stays open.
+- [Open question — stockist-level drill-down on every dashboard page](/decisions/20260805-dashboard-stockist-drilldown-unresolved.md) — Vikram Sethi asked for every dashboard, not just Primary Sales Performance and Distributor Scorecard, to drill to individual stockist level with both primary (billing) and secondary (off-take) figures side by side. Ritwik Ghosh objects that secondary sales coverage is only 74% and unreliable enough that showing it beside billing invites people to subtract two numbers that should not be compared. The dashboard scope workshop ends with the question unresolved and no owner assigned.
+- [Go-live date moves from 15-Sep to 30-Oct-2026](/decisions/20260819-golive-date-slip-to-30oct.md) — The original 15-September-2026 go-live date, set at kickoff, is abandoned. Ananya Krishnan proposes 30-October-2026, driven by an ORION patch weekend that locks the source system for a week and by VAR-004/VAR-007 remaining open past when they were needed for a clean cutover. Rajeev Menon accepts on behalf of BCPL. Superseded six weeks later.
+- [Go-live dashboard scope reinstated to 9 (D04, D11 return)](/decisions/20260922-dashboard-scope-reinstated-7-to-9.md) — D04 (Scheme Effectiveness) and D11 (Credit and Receivables Exposure) are added back into go-live scope, funded from a Phase 2 budget line Klarissen Group released in August, following the credit note escalation (VAR-005) and the scheme discount work (VAR-003). Confirmed to the steering committee as nine dashboards live on 12-Nov-2026, at go-live, not by end of hypercare.
+- [Go-live date moves from 30-Oct to 12-Nov-2026 (final)](/decisions/20260922-golive-date-final-12nov.md) — The Klarissen Group close blackout (26-Oct to 6-Nov CET) rules out cutting over inside that window, so the plan moves a second time. Cutover weekend 7-8 Nov, historical reload 9-11 Nov, business go-live Thursday 12-Nov-2026, hypercare to 11-Dec. Approved by the steering committee as a Group calendar constraint, not a build or data problem.
+- [Open question — VAR-003 close date not committed at the steering committee](/decisions/20260922-var003-close-date-not-committed.md) — Karthik Subramanian declines to give the steering committee a close date for VAR-003, stating on the record that he and Aniruddh Deshpande have not yet agreed a position, despite ADR-004's written target release R2026.09 (30-Sep-2026) still standing in the tracker. No date is agreed in this session and no date has been committed as of the end of the read corpus.
+
+## MEETINGS
+
+- [T-01 — Kickoff and scope](/meetings/2026-02-11_kickoff_scope.md) — Project Drishti kickoff, establishing scope, workstream structure, discovery approach, and initial commitments from BCPL and Klarissen leadership.
+- [OLTP discovery with Ani](/meetings/2026-03-03_oltp_discovery_ani.md) — Detailed walkthrough of ORION source system architecture, table structures, audit columns, and data quality constraints. Ani provided institutional knowledge about the order-to-cash system built in 2009 and discovered several data issues requiring investigation.
+- [First variance findings](/meetings/2026-03-24_first_variance_findings.md) — Readout of initial variance reconciliation work; three new discrepancies identified; February reload decision deferred to next architecture review.
+- [Architecture review](/meetings/2026-04-14_architecture_review.md) — Warehouse target model design decisions and variance root-cause investigation
+- [Design sign-off](/meetings/2026-05-06_design_signoff.md) — Design decisions on dimension strategy (SCD2 for customer and product), root cause confirmation for VAR-003 scheme discount, and quick status on VAR-001 and VAR-002.
+- [Data quality readout](/meetings/2026-06-18_dq_readout.md) — First data quality assessment readout covering 14 OLTP and warehouse tables, 24 rules, with nine failures and aggregate score of 71/100.
+- [Dashboard scope workshop — T-07 — 05 Aug 2026](/meetings/2026-08-05_dashboard_scope_workshop.md) — Scoping the seven committed dashboards for go-live and handling three competing requirements around distributor-level visibility, secondary sales data quality, and group-level reporting.
+- [Steering committee — 22 September 2026](/meetings/2026-09-22_steering_committee.md) — Go-live date repriced to 12 November 2026 due to Klarissen group close blackout; variance position reviewed; reporting scope confirmed at nine dashboards.
+
+## CONTEXT
+
+- [Active Context](/context/active-context.md) — What is happening right now on Project Drishti, as of the latest dated artifact in the read corpus — current focus, imminent dates, and what is blocked.
+- [Data Architecture](/context/data-architecture.md) — The pipeline from ORION (OLTP) through ODI and Control-M into BCPL_EDW (the warehouse) and out to Power BI — the map. Table detail lives in /concepts/tables/, not here.
+- [Project Bharadwaj Glossary](/context/glossary.md) — Canonical vocabulary for the BCPL/Northlane/Klarissen engagement — who says what, how the transcription engine mangled it, and where primary and secondary sales get conflated. Grep this file before trusting a term.
+- [Progress](/context/progress.md) — What is done, what is in flight, and what has not started on Project Drishti, tracked against the eight variances, the dashboard build, and the cutover plan.
+- [Project Brief](/context/project-brief.md) — What Project Drishti is, who is involved, and what success looks like — the starting point for the BCPL OLTP-to-warehouse engagement.
+

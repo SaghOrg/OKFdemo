@@ -1,24 +1,26 @@
 ---
 type: oltp-table
 title: GL_ACCOUNT_MASTER (FIN_PROD)
-description: Chart of accounts; master data for GL account codes with types and names used in journal entries.
+description: Chart of accounts; master data for GL account codes with types and names
+  used in journal entries.
 resource: FIN_PROD.GL_ACCOUNT_MASTER
 tags:
-  - chart of accounts
-  - general ledger
-  - account code
-  - master data
-  - GL
-  - OLTP
+- chart of accounts
+- general ledger
+- account code
+- master data
+- GL
+- OLTP
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:09Z
+  at: 2026-08-23 10:37:09+00:00
 sources:
-  - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
-    id: DOC-01
-    author: Aniruddh Deshpande
-    last_modified: 2026-03-08
+- resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
+  id: DOC-01
+  author: Aniruddh Deshpande
+  last_modified: 2026-03-08
 ---
+
 
 ## Purpose
 
@@ -58,3 +60,7 @@ From DOC-01, the three accounts Shalini's Finance Systems team uses most frequen
 
 - Finance always refers to accounts by code, not by name, within the ORION system
 - The account master is the single source of truth for valid GL codes
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)
+

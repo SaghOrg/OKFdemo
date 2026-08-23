@@ -1,26 +1,28 @@
 ---
 type: warehouse-table
 title: ETL_PARAM
-description: Parameter store for ETL configuration, holding key-value pairs that control load behavior.
+description: Parameter store for ETL configuration, holding key-value pairs that control
+  load behavior.
 resource: BCPL_EDW.ETL_PARAM
 tags:
-  - ETL
-  - parameters
-  - configuration
-  - control-table
-  - ETL_PARAM
+- ETL
+- parameters
+- configuration
+- control-table
+- ETL_PARAM
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:25Z
+  at: 2026-08-23 10:37:25+00:00
 sources:
-  - resource: /_canon/schema_canon.sql
-    id: TECH-SQL-EDW
-    last_modified: "2026-08-23"
-  - resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
-    id: DOC-05
-    title: "EDW target model notes"
-    last_modified: "2026-05-15"
+- resource: /_canon/schema_canon.sql
+  id: TECH-SQL-EDW
+  last_modified: '2026-08-23'
+- resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
+  id: DOC-05
+  title: EDW target model notes
+  last_modified: '2026-05-15'
 ---
+
 
 ## Purpose
 
@@ -63,4 +65,7 @@ DOC-05 notes: "There are a handful of rows in it. I have not gone through what e
 
 - Used by ODI load plans at runtime to read configuration.
 - Updated manually or by administrative procedures, not by the load plans themselves.
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)
 

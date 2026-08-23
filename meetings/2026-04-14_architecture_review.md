@@ -2,15 +2,24 @@
 type: meeting-note
 title: Architecture review
 description: Warehouse target model design decisions and variance root-cause investigation
-tags: [scd, dimensions, customer, product, date-key, variance, database-link, timezone]
+tags:
+- scd
+- dimensions
+- customer
+- product
+- date-key
+- variance
+- database-link
+- timezone
 sources:
-  - resource: /_sources/meetings/2026-04-14_architecture_review.vtt
-    id: T-04
-    last_modified: "2026-04-14"
+- resource: /_sources/meetings/2026-04-14_architecture_review.vtt
+  id: T-04
+  last_modified: '2026-04-14'
 generated:
   by: process:claude-haiku/meetings
-  at: 2026-08-23T11:15:08Z
+  at: 2026-08-23 11:15:08+00:00
 ---
+
 
 ## Summary
 
@@ -82,3 +91,7 @@ Decisions to be finalized at the design sign-off meeting (T-05, week of 06-May):
 2. Variance root-cause investigation status (pending further dig into extract, append, or source data)
 
 Formal ADR (Architecture Decision Record) to be written for product dimension SCD1 decision, possibly others if finalized in May.
+## Referenced by
+
+- [Knowledge Base Index](/index.md)
+

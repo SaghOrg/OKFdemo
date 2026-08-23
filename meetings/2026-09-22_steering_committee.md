@@ -1,22 +1,24 @@
 ---
 type: meeting-note
 title: Steering committee — 22 September 2026
-description: Go-live date repriced to 12 November 2026 due to Klarissen group close blackout; variance position reviewed; reporting scope confirmed at nine dashboards.
+description: Go-live date repriced to 12 November 2026 due to Klarissen group close
+  blackout; variance position reviewed; reporting scope confirmed at nine dashboards.
 tags:
-  - steering-committee
-  - go-live-date
-  - variance
-  - reporting-scope
-  - credit-notes
-  - uat
+- steering-committee
+- go-live-date
+- variance
+- reporting-scope
+- credit-notes
+- uat
 sources:
-  - resource: /_sources/meetings/2026-09-22_steering_committee.vtt
-    id: T-08
-    last_modified: "2026-09-22"
+- resource: /_sources/meetings/2026-09-22_steering_committee.vtt
+  id: T-08
+  last_modified: '2026-09-22'
 generated:
   by: process:claude-haiku/meetings
-  at: 2026-08-23T11:14:54Z
+  at: 2026-08-23 11:14:54+00:00
 ---
+
 
 ## Summary
 
@@ -84,3 +86,7 @@ Marijke noted that the twelfth of November falls inside Klarissen's November rep
 **Note on inconsistency**: Sneha captured an arithmetic discrepancy: the three open variances (1.70 + 0.65 + 3.11 = 5.46 Cr) sum to 5.46 Cr but the summary states 5.45 Cr. Ananya explained the summary sheet rounds VAR-005 to 3.10 Cr while the detail sheet carries 3.11 Cr, accounting for the one-lac difference. This inconsistency within a single workbook was flagged as a concern by Shalini, as Marijke's team reads both sheets. Ananya took AI-61 to fix it.
 
 **Note on ASR**: The transcript contains several platform ASR renderings: "core" for crore, "lac" for lakh, "SED 2" for SCD2 (slowly changing dimension type 2), "Annie" for Ani (Aniruddh Deshpande). These are platform errors in the `.vtt` file and should not be taken as authoritative spelling.
+## Referenced by
+
+- [Knowledge Base Index](/index.md)
+

@@ -1,27 +1,30 @@
 ---
 type: meeting-note
 title: Dashboard scope workshop — T-07 — 05 Aug 2026
-description: Scoping the seven committed dashboards for go-live and handling three competing requirements around distributor-level visibility, secondary sales data quality, and group-level reporting.
+description: Scoping the seven committed dashboards for go-live and handling three
+  competing requirements around distributor-level visibility, secondary sales data
+  quality, and group-level reporting.
 tags:
-  - dashboards
-  - d01
-  - d03
-  - d05
-  - d06
-  - d07
-  - d09
-  - d12
-  - candidates
-  - secondary sales
-  - distributor drill-down
-  - vocabulary
+- dashboards
+- d01
+- d03
+- d05
+- d06
+- d07
+- d09
+- d12
+- candidates
+- secondary sales
+- distributor drill-down
+- vocabulary
 sources:
-  - resource: /_sources/meetings/2026-08-05_dashboard_scope_workshop.vtt
-    last_modified: "2026-08-05"
+- resource: /_sources/meetings/2026-08-05_dashboard_scope_workshop.vtt
+  last_modified: '2026-08-05'
 generated:
   by: process:claude-haiku/meetings
-  at: 2026-08-23T11:15:00Z
+  at: 2026-08-23 11:15:00+00:00
 ---
+
 
 ## Summary
 
@@ -108,4 +111,7 @@ Ananya requested the definitions sheet be captured and noted "capturing that as 
 - **Time**: 90 minutes, 10:00–11:30 IST (well-used).
 - **Pre-read**: Sneha sent a two-page pre-read Monday; Priya had not opened it, Shalini read in the car. Ritwik clarified the pack would come Friday (separate).
 - **Notes**: Sneha circulated via notes and tracker update immediately after.
+## Referenced by
+
+- [Knowledge Base Index](/index.md)
 

@@ -1,23 +1,25 @@
 ---
 type: oltp-table
 title: GL_JOURNAL_HDR (FIN_PROD)
-description: General ledger journal entry headers; one row per journal posting, parent record for GL_JOURNAL_LINE.
+description: General ledger journal entry headers; one row per journal posting, parent
+  record for GL_JOURNAL_LINE.
 resource: FIN_PROD.GL_JOURNAL_HDR
 tags:
-  - general ledger
-  - journal
-  - GL posting
-  - financial posting
-  - OLTP
+- general ledger
+- journal
+- GL posting
+- financial posting
+- OLTP
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:09Z
+  at: 2026-08-23 10:37:09+00:00
 sources:
-  - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
-    id: DOC-01
-    author: Aniruddh Deshpande
-    last_modified: 2026-03-08
+- resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
+  id: DOC-01
+  author: Aniruddh Deshpande
+  last_modified: 2026-03-08
 ---
+
 
 ## Purpose
 
@@ -52,3 +54,8 @@ One row per journal entry posted to the general ledger.
 - Each journal header may have one or more detail lines in GL_JOURNAL_LINE
 - Journal entries are fundamental to month-end close activities in FIN_PROD
 - Source code identifies the origin (e.g., OMS interface, manual entry, accrual posting)
+## Referenced by
+
+- [VAR-003 — Scheme discount double-count](/concepts/variances/var-003-scheme-discount-double-count.md)
+- [Data Architecture](/context/data-architecture.md)
+

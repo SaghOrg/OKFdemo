@@ -1,25 +1,27 @@
 ---
 type: oltp-table
 title: PERIOD_CONTROL
-description: Fiscal period status tracking table that marks whether each month is open for transaction entry, in the closing process, or closed.
+description: Fiscal period status tracking table that marks whether each month is
+  open for transaction entry, in the closing process, or closed.
 resource: FIN_PROD.PERIOD_CONTROL
 tags:
-  - period
-  - month-end
-  - close
-  - fiscal-calendar
-  - status
+- period
+- month-end
+- close
+- fiscal-calendar
+- status
 sources:
-  - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
-    id: DOC-01
-    last_modified: "2026-03-03"
-  - resource: /_canon/schema_canon.sql
-    id: SCHEMA
-    last_modified: "2026-02-11"
+- resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
+  id: DOC-01
+  last_modified: '2026-03-03'
+- resource: /_canon/schema_canon.sql
+  id: SCHEMA
+  last_modified: '2026-02-11'
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:17Z
+  at: 2026-08-23 10:37:17+00:00
 ---
+
 
 ## Purpose
 
@@ -67,3 +69,8 @@ The table acts as a gating mechanism for month-end closing; if a period's STATUS
 ## Implementation Notes
 
 PERIOD_YYYYMM format follows YYYYMM (six-digit string), aligned with BCPL's April-to-March fiscal year. See `/context/` glossary for fiscal calendar details.
+## Referenced by
+
+- [VAR-003 — Scheme discount double-count](/concepts/variances/var-003-scheme-discount-double-count.md)
+- [Data Architecture](/context/data-architecture.md)
+

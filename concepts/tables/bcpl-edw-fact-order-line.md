@@ -1,31 +1,33 @@
 ---
 type: warehouse-table
 title: FACT_ORDER_LINE
-description: Fact table recording one row per order line, capturing order quantities and served quantities for fill-rate analysis.
+description: Fact table recording one row per order line, capturing order quantities
+  and served quantities for fill-rate analysis.
 resource: BCPL_EDW.FACT_ORDER_LINE
 tags:
-  - order
-  - fill-rate
-  - served-quantity
-  - fact
-  - FACT_ORDER_LINE
+- order
+- fill-rate
+- served-quantity
+- fact
+- FACT_ORDER_LINE
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:25Z
+  at: 2026-08-23 10:37:25+00:00
 sources:
-  - resource: /_canon/schema_canon.sql
-    id: TECH-SQL-EDW
-    last_modified: "2026-08-23"
-  - resource: /_build/corpus_text/docs/DOC-01_orion_oltp_schema_notes.docx.txt
-    id: DOC-01
-    title: "ORION OLTP schema notes"
-    author: Aniruddh Deshpande
-    last_modified: "2026-03-03"
-  - resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
-    id: DOC-05
-    title: "EDW target model notes"
-    last_modified: "2026-05-15"
+- resource: /_canon/schema_canon.sql
+  id: TECH-SQL-EDW
+  last_modified: '2026-08-23'
+- resource: /_build/corpus_text/docs/DOC-01_orion_oltp_schema_notes.docx.txt
+  id: DOC-01
+  title: ORION OLTP schema notes
+  author: Aniruddh Deshpande
+  last_modified: '2026-03-03'
+- resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
+  id: DOC-05
+  title: EDW target model notes
+  last_modified: '2026-05-15'
 ---
+
 
 ## Purpose
 
@@ -72,4 +74,9 @@ As DOC-01 notes: "when a partial despatch happens the order line is not split, t
 ## Data Quality and Known Gaps
 
 No data quality issues are explicitly documented for this table in the source materials. However, the partial despatch pattern noted above is a consideration for analysts: an order line with SERVED_QTY_CS less than ORDER_QTY_CS should not be treated as an "unfulfilled" order until the order line is closed. The logic for determining order completion lives in OMS_PROD.ORDER_HEADER.ORDER_STATUS, not in the fact table itself.
+## Referenced by
+
+- [Order Header (OMS_PROD.ORDER_HEADER)](/concepts/tables/oms-prod-order-header.md)
+- [Order Line (OMS_PROD.ORDER_LINE)](/concepts/tables/oms-prod-order-line.md)
+- [Data Architecture](/context/data-architecture.md)
 

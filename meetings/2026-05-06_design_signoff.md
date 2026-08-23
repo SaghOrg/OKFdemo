@@ -1,25 +1,28 @@
 ---
 type: meeting-note
 title: Design sign-off
-description: Design decisions on dimension strategy (SCD2 for customer and product), root cause confirmation for VAR-003 scheme discount, and quick status on VAR-001 and VAR-002.
+description: Design decisions on dimension strategy (SCD2 for customer and product),
+  root cause confirmation for VAR-003 scheme discount, and quick status on VAR-001
+  and VAR-002.
 tags:
-  - dimension-design
-  - SCD2
-  - var-003
-  - var-001
-  - var-002
-  - scheme-discount
-  - invoice-date
-  - load-window
+- dimension-design
+- SCD2
+- var-003
+- var-001
+- var-002
+- scheme-discount
+- invoice-date
+- load-window
 sources:
-  - resource: /_sources/meetings/2026-05-06_design_signoff.vtt
-    id: T-05
-    title: Design sign-off meeting transcript
-    last_modified: "2026-05-06"
+- resource: /_sources/meetings/2026-05-06_design_signoff.vtt
+  id: T-05
+  title: Design sign-off meeting transcript
+  last_modified: '2026-05-06'
 generated:
   by: process:claude-haiku/meetings
-  at: 2026-08-23T11:15:05Z
+  at: 2026-08-23 11:15:05+00:00
 ---
+
 
 ## Summary
 
@@ -67,4 +70,7 @@ Shalini Iyer (Finance) approved both dimension changes on the grounds of audit i
 **Ani's recognition.** Ananya explicitly acknowledged on the recording that "Ani found this, not us," referring to the discovery of P_RECALC_SCHEME_DISCOUNT as the root cause of VAR-003. Ani deflected credit ("it is my system, i should have found it earlier only") but Karthik noted that Ani identified the discrepancy in a week while Karthik had been staring at the mapping for a month.
 
 **Rajeev's early exit and endorsement.** Rajeev Menon joined at 15:52 (partway through DIM_CUSTOMER discussion). Ananya summarized DIM_CUSTOMER SCD2 decision in 30 seconds; Rajeev replied "that is what shalini wanted" and "if shalini is happy i am happy" and "let us not boil the ocean on this one." He did not request technical detail. On VAR-003, he asked "then why is it on our tracker" if it is a finance problem, was told "because it is our number that is wrong at the end of it," and accepted it. He confirmed "do not touch finance" and requested the current variance amount (which Sneha committed to send from the tracker). His closing remark: "good meeting, this is the first one where we actually decided something."
+## Referenced by
+
+- [Project Bharadwaj Glossary](/context/glossary.md)
 

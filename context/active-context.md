@@ -1,41 +1,43 @@
 ---
 type: context
 title: Active Context
-description: What is happening right now on Project Drishti, as of the latest dated artifact in the read corpus — current focus, imminent dates, and what is blocked.
+description: What is happening right now on Project Drishti, as of the latest dated
+  artifact in the read corpus — current focus, imminent dates, and what is blocked.
 tags:
-  - active-context
-  - uat
-  - go-live
-  - var-003
-  - var-005
-  - dashboard-scope
-  - current-status
-stale_after: "2026-11-13"
+- active-context
+- uat
+- go-live
+- var-003
+- var-005
+- dashboard-scope
+- current-status
+stale_after: '2026-11-13'
 generated:
   by: process:claude-sonnet/context
-  at: 2026-08-23T11:30:00Z
+  at: 2026-08-23 11:30:00+00:00
 sources:
-  - resource: /_sources/meetings/2026-09-22_steering_committee.txt
-    id: T-08
-    title: Steering committee
-    author: Rajeev Menon
-    last_modified: "2026-09-22"
-  - resource: /_sources/email/EM-092_ani_scheme_recalc_late.eml
-    id: EM-092
-    title: "RE: RE: FW: VAR-003 - what is writing to SCHEME_DISC_AMT"
-    author: Aniruddh Deshpande
-    last_modified: "2026-10-08"
-  - resource: /_sources/chat/CH-01_teams_data_workstream.txt
-    id: CH-01
-    title: Teams channel export — Data workstream
-    author: Sneha Pillai
-    last_modified: "2026-09-29"
-  - resource: /_sources/chat/CH-02_whatsapp_uat_group.txt
-    id: CH-02
-    title: WhatsApp UAT group export
-    author: Priya Nair
-    last_modified: "2026-10-30"
+- resource: /_sources/meetings/2026-09-22_steering_committee.txt
+  id: T-08
+  title: Steering committee
+  author: Rajeev Menon
+  last_modified: '2026-09-22'
+- resource: /_sources/email/EM-092_ani_scheme_recalc_late.eml
+  id: EM-092
+  title: 'RE: RE: FW: VAR-003 - what is writing to SCHEME_DISC_AMT'
+  author: Aniruddh Deshpande
+  last_modified: '2026-10-08'
+- resource: /_sources/chat/CH-01_teams_data_workstream.txt
+  id: CH-01
+  title: Teams channel export — Data workstream
+  author: Sneha Pillai
+  last_modified: '2026-09-29'
+- resource: /_sources/chat/CH-02_whatsapp_uat_group.txt
+  id: CH-02
+  title: WhatsApp UAT group export
+  author: Priya Nair
+  last_modified: '2026-10-30'
 ---
+
 
 # Active context
 
@@ -119,3 +121,7 @@ completion anywhere in the read corpus.
 against its actual latest content (30-Oct-2026), per the instruction to prefer the most recent
 statement of a fact — the manifest's date range appears to be stale relative to the file it describes.
 This is flagged, not silently corrected; the manifest itself is under `/_sources/` and was not edited.
+## Referenced by
+
+- [Knowledge Base Index](/index.md)
+

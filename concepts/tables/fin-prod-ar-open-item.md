@@ -1,24 +1,26 @@
 ---
 type: oltp-table
 title: AR_OPEN_ITEM (FIN_PROD)
-description: Receivables ageing at invoice level, the sole source of ageing data for D11 Credit and Receivables Exposure dashboard.
+description: Receivables ageing at invoice level, the sole source of ageing data for
+  D11 Credit and Receivables Exposure dashboard.
 resource: FIN_PROD.AR_OPEN_ITEM
 tags:
-  - accounts receivable
-  - ageing
-  - receivables
-  - credit exposure
-  - D11
-  - OLTP
+- accounts receivable
+- ageing
+- receivables
+- credit exposure
+- D11
+- OLTP
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:09Z
+  at: 2026-08-23 10:37:09+00:00
 sources:
-  - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
-    id: DOC-01
-    author: Aniruddh Deshpande
-    last_modified: 2026-03-08
+- resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
+  id: DOC-01
+  author: Aniruddh Deshpande
+  last_modified: 2026-03-08
 ---
+
 
 ## Purpose
 
@@ -56,3 +58,9 @@ One row per outstanding invoice line item from a customer.
 - This is the only ageing source; ageing is never calculated in reports from raw invoice data
 - As per DOC-01: "AR_OPEN_ITEM is the receivables ageing, invoice level, and it is the only place ageing exists."
 - D11 dashboard will have credit exposure data, but NOT credit note detail; D11 has no credit note source
+## Referenced by
+
+- [VAR-005 — Credit notes absent from warehouse](/concepts/variances/var-005-credit-notes-absent.md)
+- [Data Architecture](/context/data-architecture.md)
+- [Go-live dashboard scope reinstated to 9 (D04, D11 return)](/decisions/20260922-dashboard-scope-reinstated-7-to-9.md)
+

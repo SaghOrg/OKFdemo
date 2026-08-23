@@ -1,30 +1,32 @@
 ---
 type: oltp-table
 title: OMS_PROD.TERRITORY_MASTER
-description: Territory master data defining sales territories, region assignments, and territory ownership by employee ID.
+description: Territory master data defining sales territories, region assignments,
+  and territory ownership by employee ID.
 resource: OMS_PROD.TERRITORY_MASTER
 tags:
-  - territory
-  - region
-  - sales-ops
-  - geography
-  - TER-*
-  - TERRITORY_CD
-  - REGION_CD
-  - employee
+- territory
+- region
+- sales-ops
+- geography
+- TER-*
+- TERRITORY_CD
+- REGION_CD
+- employee
 sources:
-  - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
-    id: DOC-01
-    title: ORION - schema notes (OLTP side)
-    author: Aniruddh Deshpande
-    last_modified: "2026-03-09"
-  - resource: /_canon/schema_canon.sql
-    id: SCHEMA_CANON
-    last_modified: "2026-08-23"
+- resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
+  id: DOC-01
+  title: ORION - schema notes (OLTP side)
+  author: Aniruddh Deshpande
+  last_modified: '2026-03-09'
+- resource: /_canon/schema_canon.sql
+  id: SCHEMA_CANON
+  last_modified: '2026-08-23'
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:14Z
+  at: 2026-08-23 10:37:14+00:00
 ---
+
 
 ## Purpose and grain
 
@@ -88,3 +90,7 @@ Downstream systems (the warehouse, reports, BI) should respect this principle:
 ## Four regions, always
 
 The four region codes are hard-coded in checks and business logic throughout ORION and in reporting. Do not invent a fifth region, do not soft-delete a region, and do not rename them.
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)
+

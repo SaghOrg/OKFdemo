@@ -1,36 +1,38 @@
 ---
 type: context
 title: Project Brief
-description: What Project Drishti is, who is involved, and what success looks like — the starting point for the BCPL OLTP-to-warehouse engagement.
+description: What Project Drishti is, who is involved, and what success looks like
+  — the starting point for the BCPL OLTP-to-warehouse engagement.
 tags:
-  - project-brief
-  - drishti
-  - bcpl
-  - northlane-analytics
-  - klarissen
-  - scope
-  - cast
-  - workstreams
+- project-brief
+- drishti
+- bcpl
+- northlane-analytics
+- klarissen
+- scope
+- cast
+- workstreams
 generated:
   by: process:claude-sonnet/context
-  at: 2026-08-23T11:30:00Z
+  at: 2026-08-23 11:30:00+00:00
 sources:
-  - resource: /_sources/decks/DK-01_kickoff_v3_FINAL.pptx
-    id: DK-01
-    title: "Kickoff: Data, Analytics & Reporting Transformation"
-    author: Ananya Krishnan
-    last_modified: "2026-02-11"
-  - resource: /_sources/meetings/2026-02-11_kickoff_scope.txt
-    id: T-01
-    title: Kickoff and scope
-    author: Ananya Krishnan
-    last_modified: "2026-02-11"
-  - resource: /_sources/meetings/2026-09-22_steering_committee.txt
-    id: T-08
-    title: Steering committee
-    author: Rajeev Menon
-    last_modified: "2026-09-22"
+- resource: /_sources/decks/DK-01_kickoff_v3_FINAL.pptx
+  id: DK-01
+  title: 'Kickoff: Data, Analytics & Reporting Transformation'
+  author: Ananya Krishnan
+  last_modified: '2026-02-11'
+- resource: /_sources/meetings/2026-02-11_kickoff_scope.txt
+  id: T-01
+  title: Kickoff and scope
+  author: Ananya Krishnan
+  last_modified: '2026-02-11'
+- resource: /_sources/meetings/2026-09-22_steering_committee.txt
+  id: T-08
+  title: Steering committee
+  author: Rajeev Menon
+  last_modified: '2026-09-22'
 ---
+
 
 # Project brief
 
@@ -121,3 +123,7 @@ Full cast profiles, writing styles, and vocabulary quirks (who says "stockist" v
 **Go-live itself moved twice over the course of the engagement — see `/log.md`, which is the
 authoritative record of that change and of every other fact that changed mid-engagement.** Do not
 treat 15-Sep-2026 (the date this brief's own source deck, `DK-01`, was written against) as current.
+## Referenced by
+
+- [Knowledge Base Index](/index.md)
+

@@ -1,32 +1,35 @@
 ---
 type: warehouse-table
 title: DIM_SCHEME
-description: Trade promotion schemes dimension (QPS, monthly, slab, TPR). Only 5 rows. SCD1. Validity windows are set retrospectively causing lookup misses. Natural key is SCHEME_ID from ORION SCHEME_MASTER.
+description: Trade promotion schemes dimension (QPS, monthly, slab, TPR). Only 5 rows.
+  SCD1. Validity windows are set retrospectively causing lookup misses. Natural key
+  is SCHEME_ID from ORION SCHEME_MASTER.
 resource: BCPL_EDW.DIM_SCHEME
 tags:
-  - dimension
-  - scd1
-  - scheme
-  - promotion
-  - trade-promotion
+- dimension
+- scd1
+- scheme
+- promotion
+- trade-promotion
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:36:54Z
+  at: 2026-08-23 10:36:54+00:00
 sources:
-  - resource: /_sources/schema_canon.sql
-    id: SCHEMA
-    last_modified: "2026-08-23"
-  - resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
-    id: DOC-05
-    title: BCPL_EDW target model - working notes
-    author: Ishaan Bhatt
-    last_modified: "2026-04-08"
-  - resource: /_build/corpus_text/docs/DOC-01_orion_oltp_schema_notes.docx.txt
-    id: DOC-01
-    title: ORION - schema notes (OLTP side)
-    author: Aniruddh Deshpande
-    last_modified: "2026-03-09"
+- resource: /_sources/schema_canon.sql
+  id: SCHEMA
+  last_modified: '2026-08-23'
+- resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
+  id: DOC-05
+  title: BCPL_EDW target model - working notes
+  author: Ishaan Bhatt
+  last_modified: '2026-04-08'
+- resource: /_build/corpus_text/docs/DOC-01_orion_oltp_schema_notes.docx.txt
+  id: DOC-01
+  title: ORION - schema notes (OLTP side)
+  author: Aniruddh Deshpande
+  last_modified: '2026-03-09'
 ---
+
 
 ## Purpose and grain
 
@@ -127,4 +130,8 @@ From DOC-01: SCHEME_MASTER in OMS_PROD carries:
 - VALID_FROM_DT, VALID_TO_DT (the retrospectively-adjusted window)
 
 The warehouse imports the entire row into this dimension. No transformation beyond rounding or date handling.
+## Referenced by
+
+- [Scheme Master (OMS_PROD.SCHEME_MASTER)](/concepts/tables/oms-prod-scheme-master.md)
+- [Data Architecture](/context/data-architecture.md)
 

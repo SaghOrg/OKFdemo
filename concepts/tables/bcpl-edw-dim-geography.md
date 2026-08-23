@@ -1,32 +1,35 @@
 ---
 type: warehouse-table
 title: DIM_GEOGRAPHY
-description: Physical geography dimension covering depots, cities, states, and regions. SCD1 (no history). Natural key is DEPOT_CODE from ORION DEPOT_MASTER. 22 rows plus UNKNOWN.
+description: Physical geography dimension covering depots, cities, states, and regions.
+  SCD1 (no history). Natural key is DEPOT_CODE from ORION DEPOT_MASTER. 22 rows plus
+  UNKNOWN.
 resource: BCPL_EDW.DIM_GEOGRAPHY
 tags:
-  - dimension
-  - scd1
-  - conformed-dimension
-  - geography
-  - depot
+- dimension
+- scd1
+- conformed-dimension
+- geography
+- depot
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:36:54Z
+  at: 2026-08-23 10:36:54+00:00
 sources:
-  - resource: /_sources/schema_canon.sql
-    id: SCHEMA
-    last_modified: "2026-08-23"
-  - resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
-    id: DOC-05
-    title: BCPL_EDW target model - working notes
-    author: Ishaan Bhatt
-    last_modified: "2026-04-08"
-  - resource: /_build/corpus_text/docs/DOC-01_orion_oltp_schema_notes.docx.txt
-    id: DOC-01
-    title: ORION - schema notes (OLTP side)
-    author: Aniruddh Deshpande
-    last_modified: "2026-03-09"
+- resource: /_sources/schema_canon.sql
+  id: SCHEMA
+  last_modified: '2026-08-23'
+- resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
+  id: DOC-05
+  title: BCPL_EDW target model - working notes
+  author: Ishaan Bhatt
+  last_modified: '2026-04-08'
+- resource: /_build/corpus_text/docs/DOC-01_orion_oltp_schema_notes.docx.txt
+  id: DOC-01
+  title: ORION - schema notes (OLTP side)
+  author: Aniruddh Deshpande
+  last_modified: '2026-03-09'
 ---
+
 
 ## Purpose and grain
 
@@ -104,4 +107,7 @@ All facts join on GEO_KEY. This represents the destination location (where the d
 From DOC-01 (Ani Deshpande, section 11 on depot and territory): "DEPOT_MASTER, 22 rows. DEPOT_CD looks like DEP-MUM-01 (Bhiwandi), DEP-BLR-08 (Bengaluru), DEP-KOL-11 (Kolkata) and so on. CITY, STATE_CD which is the two character GST state code held as a string ('27' Maharashtra, '29' Karnataka, '07' Delhi), and REGION_CD which is one of NORTH, WEST, SOUTH, EAST. four regions. there is no fifth region and there never has been, whatever the sales presentations show."
 
 From DOC-05: "22 rows. The grain is the depot. DEPOT_CODE is the natural key and it carries DEPOT_NAME, CITY, STATE_CODE, STATE_NAME, REGION_CODE and REGION_NAME. Small, stable, boring, which is what you want from a geography dimension."
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)
 

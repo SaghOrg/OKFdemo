@@ -1,28 +1,30 @@
 ---
 type: meeting-note
 title: Data quality readout
-description: First data quality assessment readout covering 14 OLTP and warehouse tables, 24 rules, with nine failures and aggregate score of 71/100.
+description: First data quality assessment readout covering 14 OLTP and warehouse
+  tables, 24 rules, with nine failures and aggregate score of 71/100.
 tags:
-  - data quality assessment
-  - DQ-R rules
-  - rule failures
-  - uniqueness
-  - consistency
-  - validity
-  - completeness
-  - timeliness
-  - VAR-004
-  - VAR-006
-  - VAR-007
+- data quality assessment
+- DQ-R rules
+- rule failures
+- uniqueness
+- consistency
+- validity
+- completeness
+- timeliness
+- VAR-004
+- VAR-006
+- VAR-007
 sources:
-  - resource: /_sources/meetings/2026-06-18_dq_readout.vtt
-    id: T-06
-    title: Data quality readout
-    last_modified: "2026-06-18"
+- resource: /_sources/meetings/2026-06-18_dq_readout.vtt
+  id: T-06
+  title: Data quality readout
+  last_modified: '2026-06-18'
 generated:
   by: process:claude-haiku/meetings
-  at: 2026-08-23T11:14:53Z
+  at: 2026-08-23 11:14:53+00:00
 ---
+
 
 ## Summary
 
@@ -79,4 +81,7 @@ Shalini Iyer (Head of Finance Systems) joined late from the closing call and imm
 **Missing 2016-2020 data in warehouse.** Priya asked whether the fact only goes back to 2021. Ishaan confirmed: "april twenty twenty one onwards in the fact, the source has from twenty sixteen". Priya then observed: "because in obie we always had this thing where the older years just were not there and nobody could say why". Ishaan: "yep, that is why". (Note: OBIEE transcript may have ASR garbling here as "obie" for "OBIEE".)
 
 **credit notes variance sizing uncertainty.** Shalini expects VAR-005 to be larger than the 2.4 Cr unvalidated estimate. She told Ananya "shall we take it away and come back with something firmer" but then said "i will do it myself. Give me till the tenth of july and i will tie it back to the trial balance properly, period by period". Neha clarified that the 2.4 Cr figure is not in today's DQ presentation and nothing depends on it—"it is a variance line, it is not a DQ line, they are different lists". Shalini: "i understand the difference, i just want one of them to be right".
+## Referenced by
+
+- [Knowledge Base Index](/index.md)
 

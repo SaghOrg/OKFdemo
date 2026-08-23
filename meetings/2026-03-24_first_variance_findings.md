@@ -1,21 +1,23 @@
 ---
 type: meeting-note
 title: First variance findings
-description: Readout of initial variance reconciliation work; three new discrepancies identified; February reload decision deferred to next architecture review.
+description: Readout of initial variance reconciliation work; three new discrepancies
+  identified; February reload decision deferred to next architecture review.
 tags:
-  - variance
-  - reconciliation
-  - fact-table
-  - odI-mapping
+- variance
+- reconciliation
+- fact-table
+- odI-mapping
 sources:
-  - resource: /_sources/meetings/2026-03-24_first_variance_findings.vtt
-    id: T-03
-    title: First variance findings
-    last_modified: "2026-03-24"
+- resource: /_sources/meetings/2026-03-24_first_variance_findings.vtt
+  id: T-03
+  title: First variance findings
+  last_modified: '2026-03-24'
 generated:
   by: process:claude-haiku/meetings
-  at: 2026-08-23T11:15:03Z
+  at: 2026-08-23 11:15:03+00:00
 ---
+
 
 ## Summary
 
@@ -92,3 +94,7 @@ Warehouse scheme discount figure is consistently 1.7 Cr *higher* than Finance ac
 
 **VAR-008 (February duplicate):** 2.9 Cr (known mechanism, decision deferred)  
 On Saturday 14-Feb-2026, the load failed and was manually re-run (session `SESS_884012`). The IKM Control Append re-inserted the entire night's data. Sat in the warehouse for three weeks before Meghna's reconciliation caught it. Same root mechanism as VAR-003 but different trigger (manual re-run vs. link latency). Whether to truncate-reload February or carry the adjustment is deferred to 14-Apr.
+## Referenced by
+
+- [Knowledge Base Index](/index.md)
+

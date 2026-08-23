@@ -1,27 +1,29 @@
 ---
 type: oltp-table
 title: Order Line (OMS_PROD.ORDER_LINE)
-description: Order line detail, one row per SKU per order, recording quantities in the ordering unit of measure.
+description: Order line detail, one row per SKU per order, recording quantities in
+  the ordering unit of measure.
 resource: OMS_PROD.ORDER_LINE
 tags:
-  - order management
-  - oltp
-  - oms_prod
-  - order-line
-  - fill-rate
+- order management
+- oltp
+- oms_prod
+- order-line
+- fill-rate
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:15Z
+  at: 2026-08-23 10:37:15+00:00
 sources:
-  - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
-    id: DOC-01
-    title: ORION OLTP Schema Notes
-    last_modified: "2026-08-22"
-  - resource: /_canon/schema_canon.sql
-    id: schema-canon
-    title: ORION Schema DDL
-    last_modified: "2026-08-22"
+- resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
+  id: DOC-01
+  title: ORION OLTP Schema Notes
+  last_modified: '2026-08-22'
+- resource: /_canon/schema_canon.sql
+  id: schema-canon
+  title: ORION Schema DDL
+  last_modified: '2026-08-22'
 ---
+
 
 ## Purpose
 
@@ -86,3 +88,8 @@ When filtering for active (non-deleted) lines, use: `NVL(DELETE_FLAG,'N') = 'N'`
 
 - **Parent:** [/concepts/tables/oms-prod-order-header.md](/concepts/tables/oms-prod-order-header.md) (via ORDER_ID)
 - **Related warehouse fact:** [/concepts/tables/bcpl-edw-fact-order-line.md](/concepts/tables/bcpl-edw-fact-order-line.md)
+## Referenced by
+
+- [Order Header (OMS_PROD.ORDER_HEADER)](/concepts/tables/oms-prod-order-header.md)
+- [Data Architecture](/context/data-architecture.md)
+

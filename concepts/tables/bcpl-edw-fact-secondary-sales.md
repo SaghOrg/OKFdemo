@@ -1,28 +1,30 @@
 ---
 type: warehouse-table
 title: FACT_SECONDARY_SALES
-description: Fact table of distributor-to-retailer sales (off-take) from the DMS feed, with structural incompleteness as a key caveat.
+description: Fact table of distributor-to-retailer sales (off-take) from the DMS feed,
+  with structural incompleteness as a key caveat.
 resource: BCPL_EDW.FACT_SECONDARY_SALES
 tags:
-  - secondary-sales
-  - off-take
-  - distributor-sales
-  - DMS
-  - fact
-  - FACT_SECONDARY_SALES
-  - incomplete-feed
+- secondary-sales
+- off-take
+- distributor-sales
+- DMS
+- fact
+- FACT_SECONDARY_SALES
+- incomplete-feed
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:25Z
+  at: 2026-08-23 10:37:25+00:00
 sources:
-  - resource: /_canon/schema_canon.sql
-    id: TECH-SQL-EDW
-    last_modified: "2026-08-23"
-  - resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
-    id: DOC-05
-    title: "EDW target model notes"
-    last_modified: "2026-05-15"
+- resource: /_canon/schema_canon.sql
+  id: TECH-SQL-EDW
+  last_modified: '2026-08-23'
+- resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
+  id: DOC-05
+  title: EDW target model notes
+  last_modified: '2026-05-15'
 ---
+
 
 ## Purpose
 
@@ -81,4 +83,8 @@ Vikram Sethi uses "secondary" and "secondary scheme" loosely for any promotional
 ## Usage Guidance
 
 Any analysis comparing primary and secondary sales must be explicit about the incompleteness: "Primary sales (FACT_INVOICE_LINE) cover 100% of BCPL billing; secondary sales (FACT_SECONDARY_SALES) cover ~74% of distributors with a ~5-day lag." Analysts often encounter Vikram's numbers moving because his shadow workbook (BCPL_reco_Aug26_vikram_v3.xlsx) pulls from the DMS feed and is subject to the same latency.
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)
+- [Open question — stockist-level drill-down on every dashboard page](/decisions/20260805-dashboard-stockist-drilldown-unresolved.md)
 

@@ -1,36 +1,39 @@
 ---
 type: context
 title: Progress
-description: What is done, what is in flight, and what has not started on Project Drishti, tracked against the eight variances, the dashboard build, and the cutover plan.
+description: What is done, what is in flight, and what has not started on Project
+  Drishti, tracked against the eight variances, the dashboard build, and the cutover
+  plan.
 tags:
-  - progress
-  - status
-  - variance
-  - VAR-001
-  - VAR-002
-  - VAR-003
-  - VAR-004
-  - VAR-005
-  - VAR-006
-  - VAR-007
-  - VAR-008
-  - dashboard-build
-  - uat
+- progress
+- status
+- variance
+- VAR-001
+- VAR-002
+- VAR-003
+- VAR-004
+- VAR-005
+- VAR-006
+- VAR-007
+- VAR-008
+- dashboard-build
+- uat
 generated:
   by: process:claude-sonnet/context
-  at: 2026-08-23T11:30:00Z
+  at: 2026-08-23 11:30:00+00:00
 sources:
-  - resource: /_sources/meetings/2026-09-22_steering_committee.txt
-    id: T-08
-    title: Steering committee
-    author: Rajeev Menon
-    last_modified: "2026-09-22"
-  - resource: /_sources/chat/CH-02_whatsapp_uat_group.txt
-    id: CH-02
-    title: WhatsApp UAT group export
-    author: Priya Nair
-    last_modified: "2026-10-30"
+- resource: /_sources/meetings/2026-09-22_steering_committee.txt
+  id: T-08
+  title: Steering committee
+  author: Rajeev Menon
+  last_modified: '2026-09-22'
+- resource: /_sources/chat/CH-02_whatsapp_uat_group.txt
+  id: CH-02
+  title: WhatsApp UAT group export
+  author: Priya Nair
+  last_modified: '2026-10-30'
 ---
+
 
 # Progress
 
@@ -79,3 +82,7 @@ its own concept file under `/concepts/variances/` — follow the links, do not s
   Phase 2 date is committed for them in the read corpus.
 - **OBIEE decommission** — targeted for 90 days after go-live (~Feb-2027); go-live itself has not
   happened yet as of the end of the read corpus, so this has not started.
+## Referenced by
+
+- [Knowledge Base Index](/index.md)
+

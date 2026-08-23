@@ -1,31 +1,34 @@
 ---
 type: warehouse-table
 title: DIM_SALESREP
-description: Sales representative dimension with SCD2 history. Employee codes only, no names. 610 current rows. Refreshed ad hoc (not nightly). Feeds D10 Sales Rep Productivity report, dropped at go-live.
+description: Sales representative dimension with SCD2 history. Employee codes only,
+  no names. 610 current rows. Refreshed ad hoc (not nightly). Feeds D10 Sales Rep
+  Productivity report, dropped at go-live.
 resource: BCPL_EDW.DIM_SALESREP
 tags:
-  - dimension
-  - scd2
-  - salesrep
-  - employee
+- dimension
+- scd2
+- salesrep
+- employee
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:36:54Z
+  at: 2026-08-23 10:36:54+00:00
 sources:
-  - resource: /_sources/schema_canon.sql
-    id: SCHEMA
-    last_modified: "2026-08-23"
-  - resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
-    id: DOC-05
-    title: BCPL_EDW target model - working notes
-    author: Ishaan Bhatt
-    last_modified: "2026-04-08"
-  - resource: /_build/corpus_text/docs/DOC-01_orion_oltp_schema_notes.docx.txt
-    id: DOC-01
-    title: ORION - schema notes (OLTP side)
-    author: Aniruddh Deshpande
-    last_modified: "2026-03-09"
+- resource: /_sources/schema_canon.sql
+  id: SCHEMA
+  last_modified: '2026-08-23'
+- resource: /_build/corpus_text/docs/DOC-05_edw_target_model_notes.docx.txt
+  id: DOC-05
+  title: BCPL_EDW target model - working notes
+  author: Ishaan Bhatt
+  last_modified: '2026-04-08'
+- resource: /_build/corpus_text/docs/DOC-01_orion_oltp_schema_notes.docx.txt
+  id: DOC-01
+  title: ORION - schema notes (OLTP side)
+  author: Aniruddh Deshpande
+  last_modified: '2026-03-09'
 ---
+
 
 ## Purpose and grain
 
@@ -127,4 +130,7 @@ This is a deliberate design decision made long before this engagement. It is not
 From DOC-01 (Ani Deshpande, section 11 on territory): "TERRITORY_MASTER, 118 rows. TERRITORY_CD in the form TER-W-014, TERRITORY_NAME, REGION_CD, and EMP_ID which is the territory owner in the form BCPL-EMP-04412. we deliberately do not keep rep names in these tables, only the employee code, that was decided long back and it is a good decision, pls do not undo it in the warehouse."
 
 From DOC-05: "This one already carries EFF_START_DT, EFF_END_DT and CURRENT_FLG. Attributes are EMP_ID, ROLE_CODE, TERRITORY_CODE and MANAGER_EMP_ID. Note there is no name column on this dimension and there should not be one. Employee codes only, in the BCPL-EMP-04412 form."
+## Referenced by
+
+- [Data Architecture](/context/data-architecture.md)
 
