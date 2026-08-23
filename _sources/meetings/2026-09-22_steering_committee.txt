@@ -1,0 +1,853 @@
+BCPL_Drishti_SteerCo_22092026_audio1.m4a
+Automatic speech recognition export (raw). Not reviewed.
+Engine: en-IN general v4. Diarisation: 8 speakers detected (expected 7).
+Mean confidence 0.68. Two joiners after start, labels may shift.
+Bhardwaj Consumer Products Ltd / Northlane Analytics - Project Drishti - steering committee
+22/09/2026 15:00 IST   run length 00:45:07
+
+--- transcript begins ---
+
+[00:00:03]
+okay, uh, i think we are recording now, sneha can you confirm
+
+Sneha Pillai: yes it has started the banner is showing on my side
+
+Speaker 3: right, let us start please, we have forty five minutes and i have another call at quarter to
+
+Speaker 1: haan so can everybody hear me okay yes ananya you are clear
+
+Speaker 3: marijke, are you on marijke
+
+Ananya Krishnan: one second marijke you are on mute still on mute i think
+
+Speaker 5: sorry yes i am here
+
+Speaker 2: good good afternoon or evening for you i never get it right
+
+Marijke van der Berg: half past eleven here. it is fine.
+
+Vikram Sethi: sir i am also there, i am at the airport so if i drop off please carry on
+
+Rajeev Menon: fine vikram but keep yourself muted otherwise there is a lot of noise
+
+Vikram Sethi: correct correct will do sir
+
+Speaker 3: sneha you are on the notes
+
+Speaker 8: yes rajeev i am capturing
+
+Speaker ?: karthik
+
+Speaker 7: present, yes, i am here
+
+Rajeev Menon: and wei lin is he coming or not
+
+Speaker 1: he messaged me just now, he is finishing another call, he said ten minutes
+
+Rajeev Menon: okay we will not wait. ananya agenda quickly please
+
+Speaker 1: yes so three items and then any other business one is the plan and the date that is the main one today two
+is the variance register i will walk it item by item three is reporting scope for go live and marijke had asked
+separately for the credit note position so i have put that inside item two
+
+[00:02:31]
+Marijke van der Berg: yes thank you
+
+Shalini Iyer: ananya, sorry, one thing before you start
+
+Speaker 1: yes shalini go go ahead
+
+Shalini Iyer: the tracker is it the eighteenth september save i have two versions open on my screen here version
+seven, eighteenth september, that is the one sneha circulated
+
+Shalini Iyer: okay. sorry. carry on.
+
+no no, that is a fair check, there were two floating around last week
+
+Karthik Subramanian: can you all see my screen
+
+Speaker ?: not yet karthik
+
+Rajeev Menon: nothing is coming
+
+Karthik Subramanian: one second sorry is it there now
+
+Ananya Krishnan: yes now it is coming
+
+Rajeev Menon: yes yes we can see it
+
+Sneha Pillai: [inaudible]
+
+Ananya Krishnan: sorry sneha you cut out there
+
+Speaker ?: i was just saying the pack is on the invite also if anyone wants to follow on their own
+
+Rajeev Menon: fine. go ahead. so. first slide. this is where the plan stands and uh i want to be straight with this
+group. the date in the current plan does not work
+
+Rajeev Menon: hmm
+
+Speaker 4: okay
+
+[00:04:31]
+Ananya Krishnan: and it is not a build problem this time that is the thing i want to say first
+
+Speaker 3: then what is it
+
+Ananya Krishnan: it is the group close window. marijke it is your window do you want to state it
+
+Speaker 3: the group close blackout is twenty six october to six november cet. no operating company cuts over inside
+that window. that is not negotiable.
+
+Rajeev Menon: since when do we we know this
+
+Speaker 5: it is every year. it was in the group calendar in january.
+
+Rajeev Menon: hmm. okay.
+
+Speaker 4: so nothing at all can go in during that window
+
+Speaker 5: nothing.
+
+Speaker 4: not even a read only cutover nothing goes in.
+
+Shalini Iyer: okay
+
+Ananya Krishnan: so basically the whole cutover has to sit outside it and the only clean side is after it
+
+Speaker 3: why not before
+
+Ananya Krishnan: because uat is not finished before and i am not going to put this in front of the business with uat
+half done
+
+Speaker 3: fine
+
+Speaker 7: also the historical reload needs three clear days and there is no way to find three clear days before the
+twenty sixth
+
+okay so what is the date
+
+[00:06:24]
+Ananya Krishnan: so the proposal is cutover weekend saturday and sunday seventh and eighth november historical reload
+monday the ninth through to wednesday the eleventh and business go live on thursday the twelfth of november
+
+Speaker 3: twelfth november
+
+Ananya Krishnan: twelfth november yes
+
+Speaker 2: say it once more
+
+Speaker 1: twelfth of november, it is a thursday
+
+Speaker ?: sneha capture that properly
+
+Speaker ?: hyper care runs through to eleventh december, that is unchanged, that was always the end of the engagement
+
+Shalini Iyer: so four weeks of hypercare, roughly
+
+Speaker 2: and the cost
+
+Speaker 1: no change to the commercials. it stays inside the capped fee i have checked that on our side already.
+
+Rajeev Menon: you are sure
+
+i am sure. and if that changes i will flag it before the next steerco, not in it.
+
+Rajeev Menon: good
+
+Shalini Iyer: ananya can i ask something on the twelfth yes
+
+[00:08:18]
+Shalini Iyer: twelfth is a thursday. my team will be in the middle of the october close in that same week.
+
+Speaker 1: yes
+
+Speaker 4: so finance is doing the close and your reload at the same time
+
+Ananya Krishnan: i know. i did think about it. the reload is our side it does not need finance sitting in the room.
+
+Speaker 4: it needs finance for the checks though
+
+Ananya Krishnan: for the checks yes, but that is the wednesday, one day
+
+Shalini Iyer: hmm okay let me come back on that
+
+Rajeev Menon: shalini if it is a problem say it now not in october
+
+Shalini Iyer: it is not a problem rajeev, it is a resourcing thing, i will manage it
+
+Speaker 5: okay
+
+Speaker 5: rajeev
+
+Speaker 5: yes marijke
+
+Speaker 5: the twelfth is inside our november reporting month. if the india numbers move in november because of this
+group finance sees it. understood
+
+Speaker 5: good
+
+Speaker 5: to close the loop on that the reload does not restate anything it is the same source data going back in
+
+[00:09:56]
+Marijke van der Berg: understood.
+
+Speaker 7: and a reload is a reload we are putting the same rows back no value moves
+
+Speaker 5: yes and this is a clarissen calendar item, not an india item, i want that clear in the minute
+
+it is a group calendar item.
+
+Speaker 4: rajeev sorry one practical thing oreo itself will finance have the source system over that weekend
+
+Speaker 4: i will put that in the freeze note shalini i do not want to answer it off the top of my head
+
+Shalini Iyer: please do
+
+Vikram Sethi: sir sorry one question
+
+Speaker 5: vikram
+
+Vikram Sethi: the stock list masters will they be frozen for that weekend or
+
+Speaker ?: during the cutover weekend yes no master changes from the friday evening
+
+Vikram Sethi: friday evening itself
+
+Speaker 4: friday evening, the sixth
+
+Speaker 6: okay and the stock list who are on old territory that mapping will
+
+Rajeev Menon: vikram, that that is detail. take it with ananya after.
+
+Vikram Sethi: correct correct sir
+
+Ananya Krishnan: vikram i will send you the freeze note separately do not worry about it now
+
+Rajeev Menon: ananya, anything else on the date
+
+[00:11:53]
+one thing. i will recirculate the plan on thursday with these dates in it and i will mark up what moved.
+
+Rajeev Menon: good
+
+Sneha Pillai: capturing that as an action
+
+Ananya Krishnan: thanks sneha
+
+Speaker 3: marijke, are you comfortable with the twelfth
+
+Speaker 5: yes it is outside the window that is what i needed
+
+Speaker 8: done then next
+
+Speaker 4: rajeev sorry one more
+
+Rajeev Menon: yes
+
+Speaker 4: does the twelfth need to go to the audit committee or is it only the board pack
+
+Speaker ?: board pack. i will handle it.
+
+okay
+
+Speaker 1: and the [inaudible] sorry, go ahead karthik
+
+Karthik Subramanian: no no you carry on
+
+Speaker 5: i was going to say the uat piece hangs off this so we take it at the end if there is time
+
+Speaker ?: hello, sorry i am late, my other call ran over
+
+[00:13:20]
+Speaker 1: no problem wei lin, you have come in for the interesting part
+
+Speaker 8: thank you. it is half past five here so i am at home, apologies for any background noise.
+
+Rajeev Menon: no issue
+
+Wei Lin Tan: where have you reached
+
+Speaker 1: we have just done the date cutover weekend seventh and eighth november, go live thursday the twelfth of
+november
+
+Speaker 8: twelfth of november noted and that is outside the group close blackout
+
+Marijke van der Berg: yes that is why it moved
+
+Speaker ?: okay that works for the group pack i will change the milestone slide before thursday
+
+Rajeev Menon: good. ananya, item two.
+
+Ananya Krishnan: right. the variance register. eight items. i will do do the closed ones first and then the open ones.
+
+Ananya Krishnan: thirteen point eight five core, total quantified
+
+Speaker 3: thirteen eighty five thirteen point eight five, of which eight point four zero is closed and five point
+four five is open
+
+Rajeev Menon: okay
+
+Speaker 7: ananya can you say the split again, slowly
+
+Ananya Krishnan: yes total thirteen point eight five core closed eight point four zero open five point four five
+
+Shalini Iyer: thank you
+
+[00:15:11]
+Ananya Krishnan: so, closed. var double zero one is the one where cancelled invoice lines were being counted as
+revenue. that is the four core odd one
+
+Ananya Krishnan: four point two core fy twenty six q one it went out in the june release closed twelfth june
+
+Speaker 4: and the restated q one number is four three four point four zero core that is april to june twenty five
+
+Ananya Krishnan: correct
+
+Speaker 1: var double zero two the month end boundary one also closed same release twelfth june var double zero six
+the gst rate item that closed end of august and var double zero eight, the february one, that closed back in april
+
+Speaker 3: so four closed
+
+Ananya Krishnan: four closed. eight point four zero core between them.
+
+Speaker 4: ananya the eight point four zero is the four together it is not one item
+
+Speaker 1: the four together yes
+
+Speaker 4: okay i just wanted it on the record
+
+Rajeev Menon: open ones
+
+Speaker ?: four open. open. var double zero three, var double zero four, var double zero five, and var double zero
+seven.
+
+Rajeev Menon: go
+
+Ananya Krishnan: var double zero three is the scheme discount double count. one point seven core. anirood owns it.
+
+Rajeev Menon: ani
+
+ani yes anirood. karthik do you want to take this one
+
+[00:17:23]
+Karthik Subramanian: yes. so the position on this has not changed since the last steerco and i want to be honest about
+that. root cause is source side it is not in the ETL i want to be clear about that in front of this group
+
+Speaker 2: meaning what in plain language
+
+Karthik Subramanian: a finance procedure inside orion rewrites the scheme discount amount that is where it comes from
+it is not the mapping
+
+Speaker 8: and we cannot just stop it
+
+Karthik Subramanian: not without touching the finance side and that is not my decision to take
+
+Shalini Iyer: it is my decision yes
+
+Speaker 4: and i am not taking it today understood
+
+Speaker ?: so when does it close i am not going to give this group a close date today.
+
+Rajeev Menon: why not
+
+Karthik Subramanian: because i do not have one i believe. i would rather come back with a date that holds. annie is
+closest to it on the source side and he and i have not agreed a position yet
+
+Rajeev Menon: ani is your best man on that i agree hmm
+
+Speaker 1: the detail is written up karthik circulated the stored procedure walkthrough in april it is all in there i
+have not read it
+
+Speaker 6: i know you have not
+
+Rajeev Menon: one point seven core that is the number i carry
+
+Karthik Subramanian: one point seven roughly yes
+
+Speaker 5: i carry it as one point seven zero in the pack
+
+[00:19:41]
+Speaker 8: that is fine
+
+Speaker 1: var double zero four. sixty five lac. that is the distributor reassignment one. ishaan owns that one.
+
+Speaker 3: what is it in one line
+
+Karthik Subramanian: when a distributor moves territory the dimension ends up carrying two live rows for the same
+distributor so one sale gets counted against both of them.
+
+Karthik Subramanian: two current rows yes sixty one distributors have overlapping effective dates eighteen of them
+them are carrying two current rows today
+
+Rajeev Menon: eighteen out of how many
+
+Karthik Subramanian: two thousand one hundred and forty
+
+Speaker 3: that is small
+
+Karthik Subramanian: the count is small. the money is not nothing. sixty five lac.
+
+Speaker 7: which distributors are they
+
+Speaker 1: the worked example we keep using is dist w zero two four one, mahalaxmi distributors, pune. they moved
+territory on the seventeenth of april.
+
+Shalini Iyer: okay
+
+Karthik Subramanian: the SED 2 logic closes the old row with the same timestamp it opens the new one with so both look
+current
+
+Rajeev Menon: karthik i do not need that level
+
+sorry. yes.
+
+sir this is exactly what i have been saying since long
+
+Rajeev Menon: vikram
+
+Speaker 4: the stock list who move, their billing is going to two places, i have been telling this from vikram we have
+got it, karthik has just explained it
+
+Speaker 6: correct correct
+
+[00:21:55]
+Speaker 1: var double zero five is the credit note one. three point one one core. shalini owns it.
+
+Marijke van der Berg: i want to come to that one properly.
+
+Speaker 4: we will marijke two minutes let ananya finish the list first
+
+Marijke van der Berg: fine
+
+Ananya Krishnan: and var double zero seven, the sku one. there is no rupee value against that one, it is a volume
+item. ritwik owns it.
+
+Rajeev Menon: no number at all
+
+Speaker 1: no rupee number no. it is expressed as a share of invoiced volume.
+
+Speaker 3: so we are just not counting it
+
+Ananya Krishnan: no no no, that is not what i said. it is counted, it is counted as volume, not as rupees.
+
+Rajeev Menon: then it will not go in the board pack
+
+Speaker ?: it stays in the register though
+
+Speaker 3: fine the register is the register
+
+Speaker 4: ananya, the arithmetic
+
+Speaker 8: yes
+
+Shalini Iyer: one point seven zero plus sixty five lac plus three point one one. that is five point four six. your
+summary says five point four five.
+
+Ananya Krishnan: yes
+
+Speaker 4: so which one is it
+
+Ananya Krishnan: the summary sheet rounds the credit note figure to three point one zero the detail sheet carries
+three point one one that is where the one lac goes
+
+[00:23:48]
+Shalini Iyer: that should be consistent within one file
+
+Ananya Krishnan: it should be. it is not. i will fix it.
+
+Rajeev Menon: it is one lac. let us not boil the ocean here.
+
+Shalini Iyer: rajeev it is not the lac. it is that two sheets in the same workbook say two different things and
+marijke's team reads both.
+
+Speaker 3: we do read both.
+
+Rajeev Menon: noted ananya, fix the sheet
+
+Speaker 1: i will take that away
+
+Speaker ?: capturing that
+
+Rajeev Menon: marijke, credit notes. go ahead.
+
+Speaker 5: thank you. shalini, the number is three point one one core.
+
+Speaker 4: three point one one core yes. one thousand two hundred and six documents.
+
+Speaker 5: and that that is validated. validated against the fy twenty six trial balance. i did it myself in july.
+
+Marijke van der Berg: good. in euro that is about zero point three four million
+
+Wei Lin Tan: three hundred and thirty six thousand eight hundred at the budget rate yes
+
+Marijke van der Berg: so this is a channel partner number that is not in the warehouse at all
+
+Shalini Iyer: correct
+
+[00:25:28]
+Marijke van der Berg: and it has been open since april.
+
+Speaker 3: since april, yes.
+
+Marijke van der Berg: five months. yes
+
+Marijke van der Berg: rajeev i will be direct. this must be resolved before our year end. not after it.
+
+Rajeev Menon: year end being december
+
+Speaker 5: thirty first december. the group closes the year and this sits inside the india numbers as a difference
+every single month.
+
+Rajeev Menon: understood every month somebody in my team makes a manual adjustment for india, and every month it is
+the same adjustment.
+
+Shalini Iyer: i know marijke. my team does the other half of it.
+
+Marijke van der Berg: yes i know you do so what is the plan.
+
+Speaker 3: ananya
+
+Ananya Krishnan: so uh i do not have a plan to put in front of you today that i would stand behind
+
+Speaker 1: then when
+
+Ananya Krishnan: i will come back to you with options before the next steering committee
+
+Speaker 2: options. options with a recommendation, yes
+
+Speaker 5: i do not want options i want a date and an owner
+
+Rajeev Menon: marijke that is fair
+
+Speaker 5: shalini owns the variance. who owns the fix.
+
+Rajeev Menon: that is the question i cannot answer inside this meeting
+
+then it stays open
+
+[00:27:38]
+Rajeev Menon: it stays open yes
+
+Marijke van der Berg: fine.
+
+Speaker 4: sorry, go ahead
+
+Speaker ?: no sorry, go ahead shalini ayer
+
+Shalini Iyer: no no you go please
+
+Wei Lin Tan: [crosstalk] i only wanted to say for the group pack i need the walk the bridge from the reported number
+to the restated one in euro, at the budget rate, ninety two point four zero
+
+Speaker 8: we can do that
+
+Speaker 8: by month if possible, not only the total constant currency, so it is comparable to the other operating
+companies
+
+Speaker 8: by month, okay, noted
+
+Speaker 4: wei lin i can give you the finance side of it, the reconciliation gap by month is already sitting in my my
+file
+
+Wei Lin Tan: that would help thank you shalini if you can put it in the template i sent in july that saves me
+rebuilding it
+
+Shalini Iyer: i have that template somewhere yes
+
+Speaker 8: thank you
+
+Speaker 4: rajeev one more thing on this.
+
+Speaker ?: yes
+
+Speaker 5: is it in the audit file.
+
+Rajeev Menon: the variance is in the register and the register goes to the audit call
+
+Marijke van der Berg: that is not the same thing.
+
+[00:29:33]
+Rajeev Menon: no. it is not.
+
+Marijke van der Berg: please make sure it is in the audit file. i do not want a question about it that i have not
+already answered.
+
+Speaker 2: i will do that
+
+Sneha Pillai: capturing thank you.
+
+Speaker 6: ma'am can i ask the claims that the stock list are raising every month is that the same thing as
+
+Vikram Sethi: the claims ma'am the stock list claims
+
+Shalini Iyer: vikram that is a different category. that is not what we are discussing here. achha okay
+
+Marijke van der Berg: shalini is it different.
+
+Speaker ?: it is different marijke. what we have quantified is the rate difference and the off invoice adjustment
+types only. that is the one two zero six documents.
+
+Speaker 5: understood.
+
+Speaker 6: sorry ma'am
+
+Speaker 5: it is fine.
+
+Rajeev Menon: good. moving on.
+
+Speaker 4: rajeev sorry, can i add one line
+
+go
+
+the three point one one is an fy twenty six number. it is not a forecast. fy twenty seven will be a different number
+and i do not have it yet.
+
+[00:31:42]
+Speaker 5: when will you have it
+
+Speaker 5: after the half year close so end of october october.
+
+Speaker 4: end of october yes.
+
+Marijke van der Berg: that is after our year end preparation has already started
+
+Shalini Iyer: i know it is
+
+Marijke van der Berg: hmm
+
+Rajeev Menon: marijke we will come back on it. ananya item three please.
+
+Speaker 1: yes reporting scope for go live the number number is nine.
+
+Speaker 4: nine
+
+Ananya Krishnan: nine dashboards live on the twelfth
+
+Speaker 3: last time i heard a different number the committed set plus two coming back in
+
+Speaker ?: which two d zero four, scheme effectiveness. and d one one, credit and receivables exposure.
+
+Rajeev Menon: and why are those two coming back
+
+Speaker 1: because group asked for them. following the credit note escalation and the scheme discount work marijke's
+side asked for both of those back in scope.
+
+Speaker 5: yes. we asked.
+
+Speaker 3: and who is paying for them
+
+Speaker 1: they are funded out of the phase two budget line that group released released in august
+
+Speaker 3: so it is not coming out of my budget
+
+Ananya Krishnan: it is not coming out of your budget good i like that answer
+
+[00:33:49]
+Marijke van der Berg: rajeev we asked for scheme effectiveness because we cannot see the promo accrual anywhere at
+all. and credit and receivables for the obvious reason.
+
+Rajeev Menon: understood
+
+Shalini Iyer: ananya, d one one, that is built on the receivables ageing
+
+receivables ageing yes off the ar open item extract
+
+Shalini Iyer: okay
+
+Speaker 7: so nine that is the number i put in the board pack
+
+Ananya Krishnan: nine.
+
+Speaker 3: sneha. nine.
+
+Speaker 8: ananya, is nine at go live, or nine by the end of hyper care
+
+Ananya Krishnan: at go live. on the twelfth.
+
+Speaker 8: thank you i will put nine in the group pack ananya the secondary cells one is that that inside the nine
+
+Speaker 4: no vikram, secondary coverage is not in the nine
+
+Speaker ?: then how will i see my off take
+
+Speaker 1: the same way you see it today for now
+
+Speaker 6: haan but the stock list are asking me every month
+
+Rajeev Menon: vikram. offline.
+
+Speaker 6: sir the the stock list are asking
+
+Rajeev Menon: offline vikram okay sir
+
+Speaker 4: vikram i will call you tomorrow morning morning on that one
+
+Speaker ?: thank you ananya, kindly do the needful
+
+[00:35:47]
+Speaker 7: can i add one thing on the nine
+
+Rajeev Menon: yes
+
+Speaker 7: the two coming back sit on the same model as the rest of them, so it is build effort, it is not new
+plumbing
+
+meaning it does not move the date
+
+Karthik Subramanian: it does not move the date.
+
+Rajeev Menon: good that is what i wanted to hear
+
+and ritwik already has wireframes for both of them from august, so we are not starting cold
+
+fine
+
+Shalini Iyer: ananya will all nine be in the uat scripts
+
+Ananya Krishnan: all nine yes including the two new ones
+
+Speaker 1: which takes me to uat, if we still have time
+
+Speaker 1: three minutes
+
+Ananya Krishnan: okay, quickly then. the uat slots are confirmed. october.
+
+Speaker ?: confirmed with whom
+
+Ananya Krishnan: with the business sneha has the slots, she is circulating them next week
+
+Speaker ?: i will send them out at the start of next week i am waiting on two people to confirm
+
+Ananya Krishnan: nine testers fourteen scripts
+
+Shalini Iyer: nine testers from where
+
+Ananya Krishnan: across finance sales ops and the bi team priya has the list
+
+Shalini Iyer: and it finishes before the cutover weekend
+
+Ananya Krishnan: it finishes before the cutover weekend yes. that is the whole reason for taking the october slots.
+
+[00:38:05]
+Speaker 3: and if it does not finish
+
+Ananya Krishnan: then we have a conversation. but there is float in the plan.
+
+Speaker 6: how much float
+
+Speaker 1: not much. i am not going to pretend otherwise.
+
+Rajeev Menon: hmm.
+
+Speaker 4: ananya the buddy despatches will they be in the uat data or not
+
+Speaker 1: the uat environment is refreshed from production so yes they will be
+
+Speaker 6: because last time buddy and nashville both were not coming in my extract
+
+Speaker 1: i will check that with frida
+
+Speaker 3: actually actually sir the buddy number i checked again yesterday also, it is short
+
+Speaker 7: vikram one thing at a time i will check it
+
+Vikram Sethi: pls
+
+Speaker 2: sorry that is my doorbell one second
+
+Rajeev Menon: carry on on we can hear you sorry i am back i have not missed anything
+
+Speaker 1: you have not
+
+Speaker 6: [inaudible]
+
+Speaker 3: vikram you dropped he has gone
+
+Speaker 1: he will come back, he is at the airport ananya while we wait. the october close. will the warehouse be
+stable through uat.
+
+Speaker 2: it is the uat environment shalini, it does not touch your close
+
+Shalini Iyer: no i mean my team's time not the system
+
+[00:40:03]
+Speaker 6: ah. yes. that is the resourcing point again.
+
+Shalini Iyer: it is the same three people every single time ananya
+
+Shalini Iyer: thank you
+
+Speaker 6: sorry sir i am back network went
+
+Rajeev Menon: fine vikram anything else. two minutes.
+
+Marijke van der Berg: nothing from me
+
+Wei Lin Tan: one thing from me
+
+Speaker 3: go
+
+Wei Lin Tan: can i have the revised milestone dates in writing today or tomorrow, i have a group review on thursday
+
+Speaker 1: i will send them tonight
+
+Speaker 8: thank you ananya and vikrant, vikrant, sorry, vikrant, can you send me your sell out view for the north
+when you have it
+
+Vikram Sethi: sir i will send but i am telling you now only my number is coming different from the report
+
+Speaker 8: understood, send it anyway
+
+Speaker 7: nothing from me
+
+Shalini Iyer: nothing further from me
+
+Speaker ?: sir i will send my north numbers to ananya separately it is coming different again
+
+Speaker 3: not in this forum vikram
+
+[00:41:55]
+Speaker 6: theek hai na sir i will send by mail only
+
+Speaker 3: sneha, read the actions back please
+
+Sneha Pillai: yes. six actions. a i fifty six, ananya to recirculate the plan with the cutover weekend and the go live
+date marked up, due twenty fourth september a i fifty seven sneha to circulate the uat slots and the tester allocation
+due twenty eighth september a i fifty eight shalini and ananya to revert to group finance on var double zero five with
+a recommendation and a named owner due before the next steering committee a i fifty nine ananya to send the fy twenty
+six variance walk by month in euro at ninety two point four zero to wei lin due second october a i sixty rajeev to
+confirm the variance register position is reflected in the audit file due ninth october a i sixty one ananya to
+correct the rounding between the summary sheet and the detail sheet of the tracker due twenty fifth september good
+
+Sneha Pillai: and there was one more, [name not captured] said something about a freeze note for the masters, i did
+not catch who said it
+
+Ananya Krishnan: that was me sneha i will send it to vikram put it against me
+
+Sneha Pillai: thank you, i will add it under fifty six
+
+Shalini Iyer: sneha can you also note that i have not agreed the november resourcing yet noted, i will put it in the
+body of the notes
+
+Speaker ?: right thank you everyone marijke wei lin thank you for the time
+
+Speaker 5: thank you. rajeev, the credit notes. before year end.
+
+Speaker 3: understood marijke.
+
+Speaker 5: good. goodbye. thanks everyone, good night from singapore
+
+Speaker 5: thanks wei lin
+
+Sneha Pillai: next one is in the andaree office i think not online i will confirm in the invite ananya stay on for two
+minutes
+
+Ananya Krishnan: yes rajeev
+
+Speaker 2: i will stop the recording now
+
+----
+end of transcript
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

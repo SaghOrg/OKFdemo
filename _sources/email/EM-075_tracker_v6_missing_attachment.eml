@@ -1,0 +1,169 @@
+Received: from mail-out-01.northlaneanalytics.example (198.51.100.35) by
+ mx-in-01.bharadwajcp.example with Microsoft SMTP Server id 15.20.7344.007;
+ Wed, 26 Aug 2026 19:12:51 +0530
+Return-Path: <sneha.pillai@northlaneanalytics.example>
+Message-ID: <CAJ7q2m8Wr7pL4dNc2hVj6xTb9Ke@mail.northlaneanalytics.example>
+Date: Wed, 26 Aug 2026 19:12:33 +0530
+From: Sneha Pillai <sneha.pillai@northlaneanalytics.example>
+To: drishti-core@northlaneanalytics.example,
+ Shalini Iyer <shalini.iyer@bharadwajcp.example>,
+ Farida Contractor <farida.contractor@bharadwajcp.example>
+Cc: "Tan, Wei Lin" <weilin.tan@klarissen.example>,
+ Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>
+Subject: RE: RE: FW: Variance tracker v6 for circulation - kindly check your
+ rows before Friday
+Thread-Topic: Variance tracker v6 for circulation
+In-Reply-To: <BM1PR01MB55304C8E7A0D93F16@mail.bharadwajcp.example>
+References: <SG2PR03MB7781B4D2E09A7C6F1@mail.klarissen.example>
+ <CAJ7q2m8Hq2sV8bMe5nWt3cLd7Rf@mail.northlaneanalytics.example>
+ <BM1PR01MB55304C8E7A0D93F16@mail.bharadwajcp.example>
+Thread-Index: Ac8cT4mR7pQx31Nk9Zv+Dp==
+X-Mailer: Microsoft Outlook 16.0
+X-MS-Has-Attach: no
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Hi all,
+
+Apologies, my mistake. The tracker did not go out with the last mail, Farida
+has pointed it out below. It shows as attached in my sent items, so I think it
+has been stripped somewhere on the way, the file is only about 4 MB which
+should be well inside the limit.
+
+Attachments: XL-01_variance_tracker_v6.xlsx
+
+Sending it again from the laptop first thing tomorrow. The SharePoint sync has
+been sitting on "processing" since about three o'clock and I do not want to
+circulate a copy that is behind the library one, that is exactly how we ended
+up with two v4s in June.
+
+Farida, on your question. v5 is the one from 12-Aug. v6 is current. There is no
+v5.1, if you have a file called v5.1 kindly delete it, that was a working copy
+of mine and it should not have left my machine.
+
+What has changed since v5, for anybody who does not want to open it:
+
+- CHG0021339 went in last night, so VAR-006 moves to closed subject to Neha
+  confirming the re-run. I have not touched the status column yet. I will do
+  it when she confirms and not before.
+- Three actions from the August workshop are still showing open, AI-49, AI-51
+  and AI-54. Two of those are mine. Capturing the third one as an action for
+  myself to chase.
+- The Change Log sheet was cutting off the text after about forty characters,
+  I have widened the column. Nothing in the content has changed, only the
+  width.
+- Row heights on the detail sheet went strange after the last merge. Fixed.
+- Formatting.
+
+Wei Lin, noted on the template. I will send the tracker in the normal layout
+first and then map the open items into your template separately, it will not
+be tomorrow though, realistically Monday.
+
+Thanks,
+Sneha
+
+Sneha Pillai
+Business Analyst
+Project Drishti, Northlane Analytics
+
+This e-mail is confidential and intended for the named recipient only. If it has
+reached you in error, please delete it and tell us. Northlane Analytics accepts no
+liability for the content of this e-mail once it leaves our systems.
+
+________________________________
+From: Farida Contractor <farida.contractor@bharadwajcp.example>
+Sent: 26 August 2026 18:41
+To: Sneha Pillai <sneha.pillai@northlaneanalytics.example>
+Cc: drishti-core@northlaneanalytics.example; Shalini Iyer <shalini.iyer@bharadwajcp.example>
+Subject: RE: FW: Variance tracker v6 for circulation - kindly check your rows before Friday
+
+> Sneha,
+>
+> There is no attachment on my copy. I have checked the junk folder also.
+>
+> 1. On the library the latest I can see is v5 dated 12-Aug. On my machine
+>    there is a file called v5.1 which I do not think came from you. Kindly
+>    confirm which one is current before I mark anything against my rows.
+> 2. As per my earlier mail I am not going to edit the file directly. I will
+>    send you my updates on mail and you can put them in. Two people in one
+>    workbook is how we ended up with three versions of it last time.
+> 3. Friday is fine for me for the interface related rows. Anything that
+>    needs a number out of the run will take longer, I have month end on the
+>    2nd and the
+>
+> Regards
+> Farida
+>
+> Farida Contractor
+> ODI / ETL Lead, Enterprise Data Warehouse
+> Bharadwaj Consumer Products Ltd
+> Disclaimer: This e-mail and any files transmitted with it are confidential
+> and are intended solely for the use of the individual or entity to whom
+> they are addressed. Internal use only. Please consider the environment
+> before printing this e-mail.
+>
+> > -----Original Message-----
+> > From: Sneha Pillai <sneha.pillai@northlaneanalytics.example>
+> > Sent: 26 August 2026 17:55
+> > To: drishti-core@northlaneanalytics.example; Shalini Iyer
+> > <shalini.iyer@bharadwajcp.example>; Farida Contractor
+> > <farida.contractor@bharadwajcp.example>
+> > Cc: Tan, Wei Lin <weilin.tan@klarissen.example>; Ananya Krishnan
+> > <ananya.krishnan@northlaneanalytics.example>
+> > Subject: FW: Variance tracker v6 for circulation - kindly check your rows
+> > before Friday
+> > Attachments: XL-01_variance_tracker_v6.xlsx
+> >
+> > Hi all,
+> >
+> > Circulating v6 of the tracker, attached. Please check the rows against
+> > your name and send me corrections on mail by Friday. I will do one merge
+> > rather than ten.
+> >
+> > Two requests, both of which I have made before and I am making again.
+> >
+> > 1. If a status has changed, tell me the date it changed and not only the
+> >    new status. Half the entries in the change log say "updated" with no
+> >    date against them, which is not much use to anybody reading it later.
+> > 2. If you want a row split into two rows, say so this week. After Friday
+> >    I am freezing the structure until the next pack, otherwise the
+> >    comparison between versions stops working.
+> >
+> > Forwarding Wei Lin's note below so everybody can see where the Friday
+> > deadline is coming from, it is not me being difficult.
+> >
+> > Sneha
+> >
+> > Sneha Pillai
+> > Business Analyst
+> > Project Drishti, Northlane Analytics
+> >
+> > > -----Original Message-----
+> > > From: Tan, Wei Lin <weilin.tan@klarissen.example>
+> > > Sent: Tuesday, 25 August 2026 18:52 (SGT)
+> > > To: Sneha Pillai <sneha.pillai@northlaneanalytics.example>
+> > > Cc: Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>
+> > > Subject: Variance tracker - circulation this week?
+> > >
+> > > Hi Sneha,
+> > >
+> > > Two things:
+> > >
+> > > - Is the tracker going out this week? My window for the group pack
+> > >   starts Monday and I would rather work from your file than from my
+> > >   own notes, which are already out of date.
+> > > - When it does come, can I have it in the template I sent across in
+> > >   July, or at least the open items in that layout. The columns do not
+> > >   have to match exactly. The totals do.
+> > >
+> > > Happy to take five minutes on a call if that is quicker, 15:00 SGT /
+> > > 12:30 IST / 09:00 CEST, any day this week except Thursday.
+> > >
+> > > Wei Lin
+> > >
+> > > Wei Lin Tan
+> > > Group FP&A Manager
+> > > Klarissen Group N.V.
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

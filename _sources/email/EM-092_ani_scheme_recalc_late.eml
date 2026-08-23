@@ -1,0 +1,175 @@
+Received: from mail.bharadwajcp.example (10.171.44.19) by
+ mx-in-01.bharadwajcp.example with Microsoft SMTP Server id 15.20.7344.007;
+ Thu, 8 Oct 2026 23:47:38 +0530
+Return-Path: <aniruddh.deshpande@bharadwajcp.example>
+Message-ID: <BM1PR01MB5509OvKLHhrG1wVU@mail.bharadwajcp.example>
+Date: Thu, 8 Oct 2026 23:47:26 +0530
+From: Aniruddh Deshpande <aniruddh.deshpande@bharadwajcp.example>
+To: Karthik Subramanian <karthik.subramanian@northlaneanalytics.example>
+Cc: Farida Contractor <farida.contractor@bharadwajcp.example>,
+ Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>,
+ bcpl-datawarehouse@bharadwajcp.example
+Subject: RE: RE: FW: VAR-003 - what is writing to SCHEME_DISC_AMT
+Thread-Topic: VAR-003 - what is writing to SCHEME_DISC_AMT
+In-Reply-To: <BM1PR01MB5541vHYBrRuNkU2T@mail.bharadwajcp.example>
+References: <CAJ7q2m8sLdX4OcJO86dk912QBrT@mail.northlaneanalytics.example>
+ <CAJ7q2m8VzLvmcw24LoNx1iyXBNZ@mail.northlaneanalytics.example>
+ <BM1PR01MB5541vHYBrRuNkU2T@mail.bharadwajcp.example>
+X-Mailer: Microsoft Outlook 16.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+
+karthik sorry, saw this only now, was on the box till late clearing archive
+log space on the standby so i did not open mail whole evening,
+
+anyway on your point 1, answer is yes, scheme discount amount on the line is
+getting changed from finance side, it is not ODI and it is not farida, root
+cause is source side and not in the ETL, i have been saying this from march
+onwards and i think in one of the calls also i said it but it got lost, so it
+is a finance procedure sitting in ORION that rewrites the scheme discount
+amount on the line, that is the area, full stop.
+
+your point 2 is the more interesting one and this is the part people keep
+missing, FIN_PROD is holding a direct UPDATE grant on OMS_PROD.INVOICE_LINE.
+i checked today evening itself, the grant is still there, one line,
+
+  GRANT UPDATE ON OMS_PROD.INVOICE_LINE TO FIN_PROD;
+
+this was given in 2014 when the scheme calculation was taken out of the
+application screens and moved into the finance package, at that time it was the
+quickest way and everybody agreed and nobody has reviewed that grant even once
+after that, twelve years, no review, not in any audit also. so when you ask who
+can rewrite an invoice line, the answer is finance can, they have been able to
+since 2014, and that is a breadcrumb only, it tells you who is holding the key
+it does not tell you what they are doing with it.
+
+we did this in 2017 also, that time also party wise scheme amount was not
+matching and we spent almost three weeks in the ETL looking for it and finally
+somebody opened the source and there it was, i am not blaming anybody, only
+saying that this is a known shape of problem in this system and not a new one.
+
+farida, ananya, i am not going to type the whole thing again at this hour, i
+have put the full sequence in that note i did for karthik in april, the stored
+procedure walkthrough one, it is on the sharepoint under the design folder,
+everything step by step is written there properly with the object names, please
+read that one before anybody asks me again in a call, because if i explain it
+verbally half of it will get written down wrong in the minutes again.
+
+my own working from 2014 is in scheme_calc_logic_2014.xls, that has the
+original formula and what changed, but it is on my old laptop folder somewhere,
+i will search on saturday, dont wait for it, the note has what you need.
+
+karthik your point 3, no i am not asking for the ORION side to be touched, that
+is a different fight and not this quarter. the delta you are seeing is real and
+it is on my name in the tracker, i am not running away from it, i only want
+that we stop looking at the interfaces for it because there is nothing there.
+
+separate thing while i am typing, dev ORION is still on the 11-Mar refresh, it
+is seven months old now, ishaan was asking last week why his test party codes
+are not there and this is why, somebody please raise it properly because i have
+asked twice and
+
+anyway that is a different mail, will do it tomorrow morning itself.
+
+-ani
+
+Aniruddh Deshpande
+Senior Oracle DBA
+Bharadwaj Consumer Products Ltd
+
+________________________________________________________________________
+This e-mail and any files transmitted with it are confidential and are
+intended solely for the use of the addressee. If you are not the intended
+recipient kindly notify the sender and delete this message from your
+system. Bharadwaj Consumer Products Ltd accepts no liability for any
+errors or omissions in the contents of this message which arise as a
+result of transmission. Internal circulation only.
+
+________________________________
+From: Farida Contractor <farida.contractor@bharadwajcp.example>
+Sent: 08 October 2026 19:04
+To: Karthik Subramanian <karthik.subramanian@northlaneanalytics.example>;
+Aniruddh Deshpande <aniruddh.deshpande@bharadwajcp.example>
+Cc: Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>
+Subject: RE: FW: VAR-003 - what is writing to SCHEME_DISC_AMT
+
+> Karthik,
+>
+> As per my earlier mail dated 26-Mar.
+>
+> 1. The interface does not write anything back to the source. We connect
+>    through the read only account and we read. There is no update, there has
+>    never been an update, and I have already sent the session log for a normal
+>    night to prove it.
+> 2. If the scheme amount on the line is different from what we picked up, the
+>    change did not happen in my run.
+> 3. I would rather this was written down somewhere than discussed again in a
+>    call, because it comes back every six weeks.
+>
+> Ani please confirm from your side, you know the 2014 history better than I do.
+>
+> Farida
+>
+> Farida Contractor
+> ODI / ETL Lead
+> Bharadwaj Consumer Products Ltd, Andheri East, Mumbai
+>
+> ________________________________________________________________________
+> This e-mail and any files transmitted with it are confidential and are
+> intended solely for the use of the addressee. If you are not the intended
+> recipient kindly notify the sender and delete this message from your
+> system. Bharadwaj Consumer Products Ltd accepts no liability for any
+> errors or omissions in the contents of this message which arise as a
+> result of transmission. Internal circulation only.
+>
+> ________________________________
+> From: Karthik Subramanian <karthik.subramanian@northlaneanalytics.example>
+> Sent: 08 October 2026 18:21
+> To: Aniruddh Deshpande <aniruddh.deshpande@bharadwajcp.example>; Farida
+> Contractor <farida.contractor@bharadwajcp.example>
+> Cc: Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>
+> Subject: FW: VAR-003 - what is writing to SCHEME_DISC_AMT
+>
+> > Ani, Farida,
+> >
+> > Three questions, and I would like the answers in writing rather than on a
+> > call, because I want to be able to point at them later.
+> >
+> > 1. Other than the ORION application itself, what writes to
+> >    OMS_PROD.INVOICE_LINE.SCHEME_DISC_AMT? I am asking about the object, not
+> >    about the value.
+> > 2. Who holds UPDATE on OMS_PROD.INVOICE_LINE, and when was that granted?
+> > 3. Is anybody asking for a change on the ORION side, or is the position
+> >    still that Phase 1 works around it?
+> >
+> > I am not asking either of you to re-open the whole investigation. I am
+> > trying to get the one line that says where this sits, so that it stops
+> > being re-litigated.
+> >
+> > Karthik
+> >
+> > Karthik Subramanian
+> > Data Architect, Project Drishti
+> > Northlane Analytics
+> >
+> > ________________________________
+> > From: Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>
+> > Sent: 07 October 2026 09:47
+> > To: Karthik Subramanian <karthik.subramanian@northlaneanalytics.example>
+> > Subject: VAR-003 - what is writing to SCHEME_DISC_AMT
+> >
+> > > Karthik, flagging this before it turns up in front of me again.
+> > >
+> > > I was asked twice last week where VAR-003 actually sits, and both times I
+> > > gave an answer that was slightly different from the one before it, which
+> > > is not a good look. Can you get one written line out of BCPL that says
+> > > where the problem lives, and then I will use exactly that wording every
+> > > time.
+> > >
+> > > Parking the remediation sequencing for now, I only want the sentence.
+> > >
+> > > Best,
+> > > Ananya
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

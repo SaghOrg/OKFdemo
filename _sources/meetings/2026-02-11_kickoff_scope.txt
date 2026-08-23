@@ -1,0 +1,512 @@
+Transcript - auto generated - do not treat as verbatim
+Meeting: Project Drishty kickoff and scope
+Recording started 11/02/2026 15:00 IST
+Duration 00:59:16
+Speakers detected: 11 (2 unresolved)
+Language en-IN, confidence medium
+
+Speaker ?: okay, i think we are hold on
+Ananya Krishnan: can everyone hear me
+Speaker 2: yes Ananya we can hear you
+Speaker 1: ok good uh, let me just start the recording
+Speaker ?: [inaudible]
+Speaker 1: sorry, somebody said something
+Speaker 3: no no that was me i was only saying the room audio is very low
+Speaker 6: haan the mic is on the table Sneha can you push it a little towards the middle
+Sneha Pillai: yes i am moving it
+Speaker ?: better better now it is fine
+Ananya Krishnan: ok recording is on
+Speaker 4: uh one second, Marijke you are on mute
+Marijke van der Berg: sorry yes i am here now
+Speaker 1: perfect, thank you
+Speaker 1: so, good morning to you, good afternoon for us
+Marijke van der Berg: good afternoon
+Speaker 2: uh Karthik is sitting with me in the room Ritwik you are dialling from Kolkata na
+Speaker 3: yes yes i am on, only my video i will keep off
+Speaker ?: no problem
+Speaker 1: and Vikram is is joining he messaged he is five minutes away
+Speaker 7: he is always five minutes away
+
+[00:02:00]
+Ananya Krishnan: uh so while people are settling let me just share
+Speaker ?: can you see my screen
+Speaker ?: not yet
+Speaker 1: one second
+Priya Nair: now it is coming
+Speaker 1: yes ok, so this is the pack i sent on friday uh actually actually please ignore the friday one
+Ananya Krishnan: that was the v2 final revised one i have changed slide four after that
+Speaker 4: i will circulate the correct version after the call
+Speaker ?: haan Sneha will send the right one, sorry for the confusion
+Shalini Iyer: so which version are we looking at now
+Ananya Krishnan: the one on my screen and i will send this same one
+Speaker 7: ok fine
+Ananya Krishnan: so welcome everybody to the Project Drishty kickoff uh this is day one for us
+Speaker ?: day one and we are already on version three
+Ananya Krishnan: yes sir that is consulting uh so before we start Sneha Pillai is taking the notes for us
+Speaker 4: yes i am capturing if i get a name wrong or a term wrong please correct me on the call itself
+Speaker 8: and the recording sits on the site for ninety days and then it goes away ok so agenda, i will keep it simple
+Speaker 1: first Rajeev will say a few words then Marijke has fifteen minutes with us
+then Shalini will tell us what the actual problem is from the finance side then Karthik will walk through how we want to do discovery
+Speaker 1: and then we close with dates and actions uh is there anything anybody wants to add to that
+Farida Contractor: i have one point on access whenever it fits
+Speaker 8: ok noted Frida we will take that in in the second half
+Priya Nair: i also have a small thing about the existing reports
+
+[00:04:50]
+Speaker 1: yes we will come to that Priya uh ok so very quickly who is who i am Ananya Krishnan, i am the engagement lead
+Speaker 1: Karthik you want to
+Speaker ?: yes Karthik Subramanian, data architect i will be doing the discovery work on the source systems and the warehouse i am based out of Chennai but i will be in Mumbai most weeks in the beginning
+Ritwik Ghosh i do the Power BI side i am in Kolkata i will not be much use to you in the first six weeks honestly
+Speaker 1: he will be, he is being modest
+Speaker 3: no no i am being accurate na
+Speaker 4: Sneha Pillai business analyst i do the notes and the tracker
+Speaker 1: and there are two more of our people, Neha and Ishaan they are not on today
+Ishaan will start next week and Neha comes in around the quality assessment
+Speaker 1: there are also two developers in our Bengaluru office who will pick up the build later
+Speaker 6: how many people in total am i paying for
+Ananya Krishnan: six named plus the two offshore, sir it is in the SOW
+Shalini Iyer head of finance systems i am the sponsor from the business side and i am the one who has the problem so
+Priya Nair: Priya Nair BI analyst i look after the existing reports
+Farida Contractor: Farida Contractor, i own the ETL and the nightly run
+Ananya Krishnan: and Aniruddh is not with us today
+Rajeev Menon: Ani is in a patching call he will be there from the next one
+Ananya Krishnan: ok we will definitely need Anirood early he knows the source system
+Rajeev Menon: he built half of it or he was there when it was built
+Karthik Subramanian: then he is the most important person on this programme
+Speaker 6: do not tell him that
+Shalini Iyer: [laughter]
+
+[00:07:46]
+hello hello am i audible
+Speaker 1: yes Vikram Vikram we can hear you
+Vikram Sethi: sorry sorry i was stuck the lift was not working
+Speaker 6: which office are you in
+Delhi sir i am in Delhi till thursday then i am going to Lucknow
+Speaker 1: Vikram we were just doing introductions do you want to
+Speaker 2: Vikram Sethi national sales operations and i am the one whose number never matches with anybody
+Speaker 7: that is true actually
+Speaker 10: see even Shalini madam is agreeing
+Ananya Krishnan: ok we will definitely come to that Rajeev, over to you sir
+Rajeev Menon: thanks Ananya uh i will be brief, i have another thing at four
+Rajeev Menon: so, why are we doing this Amsterdam has been asking for one number for about a year now and every month we send something and every month there is a question back
+Speaker ?: and the question is never a small question it is always, why is this different from what you told us last month so that is the first thing second thing internally uh
+Speaker 7: Shalini closes the books on one set of numbers Vikram runs the field on another set of numbers
+Speaker 6: and the warehouse tells us a third thing
+Speaker 2: correct correct
+Speaker 6: and i sit in a meeting and i have to pick one
+Speaker 6: which is not a great position for a CIO to be in
+Speaker 7: it is is not a great position for finance either
+Speaker 4: no i know so what i want out of this, and i will say it once and then i will stop one i want the board pack number and the warehouse number to be the same number two i want it without ten people doing manual work every month
+Speaker 10: and three i want dashboards that people actually open
+Speaker 6: because right now honestly, nobody opens anything
+
+[00:10:58]
+Speaker 8: sir some people are opening
+Rajeev Menon: Priya hardly anybody is opening
+Speaker 6: what i do not want is a two year programme let us not boil the ocean here do the thing that fixes the number first the pretty tiles can come after
+Speaker 3: noted sir
+Ananya when is this going live
+fifteenth of september sir
+Speaker 6: this year
+Speaker 6: yes, 15 september 2026
+Rajeev Menon: ok and how many dashboards am i getting
+Ananya Krishnan: uh that is on on the reporting scope slide i will not open it now because we will lose twenty minutes
+Speaker 4: fine but that slide and the date, those are the two things i will be asked
+Speaker 4: understood it is in the pack and Sneha will send the pack today
+Speaker 6: ok
+Speaker 6: last thing from me, uh steering committee is monthly i will chair it
+Rajeev Menon: Ananya if something is going wrong i want to hear it before the steerco not in it
+Speaker 1: absolutely i will flag it in the friday status
+good ok that is me Marijke do you want to
+Marijke van der Berg: yes thank you Rajeev i have twenty minutes only i am sorry i have the audit call after
+Ananya Krishnan: no that is fine we scheduled you first for that reason
+good so from the group side, i will be short
+Marijke van der Berg: India is the second largest operating company by revenue and it is the one where i cannot uh, where i cannot take the monthly number and put it straight into the group pack every other operating company i take the file and it goes in for India it goes to my team and they rebuild it
+that is because of the calendar also, partly
+
+[00:14:06]
+Marijke van der Berg: partly yes we report january to december you report april to march, that is known, we live with that
+Speaker ?: that is not my problem my problem is that the same month has two values depending who i ask
+Speaker 6: understood
+Speaker 5: so my question for this programme is very simple
+Marijke van der Berg: when does Klarissen get a monthly number from India that we do not have to rebuild
+Ananya Krishnan: uh
+Speaker 5: and i mean mean a number we can rely on not a number that is explained afterwards
+Speaker 1: so the honest answer is i cannot give you a month today because we do not yet know why the numbers move
+Speaker 3: what i can commit to is that we will know why by early may that is the end of the first phase
+Marijke van der Berg: early may for the diagnosis
+Speaker 5: yes
+Speaker 5: and the fix
+Speaker ?: the fix depends on what we find i do not want to promise a date for something i have not seen
+Speaker 5: that is a fair answer
+Rajeev Menon: the system go live is september Marijke
+Speaker 5: september is late
+Speaker 1: it is what it is we have to rebuild a lot
+Speaker 5: ok second point
+Marijke van der Berg: the channel partner side the deductions the promo accrual
+Speaker 5: that is where most of the movement comes from in my experience
+Shalini Iyer: yes
+Marijke van der Berg: so whatever you build i want the walk from gross to net to be visible not a single line saying net revenue
+
+[00:16:52]
+Speaker 7: Marijke that is exactly what i want as well
+good, then we agree
+Speaker 8: can i ask one thing
+Speaker 4: yes
+Speaker 8: when you say the walk do you mean by month or by channel partner, or
+Speaker 5: by month first and then i want to be able to open one month
+Speaker 8: understood that is useful for me
+Marijke van der Berg: and the currency we will use the budget rate, ninety two point four zero
+Speaker 5: so do not convert anything at spot, please
+noted that is a good catch, we would have got that wrong
+Speaker 10: madam one question on the channel side, the stock list level numbers will group also
+Marijke van der Berg: sorry, i did not
+Vikram Sethi: the stock list, i mean the parties the [crosstalk]
+Speaker 7: Vikram he means the distributors
+Marijke van der Berg: the channel partners
+Speaker 10: haan yes yes same thing
+Speaker 1: at group level i do not need channel partner detail, that is your management information, not mine
+Marijke van der Berg: i need the the total and i need to trust it
+Speaker 6: clear
+Speaker 5: Shalini Ayer one last thing
+Speaker 7: yes Marijke
+Speaker 5: the FY26 close is in six weeks
+Speaker 7: thirty first of march
+
+[00:19:04]
+Marijke van der Berg: whichever, do not let this programme disturb that close
+Shalini Iyer: no it will not i have told Ananya that already
+Ananya Krishnan: yes we have agreed we will not touch anything in production during the close window
+Marijke van der Berg: good
+Marijke van der Berg: then i will leave you please advise if you need anything from my side
+Speaker 6: thanks Marijke
+Speaker ?: thank you Marijke, i will send you the plan
+Speaker 5: thank you, bye
+Ananya Krishnan: ok, so she has gone Shalini, do you want to take us through what actually happened
+Speaker 7: yes
+Shalini Iyer: so i will give you the background because half the people on this call have heard it and half have not in january we were pulling the comparatives for the FY27 planning cycle and one of my team pulled the FY26 quarter one numbers out of the warehouse
+Speaker 1: april to june of last year so it is old data it is nine months old
+Speaker ?: sorry, just so i am clear FY26 quarter one is april to june 2025
+Speaker 8: thank you i will keep asking that it catches people out
+Speaker 7: no it is a fair question everybody gets it wrong the first time so she pulled the quarter out of the warehouse
+Speaker 7: and it did not agree with the closed books
+Speaker 4: and i want to be precise here because this is the thing that started the whole programme
+Speaker 7: it is not that the warehouse was a little bit off the quarter was closed, signed audited reported to group and the warehouse is carrying a different number for a period that is closed
+Speaker ?: which should not be possible
+Speaker 7: which should should not be possible, exactly a closed period should not move
+the warehouse does not change history, the load only brings new data
+Speaker 1: Farida i am not saying anybody changed anything i am saying the two do not tie
+Farida Contractor: no no i understand, i am only saying from the run side nothing goes back and rewrites
+Karthik Subramanian: that is is a good thing to establish early actually i will note it
+
+[00:22:25]
+Speaker 6: Shalini how big is it
+Speaker 6: i am not going to say a number on a recorded call
+is it lakhs or is it cores
+Speaker 7: Rajeev, i will tell you when i have checked it properly
+Shalini Iyer: the last time i said a number in a meeting it appeared in a slide the next week with my name on it
+Shalini Iyer: what i will say is this
+Speaker 7: it is not a rounding difference and it is not a timing difference that i can explain in one line if it was either of those i would have closed it myself in january and we would not be sitting here
+Speaker 1: that is helpful, thank you
+Speaker 7: and it is not only that one quarter once we started looking other periods are also not tying some of them are small, some of them are not
+Speaker 7: and there is no pattern that i can see which is the part that worries me
+Speaker 8: no pattern by month or no pattern by
+Shalini Iyer: by anything Karthik
+Shalini Iyer: i have looked at it by month, by region, by category some months tie almost exactly and some months are out
+Karthik Subramanian: ok do you have the workings
+Shalini Iyer: i have my workings, yes they are in excel
+Shalini Iyer: i will share the FY26 quarter one working and the trial balance extract with you
+that would be very useful
+Speaker 1: Sneha can you take that as an action
+Speaker ?: yes capturing that Shalini to share the quarter one working and the trial balance extract by when
+Speaker 7: give me till uh monday
+Speaker ?: monday, that is the sixteenth
+Speaker 7: yes there is one more thing i want to say and then i will stop the reconciliation gap is one problem
+
+[00:25:29]
+Shalini Iyer: the bigger problem is the effort
+Speaker 7: every month my team spends the better part of four days building the reconciliation by hand four days in excel every single month
+Rajeev Menon: i did not know it it was four days
+Shalini Iyer: it is four days sir sometimes five when there is a rate change or a big trade promotion accrual
+Speaker 7: and it is the same two people doing it and if either of them is on leave we are in trouble
+Ananya Krishnan: this is exactly the kind of thing we want in the discovery, the manual effort
+Shalini Iyer: and honestly the manual work is also where errors come in somebody copies a range wrong it happens
+Speaker 10: [inaudible]
+Ananya Krishnan: sorry who was that i think somebody unmuted
+no it was outside there is some drilling going on in the corridor
+Speaker 7: so that is the pain from my side
+Shalini Iyer: and the question i keep asking and i will keep asking it for the next ten months can we tie this this back to the trial balance
+Karthik Subramanian: understood
+Speaker 7: because if the answer is no then the dashboard is decoration
+Speaker 3: no i agree with that fully
+Shalini Iyer: good
+Rajeev Menon: Shalini one question uh
+Speaker 6: when you close the month, what do you actually take the number from
+Shalini Iyer: from Oreo from the finance side of it not from the warehouse
+Speaker 6: and the warehouse takes it from where
+Speaker ?: also from ORION from the order to cash side
+Speaker 6: so same source two answers
+
+[00:28:11]
+Farida Contractor: same source, different route
+Speaker ?: that is the sentence i am going to be repeating for the next two months
+Speaker 3: ok Vikram you said your number never matches, tell us about that
+Speaker 10: haan so, see my job is very simple i have to to tell the regions what they have done and what they have to do north west south east and inside that the stock list level
+Vikram Sethi: three forty odd stock lists, twenty two depots and every monday morning i have to send a number to Rajeev sir and to the RSMs
+Speaker ?: and it changes
+Speaker 5: sir it changes and it is not my mistake see i will tell you exactly what happens
+Speaker 10: monday i send the billing number for the month till date by wednesday finance is saying something else
+Vikram Sethi: by friday the report in OBIEE is saying a third thing
+the Obi E report is showing what the warehouse has Vikram
+Vikram Sethi: haan but which one is right that is my question
+Priya Nair: no i am not saying it is right, i am saying where it comes from
+Vikram Sethi: no no i know Priya, i am not blaming you
+Speaker ?: can i ask something here because i think this is important
+Speaker 8: when you say the billing number, what exactly are you counting
+Vikram Sethi: billing means what we have invoiced to the stock list
+Speaker 7: ok so that is primary sales
+Vikram Sethi: primary yes
+Speaker 8: and the number you send on monday is that only primary
+Speaker 10: mostly primary
+Speaker 10: but for the north i also put the off take because the RSM asks for it
+Speaker 8: right so secondary
+Vikram Sethi: secondary cells yes off take whatever you want to call it
+Speaker 8: and both of those are in the same sheet
+Speaker 10: in the same sheet different tabs
+Speaker 8: ok
+
+[00:31:22]
+Speaker 7: this is the thing i have been saying for two years
+Speaker 7: the secondary is not revenue
+Vikram Sethi: i know madam it is not revenue
+Shalini Iyer: but when you send a slide that says north did so much and my books say something else
+Speaker 10: but i am not saying it is revenue, i am saying it is what the market has taken
+Shalini Iyer: and the person reading the slide does not know the difference
+Speaker ?: sorry sorry, one at a time Shalini finish, then Vikram
+Speaker 7: i have finished
+Vikram Sethi: no no she is right actually the two things get mixed up i accept
+Speaker 8: this is very normal i see it everywhere
+Speaker 7: primary sales is Bhardwaj selling to the distributor that is revenue secondary sales is the distributor selling to the retailer, that is not revenue both are useful, they are different things and they should never be added
+Speaker 10: so one of the first things i want to do is write down what each number means and put it somewhere everybody can see it
+Speaker 4: please
+Speaker 10: but sir there is one more thing where do i get my number from, this is also the issue
+Speaker 10: i have a coordinator in the north who maintains the sheet
+Speaker 10: he takes the extract and he adds the manual entries
+Speaker 8: manual entries for what
+Speaker 10: for the TPR mostly and the secondary scheme because those things do not come properly in the extract so he adds
+Speaker ?: adds from where
+Vikram Sethi: from the scheme circular and sometimes from the depot people directly
+Speaker 8: ok so there is a spreadsheet in the middle
+Speaker 10: there is a spreadsheet in the middle yes
+Speaker 7: there are many spreadsheets in the middle
+
+[00:34:33]
+Rajeev Menon: [laughter]
+Ananya Krishnan: i think that is going to be a theme
+Speaker 10: and one more thing while i have the floor the Buddy products, the personal care the Kesari Gold and all
+Speaker 10: those are always coming different from the Nashville ones
+Speaker 8: different in what sense
+Vikram Sethi: the value is not matching, the quantity is matching Sovereign, Ta rang those are fine mostly but the Buddy plant items i am always getting a mismatch on value
+Karthik Subramanian: that is a very specific observation thank you i am writing that down
+Vikram Sethi: see i have been saying this for one year nobody was writing it down
+now somebody is writing it down
+Speaker 10: [laughter]
+Speaker 1: Vikram can you send us the sheet you work from
+Speaker 10: which one
+Speaker 1: the one your coordinator maintains
+Vikram Sethi: haan i will send it is very big mail is bouncing sometimes
+Speaker 1: whatever you can even a recent copy is fine
+Vikram Sethi: ok i will send by tomorrow, or day after
+Sneha Pillai: i am capturing that as an action
+Vikram Sethi: kindly do the needful and if it does not come pls remind me
+Ananya Krishnan: we will remind you ok we are at, uh, thirty seven minutes Karthik can you take ten minutes and walk through how we want to do the discovery
+Karthik Subramanian: yes so before i say what we will do let me say what i am not going to do i am not going to come back in three weeks with a slide that says the data quality is poor
+Speaker 8: everybody in this room already knows that
+Rajeev Menon: good
+Karthik Subramanian: what i want to come back with is why a specific number is a specific amount wrong so, four things
+
+[00:37:32]
+Speaker 9: one inventory i want a list of every place a sales number comes from the source system the warehouse the reports and the spreadsheets especially the spreadsheets
+Shalini Iyer: there are a lot
+Speaker ?: there always are, and they are usually the most accurate thing in the building
+that is unfortunately true
+Speaker 8: two definitions we just spent ten minutes discovering that primary and secondary get added together somewhere so i want a written definition for every measure that anybody reports
+net revenue, gross the scheme discount, all of it
+Speaker 7: i can help with that
+Karthik Subramanian: i was hoping you would say that three, profiling row counts nulls distributions duplicates on the actual tables not on a sample somebody sends me in a spreadsheet
+Karthik Subramanian: on the actual tables which means i need read access
+Speaker 9: this is my point that i wanted to raise
+Speaker ?: yes, and i think we should do it now because it blocks everything
+Ananya Krishnan: go ahead Frida
+Speaker 9: so read access to staging i can arrange the warehouse also that is my schema no issue but the source system that is not mine
+Farida Contractor: for ORION you need the DBA and that is Ani and Ani is not on the call
+Karthik Subramanian: understood
+Speaker 9: and Annie will ask what exactly you want, he will not give a blanket account
+Karthik Subramanian: that is the correct answer from a DBA i will send him a list of tables
+Farida Contractor: then it will happen fast, if you send a list it will happen fast
+Speaker 6: good
+Speaker 6: Farida just make sure it happens i do not want to hear in three weeks that access is pending
+Speaker 9: sir i will follow up
+Speaker 8: and the fourth thing which is the important one four one reconciliation, end to end on one period
+
+[00:40:38]
+Speaker 8: i want to take one month one region if we have to and follow it from the invoice in the source system, into staging into the warehouse into the report
+Karthik Subramanian: and account for every rupee of difference at every hop
+Shalini Iyer: that is what i have been asking for
+it is slow and it is boring and it is the only thing that actually works
+Rajeev Menon: how long
+Karthik Subramanian: for the first one, probably three weeks after that they get faster
+Rajeev Menon: ok
+Speaker 8: and one thing i will say now so that nobody is surprised later i do not know what is wrong yet i have not seen a single row of your data so if anybody asks me next week what the root cause is i am going to say i do not know
+Speaker 7: when will you know
+Karthik Subramanian: first findings by end of march and i mean findings, not answers the root causes early may
+Speaker 1: which lines up with the end of phase one
+Speaker 8: yes uh one more thing while i have everyone is there a data model document for the source system anywhere
+Farida Contractor: for ORION no nothing recent
+Priya Nair: there is something very old, i have heard about it but i have not seen it
+Speaker 8: ok, so we will build it as we go
+Speaker 8: that is normal, i just want to know before i start looking for it for two weeks
+Speaker ?: for the warehouse i have documentation that is maintained
+Karthik Subramanian: good that helps a lot
+Karthik Subramanian: and can i ask uh whats the grain of the main sales table in the warehouse
+Farida Contractor: it is at invoice line level
+Karthik Subramanian: one row per invoice line
+Speaker 4: yes
+that is what i wanted to hear thank you and the customer dimension is it conformed does the report side and the finance side use the same one
+
+[00:43:43]
+Speaker 2: in Obi E there is one customer yes
+Speaker 4: ok i will not go further into it today, i will do it properly when i have access
+Ananya Krishnan: thank you Karthik Frida you had a second point i think
+Speaker ?: yes, on the run i just want to set expectations before anybody asks me to add things the nightly load starts at one o clock in the morning control em triggers it the load plan runs and on a normal night it is finished around five to two
+Speaker 8: five to two meaning zero two zero five
+Speaker 3: yes two o five including the checks and the batch close
+and the average elapsed
+Farida Contractor: fifty eight minutes for the load itself
+Speaker ?: ok
+Farida Contractor: the business availability is half past five in the morning that is the SLA
+Speaker 4: so on paper there is a lot of room
+Farida Contractor: on paper
+Speaker 6: and not on paper
+Speaker ?: on month end nights the volume is two three times a normal night those nights are long
+Speaker 7: i am not going to say we have never been late we have been late
+Karthik Subramanian: understood
+Speaker 9: so when somebody says can we add one more interface my answer is going to be show me the measured number not an estimate the measured number because the window is the window
+Speaker 8: that is completely fair and i will work that way
+Karthik Subramanian: Frida what is the tool it is Odie is it
+Speaker 9: Odie twelve c and the scheduler is control em
+Karthik Subramanian: and the mappings, how many roughly
+Speaker 9: for the sales chain, around twenty odd interfaces mappings, sorry i still say interfaces it is an old habit from eleven g
+
+[00:46:46]
+Speaker 2: no that is fine i will learn your vocabulary
+Speaker 9: and there is a document i maintain a job inventory
+Speaker 1: that would be very helpful can you share it
+Farida Contractor: it is not fully up to date but i will share
+Speaker 1: even out of date is better than nothing
+Speaker 4: capturing that as an action, Farida to share the job inventory
+Speaker 9: i will need a week
+Speaker 4: a week, so twentieth
+Speaker ?: make it the twenty third to be safe
+Speaker 4: ok
+Speaker 3: sorry sorry one second
+Ritwik Ghosh: [dog barking] sorry there is a delivery one second
+Speaker 2: Ananya can i take my point while he is away
+Ananya Krishnan: yes please
+Speaker 3: so, just to confirm my understanding
+when we say dashboards, are we replacing the existing reports or are are we adding on top
+Speaker 1: replacing eventually
+Speaker 2: eventually meaning
+Speaker 1: the old platform gets switched off ninety days after go live
+Speaker 2: ok so then somebody has to look at what is in there because in the catalogue there are forty one reports
+Karthik Subramanian: forty one
+Speaker 2: forty one in the catalogue sir but most of them nobody opens there is a small number that people actually use every month
+Speaker 2: the rest are old some are are from before my time
+Speaker 6: this is what i was saying earlier
+Speaker 5: so what i wanted to say is, i can pull the usage Obi E keeps the usage tracking, i can pull who ran what
+
+[00:49:38]
+Karthik Subramanian: that is a very good idea that is much much better than asking people
+Speaker 2: because if you ask people everybody says they need everything
+Speaker ?: Priya can you do that in the next two weeks
+Speaker 2: yes i will do i will revert with the list
+Sneha Pillai: capturing
+Priya Nair: and one more thing, the prompts
+Speaker 3: sorry i am back
+Speaker 5: Priya was saying about the prompts
+Priya Nair: yes, so in the existing dashboard page there is one prompt at the top region month brand and all the analyses below pick it up so people are used to that behaviour
+Speaker ?: in Power BI that is a slicer and it sits on the page i can sync it across pages if we want
+Speaker 2: so it is the same
+Speaker 3: roughly, but i would not sync everything it gets confusing
+Speaker 3: and one thing i will say early because it saves fights later one visual one message if a page is trying to say four things nobody reads any of them
+Speaker 6: i agree with that
+Ritwik Ghosh: so when we do the workshops the first question i will ask is not what data the first question is who is opening this and what decision are they making
+Vikram Sethi: for me it is very simple i want stock list level and SKU level in one place
+Speaker 3: that is two things already, na
+Speaker 1: ok we have about five minutes let me close out on the plan and the actions
+Speaker 1: so the shape of it, four phases phase one is discovery and variance root cause that is now till early may phase two is remediation and the warehouse rebuild phase three is the Power BI build and the testing
+Speaker 1: and phase four is cutover go go live and hyper care
+Speaker ?: the whole thing is forty two weeks we finish on the eleventh of december and that includes hyper care so the actual go live is before that
+Speaker 1: fifteenth of september, yes sir
+
+[00:53:05]
+Speaker ?: Ananya sorry is that fifteenth september firm
+Speaker 1: that is the plan date, it is on slide four
+Shalini Iyer: ok because if it is september then the testing is in the middle of
+Speaker 10: we have built the plan around it it is tight but it holds
+Speaker 7: hmm
+Speaker 2: Shalini if it moves it moves but let us plan for the fifteenth
+Speaker 4: no i am fine, i just want it noted that i asked
+Speaker 6: uh cadence
+Speaker 5: weekly working session tuesdays at four o clock, that starts next tuesday
+Speaker 1: that is a working session not a status meeting so please send whoever is actually doing the work
+Farida Contractor: four o clock is fine
+Speaker 2: status report from me every friday short one page and the steering committee monthly Rajeev chairs
+Speaker 6: Sneha put the steerco slots in for the whole year now not month by month
+Speaker 4: yes i will send the the invites this week
+Speaker 1: and for the workshops we will use this room the Nashville room on the fourth floor
+Speaker 4: Andaree office fourth floor
+Ritwik Ghosh: the wifi in that room is
+Ananya Krishnan: the wifi in this room is terrible we know
+Speaker 2: it drops every
+Speaker ?: hello
+Speaker 8: we lost the room for a second
+Speaker 3: yes the room audio went
+Ananya Krishnan: can you hear us now
+
+[00:55:37]
+Speaker 3: yes now it is fine
+Speaker 1: ok see, this is what we mean
+Speaker 6: [laughter]
+Speaker 2: Sneha can you read back the actions
+Speaker 4: yes one i will circulate the correct version of the pack and the plan today two, Shalini to share the FY26 quarter one working and the the trial balance extract by monday the sixteenth
+Speaker 2: yes
+Sneha Pillai: three, Karthik to send the list of tables he needs, and Farida to arrange read access to staging and the warehouse
+Speaker 1: and the source access i will chase with Ani
+Speaker 3: and Farida to chase source access with uh with Ani
+Speaker 4: four Farida to share the job inventory by the twenty third
+Speaker 4: five Priya to pull the report usage and come back with what is actually being used
+by the twenty fifth i will revert
+Speaker 10: by the twenty fifth six, Vikram to to send the sales operations sheet he works from
+Speaker ?: i will send day after
+Speaker 4: and seven i will set up the weekly session and the steerco invites
+Speaker 1: thank you Sneha anything else from anybody
+Speaker 8: only that i would like fifteen minutes with Ani as early as possible
+Ananya Krishnan: yes we will set that up, Rajeev can you nudge him
+Speaker ?: i will will tell him
+Speaker 1: thank you
+Shalini Iyer: and please whatever happens, nothing goes into production between now and the close
+Speaker 1: agreed, nothing touches production till after the thirty first of march
+
+[00:58:11]
+Speaker 7: thank you
+Speaker 6: ok i have to go Ananya, good start, keep it tight
+Speaker 1: thank you sir
+Ananya Krishnan: ok thank you everybody Sneha will send the notes by tomorrow
+Speaker 2: thank you
+Speaker 8: i am stopping the recording
+
+--- end of auto transcript ---
+Note: transcription accuracy in the 4th floor rooms is poor, several segments were not resolved.
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

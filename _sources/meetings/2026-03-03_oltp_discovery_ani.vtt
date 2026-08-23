@@ -1,0 +1,4513 @@
+WEBVTT
+
+NOTE Auto-generated transcript. Accuracy may vary.
+
+1
+00:00:03.900 --> 00:00:08.110
+<v Karthik Subramanian>uh, is it recording, i think it has started
+
+2
+00:00:08.552 --> 00:00:12.762
+<v Sneha Pillai>yes karthik it is recording, the banner is showing
+
+3
+00:00:13.329 --> 00:00:17.329
+<v Karthik Subramanian>okay good
+
+4
+00:00:17.501 --> 00:00:22.001
+<v Karthik Subramanian>so, uh, good morning everyone, thanks for making the time
+
+5
+00:00:22.590 --> 00:00:26.590
+<v Karthik Subramanian>this is the oltp discovery session
+
+6
+00:00:27.022 --> 00:00:31.022
+<v Aniruddh Deshpande>good morning
+
+7
+00:00:31.203 --> 00:00:36.573
+<v Farida Contractor>morning, sorry i am little late, i was stuck on the other call
+
+8
+00:00:38.720 --> 00:00:42.720
+<v Karthik Subramanian>no problem frida, we have only just started
+
+9
+00:00:42.956 --> 00:00:46.956
+<v Farida Contractor>no no i am here, i am here
+
+10
+00:00:47.256 --> 00:00:51.756
+<v Karthik Subramanian>so the idea today is, uh, we go through orion
+
+11
+00:00:53.972 --> 00:00:57.972
+<v Karthik Subramanian>table by table, the ones that matter
+
+12
+00:00:58.158 --> 00:01:02.158
+<v Karthik Subramanian>i am not designing anything today
+
+13
+00:01:02.354 --> 00:01:06.354
+<v Karthik Subramanian>i only want to understand the source
+
+14
+00:01:06.709 --> 00:01:10.709
+<v Sneha Pillai>karthik one second, i am taking the notes
+
+15
+00:01:11.156 --> 00:01:15.156
+<v Sneha Pillai>is priya joining
+
+16
+00:01:15.592 --> 00:01:21.252
+<v Karthik Subramanian>she said she will join, uh, she had one report issue in the morning
+
+17
+00:01:21.450 --> 00:01:25.450
+<v Sneha Pillai>okay i will mark her as joining late
+
+18
+00:01:26.073 --> 00:01:30.283
+<v Karthik Subramanian>annie, before we start, can you hear me properly
+
+19
+00:01:30.920 --> 00:01:34.920
+<v Aniruddh Deshpande>haan haan, i can hear
+
+20
+00:01:35.452 --> 00:01:39.452
+<v Karthik Subramanian>your audio is fine
+
+21
+00:01:40.048 --> 00:01:44.548
+<v Aniruddh Deshpande>it is fine, i am on the laptop only today
+
+22
+00:01:45.055 --> 00:01:50.135
+<v Aniruddh Deshpande>the headset is in the office, i am at home till two
+
+23
+00:01:50.437 --> 00:01:54.437
+<v Karthik Subramanian>okay
+
+24
+00:01:54.774 --> 00:01:59.854
+<v Karthik Subramanian>so, uh, let me just say what i want out of this
+
+25
+00:02:00.483 --> 00:02:04.483
+<v Karthik Subramanian>three things
+
+26
+00:02:05.162 --> 00:02:09.372
+<v Karthik Subramanian>one, the shape of the order to cash tables
+
+27
+00:02:09.867 --> 00:02:14.367
+<v Karthik Subramanian>two, the audit columns, how you people stamp the rows
+
+28
+00:02:16.807 --> 00:02:21.307
+<v Karthik Subramanian>three, anything that changes a row after it is written
+
+29
+00:02:21.971 --> 00:02:25.971
+<v Aniruddh Deshpande>hmm
+
+30
+00:02:26.367 --> 00:02:30.577
+<v Ishaan Bhatt>sorry karthik, can you say the third one again
+
+31
+00:02:30.952 --> 00:02:35.452
+<v Karthik Subramanian>anything that updates a row after it has been created
+
+32
+00:02:35.641 --> 00:02:39.641
+<v Ishaan Bhatt>okay, got it
+
+33
+00:02:40.115 --> 00:02:44.115
+<v Aniruddh Deshpande>that is, uh, that is a long topic
+
+34
+00:02:44.718 --> 00:02:48.718
+<v Karthik Subramanian>i know it is
+
+35
+00:02:49.109 --> 00:02:54.769
+<v Aniruddh Deshpande>we did this in 2017 also, one team came, they sat for two weeks
+
+36
+00:02:55.208 --> 00:02:59.708
+<v Aniruddh Deshpande>they asked exactly the same, nothing came out of it
+
+37
+00:03:00.225 --> 00:03:04.225
+<v Karthik Subramanian>fair enough
+
+38
+00:03:04.768 --> 00:03:09.848
+<v Aniruddh Deshpande>no no i am not saying anything, i am just telling you
+
+39
+00:03:10.189 --> 00:03:14.189
+<v Karthik Subramanian>it is a fair point annie
+
+40
+00:03:14.421 --> 00:03:19.791
+<v Farida Contractor>karthik can i ask, is this orion only or the odi side also
+
+41
+00:03:20.389 --> 00:03:24.389
+<v Karthik Subramanian>today orion only
+
+42
+00:03:24.930 --> 00:03:28.930
+<v Karthik Subramanian>your side we will do separately, next week
+
+43
+00:03:29.312 --> 00:03:33.522
+<v Farida Contractor>okay because i have the interface list almost ready
+
+44
+00:03:33.836 --> 00:03:38.046
+<v Karthik Subramanian>yes i saw the mail, we will use that
+
+45
+00:03:38.730 --> 00:03:42.730
+<v Farida Contractor>okay okay
+
+46
+00:03:43.235 --> 00:03:47.235
+<v Sneha Pillai>sorry, can i just confirm one spelling
+
+47
+00:03:47.719 --> 00:03:52.509
+<v Sneha Pillai>aniruddh, is it a n i r u d d h
+
+48
+00:03:53.024 --> 00:03:57.024
+<v Aniruddh Deshpande>haan, two d
+
+49
+00:03:57.626 --> 00:04:01.626
+<v Sneha Pillai>two d, okay
+
+50
+00:04:02.201 --> 00:04:06.201
+<v Aniruddh Deshpande>but everybody is writing ani only, four letters
+
+51
+00:04:06.613 --> 00:04:10.613
+<v Sneha Pillai>i will put aniruddh in the attendee list
+
+52
+00:04:11.041 --> 00:04:15.041
+<v Karthik Subramanian>ishaan are you on the vpn
+
+53
+00:04:15.624 --> 00:04:20.414
+<v Ishaan Bhatt>yeah i am on, i can hit the read only account
+
+54
+00:04:20.855 --> 00:04:26.225
+<v Karthik Subramanian>okay good, so if we need a count we can pull it live
+
+55
+00:04:28.274 --> 00:04:32.484
+<v Aniruddh Deshpande>no no no, for count you ask me only
+
+56
+00:04:33.028 --> 00:04:38.108
+<v Aniruddh Deshpande>that line table you should not be counting in the day time
+
+57
+00:04:38.335 --> 00:04:42.335
+<v Ishaan Bhatt>haan sorry, i will not
+
+58
+00:04:42.817 --> 00:04:47.027
+<v Karthik Subramanian>noted, we will not touch it in the day
+
+59
+00:04:47.419 --> 00:04:51.419
+<v Aniruddh Deshpande>after seven in the evening it is fine
+
+60
+00:04:51.672 --> 00:04:55.672
+<v Karthik Subramanian>okay
+
+61
+00:04:57.647 --> 00:05:01.647
+<v Karthik Subramanian>right, uh, let me start with the history
+
+62
+00:05:02.060 --> 00:05:06.060
+<v Karthik Subramanian>annie, when was orion built
+
+63
+00:05:06.379 --> 00:05:10.379
+<v Aniruddh Deshpande>2009 it went live
+
+64
+00:05:11.036 --> 00:05:15.536
+<v Aniruddh Deshpande>sai adri softech built it, they were a mumbai company
+
+65
+00:05:15.843 --> 00:05:19.843
+<v Sneha Pillai>sorry, sai what
+
+66
+00:05:20.269 --> 00:05:24.769
+<v Aniruddh Deshpande>sai adri, s a h y a d r i
+
+67
+00:05:24.951 --> 00:05:28.951
+<v Sneha Pillai>oh, sahyadri, okay okay
+
+68
+00:05:29.378 --> 00:05:34.168
+<v Aniruddh Deshpande>haan, that is the spelling but everybody is saying it differently
+
+69
+00:05:34.373 --> 00:05:38.373
+<v Karthik Subramanian>and are they still around
+
+70
+00:05:38.571 --> 00:05:42.571
+<v Aniruddh Deshpande>no, we stopped with them in 2014
+
+71
+00:05:43.004 --> 00:05:47.004
+<v Aniruddh Deshpande>after that we are supporting it ourselves
+
+72
+00:05:47.465 --> 00:05:51.465
+<v Karthik Subramanian>so nobody from that side is contactable
+
+73
+00:05:51.785 --> 00:05:55.995
+<v Aniruddh Deshpande>nobody, uh, one person was there, he also left
+
+74
+00:05:56.304 --> 00:06:01.094
+<v Aniruddh Deshpande>even if you find them what will they tell you now
+
+75
+00:06:01.385 --> 00:06:06.175
+<v Karthik Subramanian>no i am just asking whether there is a design document
+
+76
+00:06:06.609 --> 00:06:10.609
+<v Aniruddh Deshpande>there was one functional spec
+
+77
+00:06:11.200 --> 00:06:15.200
+<v Aniruddh Deshpande>orion functional spec 2009 dot doc
+
+78
+00:06:15.562 --> 00:06:19.772
+<v Aniruddh Deshpande>i have seen that file, maybe 2015 last time
+
+79
+00:06:20.420 --> 00:06:24.420
+<v Karthik Subramanian>do you have a copy of it
+
+80
+00:06:24.947 --> 00:06:29.447
+<v Aniruddh Deshpande>i will search, but honestly, uh, i am not hopeful
+
+81
+00:06:30.092 --> 00:06:34.092
+<v Aniruddh Deshpande>that time everything was on the old drive
+
+82
+00:06:34.389 --> 00:06:38.389
+<v Aniruddh Deshpande>and that drive is not there now
+
+83
+00:06:38.599 --> 00:06:43.679
+<v Karthik Subramanian>okay, sneha put an action, annie to look for the 2009 spec
+
+84
+00:06:44.083 --> 00:06:48.293
+<v Sneha Pillai>capturing that, that will be a i zero eight
+
+85
+00:06:48.698 --> 00:06:53.198
+<v Aniruddh Deshpande>put it but do not put a date on it
+
+86
+00:06:53.797 --> 00:06:57.797
+<v Sneha Pillai>i will put thirteenth march
+
+87
+00:06:58.262 --> 00:07:02.262
+<v Aniruddh Deshpande>okay, thirteen march, fine
+
+88
+00:07:02.690 --> 00:07:06.690
+<v Karthik Subramanian>what is the front end
+
+89
+00:07:06.943 --> 00:07:10.943
+<v Aniruddh Deshpande>it is oracle forms and reports
+
+90
+00:07:11.529 --> 00:07:15.529
+<v Aniruddh Deshpande>some screens they redid in adf afterwards
+
+91
+00:07:15.967 --> 00:07:20.467
+<v Aniruddh Deshpande>so if you open the depot screen it is adf
+
+92
+00:07:20.674 --> 00:07:25.174
+<v Aniruddh Deshpande>if you open the scheme screen it is still forms
+
+93
+00:07:27.196 --> 00:07:31.196
+<v Ishaan Bhatt>is that a problem for us
+
+94
+00:07:31.866 --> 00:07:35.866
+<v Aniruddh Deshpande>for you no, for me yes
+
+95
+00:07:36.314 --> 00:07:40.314
+<v Aniruddh Deshpande>because two different session behaviours, two different logs
+
+96
+00:07:40.925 --> 00:07:44.925
+<v Karthik Subramanian>and the database
+
+97
+00:07:45.498 --> 00:07:49.498
+<v Aniruddh Deshpande>nineteen c enterprise edition
+
+98
+00:07:49.875 --> 00:07:53.875
+<v Aniruddh Deshpande>two node rac, mumbai dc
+
+99
+00:07:54.063 --> 00:07:58.063
+<v Karthik Subramanian>and the standby
+
+100
+00:07:58.425 --> 00:08:02.425
+<v Aniruddh Deshpande>hyderabad, physical standby
+
+101
+00:08:02.936 --> 00:08:07.436
+<v Aniruddh Deshpande>and before you ask, no, you cannot report off it
+
+102
+00:08:07.630 --> 00:08:11.630
+<v Karthik Subramanian>yeah i was going to ask that
+
+103
+00:08:12.198 --> 00:08:16.198
+<v Aniruddh Deshpande>everybody asks
+
+104
+00:08:16.800 --> 00:08:21.590
+<v Aniruddh Deshpande>it is open only for the switchover test, that is it
+
+105
+00:08:22.172 --> 00:08:26.172
+<v Karthik Subramanian>understood
+
+106
+00:08:26.503 --> 00:08:31.003
+<v Priya Nair>hi, sorry i am late, my report was not opening
+
+107
+00:08:31.191 --> 00:08:35.191
+<v Karthik Subramanian>no problem priya, come in
+
+108
+00:08:35.376 --> 00:08:39.376
+<v Priya Nair>sorry sorry, uh, what have we covered
+
+109
+00:08:39.874 --> 00:08:44.084
+<v Karthik Subramanian>just the history, orion, sahyadri softech, forms and adf
+
+110
+00:08:44.629 --> 00:08:48.629
+<v Priya Nair>okay
+
+111
+00:08:49.059 --> 00:08:53.269
+<v Sneha Pillai>priya i have marked you joining at eleven eleven
+
+112
+00:08:53.460 --> 00:08:57.460
+<v Priya Nair>yes about that
+
+113
+00:08:57.726 --> 00:09:01.726
+<v Karthik Subramanian>priya you are on mute
+
+114
+00:09:03.957 --> 00:09:07.957
+<v Priya Nair>sorry, is it better now
+
+115
+00:09:08.226 --> 00:09:12.226
+<v Karthik Subramanian>yes now it is fine
+
+116
+00:09:12.853 --> 00:09:17.063
+<v Karthik Subramanian>so, uh, application release, which one are we on
+
+117
+00:09:17.712 --> 00:09:21.712
+<v Aniruddh Deshpande>twelve point two point eight
+
+118
+00:09:21.887 --> 00:09:25.887
+<v Aniruddh Deshpande>r twelve dot two dot eight
+
+119
+00:09:26.508 --> 00:09:30.508
+<v Sneha Pillai>r twelve dot two dot eight, correct
+
+120
+00:09:31.110 --> 00:09:35.110
+<v Aniruddh Deshpande>correct correct
+
+121
+00:09:35.758 --> 00:09:39.758
+<v Karthik Subramanian>okay
+
+122
+00:09:40.439 --> 00:09:44.439
+<v Karthik Subramanian>let me start with the customer side
+
+123
+00:09:44.957 --> 00:09:48.957
+<v Karthik Subramanian>annie, what is the customer table called
+
+124
+00:09:49.340 --> 00:09:53.340
+<v Aniruddh Deshpande>customer, in oms prod
+
+125
+00:09:53.987 --> 00:09:58.197
+<v Aniruddh Deshpande>oms underscore prod is the order to cash schema
+
+126
+00:09:58.833 --> 00:10:02.833
+<v Sneha Pillai>sorry, oms is o m s
+
+127
+00:10:03.006 --> 00:10:07.216
+<v Aniruddh Deshpande>haan, o m s underscore p r o d
+
+128
+00:10:09.340 --> 00:10:13.340
+<v Sneha Pillai>got it
+
+129
+00:10:13.632 --> 00:10:17.632
+<v Karthik Subramanian>and finance
+
+130
+00:10:17.872 --> 00:10:21.872
+<v Aniruddh Deshpande>fin underscore prod, same database, different schema
+
+131
+00:10:22.217 --> 00:10:26.717
+<v Aniruddh Deshpande>gl, receivables, tax rate, all that is on fin side
+
+132
+00:10:27.340 --> 00:10:31.340
+<v Karthik Subramanian>same instance
+
+133
+00:10:31.700 --> 00:10:35.700
+<v Aniruddh Deshpande>same instance, same box
+
+134
+00:10:36.108 --> 00:10:40.108
+<v Karthik Subramanian>okay that is useful
+
+135
+00:10:40.505 --> 00:10:44.715
+<v Ishaan Bhatt>ani the customer table, what is the primary key
+
+136
+00:10:45.133 --> 00:10:49.133
+<v Aniruddh Deshpande>cust id, number
+
+137
+00:10:49.817 --> 00:10:54.027
+<v Aniruddh Deshpande>but nobody uses cust id, everybody uses cust code
+
+138
+00:10:54.449 --> 00:10:58.949
+<v Aniruddh Deshpande>cust code is the party code that sales people know
+
+139
+00:10:59.624 --> 00:11:03.624
+<v Ishaan Bhatt>so cust code is unique
+
+140
+00:11:03.906 --> 00:11:08.406
+<v Aniruddh Deshpande>it is unique, there is a unique index on it
+
+141
+00:11:08.927 --> 00:11:12.927
+<v Aniruddh Deshpande>cust id is internal, it is a sequence
+
+142
+00:11:13.152 --> 00:11:17.152
+<v Karthik Subramanian>and the type column
+
+143
+00:11:17.501 --> 00:11:21.501
+<v Aniruddh Deshpande>cust type
+
+144
+00:11:22.096 --> 00:11:26.096
+<v Aniruddh Deshpande>three values, distributor, modern trade, institutional
+
+145
+00:11:28.473 --> 00:11:32.473
+<v Karthik Subramanian>how many distributors
+
+146
+00:11:32.977 --> 00:11:37.477
+<v Aniruddh Deshpande>total customer rows are, uh, two thousand one hundred odd
+
+147
+00:11:37.775 --> 00:11:41.775
+<v Aniruddh Deshpande>out of that distributor is three forty
+
+148
+00:11:42.210 --> 00:11:46.210
+<v Karthik Subramanian>three hundred and forty
+
+149
+00:11:48.179 --> 00:11:52.389
+<v Aniruddh Deshpande>haan, three forty, that number does not change much
+
+150
+00:11:52.991 --> 00:11:57.491
+<v Aniruddh Deshpande>one or two get added, one or two get closed
+
+151
+00:11:57.946 --> 00:12:02.736
+<v Farida Contractor>karthik that three forty is the number in my staging also
+
+152
+00:12:03.238 --> 00:12:07.238
+<v Karthik Subramanian>good, that ties
+
+153
+00:12:07.650 --> 00:12:11.650
+<v Priya Nair>sorry, just to confirm my understanding
+
+154
+00:12:12.128 --> 00:12:16.628
+<v Priya Nair>in the reports we are showing distributor and dealer separately
+
+155
+00:12:17.006 --> 00:12:21.506
+<v Priya Nair>is dealer coming from cust type or from somewhere else
+
+156
+00:12:21.951 --> 00:12:25.951
+<v Aniruddh Deshpande>there is no dealer in the table
+
+157
+00:12:26.369 --> 00:12:31.449
+<v Aniruddh Deshpande>whoever built that report they must have done something on the code
+
+158
+00:12:31.849 --> 00:12:35.849
+<v Priya Nair>hmm, i will check the analysis
+
+159
+00:12:36.069 --> 00:12:40.069
+<v Aniruddh Deshpande>check the where clause, it will be there
+
+160
+00:12:40.539 --> 00:12:45.039
+<v Karthik Subramanian>park that, priya can you send me that report definition
+
+161
+00:12:45.596 --> 00:12:49.596
+<v Priya Nair>yes i will revert
+
+162
+00:12:49.983 --> 00:12:53.983
+<v Sneha Pillai>capturing, priya to send the report definition
+
+163
+00:12:54.424 --> 00:12:58.424
+<v Karthik Subramanian>what else is on customer
+
+164
+00:12:58.950 --> 00:13:02.950
+<v Aniruddh Deshpande>territory cd, depot cd, credit limit
+
+165
+00:13:03.626 --> 00:13:07.626
+<v Aniruddh Deshpande>status flag
+
+166
+00:13:08.191 --> 00:13:12.191
+<v Karthik Subramanian>status flag as in
+
+167
+00:13:12.497 --> 00:13:16.497
+<v Aniruddh Deshpande>a or i, active or inactive
+
+168
+00:13:16.990 --> 00:13:20.990
+<v Karthik Subramanian>and there is also active flag
+
+169
+00:13:21.655 --> 00:13:25.655
+<v Aniruddh Deshpande>haan, that is different
+
+170
+00:13:26.306 --> 00:13:31.096
+<v Aniruddh Deshpande>active flag is the standard column, every table is having it
+
+171
+00:13:31.768 --> 00:13:35.978
+<v Aniruddh Deshpande>status flag is the business one, only on customer
+
+172
+00:13:36.471 --> 00:13:40.471
+<v Ishaan Bhatt>wait, so there are two
+
+173
+00:13:40.940 --> 00:13:44.940
+<v Aniruddh Deshpande>there are two, and people mix them
+
+174
+00:13:45.472 --> 00:13:50.842
+<v Aniruddh Deshpande>i am telling you now so later you do not come and ask
+
+175
+00:13:51.327 --> 00:13:55.327
+<v Karthik Subramanian>no this is exactly what i wanted
+
+176
+00:13:55.948 --> 00:14:01.028
+<v Ishaan Bhatt>so if i want to know a party is live, which one
+
+177
+00:14:01.451 --> 00:14:05.451
+<v Aniruddh Deshpande>status flag equal to a
+
+178
+00:14:06.054 --> 00:14:10.054
+<v Aniruddh Deshpande>active flag you leave alone
+
+179
+00:14:10.497 --> 00:14:14.497
+<v Ishaan Bhatt>okay
+
+180
+00:14:14.840 --> 00:14:19.340
+<v Sneha Pillai>sorry can you repeat, status flag is a and i
+
+181
+00:14:19.792 --> 00:14:23.792
+<v Aniruddh Deshpande>a for active, i for inactive
+
+182
+00:14:24.015 --> 00:14:28.015
+<v Sneha Pillai>and active flag is y and n
+
+183
+00:14:28.634 --> 00:14:32.634
+<v Aniruddh Deshpande>y and n
+
+184
+00:14:32.858 --> 00:14:36.858
+<v Sneha Pillai>okay noted
+
+185
+00:14:37.268 --> 00:14:42.348
+<v Karthik Subramanian>annie, when a distributor moves from one territory to another, what happens
+
+186
+00:14:42.530 --> 00:14:46.530
+<v Aniruddh Deshpande>on customer table the territory cd is overwritten
+
+187
+00:14:46.901 --> 00:14:50.901
+<v Karthik Subramanian>overwritten
+
+188
+00:14:51.568 --> 00:14:55.568
+<v Aniruddh Deshpande>haan, overwritten, that is it
+
+189
+00:14:57.645 --> 00:15:01.645
+<v Karthik Subramanian>so the old value is gone
+
+190
+00:15:01.962 --> 00:15:05.962
+<v Aniruddh Deshpande>on that table gone
+
+191
+00:15:06.371 --> 00:15:10.371
+<v Aniruddh Deshpande>but there is one history table
+
+192
+00:15:10.709 --> 00:15:14.709
+<v Aniruddh Deshpande>customer territory hist
+
+193
+00:15:15.371 --> 00:15:19.371
+<v Sneha Pillai>customer territory hist, one word or
+
+194
+00:15:19.753 --> 00:15:23.963
+<v Aniruddh Deshpande>customer underscore territory underscore hist, h i s t
+
+195
+00:15:24.592 --> 00:15:28.592
+<v Sneha Pillai>thank you
+
+196
+00:15:29.205 --> 00:15:33.205
+<v Karthik Subramanian>what is in it
+
+197
+00:15:33.812 --> 00:15:38.312
+<v Aniruddh Deshpande>cust id, territory cd, eff from dt, eff to dt
+
+198
+00:15:38.733 --> 00:15:43.233
+<v Karthik Subramanian>and eff to dt is null when it is current
+
+199
+00:15:43.877 --> 00:15:47.877
+<v Aniruddh Deshpande>correct correct
+
+200
+00:15:48.205 --> 00:15:52.205
+<v Ishaan Bhatt>is there a primary key on that
+
+201
+00:15:54.251 --> 00:15:58.251
+<v Aniruddh Deshpande>no
+
+202
+00:15:58.521 --> 00:16:02.521
+<v Ishaan Bhatt>no primary key
+
+203
+00:16:02.722 --> 00:16:06.722
+<v Aniruddh Deshpande>no primary key, no unique constraint, nothing
+
+204
+00:16:07.243 --> 00:16:11.743
+<v Aniruddh Deshpande>only one index on cust id and eff from date
+
+205
+00:16:12.245 --> 00:16:17.035
+<v Karthik Subramanian>so you can have two rows open at the same time
+
+206
+00:16:17.262 --> 00:16:21.262
+<v Aniruddh Deshpande>you can, and, uh, you do
+
+207
+00:16:21.918 --> 00:16:25.918
+<v Karthik Subramanian>you do
+
+208
+00:16:26.576 --> 00:16:30.576
+<v Aniruddh Deshpande>some parties are having overlapping rows, yes
+
+209
+00:16:30.903 --> 00:16:34.903
+<v Karthik Subramanian>how many
+
+210
+00:16:35.211 --> 00:16:39.211
+<v Aniruddh Deshpande>i cannot tell you a number now
+
+211
+00:16:39.390 --> 00:16:44.470
+<v Aniruddh Deshpande>it is not a big number but it is not zero also
+
+212
+00:16:44.878 --> 00:16:48.878
+<v Ishaan Bhatt>can we count it
+
+213
+00:16:49.171 --> 00:16:53.381
+<v Aniruddh Deshpande>you can count it, do it in the evening
+
+214
+00:16:53.810 --> 00:16:58.020
+<v Sneha Pillai>ishaan to count the overlapping rows, i am capturing
+
+215
+00:16:58.348 --> 00:17:02.348
+<v Ishaan Bhatt>yeah i will do it tonight
+
+216
+00:17:02.748 --> 00:17:06.748
+<v Karthik Subramanian>how do the overlaps get in
+
+217
+00:17:07.121 --> 00:17:11.121
+<v Aniruddh Deshpande>somebody enters wrong, then somebody corrects it
+
+218
+00:17:11.480 --> 00:17:15.480
+<v Aniruddh Deshpande>correction is done by editing the row itself
+
+219
+00:17:15.890 --> 00:17:20.390
+<v Aniruddh Deshpande>so it is not append only, people go and edit
+
+220
+00:17:20.586 --> 00:17:24.586
+<v Karthik Subramanian>[inaudible]
+
+221
+00:17:24.961 --> 00:17:28.961
+<v Aniruddh Deshpande>sorry karthik you broke
+
+222
+00:17:31.071 --> 00:17:35.281
+<v Karthik Subramanian>i said, so the history table is itself edited
+
+223
+00:17:35.715 --> 00:17:40.215
+<v Aniruddh Deshpande>haan, edited in place, that is what i am saying
+
+224
+00:17:42.459 --> 00:17:46.459
+<v Karthik Subramanian>right
+
+225
+00:17:46.967 --> 00:17:50.967
+<v Karthik Subramanian>that is going to matter for us
+
+226
+00:17:51.159 --> 00:17:55.159
+<v Ishaan Bhatt>that is going to matter a lot actually
+
+227
+00:17:55.614 --> 00:17:59.614
+<v Aniruddh Deshpande>that is why i am telling
+
+228
+00:18:00.132 --> 00:18:04.922
+<v Farida Contractor>karthik sorry, my interface for that table is a full load
+
+229
+00:18:05.159 --> 00:18:09.369
+<v Farida Contractor>i truncate and reload the whole thing every night
+
+230
+00:18:09.635 --> 00:18:13.635
+<v Karthik Subramanian>the whole history table
+
+231
+00:18:13.883 --> 00:18:17.883
+<v Farida Contractor>whole table, it is small
+
+232
+00:18:18.345 --> 00:18:22.345
+<v Karthik Subramanian>how small
+
+233
+00:18:22.769 --> 00:18:26.979
+<v Farida Contractor>uh, i will check, it is few thousand rows
+
+234
+00:18:27.298 --> 00:18:31.298
+<v Farida Contractor>it finishes in under a minute
+
+235
+00:18:33.698 --> 00:18:37.698
+<v Karthik Subramanian>okay
+
+236
+00:18:38.186 --> 00:18:43.556
+<v Karthik Subramanian>so basically whatever mess is in the source comes across as it is
+
+237
+00:18:44.166 --> 00:18:48.166
+<v Farida Contractor>as it is, yes
+
+238
+00:18:50.413 --> 00:18:55.493
+<v Farida Contractor>i am not doing anything to it, i am just moving it
+
+239
+00:18:56.111 --> 00:19:02.061
+<v Karthik Subramanian>no i am not saying you are, i just want to be clear on that
+
+240
+00:19:02.662 --> 00:19:06.662
+<v Farida Contractor>no no i understood
+
+241
+00:19:07.338 --> 00:19:11.548
+<v Sneha Pillai>sorry i missed the name of that table again
+
+242
+00:19:11.758 --> 00:19:15.758
+<v Ishaan Bhatt>customer territory hist
+
+243
+00:19:16.195 --> 00:19:20.195
+<v Sneha Pillai>thank you ishaan
+
+244
+00:19:20.508 --> 00:19:24.508
+<v Karthik Subramanian>alright, let us go to product
+
+245
+00:19:25.192 --> 00:19:29.192
+<v Karthik Subramanian>sku master
+
+246
+00:19:29.718 --> 00:19:33.718
+<v Aniruddh Deshpande>sku master, in oms prod
+
+247
+00:19:34.017 --> 00:19:38.017
+<v Aniruddh Deshpande>sku id primary key, sku code unique
+
+248
+00:19:38.207 --> 00:19:42.207
+<v Karthik Subramanian>how many rows
+
+249
+00:19:42.420 --> 00:19:46.420
+<v Aniruddh Deshpande>twelve forty six odd
+
+250
+00:19:46.707 --> 00:19:51.497
+<v Aniruddh Deshpande>out of that active is eight sixty two, something like that
+
+251
+00:19:51.914 --> 00:19:55.914
+<v Karthik Subramanian>eight sixty two active
+
+252
+00:19:56.149 --> 00:20:00.359
+<v Aniruddh Deshpande>haan, roughly, the rest are delisted or old packs
+
+253
+00:20:00.730 --> 00:20:04.730
+<v Ishaan Bhatt>and active is the active flag column
+
+254
+00:20:05.288 --> 00:20:09.288
+<v Aniruddh Deshpande>active flag y
+
+255
+00:20:09.790 --> 00:20:13.790
+<v Ishaan Bhatt>okay
+
+256
+00:20:14.139 --> 00:20:18.139
+<v Karthik Subramanian>what are the attributes
+
+257
+00:20:18.679 --> 00:20:23.179
+<v Aniruddh Deshpande>brand cd, category cd, pack size, uom, mrp, hsn code
+
+258
+00:20:23.619 --> 00:20:27.619
+<v Karthik Subramanian>brand codes
+
+259
+00:20:27.849 --> 00:20:31.849
+<v Aniruddh Deshpande>six brands only
+
+260
+00:20:32.303 --> 00:20:39.123
+<v Aniruddh Deshpande>s u v, n m b, k s g, c h d, t r g, r k s
+
+261
+00:20:41.353 --> 00:20:45.353
+<v Priya Nair>suvarn, nimbua, kesari gold, chandanaa, tarang, rakshak
+
+262
+00:20:47.736 --> 00:20:51.736
+<v Aniruddh Deshpande>correct
+
+263
+00:20:53.827 --> 00:20:58.037
+<v Sneha Pillai>sorry priya can you say the second one again
+
+264
+00:20:58.316 --> 00:21:02.316
+<v Priya Nair>nimbu ah
+
+265
+00:21:02.711 --> 00:21:06.711
+<v Sneha Pillai>is it n i m b u a
+
+266
+00:21:07.358 --> 00:21:11.358
+<v Priya Nair>n i m b u a, nimbua
+
+267
+00:21:11.652 --> 00:21:15.652
+<v Sneha Pillai>thank you
+
+268
+00:21:17.798 --> 00:21:21.798
+<v Karthik Subramanian>is there a brand table
+
+269
+00:21:22.315 --> 00:21:26.315
+<v Aniruddh Deshpande>no
+
+270
+00:21:26.565 --> 00:21:31.065
+<v Karthik Subramanian>so brand cd is just a code on sku master
+
+271
+00:21:31.746 --> 00:21:35.956
+<v Aniruddh Deshpande>just a code, there is no master for it
+
+272
+00:21:36.346 --> 00:21:41.426
+<v Aniruddh Deshpande>brand name is not in the database, it is in people heads
+
+273
+00:21:41.660 --> 00:21:45.660
+<v Ishaan Bhatt>ha
+
+274
+00:21:46.060 --> 00:21:50.850
+<v Aniruddh Deshpande>no really, if you want brand name you have to hardcode
+
+275
+00:21:51.060 --> 00:21:55.270
+<v Karthik Subramanian>hmm, okay, that is a mapping problem for us
+
+276
+00:21:55.934 --> 00:21:59.934
+<v Ishaan Bhatt>we will need a lookup somewhere
+
+277
+00:22:00.472 --> 00:22:04.472
+<v Karthik Subramanian>yes but not today
+
+278
+00:22:04.893 --> 00:22:08.893
+<v Karthik Subramanian>category cd
+
+279
+00:22:09.203 --> 00:22:13.703
+<v Aniruddh Deshpande>category cd is there but it is not always filled
+
+280
+00:22:14.220 --> 00:22:18.220
+<v Karthik Subramanian>not always filled
+
+281
+00:22:18.722 --> 00:22:22.722
+<v Aniruddh Deshpande>some rows are blank
+
+282
+00:22:23.128 --> 00:22:27.128
+<v Karthik Subramanian>how many
+
+283
+00:22:27.303 --> 00:22:31.303
+<v Aniruddh Deshpande>thirty odd, thirty five, i do not remember
+
+284
+00:22:31.564 --> 00:22:35.564
+<v Aniruddh Deshpande>there is no not null on that column
+
+285
+00:22:36.157 --> 00:22:40.157
+<v Karthik Subramanian>was that deliberate
+
+286
+00:22:40.444 --> 00:22:44.444
+<v Aniruddh Deshpande>nothing is deliberate in this system
+
+287
+00:22:46.695 --> 00:22:50.695
+<v Karthik Subramanian>okay, okay
+
+288
+00:22:50.875 --> 00:22:55.375
+<v Ishaan Bhatt>ani, if category is null what does the report do
+
+289
+00:22:55.608 --> 00:22:59.608
+<v Aniruddh Deshpande>it shows blank
+
+290
+00:23:00.230 --> 00:23:04.730
+<v Aniruddh Deshpande>or the report is putting others, depends who wrote it
+
+291
+00:23:05.376 --> 00:23:09.376
+<v Priya Nair>in the report we have others
+
+292
+00:23:09.897 --> 00:23:14.397
+<v Priya Nair>i think it is a case statement in the analysis
+
+293
+00:23:14.691 --> 00:23:18.901
+<v Karthik Subramanian>okay so somebody has already solved it in obiee
+
+294
+00:23:19.140 --> 00:23:23.640
+<v Priya Nair>in obi e yes, but only in that one report
+
+295
+00:23:24.003 --> 00:23:28.003
+<v Karthik Subramanian>only in one report
+
+296
+00:23:28.511 --> 00:23:32.721
+<v Priya Nair>only in one, the other reports are showing blank
+
+297
+00:23:34.895 --> 00:23:38.895
+<v Karthik Subramanian>right, so it is inconsistent
+
+298
+00:23:39.443 --> 00:23:43.443
+<v Priya Nair>it is inconsistent, correct
+
+299
+00:23:43.668 --> 00:23:47.878
+<v Sneha Pillai>sorry, obi e is the old reporting tool na
+
+300
+00:23:48.528 --> 00:23:52.528
+<v Priya Nair>yes obiee, o b i double e
+
+301
+00:23:52.709 --> 00:23:56.709
+<v Sneha Pillai>okay thank you
+
+302
+00:23:57.112 --> 00:24:01.112
+<v Karthik Subramanian>uom
+
+303
+00:24:01.558 --> 00:24:05.558
+<v Aniruddh Deshpande>kg, lt, ea
+
+304
+00:24:05.971 --> 00:24:09.971
+<v Karthik Subramanian>kilogram, litre, each
+
+305
+00:24:10.479 --> 00:24:14.479
+<v Aniruddh Deshpande>correct correct
+
+306
+00:24:16.523 --> 00:24:20.733
+<v Ishaan Bhatt>and the quantity columns are in cases and eaches
+
+307
+00:24:20.963 --> 00:24:25.173
+<v Aniruddh Deshpande>on invoice line yes, qty cs and qty ea
+
+308
+00:24:25.705 --> 00:24:29.705
+<v Aniruddh Deshpande>on order line also same
+
+309
+00:24:30.286 --> 00:24:34.286
+<v Karthik Subramanian>does anybody convert between them
+
+310
+00:24:34.860 --> 00:24:38.860
+<v Aniruddh Deshpande>not in orion
+
+311
+00:24:39.349 --> 00:24:43.349
+<v Aniruddh Deshpande>conversion is happening downstream, in excel mostly
+
+312
+00:24:43.621 --> 00:24:47.621
+<v Karthik Subramanian>in excel
+
+313
+00:24:48.232 --> 00:24:52.232
+<v Aniruddh Deshpande>haan
+
+314
+00:24:52.539 --> 00:24:56.539
+<v Karthik Subramanian>okay
+
+315
+00:24:57.139 --> 00:25:02.799
+<v Aniruddh Deshpande>this is where all your arguments will come from, i am telling you now
+
+316
+00:25:03.412 --> 00:25:07.412
+<v Karthik Subramanian>i believe you
+
+317
+00:25:07.894 --> 00:25:11.894
+<v Karthik Subramanian>mrp is on sku master
+
+318
+00:25:12.504 --> 00:25:16.504
+<v Aniruddh Deshpande>mrp is on sku master, yes
+
+319
+00:25:16.722 --> 00:25:20.722
+<v Karthik Subramanian>and when mrp changes
+
+320
+00:25:21.270 --> 00:25:25.270
+<v Aniruddh Deshpande>it is updated in the same row
+
+321
+00:25:25.758 --> 00:25:29.758
+<v Karthik Subramanian>so no history again
+
+322
+00:25:31.937 --> 00:25:35.937
+<v Aniruddh Deshpande>no history
+
+323
+00:25:36.325 --> 00:25:40.325
+<v Karthik Subramanian>hmm
+
+324
+00:25:40.819 --> 00:25:45.609
+<v Ishaan Bhatt>so if a pack size changes we lose the old one
+
+325
+00:25:45.852 --> 00:25:49.852
+<v Aniruddh Deshpande>pack size also same, it is overwritten
+
+326
+00:25:50.049 --> 00:25:54.259
+<v Aniruddh Deshpande>only last upd dt will tell you something happened
+
+327
+00:25:54.794 --> 00:25:58.794
+<v Karthik Subramanian>only that
+
+328
+00:25:59.409 --> 00:26:03.409
+<v Aniruddh Deshpande>only that
+
+329
+00:26:03.835 --> 00:26:07.835
+<v Karthik Subramanian>okay, noted
+
+330
+00:26:08.133 --> 00:26:12.133
+<v Karthik Subramanian>hsn code, that is on sku master also
+
+331
+00:26:12.562 --> 00:26:16.562
+<v Aniruddh Deshpande>hsn is on sku master
+
+332
+00:26:17.014 --> 00:26:21.014
+<v Aniruddh Deshpande>but the rate is not there
+
+333
+00:26:21.291 --> 00:26:25.291
+<v Karthik Subramanian>where is the rate
+
+334
+00:26:25.631 --> 00:26:29.631
+<v Aniruddh Deshpande>fin prod, tax rate master
+
+335
+00:26:30.283 --> 00:26:35.943
+<v Aniruddh Deshpande>hsn code, gst rate percent, and it is having from date and to date
+
+336
+00:26:36.357 --> 00:26:40.357
+<v Karthik Subramanian>the source one has dates on it
+
+337
+00:26:40.870 --> 00:26:44.870
+<v Aniruddh Deshpande>source one has, yes
+
+338
+00:26:45.070 --> 00:26:50.150
+<v Karthik Subramanian>okay, uh, we will come back to that in the finance session
+
+339
+00:26:50.542 --> 00:26:54.542
+<v Aniruddh Deshpande>fine
+
+340
+00:26:54.980 --> 00:26:58.980
+<v Sneha Pillai>sorry, tax rate master is one word
+
+341
+00:26:59.402 --> 00:27:03.402
+<v Aniruddh Deshpande>tax underscore rate underscore master
+
+342
+00:27:03.719 --> 00:27:07.719
+<v Sneha Pillai>thank you
+
+343
+00:27:07.909 --> 00:27:12.119
+<v Ishaan Bhatt>karthik, sorry, can i ask one thing on sku
+
+344
+00:27:12.648 --> 00:27:16.648
+<v Karthik Subramanian>go ahead
+
+345
+00:27:17.171 --> 00:27:21.671
+<v Ishaan Bhatt>when a new sku is created, when does it appear
+
+346
+00:27:21.971 --> 00:27:26.181
+<v Aniruddh Deshpande>when the product team creates it in the screen
+
+347
+00:27:26.742 --> 00:27:30.952
+<v Ishaan Bhatt>and if an invoice is raised the same day
+
+348
+00:27:31.255 --> 00:27:36.045
+<v Aniruddh Deshpande>then it is raised the same day, what is the issue
+
+349
+00:27:36.641 --> 00:27:40.851
+<v Ishaan Bhatt>no i am just, uh, thinking about the sequencing
+
+350
+00:27:41.296 --> 00:27:45.296
+<v Aniruddh Deshpande>sequencing is the product team problem, not mine
+
+351
+00:27:45.750 --> 00:27:49.750
+<v Karthik Subramanian>[laughs] okay
+
+352
+00:27:50.109 --> 00:27:54.109
+<v Ishaan Bhatt>fine, i will park it
+
+353
+00:27:54.563 --> 00:27:59.933
+<v Karthik Subramanian>park it, we will look at it when we do the dimension work
+
+354
+00:28:00.386 --> 00:28:04.386
+<v Karthik Subramanian>alright, orders
+
+355
+00:28:06.472 --> 00:28:10.472
+<v Karthik Subramanian>order header and order line
+
+356
+00:28:12.521 --> 00:28:16.521
+<v Aniruddh Deshpande>order header, order line, both in oms prod
+
+357
+00:28:16.790 --> 00:28:21.870
+<v Aniruddh Deshpande>order id, order no, order dt, cust id, depot cd, order status
+
+358
+00:28:22.083 --> 00:28:26.083
+<v Karthik Subramanian>order status, what are the values
+
+359
+00:28:26.541 --> 00:28:30.541
+<v Aniruddh Deshpande>uh
+
+360
+00:28:30.885 --> 00:28:35.095
+<v Aniruddh Deshpande>that i will have to check and tell you
+
+361
+00:28:35.476 --> 00:28:40.266
+<v Aniruddh Deshpande>there are some values, i do not want to say wrong
+
+362
+00:28:40.545 --> 00:28:44.545
+<v Karthik Subramanian>fine, send it later
+
+363
+00:28:44.845 --> 00:28:49.055
+<v Sneha Pillai>capturing that, ani to send the order status values
+
+364
+00:28:49.406 --> 00:28:53.406
+<v Aniruddh Deshpande>haan
+
+365
+00:28:53.781 --> 00:28:57.781
+<v Karthik Subramanian>and order line
+
+366
+00:28:58.420 --> 00:29:03.790
+<v Aniruddh Deshpande>order line id, order id, line no, sku id, qty cs, qty ea
+
+367
+00:29:03.997 --> 00:29:07.997
+<v Karthik Subramanian>no amounts on order line
+
+368
+00:29:08.616 --> 00:29:12.616
+<v Aniruddh Deshpande>no amount, order is only quantity
+
+369
+00:29:13.278 --> 00:29:17.278
+<v Aniruddh Deshpande>pricing happens at invoicing
+
+370
+00:29:17.467 --> 00:29:21.467
+<v Karthik Subramanian>interesting
+
+371
+00:29:21.867 --> 00:29:25.867
+<v Aniruddh Deshpande>order is order, invoice is invoice
+
+372
+00:29:26.148 --> 00:29:31.228
+<v Aniruddh Deshpande>in this system they are not so tightly joined as you think
+
+373
+00:29:31.811 --> 00:29:35.811
+<v Karthik Subramanian>say more
+
+374
+00:29:36.279 --> 00:29:40.279
+<v Aniruddh Deshpande>invoice header is having order id
+
+375
+00:29:40.934 --> 00:29:44.934
+<v Aniruddh Deshpande>but it is nullable
+
+376
+00:29:45.186 --> 00:29:49.186
+<v Karthik Subramanian>it is nullable
+
+377
+00:29:49.710 --> 00:29:53.710
+<v Aniruddh Deshpande>haan, because some invoices are raised directly
+
+378
+00:29:54.135 --> 00:29:58.135
+<v Karthik Subramanian>without an order
+
+379
+00:29:58.756 --> 00:30:02.756
+<v Aniruddh Deshpande>without an order, depot can raise directly
+
+380
+00:30:02.976 --> 00:30:06.976
+<v Karthik Subramanian>how often
+
+381
+00:30:07.497 --> 00:30:11.497
+<v Aniruddh Deshpande>not often, but it happens
+
+382
+00:30:11.963 --> 00:30:16.173
+<v Ishaan Bhatt>so we cannot rely on order id to join
+
+383
+00:30:18.239 --> 00:30:22.239
+<v Aniruddh Deshpande>you cannot rely
+
+384
+00:30:22.707 --> 00:30:26.707
+<v Karthik Subramanian>what about the foreign key
+
+385
+00:30:27.378 --> 00:30:32.168
+<v Aniruddh Deshpande>there is no enforced foreign key from order header to customer
+
+386
+00:30:32.706 --> 00:30:36.706
+<v Karthik Subramanian>it was never there
+
+387
+00:30:37.090 --> 00:30:41.090
+<v Aniruddh Deshpande>it was there, it was disabled
+
+388
+00:30:41.649 --> 00:30:45.649
+<v Karthik Subramanian>when
+
+389
+00:30:46.079 --> 00:30:50.079
+<v Aniruddh Deshpande>during the master data cleanup, some years back
+
+390
+00:30:52.330 --> 00:30:56.330
+<v Aniruddh Deshpande>it was disabled and never enabled back
+
+391
+00:30:56.953 --> 00:31:00.953
+<v Karthik Subramanian>is that written anywhere
+
+392
+00:31:01.227 --> 00:31:05.727
+<v Aniruddh Deshpande>it is written in the ddl, it is commented out
+
+393
+00:31:06.401 --> 00:31:12.061
+<v Aniruddh Deshpande>if you generate the ddl you will see it sitting there as a comment
+
+394
+00:31:12.318 --> 00:31:16.318
+<v Karthik Subramanian>okay, ishaan note that
+
+395
+00:31:16.620 --> 00:31:20.620
+<v Ishaan Bhatt>yeah i have it
+
+396
+00:31:21.113 --> 00:31:25.113
+<v Karthik Subramanian>annie, is there any status history on orders
+
+397
+00:31:25.730 --> 00:31:29.730
+<v Aniruddh Deshpande>meaning
+
+398
+00:31:30.204 --> 00:31:34.204
+<v Karthik Subramanian>like a table that records every status change
+
+399
+00:31:34.483 --> 00:31:38.483
+<v Aniruddh Deshpande>no
+
+400
+00:31:38.698 --> 00:31:42.698
+<v Karthik Subramanian>nothing
+
+401
+00:31:43.382 --> 00:31:48.172
+<v Aniruddh Deshpande>no, status is sitting on the header and it is overwritten
+
+402
+00:31:48.688 --> 00:31:53.188
+<v Aniruddh Deshpande>whatever is the current status that is what you see
+
+403
+00:31:53.854 --> 00:31:58.934
+<v Karthik Subramanian>so if an order goes from open to partially billed to billed
+
+404
+00:31:59.416 --> 00:32:03.416
+<v Aniruddh Deshpande>you only see billed
+
+405
+00:32:03.774 --> 00:32:07.774
+<v Karthik Subramanian>and last upd dt
+
+406
+00:32:08.061 --> 00:32:12.851
+<v Aniruddh Deshpande>last upd dt will be the time of the last change
+
+407
+00:32:13.034 --> 00:32:17.034
+<v Aniruddh Deshpande>which change, that it will not tell you
+
+408
+00:32:17.718 --> 00:32:21.718
+<v Karthik Subramanian>right
+
+409
+00:32:22.003 --> 00:32:26.003
+<v Ishaan Bhatt>that kills fill rate history
+
+410
+00:32:26.571 --> 00:32:30.781
+<v Aniruddh Deshpande>fill rate they are calculating from invoice against order
+
+411
+00:32:32.939 --> 00:32:36.939
+<v Aniruddh Deshpande>not from status
+
+412
+00:32:37.121 --> 00:32:41.121
+<v Karthik Subramanian>okay that is actually cleaner
+
+413
+00:32:43.108 --> 00:32:47.608
+<v Aniruddh Deshpande>cleaner but it is only telling you the end state
+
+414
+00:32:48.037 --> 00:32:52.037
+<v Ishaan Bhatt>yeah
+
+415
+00:32:52.363 --> 00:32:56.363
+<v Karthik Subramanian>fine
+
+416
+00:32:58.791 --> 00:33:03.001
+<v Ishaan Bhatt>sorry, one second, there is somebody at the door
+
+417
+00:33:03.675 --> 00:33:07.675
+<v Karthik Subramanian>no problem
+
+418
+00:33:07.929 --> 00:33:12.139
+<v Ishaan Bhatt>sorry, uh, i will be back in thirty seconds
+
+419
+00:33:12.645 --> 00:33:16.645
+<v Karthik Subramanian>take your time
+
+420
+00:33:28.282 --> 00:33:32.282
+<v Karthik Subramanian>so while ishaan is away
+
+421
+00:33:32.905 --> 00:33:37.115
+<v Karthik Subramanian>farida, on the order tables, are you extracting both
+
+422
+00:33:37.372 --> 00:33:41.372
+<v Farida Contractor>both, order header and order line
+
+423
+00:33:41.801 --> 00:33:45.801
+<v Farida Contractor>same pattern as the others
+
+424
+00:33:46.005 --> 00:33:50.005
+<v Karthik Subramanian>full or incremental
+
+425
+00:33:52.131 --> 00:33:56.131
+<v Farida Contractor>incremental
+
+426
+00:33:56.340 --> 00:34:00.340
+<v Farida Contractor>on last upd dt
+
+427
+00:34:00.683 --> 00:34:04.683
+<v Karthik Subramanian>on last upd dt
+
+428
+00:34:05.297 --> 00:34:09.507
+<v Farida Contractor>yes, greater than equal to trunc sysdate minus one
+
+429
+00:34:10.101 --> 00:34:14.101
+<v Karthik Subramanian>so a full day window
+
+430
+00:34:14.581 --> 00:34:18.581
+<v Farida Contractor>a full day window, yes
+
+431
+00:34:18.838 --> 00:34:22.838
+<v Farida Contractor>it is like that on every interface
+
+432
+00:34:23.210 --> 00:34:27.210
+<v Karthik Subramanian>is there any change capture anywhere
+
+433
+00:34:27.869 --> 00:34:31.869
+<v Farida Contractor>no
+
+434
+00:34:32.436 --> 00:34:36.436
+<v Farida Contractor>there is no cdc anywhere in this landscape
+
+435
+00:34:36.800 --> 00:34:40.800
+<v Farida Contractor>everything is a timestamp comparison
+
+436
+00:34:42.905 --> 00:34:46.905
+<v Karthik Subramanian>on last upd dt
+
+437
+00:34:47.334 --> 00:34:51.334
+<v Farida Contractor>on last upd dt, every single one
+
+438
+00:34:51.852 --> 00:34:55.852
+<v Karthik Subramanian>okay, that is good to know clearly
+
+439
+00:34:56.532 --> 00:35:00.532
+<v Aniruddh Deshpande>that has been like that since the beginning
+
+440
+00:35:01.004 --> 00:35:05.004
+<v Aniruddh Deshpande>sai adri never gave us anything else
+
+441
+00:35:05.428 --> 00:35:09.428
+<v Ishaan Bhatt>sorry i am back
+
+442
+00:35:09.873 --> 00:35:13.873
+<v Ishaan Bhatt>it was the, uh, courier
+
+443
+00:35:14.258 --> 00:35:18.258
+<v Karthik Subramanian>no problem
+
+444
+00:35:18.538 --> 00:35:22.538
+<v Ishaan Bhatt>what did i miss
+
+445
+00:35:23.049 --> 00:35:28.419
+<v Karthik Subramanian>frida was saying there is no cdc, it is all last upd dt
+
+446
+00:35:28.965 --> 00:35:32.965
+<v Ishaan Bhatt>haan okay, that i knew
+
+447
+00:35:33.432 --> 00:35:37.432
+<v Karthik Subramanian>okay, invoices
+
+448
+00:35:37.678 --> 00:35:41.678
+<v Karthik Subramanian>this is the one i really care about
+
+449
+00:35:42.358 --> 00:35:46.358
+<v Aniruddh Deshpande>haan i know
+
+450
+00:35:46.734 --> 00:35:50.734
+<v Karthik Subramanian>invoice header and invoice line
+
+451
+00:35:51.078 --> 00:35:55.078
+<v Aniruddh Deshpande>invoice header, invoice line, both oms prod
+
+452
+00:35:55.698 --> 00:35:59.698
+<v Karthik Subramanian>not in finance
+
+453
+00:36:00.252 --> 00:36:04.252
+<v Aniruddh Deshpande>not in finance
+
+454
+00:36:04.743 --> 00:36:09.533
+<v Aniruddh Deshpande>invoicing is in oms prod, finance is only gl and receivables
+
+455
+00:36:09.774 --> 00:36:14.564
+<v Aniruddh Deshpande>people keep thinking invoice is in fin prod, it is not
+
+456
+00:36:15.062 --> 00:36:19.062
+<v Karthik Subramanian>good, that is clear
+
+457
+00:36:19.470 --> 00:36:23.470
+<v Karthik Subramanian>invoice header columns
+
+458
+00:36:24.080 --> 00:36:28.080
+<v Aniruddh Deshpande>invoice id, invoice no, invoice dt, doc type
+
+459
+00:36:28.504 --> 00:36:32.504
+<v Aniruddh Deshpande>cust id, depot cd, order id, invoice status
+
+460
+00:36:32.822 --> 00:36:36.822
+<v Aniruddh Deshpande>total gross amt, total net amt
+
+461
+00:36:37.448 --> 00:36:41.448
+<v Karthik Subramanian>invoice dt is a date
+
+462
+00:36:43.794 --> 00:36:47.794
+<v Aniruddh Deshpande>invoice dt is a date column, yes
+
+463
+00:36:48.028 --> 00:36:52.028
+<v Karthik Subramanian>not a timestamp
+
+464
+00:36:52.709 --> 00:36:56.709
+<v Aniruddh Deshpande>not a timestamp, it is a date
+
+465
+00:36:57.303 --> 00:37:01.303
+<v Karthik Subramanian>and there is a created column also
+
+466
+00:37:01.709 --> 00:37:05.709
+<v Aniruddh Deshpande>created ts, that is a timestamp
+
+467
+00:37:06.285 --> 00:37:10.285
+<v Karthik Subramanian>created ts and invoice dt are different things
+
+468
+00:37:10.838 --> 00:37:14.838
+<v Aniruddh Deshpande>they are different things
+
+469
+00:37:15.306 --> 00:37:19.516
+<v Aniruddh Deshpande>invoice dt is the business date on the document
+
+470
+00:37:20.135 --> 00:37:24.135
+<v Aniruddh Deshpande>created ts is when the row got written
+
+471
+00:37:24.457 --> 00:37:28.457
+<v Karthik Subramanian>which one does reporting use
+
+472
+00:37:28.822 --> 00:37:32.822
+<v Aniruddh Deshpande>which reporting
+
+473
+00:37:33.450 --> 00:37:37.450
+<v Karthik Subramanian>any of it
+
+474
+00:37:37.885 --> 00:37:41.885
+<v Aniruddh Deshpande>uh, that depends who wrote the query
+
+475
+00:37:42.435 --> 00:37:46.435
+<v Karthik Subramanian>okay
+
+476
+00:37:46.825 --> 00:37:51.325
+<v Aniruddh Deshpande>some are using invoice dt, some are using created ts
+
+477
+00:37:51.800 --> 00:37:55.800
+<v Aniruddh Deshpande>i have seen both
+
+478
+00:37:58.181 --> 00:38:04.711
+<v Karthik Subramanian>ishaan, make a note, i want to know exactly which column each extract keys the date off
+
+479
+00:38:05.258 --> 00:38:09.258
+<v Ishaan Bhatt>yeah, i am writing it
+
+480
+00:38:09.750 --> 00:38:13.750
+<v Karthik Subramanian>that is important, do not lose it
+
+481
+00:38:14.377 --> 00:38:18.377
+<v Ishaan Bhatt>i have it
+
+482
+00:38:18.704 --> 00:38:22.704
+<v Karthik Subramanian>doc type
+
+483
+00:38:23.107 --> 00:38:27.107
+<v Aniruddh Deshpande>doc type, three values
+
+484
+00:38:27.360 --> 00:38:31.570
+<v Aniruddh Deshpande>i n v, s t n, s m p
+
+485
+00:38:31.819 --> 00:38:35.819
+<v Karthik Subramanian>what are they
+
+486
+00:38:36.212 --> 00:38:40.212
+<v Aniruddh Deshpande>inv is normal invoice
+
+487
+00:38:40.651 --> 00:38:44.651
+<v Aniruddh Deshpande>stn is stock transfer note, depot to depot
+
+488
+00:38:45.287 --> 00:38:49.287
+<v Aniruddh Deshpande>smp is sample
+
+489
+00:38:49.620 --> 00:38:53.620
+<v Karthik Subramanian>samples are invoiced
+
+490
+00:38:53.878 --> 00:38:58.088
+<v Aniruddh Deshpande>samples are documented, value is mostly zero or nominal
+
+491
+00:38:58.668 --> 00:39:02.668
+<v Karthik Subramanian>and stn
+
+492
+00:39:03.009 --> 00:39:07.009
+<v Aniruddh Deshpande>stn is not a sale
+
+493
+00:39:07.303 --> 00:39:11.803
+<v Aniruddh Deshpande>it is moving stock from one depot to another depot
+
+494
+00:39:12.201 --> 00:39:16.201
+<v Karthik Subramanian>but it sits in the same table
+
+495
+00:39:16.761 --> 00:39:20.761
+<v Aniruddh Deshpande>same table, same sequence, same everything
+
+496
+00:39:21.072 --> 00:39:25.072
+<v Karthik Subramanian>with a customer id
+
+497
+00:39:25.365 --> 00:39:30.735
+<v Aniruddh Deshpande>with a customer id which is the receiving depot mapped as a customer
+
+498
+00:39:30.921 --> 00:39:34.921
+<v Karthik Subramanian>[crosstalk]
+
+499
+00:39:35.094 --> 00:39:39.094
+<v Ishaan Bhatt>sorry go ahead
+
+500
+00:39:41.073 --> 00:39:45.073
+<v Karthik Subramanian>no you go
+
+501
+00:39:45.717 --> 00:39:52.537
+<v Ishaan Bhatt>i was going to ask, so a stn has a cust id which is not a real party
+
+502
+00:39:53.192 --> 00:39:58.852
+<v Aniruddh Deshpande>it is a real row in customer table, but it is not a distributor
+
+503
+00:39:59.110 --> 00:40:03.110
+<v Ishaan Bhatt>cust type will be
+
+504
+00:40:03.401 --> 00:40:07.401
+<v Aniruddh Deshpande>it will not be distributor
+
+505
+00:40:07.710 --> 00:40:11.710
+<v Ishaan Bhatt>okay so we can filter on that
+
+506
+00:40:11.998 --> 00:40:16.208
+<v Aniruddh Deshpande>you can, or you can filter on doc type
+
+507
+00:40:16.451 --> 00:40:20.451
+<v Aniruddh Deshpande>doc type is easier
+
+508
+00:40:21.118 --> 00:40:25.118
+<v Karthik Subramanian>hmm
+
+509
+00:40:25.354 --> 00:40:29.354
+<v Karthik Subramanian>what is the split roughly
+
+510
+00:40:29.820 --> 00:40:33.820
+<v Aniruddh Deshpande>most of it is inv
+
+511
+00:40:34.424 --> 00:40:38.634
+<v Aniruddh Deshpande>stn is a small portion, sample is even smaller
+
+512
+00:40:38.902 --> 00:40:42.902
+<v Karthik Subramanian>i want the actual numbers at some point
+
+513
+00:40:43.180 --> 00:40:47.180
+<v Aniruddh Deshpande>i will give
+
+514
+00:40:47.524 --> 00:40:51.524
+<v Karthik Subramanian>okay
+
+515
+00:40:51.846 --> 00:40:55.846
+<v Karthik Subramanian>invoice line
+
+516
+00:40:57.953 --> 00:41:02.163
+<v Aniruddh Deshpande>invoice line id, invoice id, line no, sku id
+
+517
+00:41:04.399 --> 00:41:08.399
+<v Aniruddh Deshpande>qty cs, qty ea, unit price
+
+518
+00:41:08.768 --> 00:41:13.848
+<v Aniruddh Deshpande>gross amt, scheme disc amt, cash disc amt, tax amt, net amt
+
+519
+00:41:14.431 --> 00:41:18.431
+<v Aniruddh Deshpande>and scheme id
+
+520
+00:41:18.996 --> 00:41:22.996
+<v Karthik Subramanian>so what is the grain of that table
+
+521
+00:41:23.346 --> 00:41:27.346
+<v Aniruddh Deshpande>meaning one row is what
+
+522
+00:41:27.909 --> 00:41:31.909
+<v Karthik Subramanian>yes, one row is what
+
+523
+00:41:32.541 --> 00:41:36.541
+<v Aniruddh Deshpande>one row is one sku on one invoice
+
+524
+00:41:36.859 --> 00:41:41.069
+<v Karthik Subramanian>can the same sku come twice on one invoice
+
+525
+00:41:41.550 --> 00:41:45.550
+<v Aniruddh Deshpande>it can, if the price is different
+
+526
+00:41:45.801 --> 00:41:50.881
+<v Aniruddh Deshpande>or if one part is on scheme and one part is not
+
+527
+00:41:51.365 --> 00:41:56.155
+<v Karthik Subramanian>so the grain is one row per line, not per sku
+
+528
+00:41:56.812 --> 00:42:00.812
+<v Aniruddh Deshpande>correct correct
+
+529
+00:42:01.337 --> 00:42:05.337
+<v Karthik Subramanian>okay, that matters to us a lot
+
+530
+00:42:05.980 --> 00:42:09.980
+<v Karthik Subramanian>scheme disc amt
+
+531
+00:42:10.576 --> 00:42:14.576
+<v Aniruddh Deshpande>scheme discount amount, per line
+
+532
+00:42:14.774 --> 00:42:18.774
+<v Karthik Subramanian>we will come to that
+
+533
+00:42:20.775 --> 00:42:24.775
+<v Aniruddh Deshpande>we will have to come to that
+
+534
+00:42:25.248 --> 00:42:29.248
+<v Karthik Subramanian>how big is invoice line
+
+535
+00:42:29.650 --> 00:42:33.650
+<v Aniruddh Deshpande>uh
+
+536
+00:42:34.191 --> 00:42:38.191
+<v Aniruddh Deshpande>see, when we started this table was nothing
+
+537
+00:42:38.511 --> 00:42:44.171
+<v Aniruddh Deshpande>2009 to 2012 it was maybe a few lacs of rows in a year
+
+538
+00:42:44.647 --> 00:42:48.857
+<v Aniruddh Deshpande>then the depot expansion happened and it went up
+
+539
+00:42:49.253 --> 00:42:53.253
+<v Aniruddh Deshpande>and then, uh, the archiving discussion started
+
+540
+00:42:53.629 --> 00:42:58.129
+<v Aniruddh Deshpande>every year somebody says we will archive and nobody archives
+
+541
+00:42:58.488 --> 00:43:02.488
+<v Karthik Subramanian>ha, yes
+
+542
+00:43:02.912 --> 00:43:06.912
+<v Aniruddh Deshpande>no really, every year
+
+543
+00:43:07.318 --> 00:43:12.398
+<v Farida Contractor>karthik sorry, i have a question on staging while annie is talking
+
+544
+00:43:13.052 --> 00:43:17.052
+<v Karthik Subramanian>go ahead frida
+
+545
+00:43:17.672 --> 00:43:21.882
+<v Farida Contractor>my staging table for invoice line, is it, uh
+
+546
+00:43:22.167 --> 00:43:26.667
+<v Farida Contractor>ishaan you had asked me the row count last week
+
+547
+00:43:26.907 --> 00:43:30.907
+<v Ishaan Bhatt>yeah
+
+548
+00:43:31.420 --> 00:43:36.500
+<v Farida Contractor>i sent you the number for the landing table not the source
+
+549
+00:43:36.749 --> 00:43:42.409
+<v Ishaan Bhatt>haan i know, i used the source one from the count you gave earlier
+
+550
+00:43:43.075 --> 00:43:47.075
+<v Farida Contractor>no that one was also landing
+
+551
+00:43:47.602 --> 00:43:51.602
+<v Ishaan Bhatt>oh
+
+552
+00:43:52.186 --> 00:43:56.186
+<v Farida Contractor>i will resend
+
+553
+00:43:56.665 --> 00:44:00.665
+<v Ishaan Bhatt>okay send both, with the date
+
+554
+00:44:01.135 --> 00:44:05.135
+<v Farida Contractor>i will send both
+
+555
+00:44:05.673 --> 00:44:09.673
+<v Karthik Subramanian>sorry annie, carry on
+
+556
+00:44:10.249 --> 00:44:14.249
+<v Aniruddh Deshpande>what was the question
+
+557
+00:44:14.482 --> 00:44:18.482
+<v Karthik Subramanian>how big is invoice line
+
+558
+00:44:18.891 --> 00:44:22.891
+<v Aniruddh Deshpande>six core odd
+
+559
+00:44:23.227 --> 00:44:27.227
+<v Karthik Subramanian>six crore
+
+560
+00:44:29.245 --> 00:44:33.455
+<v Aniruddh Deshpande>six core, sixty one, sixty two million, that range
+
+561
+00:44:33.899 --> 00:44:37.899
+<v Karthik Subramanian>okay
+
+562
+00:44:38.536 --> 00:44:42.536
+<v Aniruddh Deshpande>and that is only from 2016 april
+
+563
+00:44:42.968 --> 00:44:46.968
+<v Karthik Subramanian>only from 2016
+
+564
+00:44:47.642 --> 00:44:51.642
+<v Aniruddh Deshpande>before that it is in invoice line archive
+
+565
+00:44:52.251 --> 00:44:56.251
+<v Karthik Subramanian>there is an archive table
+
+566
+00:44:58.635 --> 00:45:03.135
+<v Aniruddh Deshpande>there is, it is sitting there, nobody has touched it
+
+567
+00:45:03.502 --> 00:45:08.292
+<v Aniruddh Deshpande>2016 they cut it off and moved everything old into it
+
+568
+00:45:08.874 --> 00:45:12.874
+<v Karthik Subramanian>is it extracted
+
+569
+00:45:13.072 --> 00:45:17.072
+<v Aniruddh Deshpande>no
+
+570
+00:45:17.263 --> 00:45:21.263
+<v Aniruddh Deshpande>nobody has looked at that table since 2016
+
+571
+00:45:21.817 --> 00:45:25.817
+<v Karthik Subramanian>is it the same shape
+
+572
+00:45:28.080 --> 00:45:32.080
+<v Aniruddh Deshpande>almost the same
+
+573
+00:45:32.450 --> 00:45:36.450
+<v Aniruddh Deshpande>one column is not there on the archive
+
+574
+00:45:36.973 --> 00:45:40.973
+<v Karthik Subramanian>which one
+
+575
+00:45:41.260 --> 00:45:45.260
+<v Aniruddh Deshpande>delete flack
+
+576
+00:45:45.701 --> 00:45:49.701
+<v Karthik Subramanian>the archive does not have delete flag
+
+577
+00:45:50.027 --> 00:45:54.817
+<v Aniruddh Deshpande>it does not have that column, it was never put there
+
+578
+00:45:55.056 --> 00:45:59.056
+<v Aniruddh Deshpande>it is not there, that is all
+
+579
+00:45:59.341 --> 00:46:03.341
+<v Karthik Subramanian>okay
+
+580
+00:46:03.549 --> 00:46:07.549
+<v Ishaan Bhatt>karthik, do we need the archive at all
+
+581
+00:46:08.050 --> 00:46:12.050
+<v Karthik Subramanian>for the history reload, maybe
+
+582
+00:46:12.587 --> 00:46:16.587
+<v Karthik Subramanian>but not for the current scope
+
+583
+00:46:16.948 --> 00:46:20.948
+<v Ishaan Bhatt>okay
+
+584
+00:46:21.236 --> 00:46:25.736
+<v Aniruddh Deshpande>if you need it tell me two weeks in advance
+
+585
+00:46:26.084 --> 00:46:30.084
+<v Karthik Subramanian>noted
+
+586
+00:46:30.486 --> 00:46:34.486
+<v Karthik Subramanian>coming back to stn for a second
+
+587
+00:46:34.908 --> 00:46:38.908
+<v Karthik Subramanian>the depot to depot movement
+
+588
+00:46:39.565 --> 00:46:43.565
+<v Aniruddh Deshpande>haan
+
+589
+00:46:44.115 --> 00:46:49.485
+<v Karthik Subramanian>is depot cd on the header the sending depot or the receiving one
+
+590
+00:46:51.491 --> 00:46:55.491
+<v Aniruddh Deshpande>sending
+
+591
+00:46:55.761 --> 00:46:59.761
+<v Karthik Subramanian>always
+
+592
+00:47:00.051 --> 00:47:04.051
+<v Aniruddh Deshpande>it should always be sending
+
+593
+00:47:04.541 --> 00:47:08.541
+<v Aniruddh Deshpande>but, uh, i will tell you one thing
+
+594
+00:47:08.782 --> 00:47:13.572
+<v Aniruddh Deshpande>when we did the nashik cutover this was the whole fight
+
+595
+00:47:14.046 --> 00:47:18.046
+<v Karthik Subramanian>the nashik cutover
+
+596
+00:47:18.265 --> 00:47:22.475
+<v Aniruddh Deshpande>haan, when nashik plant came onto the system properly
+
+597
+00:47:22.787 --> 00:47:26.787
+<v Aniruddh Deshpande>before that they were sending us a file
+
+598
+00:47:29.228 --> 00:47:33.228
+<v Karthik Subramanian>a file
+
+599
+00:47:33.583 --> 00:47:38.373
+<v Aniruddh Deshpande>a file, and somebody in the depot was keying it in
+
+600
+00:47:38.596 --> 00:47:42.596
+<v Aniruddh Deshpande>can you see my screen
+
+601
+00:47:43.003 --> 00:47:47.003
+<v Karthik Subramanian>not yet
+
+602
+00:47:47.628 --> 00:47:51.628
+<v Aniruddh Deshpande>one second
+
+603
+00:48:00.928 --> 00:48:04.928
+<v Aniruddh Deshpande>now
+
+604
+00:48:05.187 --> 00:48:09.187
+<v Karthik Subramanian>yes now i can see
+
+605
+00:48:09.839 --> 00:48:13.839
+<v Aniruddh Deshpande>this is depot master
+
+606
+00:48:14.287 --> 00:48:18.287
+<v Aniruddh Deshpande>see, depot cd, depot name, city, state, region
+
+607
+00:48:18.729 --> 00:48:22.729
+<v Aniruddh Deshpande>twenty two rows only
+
+608
+00:48:22.946 --> 00:48:26.946
+<v Karthik Subramanian>twenty two depots
+
+609
+00:48:27.455 --> 00:48:31.955
+<v Aniruddh Deshpande>twenty two, six north, six west, five south, five east
+
+610
+00:48:32.627 --> 00:48:36.627
+<v Karthik Subramanian>okay
+
+611
+00:48:38.855 --> 00:48:43.065
+<v Aniruddh Deshpande>now when nashik came on, the plant was despatching
+
+612
+00:48:43.451 --> 00:48:48.531
+<v Aniruddh Deshpande>but the depot code they were putting was the old bhiwandi one
+
+613
+00:48:49.203 --> 00:48:53.993
+<v Aniruddh Deshpande>for almost, uh, i want to say two months, maybe more
+
+614
+00:48:54.633 --> 00:48:58.633
+<v Karthik Subramanian>and nobody noticed
+
+615
+00:48:59.240 --> 00:49:03.240
+<v Aniruddh Deshpande>sales noticed, because their west number went up
+
+616
+00:49:03.829 --> 00:49:07.829
+<v Aniruddh Deshpande>and the north number went down
+
+617
+00:49:08.335 --> 00:49:12.335
+<v Karthik Subramanian>yeah
+
+618
+00:49:12.647 --> 00:49:18.017
+<v Aniruddh Deshpande>no it is not funny, i was getting calls at eleven at night
+
+619
+00:49:18.431 --> 00:49:22.431
+<v Karthik Subramanian>sorry, no, i meant it is very familiar
+
+620
+00:49:23.066 --> 00:49:27.566
+<v Aniruddh Deshpande>everything in this system somebody noticed because the number moved
+
+621
+00:49:29.590 --> 00:49:33.590
+<v Aniruddh Deshpande>nobody noticed because a validation failed
+
+622
+00:49:36.056 --> 00:49:40.056
+<v Karthik Subramanian>that is a good line annie
+
+623
+00:49:40.485 --> 00:49:44.485
+<v Sneha Pillai>sorry, can i just get the spelling, nashik
+
+624
+00:49:45.052 --> 00:49:49.052
+<v Priya Nair>n a s h i k
+
+625
+00:49:49.692 --> 00:49:53.692
+<v Sneha Pillai>thank you priya
+
+626
+00:49:54.129 --> 00:49:58.129
+<v Aniruddh Deshpande>and buddy is the other plant
+
+627
+00:49:58.594 --> 00:50:02.594
+<v Sneha Pillai>sorry
+
+628
+00:50:02.990 --> 00:50:06.990
+<v Aniruddh Deshpande>buddy, himachal, b a d d i
+
+629
+00:50:07.226 --> 00:50:11.226
+<v Sneha Pillai>oh, baddi
+
+630
+00:50:11.876 --> 00:50:15.876
+<v Aniruddh Deshpande>haan
+
+631
+00:50:16.198 --> 00:50:20.198
+<v Aniruddh Deshpande>that one came later, that one was easier
+
+632
+00:50:20.848 --> 00:50:24.848
+<v Aniruddh Deshpande>2011 that unit was commissioned
+
+633
+00:50:25.203 --> 00:50:29.203
+<v Karthik Subramanian>and nashik makes
+
+634
+00:50:29.395 --> 00:50:33.395
+<v Aniruddh Deshpande>nashik is home care and foods
+
+635
+00:50:34.017 --> 00:50:38.017
+<v Aniruddh Deshpande>suvarn, nimbua, tarang
+
+636
+00:50:38.305 --> 00:50:42.305
+<v Aniruddh Deshpande>two lines
+
+637
+00:50:42.759 --> 00:50:46.759
+<v Aniruddh Deshpande>buddy is personal care and hygiene
+
+638
+00:50:47.129 --> 00:50:51.129
+<v Karthik Subramanian>kesari gold, chandanaa, rakshak
+
+639
+00:50:51.346 --> 00:50:55.346
+<v Aniruddh Deshpande>correct correct
+
+640
+00:50:55.764 --> 00:50:59.764
+<v Priya Nair>sir sorry, uh, karthik
+
+641
+00:51:00.090 --> 00:51:04.300
+<v Priya Nair>there is a despatch report which splits by plant
+
+642
+00:51:04.636 --> 00:51:08.636
+<v Karthik Subramanian>is that in obiee
+
+643
+00:51:09.080 --> 00:51:13.080
+<v Priya Nair>in obi e yes
+
+644
+00:51:13.686 --> 00:51:17.896
+<v Priya Nair>but the plant is not coming from the database
+
+645
+00:51:18.288 --> 00:51:22.288
+<v Priya Nair>it is derived from the brand
+
+646
+00:51:22.935 --> 00:51:26.935
+<v Karthik Subramanian>derived from the brand
+
+647
+00:51:27.227 --> 00:51:31.227
+<v Priya Nair>yes, because brand tells you the plant
+
+648
+00:51:31.762 --> 00:51:36.842
+<v Karthik Subramanian>that is, uh, that is a modelling assumption sitting inside a report
+
+649
+00:51:37.295 --> 00:51:41.295
+<v Priya Nair>[inaudible]
+
+650
+00:51:41.802 --> 00:51:45.802
+<v Karthik Subramanian>sorry priya you cut out
+
+651
+00:51:45.986 --> 00:51:50.776
+<v Priya Nair>i said it has been like that since before i joined
+
+652
+00:51:50.985 --> 00:51:54.985
+<v Karthik Subramanian>okay
+
+653
+00:51:55.494 --> 00:51:59.494
+<v Aniruddh Deshpande>it is correct though
+
+654
+00:51:59.732 --> 00:52:04.812
+<v Aniruddh Deshpande>one brand is made in one plant, that is how it is
+
+655
+00:52:04.997 --> 00:52:08.997
+<v Karthik Subramanian>today yes
+
+656
+00:52:11.035 --> 00:52:15.035
+<v Aniruddh Deshpande>today yes
+
+657
+00:52:15.345 --> 00:52:19.555
+<v Karthik Subramanian>if that ever changes the report is silently wrong
+
+658
+00:52:19.891 --> 00:52:23.891
+<v Aniruddh Deshpande>then somebody will notice because the number moved
+
+659
+00:52:24.256 --> 00:52:28.256
+<v Karthik Subramanian>exactly, exactly
+
+660
+00:52:30.362 --> 00:52:34.362
+<v Sneha Pillai>i am capturing the plant derivation point
+
+661
+00:52:34.849 --> 00:52:39.349
+<v Karthik Subramanian>yes capture it, it is not urgent but capture it
+
+662
+00:52:41.642 --> 00:52:45.642
+<v Aniruddh Deshpande>and one more thing on nashik
+
+663
+00:52:48.036 --> 00:52:52.246
+<v Aniruddh Deshpande>the two lines have different, uh, different despatch timings
+
+664
+00:52:54.555 --> 00:52:59.345
+<v Aniruddh Deshpande>so on month end the second line is invoicing very late
+
+665
+00:52:59.844 --> 00:53:03.844
+<v Karthik Subramanian>how late
+
+666
+00:53:04.413 --> 00:53:08.413
+<v Aniruddh Deshpande>late, i do not want to guess
+
+667
+00:53:09.001 --> 00:53:13.791
+<v Aniruddh Deshpande>you ask the plant it people, they will tell you exactly
+
+668
+00:53:14.313 --> 00:53:20.263
+<v Karthik Subramanian>sneha, action, someone to check the nashik despatch cut off with the plant it contact
+
+669
+00:53:20.904 --> 00:53:24.904
+<v Sneha Pillai>capturing that, uh, who is the owner
+
+670
+00:53:25.530 --> 00:53:29.530
+<v Karthik Subramanian>ishaan for now
+
+671
+00:53:30.105 --> 00:53:34.105
+<v Ishaan Bhatt>fine
+
+672
+00:53:36.363 --> 00:53:40.363
+<v Karthik Subramanian>okay let us come back
+
+673
+00:53:40.772 --> 00:53:44.772
+<v Karthik Subramanian>schemes
+
+674
+00:53:45.006 --> 00:53:49.006
+<v Aniruddh Deshpande>schemes, okay
+
+675
+00:53:49.392 --> 00:53:53.392
+<v Karthik Subramanian>what is the master called
+
+676
+00:53:53.812 --> 00:53:57.812
+<v Aniruddh Deshpande>scheme master, oms prod
+
+677
+00:53:58.184 --> 00:54:02.184
+<v Karthik Subramanian>columns
+
+678
+00:54:02.418 --> 00:54:06.418
+<v Aniruddh Deshpande>scheme id, scheme code, scheme name, scheme type
+
+679
+00:54:06.865 --> 00:54:10.865
+<v Aniruddh Deshpande>disc pct, slab qty from, slab qty to
+
+680
+00:54:11.200 --> 00:54:15.200
+<v Aniruddh Deshpande>valid from dt, valid to dt, active flag
+
+681
+00:54:15.765 --> 00:54:19.765
+<v Karthik Subramanian>scheme type values
+
+682
+00:54:20.126 --> 00:54:24.126
+<v Aniruddh Deshpande>q p s, monthly, slab, t p r
+
+683
+00:54:24.649 --> 00:54:28.649
+<v Karthik Subramanian>what is qps
+
+684
+00:54:29.038 --> 00:54:33.038
+<v Aniruddh Deshpande>quarterly purchase scheme
+
+685
+00:54:33.570 --> 00:54:38.940
+<v Aniruddh Deshpande>distributor buys so many cases in the quarter, he gets a slab rate
+
+686
+00:54:39.541 --> 00:54:43.541
+<v Karthik Subramanian>and tpr
+
+687
+00:54:43.865 --> 00:54:47.865
+<v Aniruddh Deshpande>temporary price reduction
+
+688
+00:54:48.149 --> 00:54:53.229
+<v Aniruddh Deshpande>it is a per unit thing, so many rupees off per unit
+
+689
+00:54:53.523 --> 00:54:57.523
+<v Karthik Subramanian>and slab type
+
+690
+00:54:57.758 --> 00:55:01.758
+<v Aniruddh Deshpande>slab is like the festive one
+
+691
+00:55:02.356 --> 00:55:07.146
+<v Aniruddh Deshpande>two percent, three point five, five, depending how much he lifts
+
+692
+00:55:07.734 --> 00:55:11.734
+<v Karthik Subramanian>and monthly
+
+693
+00:55:12.132 --> 00:55:16.132
+<v Aniruddh Deshpande>monthly is flat percent for the month
+
+694
+00:55:16.333 --> 00:55:20.333
+<v Karthik Subramanian>how many schemes are there
+
+695
+00:55:20.618 --> 00:55:24.618
+<v Aniruddh Deshpande>uh
+
+696
+00:55:24.882 --> 00:55:29.092
+<v Aniruddh Deshpande>at any time it is a [inaudible] small number
+
+697
+00:55:29.446 --> 00:55:33.946
+<v Aniruddh Deshpande>it is not like some companies where there are hundreds
+
+698
+00:55:34.385 --> 00:55:38.385
+<v Karthik Subramanian>give me an order of magnitude
+
+699
+00:55:38.663 --> 00:55:42.663
+<v Aniruddh Deshpande>it is single digits
+
+700
+00:55:43.056 --> 00:55:47.056
+<v Aniruddh Deshpande>i will confirm
+
+701
+00:55:47.257 --> 00:55:51.257
+<v Karthik Subramanian>okay
+
+702
+00:55:51.786 --> 00:55:56.286
+<v Ishaan Bhatt>ani how does the scheme get attached to a line
+
+703
+00:55:56.666 --> 00:56:00.666
+<v Aniruddh Deshpande>scheme id is on invoice line
+
+704
+00:56:01.161 --> 00:56:05.161
+<v Ishaan Bhatt>on the line, not the header
+
+705
+00:56:05.343 --> 00:56:09.343
+<v Aniruddh Deshpande>on the line
+
+706
+00:56:09.600 --> 00:56:14.680
+<v Aniruddh Deshpande>because different skus on the same invoice can be on different schemes
+
+707
+00:56:14.948 --> 00:56:18.948
+<v Ishaan Bhatt>right
+
+708
+00:56:19.180 --> 00:56:23.390
+<v Aniruddh Deshpande>and one line can be, uh, only one scheme
+
+709
+00:56:23.948 --> 00:56:27.948
+<v Ishaan Bhatt>only one
+
+710
+00:56:28.335 --> 00:56:32.335
+<v Aniruddh Deshpande>only one scheme id, that is the design
+
+711
+00:56:32.942 --> 00:56:36.942
+<v Ishaan Bhatt>what if two schemes apply
+
+712
+00:56:37.337 --> 00:56:41.547
+<v Aniruddh Deshpande>then whichever the calculation picks, that is what goes
+
+713
+00:56:41.801 --> 00:56:45.801
+<v Ishaan Bhatt>which calculation
+
+714
+00:56:46.175 --> 00:56:50.175
+<v Aniruddh Deshpande>that is the thing
+
+715
+00:56:50.585 --> 00:56:54.585
+<v Aniruddh Deshpande>there was a calculation logic
+
+716
+00:56:55.197 --> 00:56:59.197
+<v Aniruddh Deshpande>2014 we changed it
+
+717
+00:56:59.495 --> 00:57:03.495
+<v Karthik Subramanian>what changed in 2014
+
+718
+00:57:05.819 --> 00:57:09.819
+<v Aniruddh Deshpande>the slab handling changed
+
+719
+00:57:10.313 --> 00:57:16.263
+<v Aniruddh Deshpande>before that it was calculating on the invoice, after that it became on the period
+
+720
+00:57:16.557 --> 00:57:20.557
+<v Aniruddh Deshpande>i had made one sheet at that time
+
+721
+00:57:20.821 --> 00:57:24.821
+<v Aniruddh Deshpande>scheme calc logic 2014, it was an xls
+
+722
+00:57:24.996 --> 00:57:28.996
+<v Sneha Pillai>sorry, scheme calc logic
+
+723
+00:57:29.269 --> 00:57:33.269
+<v Aniruddh Deshpande>scheme underscore calc underscore logic underscore 2014
+
+724
+00:57:33.772 --> 00:57:37.772
+<v Sneha Pillai>and it is xls
+
+725
+00:57:38.175 --> 00:57:42.175
+<v Aniruddh Deshpande>it is xls, old format
+
+726
+00:57:42.625 --> 00:57:46.625
+<v Karthik Subramanian>do you still have it
+
+727
+00:57:47.163 --> 00:57:51.163
+<v Aniruddh Deshpande>it is somewhere, i will look
+
+728
+00:57:51.419 --> 00:57:55.419
+<v Karthik Subramanian>please look, that would be useful
+
+729
+00:57:55.670 --> 00:58:00.460
+<v Aniruddh Deshpande>i will look but that sheet is also, uh, half correct
+
+730
+00:58:00.908 --> 00:58:04.908
+<v Aniruddh Deshpande>after 2014 also some things changed
+
+731
+00:58:05.197 --> 00:58:09.197
+<v Karthik Subramanian>still, send whatever you have
+
+732
+00:58:09.673 --> 00:58:13.673
+<v Aniruddh Deshpande>haan
+
+733
+00:58:14.181 --> 00:58:18.391
+<v Sneha Pillai>capturing, ani to look for the 2014 scheme sheet
+
+734
+00:58:18.913 --> 00:58:22.913
+<v Karthik Subramanian>and scheme disc amt on the line
+
+735
+00:58:23.527 --> 00:58:28.607
+<v Aniruddh Deshpande>scheme disc amt is the amount of scheme discount on that line
+
+736
+00:58:29.029 --> 00:58:33.029
+<v Karthik Subramanian>is it always populated
+
+737
+00:58:35.251 --> 00:58:40.041
+<v Aniruddh Deshpande>no, if there is no scheme it is zero or null
+
+738
+00:58:40.614 --> 00:58:44.614
+<v Karthik Subramanian>zero or null
+
+739
+00:58:45.277 --> 00:58:49.277
+<v Aniruddh Deshpande>both are there
+
+740
+00:58:49.573 --> 00:58:53.573
+<v Karthik Subramanian>hmm, okay
+
+741
+00:58:53.801 --> 00:58:58.011
+<v Ishaan Bhatt>is there anything on the finance side for schemes
+
+742
+00:58:58.380 --> 00:59:02.380
+<v Aniruddh Deshpande>there is scheme accrual
+
+743
+00:59:04.494 --> 00:59:08.494
+<v Aniruddh Deshpande>fin prod, scheme accrual
+
+744
+00:59:09.072 --> 00:59:13.282
+<v Aniruddh Deshpande>cust id, scheme id, period, accrual amount, posted flag
+
+745
+00:59:13.810 --> 00:59:17.810
+<v Karthik Subramanian>one row per customer per scheme per period
+
+746
+00:59:18.041 --> 00:59:22.041
+<v Aniruddh Deshpande>yes
+
+747
+00:59:22.662 --> 00:59:26.662
+<v Karthik Subramanian>hmm
+
+748
+00:59:27.126 --> 00:59:31.126
+<v Unknown Speaker>hello
+
+749
+00:59:31.719 --> 00:59:35.719
+<v Aniruddh Deshpande>karthik i think i am going
+
+750
+00:59:36.249 --> 00:59:40.249
+<v Karthik Subramanian>annie you are breaking
+
+751
+00:59:40.697 --> 00:59:44.697
+<v Aniruddh Deshpande>hello
+
+752
+00:59:45.220 --> 00:59:49.220
+<v Karthik Subramanian>he has dropped
+
+753
+00:59:54.553 --> 00:59:58.553
+<v Priya Nair>he will come back, his line does this
+
+754
+00:59:59.146 --> 01:00:03.146
+<v Ishaan Bhatt>should we wait
+
+755
+01:00:03.814 --> 01:00:07.814
+<v Karthik Subramanian>let us wait a minute
+
+756
+01:00:31.840 --> 01:00:35.840
+<v Farida Contractor>karthik while we wait
+
+757
+01:00:36.509 --> 01:00:40.719
+<v Farida Contractor>can i ask about the staging for scheme master
+
+758
+01:00:41.009 --> 01:00:45.009
+<v Karthik Subramanian>yes
+
+759
+01:00:45.547 --> 01:00:50.627
+<v Farida Contractor>it is a full load also, five rows or whatever it is
+
+760
+01:00:51.238 --> 01:00:55.238
+<v Farida Contractor>it takes no time
+
+761
+01:00:55.481 --> 01:00:59.481
+<v Karthik Subramanian>fine
+
+762
+01:00:59.919 --> 01:01:04.999
+<v Farida Contractor>i only wanted to say it because it is on the list
+
+763
+01:01:05.180 --> 01:01:09.180
+<v Karthik Subramanian>noted
+
+764
+01:01:09.556 --> 01:01:13.556
+<v Ishaan Bhatt>karthik, the scheme id on the line
+
+765
+01:01:13.882 --> 01:01:19.542
+<v Ishaan Bhatt>if the scheme validity is closed later, does the line still point at it
+
+766
+01:01:19.726 --> 01:01:23.726
+<v Karthik Subramanian>ask annie when he comes back
+
+767
+01:01:24.149 --> 01:01:28.149
+<v Ishaan Bhatt>yeah
+
+768
+01:01:28.634 --> 01:01:33.714
+<v Priya Nair>sorry, in the reports the scheme name is coming from scheme master
+
+769
+01:01:34.285 --> 01:01:38.785
+<v Priya Nair>if somebody renames a scheme the old reports change also
+
+770
+01:01:39.255 --> 01:01:43.255
+<v Karthik Subramanian>yes, that is the classic problem
+
+771
+01:01:43.840 --> 01:01:47.840
+<v Priya Nair>so the number for last year changes
+
+772
+01:01:48.435 --> 01:01:52.435
+<v Karthik Subramanian>the name changes, the number should not
+
+773
+01:01:52.699 --> 01:01:56.699
+<v Priya Nair>no i mean the grouping changes
+
+774
+01:01:57.143 --> 01:02:01.353
+<v Karthik Subramanian>ah, yes, if they reuse the code then yes
+
+775
+01:02:01.610 --> 01:02:05.610
+<v Priya Nair>they do reuse
+
+776
+01:02:05.863 --> 01:02:09.863
+<v Karthik Subramanian>they do
+
+777
+01:02:10.138 --> 01:02:14.138
+<v Priya Nair>they do
+
+778
+01:02:14.385 --> 01:02:18.385
+<v Karthik Subramanian>okay that is worth writing down
+
+779
+01:02:18.809 --> 01:02:22.809
+<v Sneha Pillai>i have it
+
+780
+01:02:23.307 --> 01:02:27.307
+<v Aniruddh Deshpande>hello, sorry
+
+781
+01:02:27.836 --> 01:02:31.836
+<v Aniruddh Deshpande>my wifi went
+
+782
+01:02:32.214 --> 01:02:36.714
+<v Karthik Subramanian>no problem annie, we could hear you till scheme accrual
+
+783
+01:02:37.284 --> 01:02:41.284
+<v Aniruddh Deshpande>haan
+
+784
+01:02:41.483 --> 01:02:46.563
+<v Aniruddh Deshpande>what happened was, uh, actually actually let me answer the earlier one
+
+785
+01:02:46.806 --> 01:02:50.806
+<v Aniruddh Deshpande>you asked how many schemes
+
+786
+01:02:53.191 --> 01:02:57.191
+<v Aniruddh Deshpande>five
+
+787
+01:02:57.444 --> 01:03:01.444
+<v Karthik Subramanian>five schemes
+
+788
+01:03:02.062 --> 01:03:06.062
+<v Aniruddh Deshpande>five, that is the active list
+
+789
+01:03:06.542 --> 01:03:10.542
+<v Karthik Subramanian>okay
+
+790
+01:03:12.583 --> 01:03:16.583
+<v Aniruddh Deshpande>and ishaan you asked something also
+
+791
+01:03:16.944 --> 01:03:20.944
+<v Ishaan Bhatt>yeah, if the scheme validity gets closed later
+
+792
+01:03:21.155 --> 01:03:25.365
+<v Ishaan Bhatt>the invoice line still has the old scheme id
+
+793
+01:03:25.828 --> 01:03:29.828
+<v Aniruddh Deshpande>it still has, yes
+
+794
+01:03:30.295 --> 01:03:34.295
+<v Aniruddh Deshpande>valid to date is changed on the master
+
+795
+01:03:34.803 --> 01:03:38.803
+<v Aniruddh Deshpande>the line is not changed
+
+796
+01:03:39.471 --> 01:03:43.471
+<v Ishaan Bhatt>so a lookup on validity will fail
+
+797
+01:03:43.978 --> 01:03:47.978
+<v Aniruddh Deshpande>it will fail
+
+798
+01:03:48.598 --> 01:03:53.388
+<v Aniruddh Deshpande>and then, uh, whatever your code does when the lookup fails
+
+799
+01:03:53.595 --> 01:03:57.595
+<v Ishaan Bhatt>hmm
+
+800
+01:03:58.127 --> 01:04:02.127
+<v Karthik Subramanian>that is a good one, note it
+
+801
+01:04:02.559 --> 01:04:06.559
+<v Ishaan Bhatt>noted
+
+802
+01:04:06.913 --> 01:04:10.913
+<v Karthik Subramanian>right, the audit columns
+
+803
+01:04:11.192 --> 01:04:15.192
+<v Karthik Subramanian>this is the thing i wanted most
+
+804
+01:04:15.417 --> 01:04:19.417
+<v Aniruddh Deshpande>haan, this one i can tell you properly
+
+805
+01:04:20.016 --> 01:04:25.676
+<v Aniruddh Deshpande>every table in oms prod and fin prod is having the same six columns
+
+806
+01:04:26.242 --> 01:04:30.242
+<v Aniruddh Deshpande>at the end of the column list
+
+807
+01:04:30.583 --> 01:04:34.583
+<v Karthik Subramanian>six
+
+808
+01:04:35.168 --> 01:04:39.168
+<v Aniruddh Deshpande>six
+
+809
+01:04:39.392 --> 01:04:43.892
+<v Aniruddh Deshpande>created by, created dt, last upd by, last upd dt
+
+810
+01:04:44.462 --> 01:04:48.462
+<v Aniruddh Deshpande>active flag, delete flack
+
+811
+01:04:48.995 --> 01:04:52.995
+<v Sneha Pillai>sorry, slowly
+
+812
+01:04:53.167 --> 01:04:57.167
+<v Sneha Pillai>created by
+
+813
+01:04:57.653 --> 01:05:01.653
+<v Aniruddh Deshpande>created by, created underscore b y
+
+814
+01:05:03.738 --> 01:05:07.738
+<v Sneha Pillai>created dt
+
+815
+01:05:09.856 --> 01:05:13.856
+<v Aniruddh Deshpande>created underscore d t
+
+816
+01:05:14.215 --> 01:05:18.215
+<v Sneha Pillai>last upd by
+
+817
+01:05:18.686 --> 01:05:22.686
+<v Aniruddh Deshpande>last underscore u p d underscore b y
+
+818
+01:05:22.908 --> 01:05:26.908
+<v Sneha Pillai>last upd dt
+
+819
+01:05:29.065 --> 01:05:33.065
+<v Aniruddh Deshpande>same, d t
+
+820
+01:05:33.261 --> 01:05:37.261
+<v Sneha Pillai>active flag and delete flag
+
+821
+01:05:39.525 --> 01:05:43.525
+<v Aniruddh Deshpande>active underscore f l g
+
+822
+01:05:45.650 --> 01:05:49.650
+<v Aniruddh Deshpande>delete underscore f l a g
+
+823
+01:05:50.221 --> 01:05:54.221
+<v Sneha Pillai>sorry, one is flg and one is flag
+
+824
+01:05:54.888 --> 01:05:58.888
+<v Aniruddh Deshpande>haan
+
+825
+01:05:59.355 --> 01:06:03.355
+<v Karthik Subramanian>seriously
+
+826
+01:06:03.774 --> 01:06:07.774
+<v Aniruddh Deshpande>seriously
+
+827
+01:06:08.083 --> 01:06:13.453
+<v Aniruddh Deshpande>active flag is f l g, delete flack is f l a g
+
+828
+01:06:13.742 --> 01:06:17.742
+<v Karthik Subramanian>sorry, why
+
+829
+01:06:18.258 --> 01:06:22.258
+<v Aniruddh Deshpande>why what
+
+830
+01:06:22.872 --> 01:06:26.872
+<v Karthik Subramanian>no, nothing, carry on
+
+831
+01:06:27.418 --> 01:06:31.418
+<v Aniruddh Deshpande>whoever wrote the second one wrote it fully
+
+832
+01:06:31.856 --> 01:06:35.856
+<v Aniruddh Deshpande>that is the whole reason
+
+833
+01:06:36.462 --> 01:06:40.462
+<v Ishaan Bhatt>i have been bitten by that already
+
+834
+01:06:41.030 --> 01:06:45.030
+<v Ishaan Bhatt>everybody is bitten by that
+
+835
+01:06:45.636 --> 01:06:49.636
+<v Karthik Subramanian>okay so six columns, consistent across both schemas
+
+836
+01:06:49.833 --> 01:06:53.833
+<v Aniruddh Deshpande>consistent, yes
+
+837
+01:06:54.272 --> 01:06:58.272
+<v Aniruddh Deshpande>except one thing
+
+838
+01:06:58.503 --> 01:07:02.503
+<v Karthik Subramanian>here we go
+
+839
+01:07:03.024 --> 01:07:07.814
+<v Aniruddh Deshpande>on the transaction tables the created column is not created dt
+
+840
+01:07:08.479 --> 01:07:12.479
+<v Karthik Subramanian>it is created ts
+
+841
+01:07:12.758 --> 01:07:16.758
+<v Aniruddh Deshpande>correct correct
+
+842
+01:07:17.163 --> 01:07:21.373
+<v Aniruddh Deshpande>created underscore t s, and it is a timestamp
+
+843
+01:07:21.589 --> 01:07:25.589
+<v Karthik Subramanian>which tables
+
+844
+01:07:26.016 --> 01:07:30.016
+<v Aniruddh Deshpande>invoice header, invoice line
+
+845
+01:07:30.454 --> 01:07:34.454
+<v Aniruddh Deshpande>the archive one also
+
+846
+01:07:36.637 --> 01:07:40.637
+<v Aniruddh Deshpande>order header
+
+847
+01:07:41.267 --> 01:07:45.267
+<v Aniruddh Deshpande>and on finance side scheme accrual
+
+848
+01:07:47.565 --> 01:07:51.565
+<v Karthik Subramanian>order line
+
+849
+01:07:52.162 --> 01:07:56.162
+<v Aniruddh Deshpande>order line is created dt
+
+850
+01:07:58.502 --> 01:08:02.712
+<v Karthik Subramanian>order header is ts and order line is dt
+
+851
+01:08:03.132 --> 01:08:07.132
+<v Aniruddh Deshpande>yes
+
+852
+01:08:07.544 --> 01:08:11.544
+<v Karthik Subramanian>that is
+
+853
+01:08:12.054 --> 01:08:16.054
+<v Aniruddh Deshpande>that is how it is
+
+854
+01:08:16.675 --> 01:08:20.675
+<v Karthik Subramanian>fine
+
+855
+01:08:20.970 --> 01:08:24.970
+<v Sneha Pillai>sorry i want to get this right
+
+856
+01:08:25.570 --> 01:08:29.570
+<v Sneha Pillai>invoice header and invoice line have created ts
+
+857
+01:08:30.201 --> 01:08:34.201
+<v Aniruddh Deshpande>haan
+
+858
+01:08:34.773 --> 01:08:38.773
+<v Sneha Pillai>and order header
+
+859
+01:08:39.269 --> 01:08:43.269
+<v Aniruddh Deshpande>order header also ts
+
+860
+01:08:45.676 --> 01:08:49.676
+<v Sneha Pillai>and order line is created dt
+
+861
+01:08:49.871 --> 01:08:53.871
+<v Aniruddh Deshpande>correct
+
+862
+01:08:54.214 --> 01:08:58.214
+<v Sneha Pillai>thank you
+
+863
+01:08:58.510 --> 01:09:02.510
+<v Karthik Subramanian>ani who writes created by
+
+864
+01:09:02.917 --> 01:09:06.917
+<v Aniruddh Deshpande>the application, or the batch account
+
+865
+01:09:07.572 --> 01:09:11.572
+<v Karthik Subramanian>which batch accounts
+
+866
+01:09:13.768 --> 01:09:17.768
+<v Aniruddh Deshpande>for the loads it is odi load
+
+867
+01:09:18.063 --> 01:09:22.063
+<v Aniruddh Deshpande>for the application batch it is batch oms
+
+868
+01:09:22.461 --> 01:09:26.461
+<v Aniruddh Deshpande>finance side is svc finbatch
+
+869
+01:09:26.998 --> 01:09:30.998
+<v Aniruddh Deshpande>dms interface writes dms iface
+
+870
+01:09:31.172 --> 01:09:35.172
+<v Aniruddh Deshpande>sfa side is sfa iface
+
+871
+01:09:35.790 --> 01:09:40.000
+<v Karthik Subramanian>those are the values you see in created by
+
+872
+01:09:40.364 --> 01:09:44.364
+<v Aniruddh Deshpande>those are the values
+
+873
+01:09:45.034 --> 01:09:49.534
+<v Aniruddh Deshpande>and on the very old rows you will see apps
+
+874
+01:09:49.820 --> 01:09:53.820
+<v Karthik Subramanian>apps
+
+875
+01:09:54.260 --> 01:09:58.260
+<v Aniruddh Deshpande>a p p s
+
+876
+01:09:58.816 --> 01:10:02.816
+<v Aniruddh Deshpande>that is the migrated data
+
+877
+01:10:03.004 --> 01:10:07.004
+<v Karthik Subramanian>migrated from where
+
+878
+01:10:07.592 --> 01:10:11.592
+<v Aniruddh Deshpande>from before
+
+879
+01:10:12.206 --> 01:10:16.206
+<v Aniruddh Deshpande>see this is a long story
+
+880
+01:10:18.456 --> 01:10:22.456
+<v Karthik Subramanian>no no go on
+
+881
+01:10:22.783 --> 01:10:26.783
+<v Aniruddh Deshpande>no i will keep it short
+
+882
+01:10:27.289 --> 01:10:31.789
+<v Aniruddh Deshpande>when we moved the platform, uh, this was 2019 side
+
+883
+01:10:32.414 --> 01:10:36.914
+<v Aniruddh Deshpande>2018 end, 2019, i do not remember exactly the month
+
+884
+01:10:39.069 --> 01:10:43.069
+<v Sneha Pillai>sorry which year should i write
+
+885
+01:10:43.623 --> 01:10:47.623
+<v Aniruddh Deshpande>do not write a year, write around 2019
+
+886
+01:10:48.227 --> 01:10:52.227
+<v Sneha Pillai>okay, around 2019
+
+887
+01:10:52.525 --> 01:10:56.735
+<v Aniruddh Deshpande>at that time we moved to the current version
+
+888
+01:10:57.397 --> 01:11:01.397
+<v Aniruddh Deshpande>and the character set was also changed
+
+889
+01:11:01.927 --> 01:11:05.927
+<v Aniruddh Deshpande>that was the actual problem, not the version
+
+890
+01:11:08.225 --> 01:11:12.225
+<v Karthik Subramanian>character set
+
+891
+01:11:12.419 --> 01:11:16.919
+<v Aniruddh Deshpande>haan, because the old one was not handling some characters
+
+892
+01:11:17.358 --> 01:11:21.568
+<v Aniruddh Deshpande>party names in some regions were coming with junk
+
+893
+01:11:23.933 --> 01:11:27.933
+<v Karthik Subramanian>and you fixed that in the migration
+
+894
+01:11:28.337 --> 01:11:32.337
+<v Aniruddh Deshpande>we fixed most of it
+
+895
+01:11:34.523 --> 01:11:39.023
+<v Aniruddh Deshpande>some rows are still, uh, i will not say fixed
+
+896
+01:11:39.286 --> 01:11:43.286
+<v Karthik Subramanian>what does that mean
+
+897
+01:11:43.461 --> 01:11:49.701
+<v Aniruddh Deshpande>it means if you look at some old party names you will see a question mark
+
+898
+01:11:50.260 --> 01:11:54.260
+<v Karthik Subramanian>how old
+
+899
+01:11:54.611 --> 01:11:58.611
+<v Aniruddh Deshpande>old, before that migration
+
+900
+01:11:59.089 --> 01:12:03.089
+<v Karthik Subramanian>okay
+
+901
+01:12:03.310 --> 01:12:07.310
+<v Aniruddh Deshpande>and those rows the created by is apps
+
+902
+01:12:07.551 --> 01:12:11.551
+<v Aniruddh Deshpande>so you can find them if you want
+
+903
+01:12:11.885 --> 01:12:15.885
+<v Ishaan Bhatt>that is actually useful for us
+
+904
+01:12:16.349 --> 01:12:20.559
+<v Aniruddh Deshpande>it is useful, that is why i am telling
+
+905
+01:12:21.004 --> 01:12:25.004
+<v Aniruddh Deshpande>nobody asked me this in 2017 also
+
+906
+01:12:25.324 --> 01:12:29.324
+<v Karthik Subramanian>[laughs]
+
+907
+01:12:29.643 --> 01:12:33.643
+<v Karthik Subramanian>annie, while we are on this
+
+908
+01:12:33.960 --> 01:12:37.960
+<v Karthik Subramanian>who has update access on oms prod
+
+909
+01:12:38.413 --> 01:12:42.413
+<v Aniruddh Deshpande>application has, obviously
+
+910
+01:12:42.672 --> 01:12:46.672
+<v Aniruddh Deshpande>dba has
+
+911
+01:12:47.160 --> 01:12:52.820
+<v Aniruddh Deshpande>and fin prod is having a direct update grant on oms prod invoice line
+
+912
+01:12:53.432 --> 01:12:57.432
+<v Karthik Subramanian>fin prod has update on invoice line
+
+913
+01:12:58.104 --> 01:13:02.104
+<v Aniruddh Deshpande>haan
+
+914
+01:13:02.711 --> 01:13:06.711
+<v Karthik Subramanian>since when
+
+915
+01:13:07.163 --> 01:13:11.163
+<v Aniruddh Deshpande>2014
+
+916
+01:13:11.753 --> 01:13:15.753
+<v Karthik Subramanian>and it has never been reviewed
+
+917
+01:13:16.435 --> 01:13:20.435
+<v Aniruddh Deshpande>nobody has reviewed it
+
+918
+01:13:20.647 --> 01:13:24.647
+<v Aniruddh Deshpande>it is sitting there since then
+
+919
+01:13:24.854 --> 01:13:28.854
+<v Karthik Subramanian>that is, uh, that is unusual
+
+920
+01:13:29.043 --> 01:13:33.543
+<v Aniruddh Deshpande>it is there in the grants, you can see it
+
+921
+01:13:33.790 --> 01:13:37.790
+<v Karthik Subramanian>sneha capture that as a line
+
+922
+01:13:38.375 --> 01:13:42.375
+<v Sneha Pillai>capturing, uh, can you say it once more
+
+923
+01:13:42.560 --> 01:13:48.510
+<v Aniruddh Deshpande>fin underscore prod is having update grant on oms underscore prod dot invoice underscore line
+
+924
+01:13:49.037 --> 01:13:53.037
+<v Sneha Pillai>thank you
+
+925
+01:13:53.423 --> 01:13:57.423
+<v Karthik Subramanian>okay, moving on
+
+926
+01:13:57.923 --> 01:14:01.923
+<v Karthik Subramanian>delete flag
+
+927
+01:14:02.587 --> 01:14:06.587
+<v Aniruddh Deshpande>now this one you listen carefully
+
+928
+01:14:06.858 --> 01:14:10.858
+<v Karthik Subramanian>i am listening
+
+929
+01:14:11.084 --> 01:14:15.084
+<v Aniruddh Deshpande>delete flack is y or n
+
+930
+01:14:15.557 --> 01:14:19.557
+<v Aniruddh Deshpande>y means the row is logically deleted
+
+931
+01:14:19.996 --> 01:14:23.996
+<v Aniruddh Deshpande>n means it is live
+
+932
+01:14:24.591 --> 01:14:28.591
+<v Karthik Subramanian>and that is it
+
+933
+01:14:29.173 --> 01:14:33.173
+<v Aniruddh Deshpande>no
+
+934
+01:14:33.438 --> 01:14:37.438
+<v Karthik Subramanian>no
+
+935
+01:14:37.866 --> 01:14:41.866
+<v Aniruddh Deshpande>some rows it is neither
+
+936
+01:14:42.546 --> 01:14:46.546
+<v Karthik Subramanian>neither
+
+937
+01:14:46.895 --> 01:14:50.895
+<v Aniruddh Deshpande>it is blank
+
+938
+01:14:51.072 --> 01:14:55.072
+<v Karthik Subramanian>null
+
+939
+01:14:55.377 --> 01:14:59.377
+<v Aniruddh Deshpande>null, blank, whatever you want to call it
+
+940
+01:14:59.999 --> 01:15:03.999
+<v Karthik Subramanian>which rows
+
+941
+01:15:04.436 --> 01:15:08.436
+<v Aniruddh Deshpande>uh, the old ones
+
+942
+01:15:08.668 --> 01:15:12.668
+<v Karthik Subramanian>how old
+
+943
+01:15:13.056 --> 01:15:17.056
+<v Aniruddh Deshpande>old
+
+944
+01:15:17.465 --> 01:15:22.545
+<v Aniruddh Deshpande>i do not want to give you a date on the call
+
+945
+01:15:22.863 --> 01:15:26.863
+<v Karthik Subramanian>fine
+
+946
+01:15:27.504 --> 01:15:33.164
+<v Aniruddh Deshpande>it is not all of them, but it is a good number of rows
+
+947
+01:15:33.654 --> 01:15:37.654
+<v Ishaan Bhatt>so it is a three valued column
+
+948
+01:15:38.306 --> 01:15:42.306
+<v Aniruddh Deshpande>three valued, yes
+
+949
+01:15:42.529 --> 01:15:46.529
+<v Karthik Subramanian>so if somebody writes delete flag equals n
+
+950
+01:15:46.901 --> 01:15:51.111
+<v Aniruddh Deshpande>then all those rows are gone from his report
+
+951
+01:15:51.716 --> 01:15:55.716
+<v Karthik Subramanian>silently
+
+952
+01:15:56.264 --> 01:16:00.264
+<v Aniruddh Deshpande>silently
+
+953
+01:16:00.552 --> 01:16:04.762
+<v Aniruddh Deshpande>and it will look correct, that is the problem
+
+954
+01:16:05.310 --> 01:16:09.310
+<v Aniruddh Deshpande>no error, no warning, the query runs fine
+
+955
+01:16:09.550 --> 01:16:13.550
+<v Karthik Subramanian>what is the correct predicate
+
+956
+01:16:14.209 --> 01:16:19.289
+<v Aniruddh Deshpande>you put n v l delete flag comma n, equal to n
+
+957
+01:16:19.501 --> 01:16:23.501
+<v Karthik Subramanian>nvl of delete flag comma n
+
+958
+01:16:23.707 --> 01:16:27.707
+<v Aniruddh Deshpande>haan, nvl
+
+959
+01:16:28.279 --> 01:16:32.279
+<v Karthik Subramanian>ishaan write that down exactly
+
+960
+01:16:32.651 --> 01:16:36.651
+<v Ishaan Bhatt>i have it
+
+961
+01:16:36.978 --> 01:16:43.798
+<v Ishaan Bhatt>n v l open bracket delete flack comma quote n quote close bracket equal to quote n quote
+
+962
+01:16:44.470 --> 01:16:48.470
+<v Aniruddh Deshpande>correct correct
+
+963
+01:16:48.657 --> 01:16:52.657
+<v Karthik Subramanian>annie is this documented anywhere
+
+964
+01:16:53.108 --> 01:16:57.108
+<v Aniruddh Deshpande>no
+
+965
+01:16:57.366 --> 01:17:01.366
+<v Karthik Subramanian>nowhere
+
+966
+01:17:01.647 --> 01:17:05.647
+<v Aniruddh Deshpande>where will it be documented
+
+967
+01:17:06.267 --> 01:17:10.267
+<v Karthik Subramanian>fair
+
+968
+01:17:10.705 --> 01:17:15.205
+<v Aniruddh Deshpande>i have told people, i have told in mails also
+
+969
+01:17:15.884 --> 01:17:19.884
+<v Aniruddh Deshpande>last year also i told somebody
+
+970
+01:17:20.379 --> 01:17:24.379
+<v Karthik Subramanian>who
+
+971
+01:17:25.037 --> 01:17:29.247
+<v Aniruddh Deshpande>i do not remember, somebody in the reporting side
+
+972
+01:17:29.676 --> 01:17:33.676
+<v Sneha Pillai>it was not me
+
+973
+01:17:34.262 --> 01:17:38.262
+<v Aniruddh Deshpande>no no not you
+
+974
+01:17:38.723 --> 01:17:42.723
+<v Karthik Subramanian>okay, this goes into the schema notes
+
+975
+01:17:42.988 --> 01:17:46.988
+<v Aniruddh Deshpande>i will write it
+
+976
+01:17:47.200 --> 01:17:51.200
+<v Karthik Subramanian>you will write it
+
+977
+01:17:51.525 --> 01:17:57.185
+<v Aniruddh Deshpande>i will write the notes for the tables, i said i will do it
+
+978
+01:17:57.633 --> 01:18:02.423
+<v Sneha Pillai>capturing that as an action, ani to circulate the schema notes
+
+979
+01:18:02.948 --> 01:18:06.948
+<v Aniruddh Deshpande>give me till monday
+
+980
+01:18:07.389 --> 01:18:11.389
+<v Sneha Pillai>monday is the ninth
+
+981
+01:18:11.822 --> 01:18:15.822
+<v Aniruddh Deshpande>ninth is fine
+
+982
+01:18:16.456 --> 01:18:20.456
+<v Karthik Subramanian>annie one more on this
+
+983
+01:18:20.694 --> 01:18:25.484
+<v Karthik Subramanian>is there anything that runs on its own and changes rows
+
+984
+01:18:25.676 --> 01:18:29.676
+<v Aniruddh Deshpande>meaning what
+
+985
+01:18:30.274 --> 01:18:34.274
+<v Karthik Subramanian>batch jobs, procs, anything scheduled
+
+986
+01:18:34.593 --> 01:18:38.593
+<v Aniruddh Deshpande>there are some procs
+
+987
+01:18:40.801 --> 01:18:44.801
+<v Karthik Subramanian>what do they do
+
+988
+01:18:45.255 --> 01:18:49.255
+<v Aniruddh Deshpande>they clean things up
+
+989
+01:18:51.421 --> 01:18:55.421
+<v Karthik Subramanian>clean up what
+
+990
+01:18:56.075 --> 01:19:00.075
+<v Aniruddh Deshpande>uh, housekeeping type
+
+991
+01:19:00.679 --> 01:19:04.679
+<v Aniruddh Deshpande>marking, tidying, that kind of thing
+
+992
+01:19:05.218 --> 01:19:09.218
+<v Karthik Subramanian>whose are they
+
+993
+01:19:09.731 --> 01:19:13.731
+<v Aniruddh Deshpande>that is not my folder
+
+994
+01:19:14.187 --> 01:19:18.187
+<v Aniruddh Deshpande>ops team is having their own folder
+
+995
+01:19:18.779 --> 01:19:22.779
+<v Farida Contractor>karthik that is not in my one
+
+996
+01:19:23.054 --> 01:19:27.554
+<v Farida Contractor>mine is b c p l e d w daily
+
+997
+01:19:28.160 --> 01:19:32.660
+<v Farida Contractor>the orion housekeeping is a different folder in control em
+
+998
+01:19:32.964 --> 01:19:36.964
+<v Karthik Subramanian>different team
+
+999
+01:19:37.516 --> 01:19:41.516
+<v Farida Contractor>different team, different folder
+
+1000
+01:19:41.837 --> 01:19:46.337
+<v Farida Contractor>i do not even have view on it, i think
+
+1001
+01:19:46.660 --> 01:19:50.660
+<v Aniruddh Deshpande>you will not have
+
+1002
+01:19:51.303 --> 01:19:55.303
+<v Karthik Subramanian>and they run
+
+1003
+01:19:55.729 --> 01:19:59.729
+<v Aniruddh Deshpande>in the night
+
+1004
+01:20:00.016 --> 01:20:04.016
+<v Karthik Subramanian>at what time
+
+1005
+01:20:04.570 --> 01:20:08.570
+<v Aniruddh Deshpande>uh
+
+1006
+01:20:08.994 --> 01:20:13.784
+<v Aniruddh Deshpande>see i do not want to give you a wrong time
+
+1007
+01:20:14.358 --> 01:20:20.018
+<v Aniruddh Deshpande>it changes, and honestly i have not looked at that in a long time
+
+1008
+01:20:20.701 --> 01:20:24.701
+<v Karthik Subramanian>fair enough
+
+1009
+01:20:25.312 --> 01:20:30.102
+<v Aniruddh Deshpande>those are not, uh, those are not application jobs as such
+
+1010
+01:20:30.481 --> 01:20:34.481
+<v Karthik Subramanian>okay
+
+1011
+01:20:34.871 --> 01:20:39.081
+<v Aniruddh Deshpande>ask the ops people, they will tell you exactly
+
+1012
+01:20:39.265 --> 01:20:43.475
+<v Karthik Subramanian>sneha park that, we will pick it up separately
+
+1013
+01:20:43.868 --> 01:20:47.868
+<v Sneha Pillai>parking it
+
+1014
+01:20:48.286 --> 01:20:52.286
+<v Karthik Subramanian>frida, since we are here
+
+1015
+01:20:54.277 --> 01:20:58.277
+<v Karthik Subramanian>give me the shape of your run
+
+1016
+01:20:58.861 --> 01:21:02.861
+<v Farida Contractor>my load plan starts at one o clock
+
+1017
+01:21:03.546 --> 01:21:07.546
+<v Karthik Subramanian>one a m
+
+1018
+01:21:09.773 --> 01:21:13.773
+<v Farida Contractor>one a m, ist, every day
+
+1019
+01:21:15.733 --> 01:21:19.733
+<v Farida Contractor>sunday also
+
+1020
+01:21:20.249 --> 01:21:24.249
+<v Karthik Subramanian>and it takes
+
+1021
+01:21:24.864 --> 01:21:28.864
+<v Farida Contractor>on a normal night, uh, under an hour
+
+1022
+01:21:29.209 --> 01:21:33.209
+<v Farida Contractor>fifty eight minutes is my average
+
+1023
+01:21:33.847 --> 01:21:37.847
+<v Karthik Subramanian>and the sla
+
+1024
+01:21:38.260 --> 01:21:42.260
+<v Farida Contractor>half past five in the morning
+
+1025
+01:21:44.460 --> 01:21:48.460
+<v Farida Contractor>business needs it by five thirty
+
+1026
+01:21:48.767 --> 01:21:52.767
+<v Karthik Subramanian>so you have a lot of head room
+
+1027
+01:21:53.388 --> 01:21:57.388
+<v Farida Contractor>on a normal night yes
+
+1028
+01:21:57.635 --> 01:22:01.635
+<v Farida Contractor>on month end it is different
+
+1029
+01:22:01.989 --> 01:22:05.989
+<v Karthik Subramanian>how different
+
+1030
+01:22:06.477 --> 01:22:10.477
+<v Farida Contractor>much longer, we can go through it separately
+
+1031
+01:22:11.042 --> 01:22:15.042
+<v Karthik Subramanian>we will
+
+1032
+01:22:15.683 --> 01:22:19.893
+<v Farida Contractor>because the volume is completely different on those nights
+
+1033
+01:22:20.481 --> 01:22:24.481
+<v Karthik Subramanian>understood
+
+1034
+01:22:24.658 --> 01:22:28.658
+<v Ishaan Bhatt>farida how are you reading orion
+
+1035
+01:22:29.143 --> 01:22:33.143
+<v Farida Contractor>over the link
+
+1036
+01:22:33.595 --> 01:22:37.595
+<v Farida Contractor>there is one database link, orion prd
+
+1037
+01:22:38.145 --> 01:22:42.935
+<v Farida Contractor>it is in stg orion, pointing at the read only account
+
+1038
+01:22:43.443 --> 01:22:47.443
+<v Karthik Subramanian>which read only account
+
+1039
+01:22:48.102 --> 01:22:52.102
+<v Aniruddh Deshpande>oms ro
+
+1040
+01:22:52.399 --> 01:22:56.399
+<v Aniruddh Deshpande>o m s underscore r o
+
+1041
+01:22:56.574 --> 01:23:00.574
+<v Karthik Subramanian>and odie has its own
+
+1042
+01:23:00.770 --> 01:23:04.770
+<v Aniruddh Deshpande>odi stg rd
+
+1043
+01:23:04.962 --> 01:23:08.962
+<v Aniruddh Deshpande>that one is on the warehouse side
+
+1044
+01:23:09.462 --> 01:23:13.462
+<v Farida Contractor>yes odie is connecting with that one
+
+1045
+01:23:13.642 --> 01:23:17.642
+<v Karthik Subramanian>the be link is the only route in
+
+1046
+01:23:19.768 --> 01:23:23.768
+<v Farida Contractor>only one link, yes
+
+1047
+01:23:24.364 --> 01:23:28.864
+<v Farida Contractor>there used to be a second one, that was removed
+
+1048
+01:23:29.134 --> 01:23:33.134
+<v Karthik Subramanian>when
+
+1049
+01:23:33.549 --> 01:23:38.049
+<v Farida Contractor>uh, before my time on this, it was the consolidation
+
+1050
+01:23:38.394 --> 01:23:42.394
+<v Karthik Subramanian>fine
+
+1051
+01:23:42.939 --> 01:23:48.309
+<v Ishaan Bhatt>karthik we will need to do scd too on some of these dims
+
+1052
+01:23:48.540 --> 01:23:52.540
+<v Karthik Subramanian>not today
+
+1053
+01:23:53.041 --> 01:23:57.041
+<v Ishaan Bhatt>no i am just flagging
+
+1054
+01:23:57.694 --> 01:24:01.694
+<v Karthik Subramanian>i know, and it is a fair flag
+
+1055
+01:24:02.060 --> 01:24:07.720
+<v Karthik Subramanian>but i am not saying sed 2 or not scd2 in a source discovery
+
+1056
+01:24:08.230 --> 01:24:12.230
+<v Karthik Subramanian>we will take it to the architecture session
+
+1057
+01:24:12.812 --> 01:24:16.812
+<v Ishaan Bhatt>fine
+
+1058
+01:24:17.421 --> 01:24:22.211
+<v Karthik Subramanian>if we start designing the warehouse now we will get neither
+
+1059
+01:24:22.896 --> 01:24:26.896
+<v Ishaan Bhatt>yeah okay
+
+1060
+01:24:27.145 --> 01:24:31.145
+<v Priya Nair>karthik sorry, on the reporting side
+
+1061
+01:24:31.529 --> 01:24:35.529
+<v Priya Nair>do you want the list of reports
+
+1062
+01:24:36.174 --> 01:24:40.174
+<v Karthik Subramanian>yes please
+
+1063
+01:24:40.375 --> 01:24:44.375
+<v Priya Nair>there are forty one in the catalogue
+
+1064
+01:24:44.872 --> 01:24:48.872
+<v Priya Nair>but honestly only about twelve are used
+
+1065
+01:24:49.091 --> 01:24:53.091
+<v Karthik Subramanian>twelve out of forty one
+
+1066
+01:24:53.748 --> 01:24:57.958
+<v Priya Nair>about twelve, i can give you the exact list
+
+1067
+01:24:58.628 --> 01:25:03.128
+<v Karthik Subramanian>yes send the list, that is a i, uh, sneha
+
+1068
+01:25:03.361 --> 01:25:07.361
+<v Sneha Pillai>that will be a i one two
+
+1069
+01:25:07.701 --> 01:25:11.701
+<v Priya Nair>i will revert by wednesday
+
+1070
+01:25:12.058 --> 01:25:16.058
+<v Sneha Pillai>eleventh march
+
+1071
+01:25:16.250 --> 01:25:20.250
+<v Priya Nair>yes
+
+1072
+01:25:20.526 --> 01:25:24.526
+<v Karthik Subramanian>priya when was the rpd last changed
+
+1073
+01:25:24.887 --> 01:25:28.887
+<v Priya Nair>two thousand nineteen i think
+
+1074
+01:25:29.384 --> 01:25:33.384
+<v Karthik Subramanian>2019
+
+1075
+01:25:33.575 --> 01:25:37.785
+<v Priya Nair>yes nothing has changed in the model since then
+
+1076
+01:25:38.184 --> 01:25:42.184
+<v Karthik Subramanian>only the reports on top
+
+1077
+01:25:42.717 --> 01:25:46.717
+<v Priya Nair>only the analyses, yes
+
+1078
+01:25:47.324 --> 01:25:51.324
+<v Karthik Subramanian>okay
+
+1079
+01:25:51.996 --> 01:25:57.656
+<v Farida Contractor>karthik sorry, i have to drop, i have the vendor call at half past
+
+1080
+01:25:58.050 --> 01:26:02.050
+<v Karthik Subramanian>no problem frida, thanks
+
+1081
+01:26:02.388 --> 01:26:06.388
+<v Farida Contractor>i will send the interface list today itself
+
+1082
+01:26:06.763 --> 01:26:10.763
+<v Karthik Subramanian>thank you
+
+1083
+01:26:10.950 --> 01:26:14.950
+<v Farida Contractor>bye everyone
+
+1084
+01:26:15.172 --> 01:26:19.172
+<v Aniruddh Deshpande>bye
+
+1085
+01:26:19.349 --> 01:26:23.349
+<v Priya Nair>bye farida
+
+1086
+01:26:23.608 --> 01:26:27.608
+<v Karthik Subramanian>okay, we have about eight minutes
+
+1087
+01:26:28.096 --> 01:26:32.096
+<v Karthik Subramanian>sneha can you read back the actions
+
+1088
+01:26:32.272 --> 01:26:36.272
+<v Sneha Pillai>yes
+
+1089
+01:26:38.463 --> 01:26:44.123
+<v Sneha Pillai>a i zero eight, ani to look for the 2009 functional spec, thirteenth march
+
+1090
+01:26:44.655 --> 01:26:51.475
+<v Sneha Pillai>a i zero nine, ani to circulate the schema notes for oms prod and fin prod, ninth march
+
+1091
+01:26:52.075 --> 01:26:58.605
+<v Sneha Pillai>a i one zero, ishaan to profile the delete flag values on invoice header and invoice line
+
+1092
+01:26:58.867 --> 01:27:02.867
+<v Sneha Pillai>due date for that one
+
+1093
+01:27:03.432 --> 01:27:07.432
+<v Karthik Subramanian>twelfth
+
+1094
+01:27:07.702 --> 01:27:11.702
+<v Sneha Pillai>twelfth march
+
+1095
+01:27:12.164 --> 01:27:18.694
+<v Sneha Pillai>a i one one, farida to confirm the extract predicate column for each staging table, tenth march
+
+1096
+01:27:18.938 --> 01:27:24.888
+<v Sneha Pillai>a i one two, priya to send the list of reports in use, eleventh march
+
+1097
+01:27:25.546 --> 01:27:30.336
+<v Sneha Pillai>a i one three, karthik to circulate the open question list
+
+1098
+01:27:30.566 --> 01:27:34.566
+<v Karthik Subramanian>put thirteenth
+
+1099
+01:27:34.863 --> 01:27:38.863
+<v Sneha Pillai>thirteenth march
+
+1100
+01:27:39.078 --> 01:27:43.078
+<v Sneha Pillai>and i have the parked items separately
+
+1101
+01:27:45.292 --> 01:27:49.292
+<v Karthik Subramanian>good
+
+1102
+01:27:49.526 --> 01:27:53.526
+<v Aniruddh Deshpande>sneha one thing
+
+1103
+01:27:53.987 --> 01:27:59.067
+<v Aniruddh Deshpande>on a i zero eight do not chase me on the thirteenth
+
+1104
+01:27:59.453 --> 01:28:03.453
+<v Sneha Pillai>i will chase you on the twelfth
+
+1105
+01:28:03.919 --> 01:28:07.919
+<v Aniruddh Deshpande>okay okay
+
+1106
+01:28:08.126 --> 01:28:12.126
+<v Karthik Subramanian>annie, honestly, this was very useful
+
+1107
+01:28:12.492 --> 01:28:16.492
+<v Aniruddh Deshpande>it is fine
+
+1108
+01:28:17.069 --> 01:28:21.569
+<v Aniruddh Deshpande>i have told all this before, nobody wrote it down
+
+1109
+01:28:21.925 --> 01:28:25.925
+<v Karthik Subramanian>we are writing it down
+
+1110
+01:28:26.266 --> 01:28:30.266
+<v Aniruddh Deshpande>that is the difference then
+
+1111
+01:28:30.685 --> 01:28:34.685
+<v Karthik Subramanian>[laughs]
+
+1112
+01:28:35.014 --> 01:28:39.804
+<v Ishaan Bhatt>karthik do you want me to start on the counts tonight
+
+1113
+01:28:40.312 --> 01:28:44.312
+<v Karthik Subramanian>yes, delete flag first
+
+1114
+01:28:44.860 --> 01:28:48.860
+<v Ishaan Bhatt>delete flack first, then the territory overlaps
+
+1115
+01:28:49.315 --> 01:28:53.315
+<v Karthik Subramanian>yes
+
+1116
+01:28:53.546 --> 01:28:57.756
+<v Karthik Subramanian>and send me the raw numbers, not a summary
+
+1117
+01:28:58.073 --> 01:29:02.073
+<v Ishaan Bhatt>okay
+
+1118
+01:29:02.628 --> 01:29:06.628
+<v Sneha Pillai>karthik are we in the office next week
+
+1119
+01:29:06.803 --> 01:29:10.803
+<v Karthik Subramanian>tuesday and wednesday i think
+
+1120
+01:29:11.201 --> 01:29:15.201
+<v Sneha Pillai>andaree
+
+1121
+01:29:15.429 --> 01:29:19.429
+<v Karthik Subramanian>yes, andheri
+
+1122
+01:29:20.106 --> 01:29:24.106
+<v Sneha Pillai>okay i will put it in the notes
+
+1123
+01:29:24.659 --> 01:29:28.659
+<v Karthik Subramanian>right, thank you everybody
+
+1124
+01:29:29.169 --> 01:29:33.169
+<v Priya Nair>thank you
+
+1125
+01:29:33.832 --> 01:29:37.832
+<v Aniruddh Deshpande>thanks
+
+1126
+01:29:38.408 --> 01:29:42.408
+<v Karthik Subramanian>sneha can you stop the recording
+
+1127
+01:29:47.000 --> 01:29:51.000
+<v Sneha Pillai>stopping it now
+
+NOTE SYNTHETIC — generated for internal demo. No real entity depicted.

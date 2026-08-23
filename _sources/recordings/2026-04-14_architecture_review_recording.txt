@@ -1,0 +1,22 @@
+RECORDING STUB -- link only, not the recording itself
+Project Drishti / Bharadwaj engagement
+
+Meeting: Architecture review
+Date: Tue 14-Apr-2026
+Time: 14:00-15:15 IST
+Duration: 01:15:00
+Organiser: Sneha Pillai
+Attendees: Karthik, Ishaan, Farida, Ani, Priya, Neha, Ananya, Sneha Pillai
+
+Recording URL (SharePoint / Stream, tenant bharadwajcp):
+https://bharadwajcp.sharepoint.example/sites/BCPL-NorthlaneAnalytics/Shared%20Documents/Recordings/2026-04-14_architecture_review.mp4
+
+Approx file size: 634 MB
+Transcript cross-ref: 2026-04-14_architecture_review.vtt (auto-generated)
+Retention: 90-day auto-purge, roughly 13-Jul-2026
+
+Full recording, no gaps noted.
+
+DO NOT COMMIT MEDIA - link only. Recording lives in SharePoint, not in this repository.
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

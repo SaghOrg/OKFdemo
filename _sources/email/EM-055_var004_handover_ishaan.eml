@@ -1,0 +1,106 @@
+Received: from mail.bharadwajcp.example (10.171.44.19) by
+ mx-in-01.northlaneanalytics.example with Microsoft SMTP Server id
+ 15.20.7344.007; Thu, 9 Jul 2026 18:52:58 +0530
+Return-Path: <farida.contractor@bharadwajcp.example>
+Message-ID: <BM1PR01MB5530A156B94A21DDC@mail.bharadwajcp.example>
+Date: Thu, 09 Jul 2026 18:52:41 +0530
+From: Farida Contractor <farida.contractor@bharadwajcp.example>
+To: Ishaan Bhatt <ishaan.bhatt@northlaneanalytics.example>
+Cc: Karthik Subramanian <karthik.subramanian@northlaneanalytics.example>,
+ Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>,
+ Sneha Pillai <sneha.pillai@northlaneanalytics.example>
+Subject: RE: RE: FW: VAR-004 duplicate rows on DIM_CUSTOMER (was: Mahalaxmi
+ Distributors territory change 17-Apr)
+Thread-Topic: VAR-004 duplicate rows on DIM_CUSTOMER
+In-Reply-To: <CAJ7q2m8bw60yPcKiRvgq1GZbyb5@mail.northlaneanalytics.example>
+References: <CAJ7q2m8HgiKXSjjarvO0oeFGPRM@mail.northlaneanalytics.example>
+ <CAJ7q2m8bw60yPcKiRvgq1GZbyb5@mail.northlaneanalytics.example>
+X-Mailer: Microsoft Outlook 16.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+
+Ishaan,
+
+Apologies for the delay in coming back on this, month end plus the audit
+extracts took the whole of last week.
+
+1. With effect from today, 09-Jul-2026, VAR-004 is yours. Please keep this mail
+as the handover record. I do not want a situation later where nobody is sure who
+was driving it.
+
+2. Reason is bandwidth on my side and nothing else. Month end support, the
+quarter close and the audit extracts run through July and most of August, and the
+Control-M folder changes are also with me. VAR-004 needs somebody who is inside
+that interface every day and at the moment that is not me.
+
+3. What you are picking up, as per my earlier mail dated 22-May and what is in
+the tracker:
+
+   a. 61 distributors are carrying overlapping effective dates on DIM_CUSTOMER.
+      Of those 18 have two rows with CURRENT_FLG = 'Y' at the same time.
+   b. On a territory reassignment the closing row's EFF_END_DT is being written
+      with the same timestamp as the new row's EFF_START_DT, and CURRENT_FLG is
+      not being turned off on the old row. The fact row then joins to both
+      dimension rows and the amount comes twice.
+   c. Worked example is DIST-W-0241, Mahalaxmi Distributors, territory changed
+      on 17.04.2026 from TER-W-014 to TER-W-011. Both rows are still showing as
+      current, I checked this morning.
+   d. Value carried against VAR-004 in the register is 65 L.
+
+4. What I am not handing over is the the DIM_CUSTOMER interface itself. Anything
+you want changed in it comes to me first as a change and I will schedule it.
+That part stays with me, it is not a trust question, it is only that I am the one
+who gets the call if the run breaks.
+
+5. Sneha, kindly change the owner against VAR-004 in the Tracker to Ishaan
+Bhatt. I will not update it from my side, two people editing the same file is
+how we ended up with three versions of it last time.
+
+6. Ishaan, one thing to watch, the 61 and the 18 came off Meghna's counts and I
+have not re-counted since, so if you run it again and the number comes different
+then
+
+Regards,
+Farida
+
+Farida Contractor
+ODI / ETL Lead, Enterprise Data Warehouse
+Bharadwaj Consumer Products Ltd, Andheri East, Mumbai
+
+Disclaimer: This e-mail and any files transmitted with it are confidential and
+are intended solely for the use of the individual or entity to whom they are
+addressed. If you have received this e-mail in error please notify the sender
+and delete it from your system. Bharadwaj Consumer Products Ltd does not accept
+liability for any errors or omissions in the contents of this message which
+arise as a result of e-mail transmission. Internal use only.
+Please consider the environment before printing this e-mail.
+
+________________________________
+From: Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>
+Sent: 08 July 2026 16:34
+To: Farida Contractor <farida.contractor@bharadwajcp.example>
+Cc: Karthik Subramanian <karthik.subramanian@northlaneanalytics.example>; Ishaan Bhatt <ishaan.bhatt@northlaneanalytics.example>; Sneha Pillai <sneha.pillai@northlaneanalytics.example>
+Subject: RE: FW: VAR-004 duplicate rows on DIM_CUSTOMER (was: Mahalaxmi Distributors territory change 17-Apr)
+
+> Hi Farida,
+>
+> Flagging this one again. VAR-004 has not moved in the tracker for three weeks
+> and Ishaan has been doing most of the digging on it anyway, which is completely
+> fine, but the tracker and the plan should really say the same thing.
+>
+> Can we agree an owner this week? I can pick it up in the next catch up if that
+> is easier, I would just rather it was written down somewhere.
+>
+> Best,
+> Ananya
+>
+> > From: Ishaan Bhatt <ishaan.bhatt@northlaneanalytics.example>
+> > Sent: 06 July 2026 23:11
+> > Subject: RE: FW: VAR-004 duplicate rows on DIM_CUSTOMER
+> >
+> > pulled the 18 again this evening, same 18, DIST-W-0241 is still the cleanest
+> > one to show the SCD2 side of it. happy to write it up properly, just tell me
+> > if i am the owner or only the person with the query window open
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

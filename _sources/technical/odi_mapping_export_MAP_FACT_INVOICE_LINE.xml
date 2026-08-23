@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Oracle Data Integrator 12c (12.2.1.4.0) - Work Repository object export
+  Master repository : ODI_MASTER
+  Work repository    : ODI_WORK
+  Agent               : OracleDIAgent1 (edw-app-prd-02.bcpl.local:20910)
+  Export utility      : OdiExportObject, ODI Studio 12.2.1.4.0, SINGLE_OBJECT mode
+  Object exported     : MAPPING SALES_FIN.MAP_FACT_INVOICE_LINE
+  Exported by         : ISHAAN.BHATT
+  Export timestamp    : 2026-05-20T11:47:03+05:30
+
+  NOTE ON THIS EXPORT - pulled for the Drishti variance investigation.
+  This is an AS-WAS capture taken 20-May-2026. It predates release R2026.06,
+  deployed 03-Jun-2026 (CHG0021184 adds the DELETE_FLAG exclusion;
+  CHG0021207 moves DATE_KEY off the UTC timestamp onto INVOICE_DT). Do not
+  treat the filter/expression content below as the current state of the
+  mapping - it is the state that produced the defect, kept for the record.
+-->
+<smart-export version="12.2.1.4.0" internalVersion="001"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <export-info>
+    <master-repository name="ODI_MASTER"/>
+    <work-repository name="ODI_WORK" type="DEVELOPMENT"/>
+    <agent name="OracleDIAgent1" host="edw-app-prd-02.bcpl.local" port="20910"/>
+    <context default="PROD">
+      <context-item name="GLOBAL"/>
+      <context-item name="DEV"/>
+      <context-item name="PROD"/>
+    </context>
+    <exported-by>ISHAAN.BHATT</exported-by>
+    <export-timestamp>2026-05-20T11:47:03+05:30</export-timestamp>
+  </export-info>
+
+  <object-list>
+    <mapping odiInternalId="10774213"
+              name="MAP_FACT_INVOICE_LINE"
+              project="SALES_FIN"
+              folder="SALES_FIN"
+              author="ISHAAN.BHATT"
+              creationDate="2021-02-11T09:14:00+05:30"
+              lastModifiedBy="ISHAAN.BHATT"
+              lastModifiedDate="2026-02-18T17:02:11+05:30">
+
+      <description><![CDATA[
+Loads BCPL_EDW.FACT_INVOICE_LINE from STG_ORION.STG_INVOICE_LINE joined to
+STG_ORION.STG_INVOICE_HEADER. Highest-value target in the SALES_FIN folder;
+executes as part of the PKG_FACT_LOAD step of LP_DAILY_SALES.
+
+KNOWN ISSUE (open at the time of this export, raised as part of the
+variance investigation): no DELETE_FLAG exclusion exists anywhere in this
+mapping. DELETE_FLAG is staged on both source datastores below but is not
+referenced in any join, filter or attribute expression. Cancelled and
+logically-deleted invoice lines are currently loaded and counted in the
+warehouse the same as active ones. A filter node is planned,
+NVL(IL.DELETE_FLAG,'N') = 'N', targeted for the next incremental release.
+Reference kept informally against the investigation only; no change
+request number had been raised at the time this copy was taken.
+      ]]></description>
+
+      <!-- ==================================================================
+           DATASTORES
+           ================================================================== -->
+      <datastores>
+
+        <datastore id="DS_SRC_LINE" role="SOURCE" model="EDW_STG" schema="STG_ORION"
+                    resourceName="STG_INVOICE_LINE" alias="IL">
+          <column name="INVOICE_LINE_ID"  dataType="NUMBER"   precision="12"            alias="IL.INVOICE_LINE_ID"/>
+          <column name="INVOICE_ID"       dataType="NUMBER"   precision="12"            alias="IL.INVOICE_ID"/>
+          <column name="LINE_NO"          dataType="NUMBER"   precision="4"             alias="IL.LINE_NO"/>
+          <column name="SKU_ID"           dataType="NUMBER"   precision="10"            alias="IL.SKU_ID"/>
+          <column name="QTY_CS"           dataType="NUMBER"   precision="12" scale="3"  alias="IL.QTY_CS"/>
+          <column name="QTY_EA"           dataType="NUMBER"   precision="12" scale="3"  alias="IL.QTY_EA"/>
+          <column name="UNIT_PRICE"       dataType="NUMBER"   precision="12" scale="2"  alias="IL.UNIT_PRICE"/>
+          <column name="GROSS_AMT"        dataType="NUMBER"   precision="16" scale="2"  alias="IL.GROSS_AMT"/>
+          <column name="SCHEME_DISC_AMT"  dataType="NUMBER"   precision="16" scale="2"  alias="IL.SCHEME_DISC_AMT"/>
+          <column name="CASH_DISC_AMT"    dataType="NUMBER"   precision="16" scale="2"  alias="IL.CASH_DISC_AMT"/>
+          <column name="TAX_AMT"          dataType="NUMBER"   precision="16" scale="2"  alias="IL.TAX_AMT"/>
+          <column name="NET_AMT"          dataType="NUMBER"   precision="16" scale="2"  alias="IL.NET_AMT"/>
+          <column name="SCHEME_ID"        dataType="NUMBER"   precision="8"             alias="IL.SCHEME_ID"/>
+          <column name="LAST_UPD_BY"      dataType="VARCHAR2" length="30"               alias="IL.LAST_UPD_BY"/>
+          <column name="LAST_UPD_DT"      dataType="DATE"                               alias="IL.LAST_UPD_DT"/>
+          <column name="ACTIVE_FLG"       dataType="CHAR"     length="1"                alias="IL.ACTIVE_FLG"/>
+          <column name="DELETE_FLAG"      dataType="CHAR"     length="1"                alias="IL.DELETE_FLAG"/>
+          <column name="LOAD_DT"          dataType="DATE"                               alias="IL.LOAD_DT"/>
+        </datastore>
+
+        <datastore id="DS_SRC_HDR" role="SOURCE" model="EDW_STG" schema="STG_ORION"
+                    resourceName="STG_INVOICE_HEADER" alias="IH">
+          <column name="INVOICE_ID"      dataType="NUMBER"    precision="12"            alias="IH.INVOICE_ID"/>
+          <column name="INVOICE_NO"      dataType="VARCHAR2"  length="20"               alias="IH.INVOICE_NO"/>
+          <column name="INVOICE_DT"      dataType="DATE"                                alias="IH.INVOICE_DT"/>
+          <column name="DOC_TYPE"        dataType="VARCHAR2"  length="4"                alias="IH.DOC_TYPE"/>
+          <column name="CUST_ID"         dataType="NUMBER"    precision="10"            alias="IH.CUST_ID"/>
+          <column name="DEPOT_CD"        dataType="VARCHAR2"  length="12"               alias="IH.DEPOT_CD"/>
+          <column name="CREATED_TS"      dataType="TIMESTAMP" precision="6"             alias="IH.CREATED_TS"/>
+          <column name="LAST_UPD_DT"     dataType="DATE"                                alias="IH.LAST_UPD_DT"/>
+          <column name="ACTIVE_FLG"      dataType="CHAR"      length="1"                alias="IH.ACTIVE_FLG"/>
+          <column name="DELETE_FLAG"     dataType="CHAR"      length="1"                alias="IH.DELETE_FLAG"/>
+          <column name="LOAD_DT"         dataType="DATE"                                alias="IH.LOAD_DT"/>
+        </datastore>
+
+        <datastore id="DS_TGT" role="TARGET" model="EDW_TGT" schema="BCPL_EDW"
+                    resourceName="FACT_INVOICE_LINE" alias="TGT">
+          <column name="INVOICE_LINE_KEY" dataType="NUMBER" precision="14"/>
+          <column name="INVOICE_ID"       dataType="NUMBER" precision="12"/>
+          <column name="INVOICE_LINE_ID"  dataType="NUMBER" precision="12"/>
+          <column name="DATE_KEY"         dataType="NUMBER" precision="8"/>
+          <column name="CUSTOMER_KEY"     dataType="NUMBER" precision="10"/>
+          <column name="PRODUCT_KEY"      dataType="NUMBER" precision="10"/>
+          <column name="GEO_KEY"          dataType="NUMBER" precision="6"/>
+          <column name="SALESREP_KEY"     dataType="NUMBER" precision="8"/>
+          <column name="SCHEME_KEY"       dataType="NUMBER" precision="8"/>
+          <column name="QTY_CS"           dataType="NUMBER" precision="12" scale="3"/>
+          <column name="QTY_EA"           dataType="NUMBER" precision="12" scale="3"/>
+          <column name="GROSS_AMT"        dataType="NUMBER" precision="16" scale="2"/>
+          <column name="SCHEME_DISC_AMT"  dataType="NUMBER" precision="16" scale="2"/>
+          <column name="CASH_DISC_AMT"    dataType="NUMBER" precision="16" scale="2"/>
+          <column name="TAX_AMT"          dataType="NUMBER" precision="16" scale="2"/>
+          <column name="NET_AMT"          dataType="NUMBER" precision="16" scale="2"/>
+          <column name="SRC_DELETE_FLAG"  dataType="CHAR"   length="1"/>
+          <column name="LOAD_DT"          dataType="DATE"/>
+          <column name="BATCH_ID"         dataType="NUMBER" precision="10"/>
+          <column name="ODI_SESS_NO"      dataType="NUMBER" precision="12"/>
+        </datastore>
+
+      </datastores>
+
+      <!-- ==================================================================
+           JOINS
+           ================================================================== -->
+      <joins>
+        <join id="JOIN_1" name="IL_TO_IH"
+              expression="IL.INVOICE_ID = IH.INVOICE_ID"
+              joinType="INNER" executionLocation="SOURCE" active="1"/>
+      </joins>
+
+      <!-- ==================================================================
+           FILTERS
+           ================================================================== -->
+      <filters>
+        <filter id="FILTER_1" name="EXCL_SAMPLES"
+                expression="IH.DOC_TYPE &lt;&gt; 'SMP'"
+                executionLocation="SOURCE" active="1"/>
+        <!--
+          There is no FILTER_2 in this version of the mapping. A DELETE_FLAG
+          exclusion was discussed (see mapping description) but no filter
+          node has been added. IL.DELETE_FLAG and IH.DELETE_FLAG both exist
+          on the datastores above and are staged every night; nothing here
+          reads either of them. Rows where DELETE_FLAG = 'Y' - and rows
+          where it is still NULL, which some older lines are - both pass
+          through this mapping unchanged, exactly like an active row would.
+
+          Draft filter, not built, kept here only as a note of intent:
+            FILTER_2  name="EXCL_DELETED"  active="0"
+                      expression="NVL(IL.DELETE_FLAG,'N') = 'N'"
+        -->
+      </filters>
+
+      <!-- ==================================================================
+           ATTRIBUTE MAPPING (target expression per column)
+           ================================================================== -->
+      <attribute-mapping-list target="DS_TGT">
+
+        <attribute targetColumn="INVOICE_LINE_KEY"
+                    expression="BCPL_EDW.SEQ_FACT_INVOICE_LINE.NEXTVAL"
+                    executionLocation="TARGET"/>
+
+        <attribute targetColumn="INVOICE_ID"       expression="IL.INVOICE_ID"/>
+        <attribute targetColumn="INVOICE_LINE_ID"  expression="IL.INVOICE_LINE_ID"/>
+
+        <attribute targetColumn="DATE_KEY"
+                    expression="TO_NUMBER(TO_CHAR(IH.CREATED_TS,'YYYYMMDD'))">
+          <!--
+            Keyed off IH.CREATED_TS, which the ORION application server
+            writes in UTC. IH.INVOICE_DT (IST business date, same header
+            row) is staged and available but is not used here. An invoice
+            raised late in the day in IST can resolve to the next
+            calendar day's DATE_KEY under this expression.
+          -->
+        </attribute>
+
+        <attribute targetColumn="CUSTOMER_KEY"
+                    expression="NVL((SELECT dc.customer_key FROM bcpl_edw.dim_customer dc WHERE dc.customer_id = IH.CUST_ID AND dc.current_flg = 'Y'), -1)"/>
+
+        <attribute targetColumn="PRODUCT_KEY"
+                    expression="NVL((SELECT dp.product_key FROM bcpl_edw.dim_product dp WHERE dp.sku_id = IL.SKU_ID AND dp.current_flg = 'Y'), -1)"/>
+
+        <attribute targetColumn="GEO_KEY"
+                    expression="NVL((SELECT dg.geo_key FROM bcpl_edw.dim_geography dg WHERE dg.depot_code = IH.DEPOT_CD), -1)"/>
+
+        <attribute targetColumn="SALESREP_KEY"
+                    expression="-1">
+          <!-- Territory-to-rep resolution is not wired into this mapping;
+               this column lands on the UNKNOWN member on every row. -->
+        </attribute>
+
+        <attribute targetColumn="SCHEME_KEY"
+                    expression="NVL((SELECT ds.scheme_key FROM bcpl_edw.dim_scheme ds WHERE ds.scheme_id = IL.SCHEME_ID), -1)"/>
+
+        <attribute targetColumn="QTY_CS"           expression="IL.QTY_CS"/>
+        <attribute targetColumn="QTY_EA"           expression="IL.QTY_EA"/>
+        <attribute targetColumn="GROSS_AMT"        expression="IL.GROSS_AMT"/>
+        <attribute targetColumn="SCHEME_DISC_AMT"  expression="IL.SCHEME_DISC_AMT"/>
+        <attribute targetColumn="CASH_DISC_AMT"    expression="IL.CASH_DISC_AMT"/>
+        <attribute targetColumn="TAX_AMT"          expression="IL.TAX_AMT"/>
+        <attribute targetColumn="NET_AMT"          expression="IL.NET_AMT"/>
+
+        <attribute targetColumn="SRC_DELETE_FLAG"  expression="IL.DELETE_FLAG">
+          <!-- Passed through as-is: 'Y', 'N' or NULL. Carried for reporting
+               only - see FILTER note above for why it is not acted on. -->
+        </attribute>
+
+        <attribute targetColumn="LOAD_DT"          expression="SYSDATE"        executionLocation="TARGET"/>
+        <attribute targetColumn="BATCH_ID"         expression="#SALES_FIN.V_BATCH_ID" executionLocation="TARGET"/>
+        <attribute targetColumn="ODI_SESS_NO"      expression="&lt;%=odiRef.getSession(&quot;SESS_NO&quot;)%&gt;" executionLocation="TARGET"/>
+
+      </attribute-mapping-list>
+
+      <!-- ==================================================================
+           PHYSICAL DESIGN / KNOWLEDGE MODULES
+           ================================================================== -->
+      <physical-design name="MAP_FACT_INVOICE_LINE_PHYS" default="1">
+
+        <execution-unit id="EU_STG" logicalSchema="EDW_STG"
+                         physicalSchema="STG_ORION@edw-db-prd-01" context="PROD">
+          <lkm name="LKM Oracle to Oracle (DBLINK)" onLink="ORION_PRD">
+            <option name="AUTO_DISABLE_FK"           value="No"/>
+            <option name="DELETE_TEMPORARY_OBJECTS"  value="No"/>
+            <option name="CREATE_SYNONYM"            value="No"/>
+          </lkm>
+        </execution-unit>
+
+        <execution-unit id="EU_TGT" logicalSchema="EDW_TGT"
+                         physicalSchema="BCPL_EDW@edw-db-prd-01" context="PROD">
+          <ikm name="IKM Oracle Control Append">
+            <option name="TRUNCATE"          value="false"/>
+            <option name="DELETE_ALL"        value="No"/>
+            <option name="FLOW_CONTROL"      value="false"/>
+            <option name="RECYCLE_ERRORS"    value="No"/>
+            <option name="STATIC_CONTROL"    value="No"/>
+            <option name="COMMIT"            value="Yes"/>
+            <option name="ANALYZE_TARGET"    value="No"/>
+            <!--
+              FLOW_CONTROL is false, so this is insert-only: every row the
+              incremental predicate below returns is inserted, with no
+              update branch and no key to merge on. Contrast with
+              MAP_STG_INVOICE_LINE and the MAP_DIM_* mappings in this same
+              folder, which are built on IKM Oracle Incremental Update
+              (update-else-insert on a declared key) instead. This is the
+              only mapping in SALES_FIN on IKM Oracle Control Append.
+            -->
+          </ikm>
+          <ckm name="CKM Oracle" enabled="false">
+            <!-- Present in the KM list for this datastore, but FLOW_CONTROL
+                 is false above so CKM Oracle never actually executes here.
+                 Rejects would land in the reject datastore below if it did. -->
+          </ckm>
+        </execution-unit>
+
+      </physical-design>
+
+      <!-- ==================================================================
+           INCREMENTAL WINDOW
+           ================================================================== -->
+      <incremental-predicate executionLocation="SOURCE"><![CDATA[
+STG_INVOICE_LINE.LAST_UPD_DT >= TRUNC(SYSDATE) - 1
+      ]]></incremental-predicate>
+      <!--
+        Fixed rolling 24 hour window against the staging table's own
+        LAST_UPD_DT. This mapping does not reference #GLOBAL.LAST_EXTRACT_TS
+        or #GLOBAL.EXTRACT_HIGH_TS at all - both variables exist at project
+        level and are used by MAP_STG_INVOICE_LINE and the dimension
+        mappings for their own incremental windows, refreshed each run from
+        MAX(EXTRACT_HIGH_TS) on BCPL_EDW.ETL_BATCH_CONTROL, but this mapping
+        was not built against that pattern and nobody has revisited it.
+        There is no batch/run marker on this predicate either: a staging
+        row whose LAST_UPD_DT falls inside the window on two different
+        nights is returned by this predicate, and therefore inserted by
+        the IKM above, on both of those nights.
+      -->
+
+      <reject-datastore name="E$_FACT_INVOICE_LINE" schema="STG_ORION" model="EDW_STG"/>
+
+    </mapping>
+  </object-list>
+
+</smart-export>
+<!-- SYNTHETIC — generated for internal demo. No real entity depicted. -->

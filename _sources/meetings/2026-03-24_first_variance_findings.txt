@@ -1,0 +1,464 @@
+Bharadwaj Consumer Products Ltd - Microsoft Teams
+Transcript (auto-generated, unedited machine output)
+Meeting: First variance findings
+24-03-2026 16:00 IST
+Recording started late. Transcript begins from the point of recording.
+Duration 00:45:12  |  Speakers detected 7 (2 unresolved)
+Confidence: medium. Names and figures may be transcribed incorrectly.
+
+----
+
+[00:00:00]
+Unknown: ok ok i think we are on now sorry the recording was not started at all i have put it on just now so the first bit is gone
+Speaker 7: should i still write from the beginning or from here haan whatever you have we will fill in after
+Karthik Subramanian: can everyone hear me my audio was cutting in the earlier call
+Ananya Krishnan: you are clear
+Speaker 5: i can hear there is some echo i think somebody has two devices on
+Ananya Krishnan: is it me
+Speaker 7: no it is gone now ok
+Sneha Pillai: for the record this is the Bhardwaj Consumer Products and Northlane Analytics session variance findings twenty fourth march
+Speaker 1: sneha are you in the office today
+Sneha Pillai: no i am from home i was in andaree yesterday ok ok so this is the first proper readout on the variance work uh ishaan has done the first cut of the reconciliation shalini ma'am is on vikram has not joined yet i think
+
+Shalini Iyer: i am here i have another call at quater to five so if i drop suddenly, sorry in advance
+
+Speaker 1: no problem we will try to finish before that vikram messaged he is at the airport, he will join in ten minutes
+Speaker 7: ok
+Ananya Krishnan: so plan for the forty five minutes is ishaan takes us through what he has found then we agree what goes into the tracker then actions and karthik will jump in on the technical side wherever needed
+
+Speaker 4: i will mostly listen actually, this is ishaan's work not mine
+Ananya Krishnan: no no you will have to explain the o ryan side of it shalini ma'am will ask
+Unknown: i will ask
+[00:02:29]
+Karthik Subramanian: then i will explain yes
+Ananya Krishnan: ishaan over to you are you sharing
+
+Speaker 2: yeah one second can you see my screen
+Speaker 1: not yet
+
+Speaker 2: now
+
+Speaker 3: no
+
+Speaker 2: sorry sorry wrong window now yes we can see it
+Speaker 3: it is very small on my side
+Speaker 2: i will zoom one sec better
+Speaker 3: yes better
+Unknown: for me also fine
+Unknown: go ahead
+Speaker 2: ok so basically what i have done is, i have taken april to june of last year, so FY twenty six Q one, and i have put the where house number next to what finance has
+Speaker 3: which extract are you using
+
+Speaker 2: the fact directly invoice line fact not the obiee report ok, ok that is fine
+Ishaan Bhatt: so the warehouse is giving me four three eight point six core for the quater
+Shalini Iyer: 438.60 yes, that is the number i have been given also and that is the number i cannot sign
+[00:03:59]
+Speaker 2: correct
+Speaker 3: my trial balance for apr to june is short of that by 4.20 core and it has been short by that since the pack went out yeah so that is exactly the gap i am seeing four point two core odd
+Shalini Iyer: not odd 4.20 sorry 4.2 core
+Speaker 1: and this is the same gap shalini has been chasing since uh since febuary itself
+Unknown: since the eleventh of feb i said it in the kickoff also
+Ananya Krishnan: correct correct
+Speaker 2: so so the thing is i think i know why let him show it
+Speaker 2: haan so if you look at this second tab these are the invoice limes that are in the fact for that quater and this column here is the flag from source delete flack
+Speaker 4: delete flag on invoice line, yes
+Ishaan Bhatt: and the ones marked Y are cancelled somebody has cancelled the line in orion after it was raised and we are loading all of them
+Speaker 3: all of them
+Ishaan Bhatt: all of them, there is no filter
+Farida Contractor: there is a filter
+Ishaan Bhatt: in the mapping for the fact there is no delete flag filter at all, i went into the mapping, i pulled the xml also
+Speaker 5: which interface map fact invoice lime
+Speaker 5: hmm
+Speaker 6: hello, hello can you hear me
+Ananya Krishnan: vikram you are on mute no sorry you are not we can hear you
+[00:06:15]
+Vikram Sethi: sorry i am at the airport there is announcement going on so i will keep myself muted mostly no problem ishaan is just going through the q one gap
+Karthik Subramanian: haan ok which q one
+Ananya Krishnan: FY twenty six q one, apr to june last year
+Vikram Sethi: ok ok carry on carry on only one thing is this about oreo or about the report
+Ananya Krishnan: about the where house vikram
+Vikram Sethi: ok ok [inaudible] flight is announced so i may drop
+Ananya Krishnan: sorry vikram you broke up there i said my flight is announced if i drop i will rejoin
+Shalini Iyer: ok
+Ishaan Bhatt: so as i was saying, no filter, nothing, the mapping just takes whatever comes into stagging and appends it
+
+Karthik Subramanian: and to be precise that is not a filter that got broken, it was never there
+Ishaan Bhatt: never there i checked the export one minute the interface was built in twenty twenty one and i did not build it no no no i am not saying
+Karthik Subramanian: [crosstalk]
+Farida Contractor: let me finish
+Unknown: no no nobody is saying that frida sorry farida
+Speaker 5: i am only saying it was inherited i am not defending it nobody is assigning blame in this meeting that is not what this is
+Speaker 1: correct, this is just what is true
+Shalini Iyer: can i ask something please
+[00:08:13]
+Shalini Iyer: if the fix is to only take the live lines, then it is a one line change no, why has it not been done
+Speaker 2: ah, it is, but there is a catch
+Speaker 4: there is a catch and it is important, so let me take thirty seconds the flag on the source table has three states not two Y means the line is cancelled N means it is live and then there is a large set of older rows where the column is simply null
+Ishaan Bhatt: blank
+Speaker 4: blank yes null meaning
+
+Speaker 4: meaning nothing was ever written there
+Shalini Iyer: and those are real sales or not real sales
+Karthik Subramanian: those are real they are old but they are real
+Ishaan Bhatt: so if somebody writes delete flack equal to N in the filter, which is the obvious thing to write
+Karthik Subramanian: then every one of those old rows silently disappears out of the fact and the history collapses
+Speaker 3: ok that would be worse
+Speaker 4: that would be much worse and it would not throw an error it would just quietly give you a smaller number
+Speaker 2: yeah, it will just look like sales dropped
+Speaker 4: the predicat has to be nvl of delete flag comma N equals N
+Sneha Pillai: sorry karthik can you say that once more slowly
+Karthik Subramanian: n v l open bracket delete flag comma quote N quote close bracket equals quote N quote got it
+Speaker 3: i will not pretend i followed that but i trust it
+[00:10:15]
+Karthik Subramanian: it means treat a blank as if it were live
+Speaker 3: and who decides that
+Speaker 4: the mapping decides it that is the whole point it is a line of code
+Speaker 2: it is one expression in od i that is all it is one expression
+Speaker 2: one expression
+Speaker 3: and it has been sitting like that since twenty twenty one
+Ishaan Bhatt: since the fact was built, yes
+Speaker 3: hmm ok, that i understood
+Unknown: and that change has to go through change control it is a production interface
+Ananya Krishnan: yes of course
+Shalini Iyer: i am just saying because last time somebody uh never mind
+Ananya Krishnan: no go on
+Farida Contractor: nothing, it is an old matter
+Ananya Krishnan: ok
+Shalini Iyer: so my question is very simple, can i tie this back to the trial balance
+Ishaan Bhatt: for q one yes, i have done it line by line for one month, june, and it ties
+Shalini Iyer: which month
+[00:11:44]
+Ishaan Bhatt: june twenty five
+Speaker 3: and april and may
+Speaker 2: not yet, i will do it this week
+Speaker 3: please do because i am going to be asked for the whole quarter and not one month
+Speaker 1: we will get you all three months ishaan can you do that by friday
+Ishaan Bhatt: friday is tight but yes
+Ananya Krishnan: flagging that, it is an action
+Sneha Pillai: capturing that as an action owner ishaan due is it friday the twenty seventh
+Ananya Krishnan: twenty seventh yes
+Shalini Iyer: second question when the filter goes in does the quater number move
+Speaker 4: it will come down yes
+Shalini Iyer: by 4.20 core
+Karthik Subramanian: by that order, the exact restated figure i would rather give you once it is actually run and not from a spreadsheet hmm
+Unknown: i do not want to give you a number today that i have to change next week
+Shalini Iyer: fair, but understand my position also, i have a reconciliation gap sitting open in a pack that group has already seen and by group i mean clarissen not our board
+Shalini Iyer: understood understood
+Unknown: and every month it stays open somebody asks me why
+
+[00:13:25]
+Speaker 1: so just to say it back, on the first item we are talking about 42 core of cancelled lines sitting in the quater as revenue
+Speaker 3: yes
+Speaker 2: yes
+Speaker 1: ok understood that is exactly why we are doing this in this order
+Speaker 6: sorry, sorry go ahead
+Speaker 1: no go ahead vikram
+Vikram Sethi: no no i will ask at the end my thing is on the stockist side ok we will come to that
+Speaker 2: ok so that is the first one can i go to the second thing
+Ananya Krishnan: go
+Ishaan Bhatt: second one is smaller in money but it is annoying so the date key on the fact the one we use to say which month a sale belongs to it is not coming from the invoice date
+Shalini Iyer: then from where
+Ishaan Bhatt: from the created timestamp on the invoice header
+Speaker 4: and the created time stamp is written by the application server in u t c
+Speaker 3: sorry, in what u t c so it is not india time it is five and a half hours behind
+Speaker 3: so
+Karthik Subramanian: so any invoice that is raised after half past six in the evening on the last day of a month gets a created timestamp that already belongs to the next day and therefore to the next month
+Speaker 3: oh oh that explains something i thought it might
+[00:15:25]
+Farida Contractor: the thirtieth and thirty first of every month the depots bill till late especially the last day
+Ishaan Bhatt: yeah and that is exactly where the rows are landing wrong
+Shalini Iyer: how much is this one
+Speaker 2: for the full year i am getting about ninety lakh
+Speaker 3: 90 lac, across the whole of FY twenty six
+Farida Contractor: yes
+Speaker 3: that i can live with as a number but not as a habit, the month has to close in the month agreed and the fix is to key the fact off the invoice date which is a proper date in india time it is a change to the same mopping so it can ride along with the other one if both changes are in the same interface then it is one deployment and one regresion that is better for me
+Karthik Subramanian: that was my thinking also
+Farida Contractor: ok
+Farida Contractor: good, so those two travel together
+Karthik Subramanian: sorry is the second one going in the tracker as a separate item or under the first one
+Ananya Krishnan: separate
+Speaker 4: separate they are different causes
+Speaker 7: ok, separate
+Vikram Sethi: can i come in now yes vikram please
+Unknown: so my number is coming different again and i want to understand which one of these is causing it north stock list billing for the quater, i am getting one figure, the report is showing another, and now you are saying the fact is also wrong
+Karthik Subramanian: which figure are you comparing vikram
+
+[00:17:27]
+Speaker 6: my off take from the region file ok so that is the thing, that is secondary and what we are discussing is primary
+Speaker 6: haan but it should still be in the same direction
+Karthik Subramanian: it should be in the same direction but it will never tie and it is not supposed to tie
+Speaker 6: why not
+Unknown: because primary sales is bcpl to the distributor and secondary is the distributor to the retailer they are two different events at two different times
+Speaker 6: i know that, i know that, i am in this business eleven years actually actually, forget it
+Karthik Subramanian: no please say it
+Vikram Sethi: my point is only that if two numbers are both wrong then somebody should tell the stock list which one to believe
+Shalini Iyer: the distributors do not see either of these numbers vikram they see the claim ma'am
+Shalini Iyer: that is a different system correct correct
+Karthik Subramanian: sorry i did not mean it like that
+Vikram Sethi: no no it is fine
+Ishaan Bhatt: vikram there is also a coverage issue with the secondary feed which is separate
+Speaker 6: meaning
+Ishaan Bhatt: the d m s feed that gives us secondary sales it does not cover all the distributors it is coming in at about seventy four percent
+Vikram Sethi: seventy four seventy four percent of distributors, and it lags by about five days
+Speaker 6: five days
+Ishaan Bhatt: roughly five sometimes more
+[00:19:28]
+Speaker 6: then how am i supposed to give a weekly number to rajeev sir and the nashville and buddy despatches are always late in the file always
+Ananya Krishnan: the plant file you mean
+Vikram Sethi: haan it comes two days late every week
+
+Speaker 1: ok that is a separate thing that is a fair question and it is a different problem from today's
+Shalini Iyer: vikram sorry, but the pack i sign is on invoiced sales, not on off take
+
+Speaker 6: i understand ma'am but the field is asking me on off take
+
+Farida Contractor: then they are two different conversations correct correct
+Unknown: let me park that one, i do not want to lose the thread on the fact table
+Speaker 6: ok ok park it
+Speaker 7: should i note the secondary coverage point note it as raised not as an action yet ok
+Speaker 2: sorry there is somebody at my door, two seconds
+Speaker 1: no problem
+Speaker 6: [inaudible] go go
+Farida Contractor: while he is away can i ask about the deployment
+Speaker 1: yes if two changes are going into map fact invoice line then i want the scenario regenerated properly and not hot fixed in production absolutely that is the only way it should be done
+Farida Contractor: because we have had it before where somebody changed the interface and did not regenerate and then the run picks up the old version understood
+Speaker 5: and then control em shows green
+Karthik Subramanian: yes
+[00:21:36]
+Speaker 5: green does not mean correct, that is my whole point in this project
+Karthik Subramanian: i will write that sentence down actually please write it
+Speaker 2: sorry sorry i am back, it was a delivery
+Speaker 1: no problem
+Speaker 2: ok so third thing, and this one i am less sure about
+
+Unknown: is this the discount one
+Speaker 2: yes
+
+Speaker 3: then this is the one i actually care about most
+Speaker 2: ok so the scheme discount amount on the fact does not tie to what finance has accrued the trade promotion accrual
+
+Speaker 2: yeah the trade promotion accural for the year, my accural and your warehouse number are apart by about, hold on 1.7 core one point seven roughly
+
+Speaker 2: yes that is the same as what i am getting one point seven odd for FY twenty six
+Speaker 3: and it is always in the same direction the warehouse is always higher always, i have checked it month on month
+Unknown: always higher never lower i checked that specifically
+Karthik Subramanian: that is the interesting part
+Speaker 3: why interesting
+Unknown: because a random error goes both ways this one only goes one way, so something is being added and never taken away
+Speaker 3: so what is adding it that i do not know yet
+Speaker 3: hmm
+[00:23:27]
+Karthik Subramanian: but i have a theory and i want to put it on the record so that we either prove it or kill it
+Ananya Krishnan: please
+Karthik Subramanian: so when i look at the fact rows behind that gap, they are not wrong amounts, they are duplicate rows the same source invoice line is present more than once
+Speaker 2: yeah i have got a sample i can send it they are exact dupes same line id same amount different load date
+Shalini Iyer: exact duplicates that is a very specific signature
+Shalini Iyer: and the discount gets counted twice
+Speaker 4: the discount gets counted twice and so would everything else on that row but the gross value is large so a duplicate does not stand out whereas the discount is small and it stands out immediately
+Karthik Subramanian: that is why finance sees it and nobody else does
+Karthik Subramanian: that is why finance sees it and nobody else does yes
+Unknown: ok
+Karthik Subramanian: now, why would the same line be picked up twice the mapping loads with a control append, so there is no merge, whatever comes in gets inserted
+Shalini Iyer: there is no key based merge at all on the fact correct and the extract picks rows using a last updated date predicat trunc of sysdate minus one so it is a window and the window overlaps by design
+Farida Contractor: it has to overlap otherwise you lose late rows agreed the overlap is deliberate so my hypothesis is about the be link
+Speaker 3: the what
+Speaker 4: the database link the link between the staging schema and the source
+Speaker 3: ok
+Speaker 4: the stagging tables physically sit inside the warehouse database, not inside orion, so every extract crosses that link
+Farida Contractor: yes and it is one link orion prd there is only one
+[00:25:57]
+Speaker 4: correct one link, and the load knowledge module goes over it now on a heavy night that step is slow and i mean visibly slow, the session sits waiting on the link that i can confirm one hundred percent the invoice line interface is the slowest thing in the whole plan and on a bad night it is not even close it just sits there in sql net message from the link
+Unknown: so if the extract for a given night runs long enough the rows it is reading can fall inside the next night's window as well and with a control append and no merge, they go in a second time
+Shalini Iyer: and nothing complains
+Karthik Subramanian: and nothing complains, because the batch closes with a done status and the row counts look plausible
+Ananya Krishnan: so the link being slow is causing the double counting
+Speaker 4: that is the hypothesis, yes and how confident are you
+Speaker 4: moderately and i want to say that carefully
+Farida Contractor: say it carefully then
+Karthik Subramanian: moderately confident, not confident it fits three things the duplicates are exact, they are concentrated on the heavier nights, and the link is measurably slow on exactly those nights
+
+Speaker 5: the heavy nights are the month end nights
+Karthik Subramanian: which is also when finance is looking
+Shalini Iyer: correct i will half agree with you
+Karthik Subramanian: go on
+Farida Contractor: the link is slow that is not in dispute i have been saying it since last year and it is in my mail also but slow is slow i do not see immediately how slow becomes wrong that is the right question to ask
+Speaker 5: because in odie the step either completes or it fails, it does not half complete
+
+Karthik Subramanian: no, agreed, but the point is not that the step half completes, the point is which rows fall inside which night's window frida i am genuinely asking is there any night where the plan ran long and the numbers were clean
+Farida Contractor: i would have to go and look please look, because that is the test
+Speaker 5: hmm ok, i can see the shape of it na wait if that is true then it would happen on every long night and not on some long nights
+[00:29:04]
+Karthik Subramanian: that is a good objection i do not have an answer to it today
+Speaker 5: hmm i am not saying no
+Speaker 4: i am not asking you to say yes either, i am asking us to write it down and then test it
+Ananya Krishnan: how do we test it pull the data base performance report for a couple of nights one bad night and one clean night and see what the link wait actually is against the total if the link is a large share of the elapsed on the bad nights and small on the clean ones and the duplicats follow the same pattern then it holds if the duplicates show up on a night where the link was fine then my theory is dead and we look elsewhere
+Speaker 1: that is clean, i like that
+Speaker 7: sorry so what do i write as the cause for this one write it as the working theory
+Speaker 4: write uh, suspected cause, latency on the orion prd database link causing rows to be re extracted
+Speaker 7: suspected cause
+Karthik Subramanian: put the word suspected in please in capitals if the tracker lets you
+Speaker 7: ok and if it is the link what is the fix if it is the link there are two fixes and they are independent make the link faster and make the load i dem potent so that a re read cannot duplicat
+Shalini Iyer: the second one sounds more useful
+Speaker 4: the second one is more useful whatever the cause turns out to be, which is the honest answer
+Speaker 1: ok so we do the second one regardless
+Speaker 4: i would yes but not in this phase and not this week
+Unknown: understood
+Speaker 5: since we are on duplicates can i bring up february
+Speaker 1: yes i was going to come to that
+
+Farida Contractor: so the fourteenth of feb saturday the run failed as per my earlier mail dated sixth of march, the plan failed and it was resubmitted manually session number is 884012
+[00:31:46]
+Ishaan Bhatt: and the whole night went in twice
+Speaker 5: the whole night went in a second time yes
+Shalini Iyer: and how long did that sit in my february number
+
+Speaker 5: about three weeks
+Shalini Iyer: three weeks
+Ananya Krishnan: till meghna's reconciliation picked it up
+Karthik Subramanian: and the value two point nine core
+Speaker 3: 2.9 core of sales that did not happen
+Unknown: that happened, but got counted twice
+Shalini Iyer: which for my purposes is the same thing
+Speaker 6: sorry, 2.9 core in february is the sales number or the duplicat number
+Speaker 2: the duplicate
+Vikram Sethi: then my february is also inflated
+Speaker 3: your february is a different extract vikram
+
+Vikram Sethi: everything is a different extract in this company sorry one at a time i cannot hear either of you
+Ishaan Bhatt: yeah, fair
+Karthik Subramanian: and this is the same mechanism as the third item just a different trigger control append no merge, so a second submission appends everything again
+Speaker 1: so it is the same family
+
+Speaker 4: same family, different trigger, and i would keep them as separate items in the tracker
+Sneha Pillai: separate items ok
+Ananya Krishnan: now the question i have been asking farida for two weeks
+[00:33:31]
+Farida Contractor: i know
+Speaker 3: do we re run february or not
+Farida Contractor: and my answer has not changed
+Speaker 3: i need clean february figures, i cannot keep carrying a manual adjustment in a spreadsheet
+Farida Contractor: i understand that but if i re run february today with the load as it is, i will not fix it, i will make it worse
+Shalini Iyer: why worse
+Speaker 5: because the load appends so a re run adds a third copy it does not replace the second one we can delete by batch id first on production
+Speaker 2: yes, i mean, the batch id is on every row
+Farida Contractor: deleting thirty odd million rows worth of history on a production fact table on a monday is not a small ask
+Karthik Subramanian: no no not the whole table only the batch i know what you mean i am telling you what it looks like from where i sit
+Speaker 2: sorry go ahead
+Farida Contractor: no you go ahead
+Speaker 2: no no you finish
+Unknown: i have finished
+Speaker 1: hold on, let us slow down can i frame the choice
+Ananya Krishnan: please
+Karthik Subramanian: option one we do nothing to febuary and finance carries an adjustment until the load is rebuilt properly option two, we delete the duplicate batch and leave the rest alone option three we truncate the february range and reload it which is the cleanest and also the riskiest
+[00:35:31]
+Shalini Iyer: option three is what i would want
+Speaker 5: option three is what i would not want
+Speaker 3: obviously
+Speaker 1: vikram has dropped
+Speaker 7: he has left the call he said he might, we carry on
+Farida Contractor: not obviously, i am not being difficult the reload has to come across the link and it is not a small volume and if it runs long it will run into the morning and the window is the window
+Speaker 3: if it is a weekend
+
+Farida Contractor: even on a weekend somebody has to sit and watch it
+Shalini Iyer: i can ask for that asking is not the problem the problem is if it half finishes there is also a correctness point and it is not a small one if we reload february today, we reload it through a mapping that still has no delete flag filter
+Ishaan Bhatt: oh
+Speaker 4: so we would be reloading known bad rows
+Speaker 3: so we would fix one thing and re import another
+Speaker 4: yes
+Karthik Subramanian: then we wait for the filter that would be my instinct but i do not want to decide it in the last five minutes of a call
+Speaker 1: ok
+Vikram Sethi: sorry, sorry, i got disconnected, boarding announcement, did somebody say febuary is being redone
+Speaker 1: no vikram, we are discussing whether to ok because if febuary primary cells change then my whole quater file changes vikram that is exactly why it needs to be decided properly
+[00:37:43]
+Speaker 6: correct correct
+Speaker 1: so, i am going to do something slightly unsatisfying
+Shalini Iyer: you are going to park it
+Ananya Krishnan: i am going to park it
+Speaker 3: hmm
+Ananya Krishnan: not because i want to avoid it but because the answer changes depending on whether the filter fix is in and that is a week or two away at least
+Speaker 4: and the sequencing genuinely matters here
+Farida Contractor: i agree with parking it
+Speaker 3: i do not love it but i can accept it if there is a date
+Speaker 1: we take it as the first item at the next session
+Speaker 3: which is when
+Speaker 1: the architecture review that is uh sneha when is it
+Sneha Pillai: fourteenth of april that is three weeks
+Speaker 1: yes
+Shalini Iyer: three weeks is a long time to sit on a wrong [inaudible]
+Ananya Krishnan: it is and i am not pretending otherwise
+Shalini Iyer: ok put it in writing that it was deferred and by whom
+[00:39:04]
+Speaker 1: sneha please capture it exactly like that decision deferred to the next session, i will write it as deferred and not as agreed
+Speaker 3: thank you
+Speaker 5: and in the meantime nobody re runs febuary without telling me
+Ishaan Bhatt: of course not
+Speaker 1: nobody re runs anything that is understood ok we have six minutes sneha can you read back what you have
+Speaker 7: yes, one second so first, ishaan to complete the april and may tie out against the trial balance and send it, by friday the twenty seventh
+Speaker 2: yes
+Sneha Pillai: second, karthik to write up the filter change and the date key change as one change for the same mapping yes i will do the note by let us say the thirty first thirty first third, farida to confirm what regression she needs before that change goes in i will send it but i want the change note first
+Karthik Subramanian: you will have it
+Speaker 7: fourth karthik to pull the database performance report for one bad night and one clean night to test the link theory
+Shalini Iyer: yes and i will need help from the d b a side for that
+Ananya Krishnan: anirood will have it we can ask anirood
+Karthik Subramanian: yes annie can get it in five minutes
+Sneha Pillai: sorry i did not catch the name
+Shalini Iyer: annie, from the d b a side
+Speaker 7: ok fifth the february re run decision is deferred to the fourteenth of april session
+
+Speaker 3: deferred yes
+[00:41:08]
+Speaker 7: sixth i log three new items in the tracker the q one one the month end date one and the scheme discount one as suspected
+
+Speaker 1: and the february one is already in the log from before
+Sneha Pillai: it is already there, i will just link them and seventh secondary coverage raised by vikram noted no owner yet no owner means nothing will happen
+Speaker 1: no it means i have not decided who yet i will come back on it this week
+
+Unknown: ok ok i have that as action fourteen onwards in my sheet
+Speaker 1: good one last thing from me before i drop
+Speaker 1: yes for the deck on thursday whatever number goes on the slide i want it to be the same number that is in the tracker
+Unknown: yes
+Speaker 3: last time there were two versions floating and i had to explain both
+Speaker 1: that will not happen
+Speaker 4: i am writing the deck so it will be the tracker numbers
+Speaker 3: thank you, i have to jump
+Speaker 1: thanks shalini
+Shalini Iyer: bye everyone
+Speaker 5: bye
+
+Ananya Krishnan: ok, uh, farida anything else from your side no only the regression point which is captured
+
+Farida Contractor: captured
+
+[00:42:53]
+Speaker 7: one second somebody is typing very loudly
+Speaker 5: sorry that is me
+Speaker 6: ananya one small thing
+
+Speaker 1: yes
+Farida Contractor: the sovereign one kg and the ta rang one kg, in the report the numbers are looking odd odd how
+Vikram Sethi: the case quantity is not matching with my file it is not a small difference also
+
+Speaker 1: ok uh send me a screenshot and i will get ishaan to look
+
+Vikram Sethi: i will send tonight itself do the needful
+
+Ananya Krishnan: will do
+Speaker 2: send the sku codes also if possible
+
+Speaker 6: haan i will send
+Ananya Krishnan: ok karthik anything to add only one thing i said moderately confident on the link theory and i want that word to survive into the notes
+Speaker 7: it will
+Unknown: because if it turns out to be wrong i do not want anyone saying we said it was the answer
+Ananya Krishnan: noted and that is exactly the right way to hold it ok thank you everyone this was a good session we actually know something now which we did not know two weeks ago
+Speaker 2: i will push the sample of the dupes into the channel
+Speaker 1: please ok drishty team uh see you on thursday
+[00:44:38]
+Speaker 5: bye
+Ishaan Bhatt: bye
+Speaker 6: bye bye
+Sneha Pillai: bye
+
+----
+end of transcript
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

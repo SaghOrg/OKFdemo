@@ -1,0 +1,22 @@
+RECORDING STUB -- link only, not the recording itself
+Project Drishti / Bharadwaj engagement
+
+Meeting: OLTP discovery with Ani
+Date: Tue 03-Mar-2026
+Time: 11:00-12:30 IST
+Duration: 01:30:00
+Organiser: Sneha Pillai
+Attendees: Ani, Farida, Karthik, Ishaan, Priya, Sneha Pillai
+
+Recording URL (SharePoint / Stream, tenant bharadwajcp):
+https://bharadwajcp.sharepoint.example/sites/BCPL-NorthlaneAnalytics/Shared%20Documents/Recordings/2026-03-03_oltp_discovery_ani.mp4
+
+Approx file size: 761 MB
+transcript cross ref: 2026-03-03_oltp_discovery_ani.vtt (auto-generated transcript, unedited)
+Retention: purged 90 days after the meeting, approx 01-Jun-2026.
+
+Ani had screen share up most of the session (OMS schema walkthrough) so file is a bit bigger than a straight talking-heads call.
+
+DO NOT COMMIT MEDIA - link only. Recording lives in SharePoint, not in this repository.
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

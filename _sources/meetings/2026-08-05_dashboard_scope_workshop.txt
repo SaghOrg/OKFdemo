@@ -1,0 +1,995 @@
+Transcript - auto generated - machine output, not reviewed
+Meeting: Project Drishty - dashboard scope workshop
+Recording started 05/08/2026 10:00 IST
+Duration 01:30:11
+Speakers detected: 8 (1 unresolved)
+Language en-IN, confidence medium
+Note: video was not captured for the first part of the meeting.
+
+[00:00:04]
+Shalini Iyer: okay it is recording now i can see the red dot
+Ananya Krishnan: uh good morning everyone sorry we are two minutes late starting good morning Ananya
+
+Sneha Pillai: morning
+
+Ananya Krishnan: morning morning sorry i am joining from home today the mumbai trip did not happen that is fine are you able to share screen from there i will try one second
+
+Speaker 5: hi this is meghna, i am on audio only, camera is not working since morning no issue meghna
+Ananya Krishnan: so ninety minutes and i actually want to use all of it because there is a lot here
+Speaker 1: shalini is joining Vikram messaged that he will come a little late no no i am here i am here i was on mute
+Ananya Krishnan: oh sorry shalini i could not see you in the list
+Speaker 6: the list is showing me twice once on the phone and once on the laptop haan that happens with the room device also okay so agenda
+Ananya Krishnan: one ritwik walks us through the seven that are committed two measure definitions which honestly is the part i am most worried about
+Ananya Krishnan: three wei lin has asked for some time on the group side
+Speaker 1: and whatever is left we use for the open points Ananya i will take the notes as usual and circulate thanks Sneha
+
+Speaker 2: and did everybody get the pre read i sent monday i got it but i have not opened it sorry
+Speaker 6: i read it in the car
+Sneha Pillai: it was only two pages
+Speaker 1: it is fine ritwik is going to walk it anyway
+Ritwik Ghosh: the pre read is not the pack, the pack is coming friday okay
+
+Speaker 2: also the tracker is updated i will send it after this
+[00:02:59]
+Speaker 1: good hello sorry can you hear me yes wei lin we can hear you
+Wei Lin Tan: good, it is twelve thirty here so i have already eaten, please carry on
+Speaker 1: haha okay
+Wei Lin Tan: i can stay until thirteen thirty sgt which is your eleven then i have another call
+
+Ananya Krishnan: so we will pull your part earlier, i will move it up
+Wei Lin Tan: thank you
+Ananya can you see my screen
+
+Speaker 1: no
+
+Speaker 4: no? okay
+Speaker 2: nothing is coming here
+Ritwik Ghosh: one second it is saying starting share and then it just goes away
+
+Shalini Iyer: is it the wifi in this room again
+Speaker 2: the wifi in this room is very bad last time also same thing
+Sneha Pillai: fourth floor is always like this
+[00:04:18]
+Speaker ?: it is the nashville room curse
+
+Speaker 2: haha
+
+Ritwik Ghosh: okay so it is not sharing, shall i just talk and you people imagine
+Speaker 1: can you put it in chat, we will open from our side
+Speaker 4: it is not a deck yet na it is wireframes it will not open properly for you
+
+Speaker 4: no no leave it, i will describe, and i am sending the pack friday anyway
+Ananya Krishnan: okay let us do that, we should not lose ten minutes on a screen share
+
+Speaker 4: so before we go dashboard by dashboard i want to establish one thing audience first then data then layout that is the order i work in
+Speaker 4: because if we do not know who is opening the page we will end up putting forty things on it
+sorry ritwik, when you say page you mean the report na
+Sneha Pillai: yeah page report same thing i say page
+
+[00:05:31]
+Vikram Sethi: because in obi e we call it a dashboard page and then the analyses sit inside it
+correct correct, so in power bi the report is the file and the pages are inside the file
+Speaker 2: hmm okay just to confirm my understanding one report can have many pages
+Ritwik Ghosh: yes
+
+Priya Nair: and the prompt at the top that will apply to all the pages or only that one page
+Ritwik Ghosh: so the slicer sits on the page
+Ritwik Ghosh: i can sync it across pages if we want but i would not sync everything it gets confusing
+
+Speaker 2: in obi e the dashboard prompt is on top and everything below picks it up
+Vikram Sethi: haan i know that is the ob i double e model power bi is different na
+okay
+
+Ananya Krishnan: can we note this vocabulary thing somewhere because half the confusion on this project is two people using the same word for two things
+Speaker 2: capturing that as an action
+Ananya Krishnan: put it on me
+Ritwik Ghosh: so the seven, shall i just list them out
+Speaker 1: please
+Speaker 4: d zero one primary sales performance
+Speaker ?: d zero three distributor scorecard d zero five stock and despatch d zero six order fulfilment and fill rate
+Ritwik Ghosh: d zero seven revenue reconciliation
+[00:07:28]
+Ritwik Ghosh: d zero nine product mix and contribution
+
+Speaker ?: and d twelve executive summary that is the seven committed
+
+Shalini Iyer: yes that is what we have been working to
+
+Speaker ?: and the numbering is jumping, d zero two and d zero four are not there
+correct
+Speaker 2: i was confused when i first saw the ids
+Speaker 1: the ids stayed the same from the earlier list so that nobody gets confused
+Ananya Krishnan: which i accept has confused everybody
+
+Priya Nair: haha yes
+Meghna Rao: sorry can i ask, is d zero seven the reconciliation one
+
+Ritwik Ghosh: yes megna revenue reconciliation
+Vikram Sethi: okay i have a question on that one but i will hold it
+
+Ananya Krishnan: hold it we will come to it
+
+Ritwik Ghosh: so d zero one primary cells performance
+
+[00:08:36]
+Ritwik Ghosh: this one has the widest audience i think
+Ritwik Ghosh: my thinking is a strip of four cards on top, then the trend, then the table below
+Priya Nair: one visual one message that is my rule
+what are the four cards
+Speaker 4: net sales volume in cases growth against last year and scheme discount as a percentage
+Ritwik Ghosh: net sales meaning what exactly
+Speaker ?: net amount
+Speaker 6: net of what
+Ritwik Ghosh: uh net of scheme discount and cash discount before tax
+Shalini Iyer: okay so that is not what finance calls net revenue
+Speaker 4: okay
+
+Speaker 6: for us net revenue is invoiced sales less trade promotion accrual, less returns, and tax is out and that is not what is sitting in the dw today
+Speaker 6: correct, which is exactly my point
+
+Ananya Krishnan: so this is what i meant we need one definition and one owner for that definition can we tie this back to the trial balance that is all i am asking
+[00:10:37]
+if the number on the tile does not tie to the trial balance i cannot put it in a pack
+Speaker 4: understood
+Speaker 1: shalini can i make that an action, a definitions sheet, one page, signed off by you
+Shalini Iyer: yes please i have that
+Ananya Krishnan: sneha give it a number
+Sneha Pillai: that is ai forty six okay good hello hello
+
+Vikram Sethi: vikram hi, you are on
+
+Vikram Sethi: haan i am there, i am in the car only, i will reach office in fifteen twenty minutes
+no problem so what happened till now, tell me quickly
+
+Shalini Iyer: we listed the seven and we have started on d zero one
+Vikram Sethi: which seven
+Ananya Krishnan: the seven that are committed for go live primary cells distributor scorecard stock and despatch
+
+okay okay
+[00:12:06]
+Speaker 8: and the stock list level is coming in that or not
+Ritwik Ghosh: sorry Vikram i did not catch that i am saying stockist level stockist wise drill down we will come to that let me first finish the top of the page
+
+Vikram Sethi: ok ok carry on
+
+Ritwik Ghosh: so slicers on the left region brand month region has four values so that is easy north west south east
+Priya Nair: and depot below region depot below region yes twenty two depots
+Priya Nair: and then territory below depot
+Speaker 4: hmm, territory is not really under depot though na
+Priya Nair: no it is not, territory is separate, sorry
+
+Priya Nair: in the old report we had both and people used to complain
+
+Meghna Rao: territory and depot are two different hierarchies they cross
+
+Ritwik Ghosh: yes, so i will keep them as two separate slicers, not one hierarchy
+[00:13:35]
+Speaker 6: is there a fiscal month or calendar month on the date slicer
+
+Speaker 4: fiscal april to march
+Speaker 6: good because if it comes as january to december i will get calls
+Speaker ?: sorry on that point for group we need calendar our reporting calendar is january to december india is april to march
+Speaker 6: yes we know we do that mapping every month by hand
+Shalini Iyer: so if the page can carry both that is better for me
+
+Speaker 4: it can i will put a toggle fiscal or calendar
+Ananya Krishnan: toggle meaning a bookmark thing
+
+Ritwik Ghosh: bookmark or a field parameter, i will decide when i build it
+
+Ananya Krishnan: okay parking that detail for now
+Priya Nair: Ritwik one question export to excel will be there or not
+Speaker 4: export is there but i do not want people living in excel
+no but they will ask
+Priya Nair: right now every morning people take the obi e report and paste it into their own sheet
+
+Shalini Iyer: and then the numbers change on the way, which is the whole problem
+[00:15:30]
+Speaker 8: arre but if the report is not giving what i want then i have to make my own sheet only Vikram that is how we get four versions of the same number i am not saying it is right i am saying that is the reality
+
+Speaker 1: no no both things are true let us not go into that now
+so basically export will be allowed
+
+Ritwik Ghosh: export will be allowed, i will not disable it, but the drill through is the better way
+
+Speaker 2: okay
+
+Speaker 2: and can we schedule it like the agent
+Ritwik Ghosh: agent meaning
+Ritwik Ghosh: in obiee we have agents, it delivers the report by mail at six in the morning to a list
+Speaker 4: ah subscription yes there is a subscribe option because that agent list is fifty sixty people they only see the mail they never open the tool
+that is a good thing to know actually so half our audience is not really a dashboard audience they want a mail
+Speaker ?: that is worth capturing Sneha
+
+Vikram Sethi: got it
+
+Speaker 1: and Priya can you send the list of who is on those agents
+Speaker 2: i will have to pull it from the catalogue, but yes i will revert
+[00:17:38]
+ai forty seven priya list of existing subscriptions kindly give me till next week this week i have month end things
+
+Ananya Krishnan: next friday is fine coming back, the table at the bottom of d zero one my proposal is distributer and skew wise, top fifty by value, with a search
+Vikram Sethi: top fifty is useless for me
+
+Speaker 4: okay
+i have three forty stockists if you show me top fifty i am blind on the rest
+Speaker 4: you can search, and there is a drill through
+
+Speaker 8: search means i have to know what i am searching no i want to open the page and see all my stock lists in one table and sort it myself
+Priya Nair: hmm
+Speaker 1: hold on we said we will come to this let us come to it properly in five minutes
+
+Vikram Sethi: okay okay
+
+Speaker ?: the last thing on this page is the trend twelve months rolling, value on bars and growth as a line
+Shalini Iyer: is that value gross or net
+Speaker 4: net
+[00:19:34]
+Speaker 6: net as in your net or my net
+Speaker ?: haha that is fair
+Ananya Krishnan: see, this is why the definitions sheet is item one can i add one thing on the trend
+Speaker 1: go ahead Meghna
+Ritwik Ghosh: for anything older than april twenty twenty one we do not have the line level data in the warehouse
+Speaker 5: so a twelve month rolling is fine now but if somebody asks for five years it will not be there
+Speaker 4: good point i will keep the axis limited
+the cube used to have longer history
+Meghna Rao: the source has it the archive table has the old lines but that is not extracted
+Priya Nair: hmm
+Speaker 1: is that a problem for anyone here not for the pack we only need current year and last year okay moving
+one second i am losing signal there is a tunnel okay we will carry on vikram
+Vikram Sethi: [inaudible]
+Sneha Pillai: vikram we cannot hear you
+
+hello
+[00:21:26]
+you were breaking say again
+
+Vikram Sethi: i said the billing number and the report number are not matching still but leave it later
+
+Shalini Iyer: which billing number
+
+Speaker 8: later later i will come back to it ananya screen is coming now
+Speaker 1: yes yes now i can see it
+Speaker 2: now it is there
+
+Ritwik Ghosh: finally, twenty minutes gone
+
+Speaker 2: the recording also probably did not get the screen it will not matter, the words are the important part
+Ritwik Ghosh: so this is what i was describing four cards trend table
+Shalini Iyer: it looks clean
+Ananya Krishnan: thank you
+the font is small no
+Ritwik Ghosh: on the projector it will look small, on a laptop it is fine
+
+Shalini Iyer: okay ritwik can you scroll down i want to see the table
+Ritwik Ghosh: this is the table
+
+Vikram Sethi: this is only showing what twenty rows
+
+Speaker ?: it is scrollable, but yes the default view is about that much
+Vikram Sethi: see this is my problem
+
+[00:23:14]
+Speaker 1: okay so let us do this properly now vikram go ahead
+
+Vikram Sethi: so i will say it simply
+Sneha Pillai: every dashboard every one of them must go down to stockist level
+not region not depot stock list
+
+Sneha Pillai: because my team works at stockist level, that is the unit
+Vikram Sethi: if i cannot see trilok traders separately then the dashboard is for someone else not for me okay so two separate things there
+Ritwik Ghosh: one is drill down to distributor which is there already on d zero one and d zero three
+Vikram Sethi: no no no on every page
+
+Ritwik Ghosh: and second is what you actually mean by that level which i think is off take not billing
+Vikram Sethi: both
+
+Vikram Sethi: primary and secondary both side by side that is what i have been asking since february
+Ritwik Ghosh: okay so on the volume side let me just say the numbers three hundred and forty distributors eight hundred sixty odd active skews if you want that by day that table is not a table any more
+Ritwik Ghosh: i do not need by day
+Speaker 4: by month
+
+by month is fine month and week even by month three forty into eight sixty into twelve
+
+Speaker 4: that is not something a person reads, na
+
+Speaker 8: nobody is reading everything, they filter and see
+[00:25:38]
+Speaker 4: then the filter is the design not the table
+Speaker 8: [crosstalk]
+Speaker 4: sorry go ahead
+Vikram Sethi: no no you finish
+Ritwik Ghosh: i am saying if you filter to one distributer one brand i can show you every line that is fine
+Speaker 4: what i cannot do is put all of it on one page and call it a dashboard
+Vikram Sethi: then give me an export button and i will do it in excel
+Ritwik Ghosh: see the moment it goes to excel i have lost control of the number
+no no i am not changing anything i am only sorting
+
+Ritwik Ghosh: today you are sorting next month somebody adds a column
+Shalini Iyer: and that column becomes the number in a review
+
+Vikram Sethi: arre
+Priya Nair: this is exactly what happens with the north sheet every month
+
+Speaker 8: priya do not start on the north sheet
+Speaker ?: i am only saying
+Vikram Sethi: the north sheet is because the report does not give me what i want
+Ritwik Ghosh: which brings us back to the same point
+[00:27:17]
+yes we are going in a circle now
+Shalini Iyer: and we are back to excel
+Speaker 1: haha
+Speaker ?: and the second part which for me is the bigger part the secondary data is not in a state where i can put it next to primary sales on the same page
+Vikram Sethi: why
+Ananya Krishnan: megna do you want to say the coverage number
+Meghna Rao: yes
+Speaker 5: the secondary sales feed covers about seventy four percent of distributors
+Meghna Rao: and it runs approximately five days behind
+
+seventy four percent seventy four percent, yes, the rest do not upload or upload partially
+Vikram Sethi: that is not what my team is telling me
+
+i am only reporting what is in the feed
+
+Vikram Sethi: the stock list file goes every week, i have seen it
+
+[00:28:45]
+Speaker ?: the file comes but for a lot of distributors it is blank or it is only some skews
+
+Speaker 2: the sfa upload has always been like that even in the old report we used to put a note saying secondary is indicative indicative that is the word we used in the footer, yes
+
+Vikram Sethi: so for years we are showing a number and calling it indicative
+Speaker 2: i mean that is why the note was there
+Ritwik Ghosh: so my point is if i put off take on the same visual as billing
+
+Ritwik Ghosh: somebody will subtract one from the other and ask why there is a gap
+Ritwik Ghosh: and the gap is not real it is a coverage gap
+Priya Nair: that is a real risk
+Speaker 6: i cannot have a page where two numbers sit next to each other and only one of them ties to anything
+Vikram Sethi: Shalini with respect my team does not run on the trial balance
+
+Vikram Sethi: we run on what the stockist has actually sold to the retailer
+Shalini Iyer: i understand that and that is a valid thing to want but it is not revenue and the dashboard says revenue on the top
+Speaker 8: then change the heading
+
+Speaker 1: okay
+Meghna Rao: i am going to timebox this we have taken eight minutes on it already
+
+[00:31:01]
+Speaker 8: Ananya this is the main thing for me, the rest i do not care
+Ananya Krishnan: i know and i am not dismissing it but if we do this now we will not get through the seven and wei lin has to leave at eleven
+
+Wei Lin Tan: i can stay a few minutes more if needed no no we will keep to your time
+Ananya Krishnan: can we do this ritwik takes an action to show what a distributor level drill through looks like
+
+Speaker 4: i can show a drill through that is not the problem the problem is on every page
+Vikram Sethi: every page
+
+Ritwik Ghosh: see again
+okay parking it for now we will come back before we close
+we always park it
+
+Speaker 1: we will come back to it i promise
+
+Sneha Pillai: should i put an action on this one
+Speaker 1: uh hold it let us see where we land at the end
+Sneha Pillai: okay
+Speaker 4: so shall i move to d zero three
+
+Ananya Krishnan: please
+Speaker 4: d zero three distributer scorecard
+Speaker 4: priya this is the one you know better than me, you tell me what is in the old one
+
+Priya Nair: so the existing distributor scorecard report it has four analyses
+
+[00:33:04]
+Speaker ?: billing value for the month growth outstanding and scheme discount amount
+
+Priya Nair: and there is a prompt on top for region and month
+Speaker 4: who uses it
+Speaker 2: the regional managers mostly and Vikram sir team
+
+Speaker ?: we open it maybe twice a month
+
+Speaker ?: and finance opens it at month end
+Speaker 6: we open it to cross check not as a source
+Ritwik Ghosh: okay that is useful so it is a monthly rhythm not a daily one
+Speaker ?: for that report yes
+
+Speaker 4: then i will not design it for daily
+Priya Nair: but ritwik one thing in the old one the outstanding column is coming from a different place
+Ritwik Ghosh: different how
+it is not from the same subject area, it is joined outside
+
+[00:34:36]
+Ritwik Ghosh: meaning somebody pastes it
+Speaker ?: no no it is in the report itself, but the source is the receivables side, not sales
+hmm okay i will check with Ishaan whether that is even in the model today
+Sneha Pillai: capturing that
+Speaker 4: so on the scorecard my layout is different from d zero one
+
+Vikram Sethi: left side is the distributer list right side changes when you click a distributer
+
+Speaker ?: like master detail
+Speaker ?: yes exactly, master detail
+Shalini Iyer: that we can explain to people that pattern they know
+Speaker 8: and in the left list all three forty will come
+
+Ritwik Ghosh: in that list yes, because there is only one column, it is a list not a table
+Vikram Sethi: see this is what i am saying, it can be done
+Speaker 4: on this page yes vikram, on this page it works
+Shalini Iyer: so do it everywhere
+
+no no no it works here because the page is designed around one distributor at a time hmm
+[00:36:21]
+Shalini Iyer: can i ask something before we go further
+go ahead
+Speaker 6: when we say sales on this scorecard what are we counting invoiced value to that distributor for the period
+
+Shalini Iyer: so primary
+Ritwik Ghosh: primary yes
+Speaker 8: and secondary not on this page no then it is only half the scorecard
+
+Ananya Krishnan: okay can we sorry can we just settle the two words for five minutes
+
+Speaker 1: because i think we are using them differently around the table
+
+Speaker 1: meghna can you say the definitions the way the model has them
+Speaker 5: yes primary sales is bcpl invoicing the distributor that is what sits in the invoice line fact secondary sales is the distributor selling onward to the retailer that comes from the dms upload they are two different tables and two different grains
+
+Meghna Rao: primary is revenue secondary is not revenue
+Vikram Sethi: thank you
+Speaker 6: that is the point i keep making in the finance calls
+
+[00:38:26]
+Speaker ?: nobody is saying secondary is revenue
+Speaker 6: Vikram in the north review last month the number you gave was off take
+Speaker 8: because that is what the region head asked for
+Shalini Iyer: and it went into a slide that said sales
+Vikram Sethi: the slide is not mine
+Ananya Krishnan: okay okay
+nobody is blaming anybody this is exactly the kind of thing the dashboard should stop
+
+Priya Nair: actually actually this is why in the old report we had two separate reports
+
+Speaker 2: primary report and secondary cells report separately
+Ritwik Ghosh: and did people confuse them
+Priya Nair: all the time, because the titles were similar haha of course
+
+Speaker 7: may i add one point on vocabulary
+Vikram Sethi: please wei lin
+
+[00:39:46]
+Wei Lin Tan: in the group pack we say sell in and sell out
+Wei Lin Tan: sell in is what you are calling primary sell out is what you are calling secondary when india sends a number and it is labelled sales we assume sell in
+
+Shalini Iyer: and that assumption is correct for anything that comes from finance
+Speaker 7: from finance yes from the commercial side sometimes not arre we send what is asked i am not criticising vikrant i am saying the label should be on the number
+Priya Nair: vikram sorry vikram
+Speaker 1: so sneha, action, definitions sheet must carry both the india words and the group words
+Sneha Pillai: ai forty eight
+
+Ananya Krishnan: and it should say clearly which one is revenue
+Shalini Iyer: and it should be signed by me and by Vikram
+Vikram Sethi: i will sign, no issue, as long as somebody gives me the off take number also noted
+Speaker 2: sneha is the room booked till eleven thirty
+till eleven thirty yes
+[00:41:53]
+Priya Nair: because last time they threw us out at eleven
+
+Speaker 2: no i booked it till eleven thirty i have the confirmation
+Priya Nair: okay
+Sneha Pillai: is there water in the room
+Vikram Sethi: there is no water i will call pantry
+Speaker 2: and the hdmi cable is missing from this room also
+Speaker 2: it is always missing last week also we could not connect somebody takes it to the other room and does not bring it back
+
+Sneha Pillai: anyway we are not using the projector today
+
+Speaker 2: no i will ask sorry wei lin shall we take your section now since you have to drop
+Wei Lin Tan: yes please i will be quick
+Speaker 7: three things one, the monthly pack for group two, currency three, the bridge
+Ananya Krishnan: go ahead
+
+Speaker ?: so the monthly pack, we receive it today as an excel from shalini team
+[00:43:38]
+Wei Lin Tan: it is in the klarissen format it has been that format for two years
+Sneha Pillai: we fill that template every month, it takes two days
+Wei Lin Tan: i know, and that is why i am asking
+
+Speaker ?: can the executive summary page produce that same layout
+Speaker 4: the same layout meaning pixel for pixel not pixel for pixel but the same line items in the same order net revenue gross margin is not with you so net revenue volume promo accrual channel partner count and by that you mean the distributor correct
+
+Wei Lin Tan: yes, we say channel partner
+Ritwik Ghosh: okay noted everybody has their own word for the same thing i will keep saying stockist
+
+Vikram Sethi: and that is going in the definitions sheet also second currency
+Sneha Pillai: the group pack is in euro at the budget rate, ninety two point four zero that rate is fixed for the year, it does not move
+Ritwik Ghosh: so a fixed conversion in the measure
+Wei Lin Tan: yes, and constant currency for the comparison we do that conversion manually right now
+Wei Lin Tan: i know and every month there is a small difference and we spend an hour on it
+Speaker 6: it is usually the rounding on the core conversion
+
+Shalini Iyer: we did about eighteen forty two core for the full year and on that a small rounding shows up big
+Wei Lin Tan: yes and then i have to explain it to marijke
+[00:46:14]
+Shalini Iyer: and i have to explain it to my cfo so we are both explaining possibly
+Speaker ?: third, the bridge can you send the bridge along with the pack, month on month, by line item that is a good ask and i think d zero seven is close to that already
+Ritwik Ghosh: d zero seven is the reconciliation page yes then perhaps i do not need a separate thing i need that page exported monthly
+Speaker ?: export or a subscription
+Speaker ?: subscription is fine if it lands in my mail before the group close
+Speaker 1: we will work out the timing offline because your close and our close are different weeks
+Wei Lin Tan: understood one more thing and then i am done group has started asking about channel inventory
+Shalini Iyer: so sell out and stock at the channel partner not for this month but it will come
+Speaker 8: see see this is what i am saying since the beginning
+Vikram Sethi: even wei lin is asking for secondary and here we are saying it is not needed
+Speaker 4: nobody said it is not needed
+
+Speaker 8: then why is it not on the pages because the data behind it is seventy four percent and five days late
+Speaker ?: seventy four percent is also something it is not zero
+for a trend it is fine for a scorecard where somebody is judged on the number it is not fine
+
+Vikram Sethi: so make it a trend
+Ritwik Ghosh: a separate coverage page is not in the seven
+
+[00:49:04]
+Speaker ?: ritwik let us not go there sorry meghna you wanted to say something one second meghna you are on mute
+
+Meghna Rao: sorry sorry, can you hear me now
+Ananya Krishnan: now yes
+Speaker 5: can i add the lag point again because i think it matters more than the coverage
+Speaker ?: yes Meghna
+Speaker 5: the feed is about five days behind so on the first of the month the last five days of the previous month are simply not there yet
+
+Meghna Rao: if somebody opens the page on the first and takes the number, it is wrong and it looks right
+Priya Nair: that is the part that scares me
+Priya Nair: in the old report we used to show the file date on the top
+Priya Nair: so people could see data as of such and such that is a good habit i will put a data as of card on every page
+
+Sneha Pillai: yes please do that everywhere not just the secondary ones data as of card on all pages i am putting that as an action
+ai forty nine
+
+Vikram Sethi: ok but coming back my ask is very simple and it is not changing
+Sneha Pillai: stockist level on every dashboard primary and secondary side by side
+[00:51:50]
+Speaker 8: if it is not there then my team will keep making their own sheet and then again my number is coming different and again we sit in a meeting like this
+
+Ritwik Ghosh: vikram i hear you honestly but let me say it in a different way
+
+Speaker 4: if i put off take on the revenue pages, then the revenue pages have two truths on them
+
+Ritwik Ghosh: and the moment two numbers are on one page people subtract
+Ritwik Ghosh: let them subtract, that difference is my business
+Speaker 4: no but the difference is not real, that is what i am trying to say
+Speaker ?: the difference is a data quality artifact, twenty six percent of parties are not even in the feed
+Vikram Sethi: then fix the feed
+Speaker ?: that is not my workstream
+
+Vikram Sethi: then whose is it
+Speaker 1: the feed is a separate conversation and it is a real one
+Ananya Krishnan: but it is not going to be fixed before the dashboards go out so the dashboards go out without the thing that sales needs Vikram sorry can i
+Speaker 8: haan
+Speaker ?: i am not against off take being somewhere
+
+i am against it being on the same page as a number i have to sign
+[00:54:09]
+Speaker 8: then give it a separate page a separate page is not in the seven
+
+Vikram Sethi: then add it okay
+Speaker ?: so this is the third time we are on this and it is the same three positions let me try to timebox again five minutes and then we move
+Shalini Iyer: can i say one thing in between
+Speaker ?: yes
+
+Priya Nair: even if we put distributor level everywhere the row level security has to allow it
+Priya Nair: right now the security is by region
+Ritwik Ghosh: four roles by region code
+Speaker ?: so a north person opening a south distributer, that will not happen anyway
+Vikram Sethi: i do not want south, i want my north stock lists
+
+Speaker 2: no i am saying the design already limits it, that is all
+Ritwik Ghosh: that is a fair point actually the security narrows the table a lot so then there is no volume problem
+Speaker 4: there is still a volume problem for the national view
+
+Speaker 8: hmm
+[00:56:04]
+Shalini Iyer: hello, sorry, i think i dropped
+Speaker 1: Meghna you were gone for a bit we are still on the drill down question
+
+Meghna Rao: okay
+
+Speaker 1: so where do we land
+
+Speaker 4: my position has not changed
+mine also not okay
+Speaker 1: then i suggest we do not decide it here
+Vikram Sethi: then when
+let me take it with karthik and come back with what is actually feasible in the model karthik will say the same thing about grain maybe but at least it will be written down
+
+Speaker 8: ananya every time it is written down and nothing happens
+Ananya Krishnan: i know and that is fair
+Speaker 7: sorry to interrupt, i have to drop for my next call yes wei lin, thank you for joining
+[00:57:34]
+Wei Lin Tan: i will send the template again by mail so you have the current version
+Speaker 6: please send to me and Priya both
+
+Wei Lin Tan: yes i will send it to shalini ayer and to Priya
+Ananya Krishnan: thanks wei lin
+
+Speaker 7: thank you bye
+Priya Nair: bye
+
+Speaker 1: okay so where were we
+Speaker 2: the distributer level drill down and you said you will take it with karthik
+Ananya Krishnan: yes
+
+Priya Nair: shall i put an owner on it uh leave it open for now, we will see at the end okay
+Speaker 4: okay d zero five stock and despatch
+Ritwik Ghosh: this is depot wise twenty two depots quantity in cases and value
+Sneha Pillai: and a pending orders visual on the right
+
+Priya Nair: is it daily
+
+Ritwik Ghosh: this one has to be daily na otherwise it is useless
+Vikram Sethi: yes daily and plant wise plant wise also we only have two plants so that is a two bar chart and depot wise below it
+[00:59:40]
+Ritwik Ghosh: depot below, twenty two bars is too many for a bar chart though
+
+Priya Nair: then a table
+Speaker 4: a small table with a bar in the column that reads better
+Priya Nair: in the old one it is a pivot with depots down the side
+Speaker 4: and people are used to that
+
+Priya Nair: they are used to it yes but they also complain it is long
+Shalini Iyer: everything is like that they complain and then they ask for it back
+Vikram Sethi: nashville and buddy
+Speaker ?: sorry nashik and baddi yes
+Vikram Sethi: bady sends to north and east
+Ritwik Ghosh: correct and nashville feeds west and north and some of south
+
+Meghna Rao: is that mapping in the model anywhere or is it assumed
+
+Ritwik Ghosh: hmm
+
+[01:01:08]
+Speaker 4: i think we take it from the depot not from the plant actually
+Meghna Rao: so plant wise is derived i will check, do not hold me to it
+
+Speaker 2: i am noting that as to be confirmed
+Ananya Krishnan: Ritwik take that one, plant attribution okay ai fifty, Ritwik
+Ritwik Ghosh: one second there is somebody at the door
+
+Speaker 1: carry on carry on sorry courier
+Ananya Krishnan: no problem
+Shalini Iyer: so where was i d zero six
+Speaker ?: fill rate
+Speaker ?: fill rate yes this one is from the order side order line against invoice line
+Priya Nair: and the definition of fill rate that is also a thing
+Ananya Krishnan: line fill or value fill
+
+Speaker 2: in the old report it is line fill
+Speaker ?: line fill is not useful if i ship half the cases the line is filled
+
+no no in the old one partial is counted as not filled are you sure i am fairly sure i can check the analysis
+Vikram Sethi: because the number that comes to us is always ninety something percent and on ground it is not like that
+[01:03:24]
+Shalini Iyer: this is again the same story one definition four numbers
+Ananya Krishnan: so fill rate also goes on the definitions sheet
+
+Speaker 2: i will add it under ai forty six
+Speaker 1: good
+
+Ritwik Ghosh: honestly if we do nothing else in this project except agree twenty definitions that itself is worth it
+Ananya Krishnan: i would sign that
+haha
+
+Speaker 4: d zero seven revenue reconciliation
+
+Ananya Krishnan: Meghna you had a question on this one
+
+Meghna Rao: yes
+Ananya Krishnan: what exactly are we reconciling to what
+Ritwik Ghosh: warehouse to source that was my understanding
+Shalini Iyer: no, for me it has to be warehouse to the general ledger
+Speaker 4: those are two different pages
+
+Shalini Iyer: then we need both
+Speaker 4: hmm
+Speaker 1: shalini what would you actually use it for
+Speaker 6: month end
+
+[01:04:56]
+Speaker ?: i take the warehouse number, i take the trial balance, and i have to explain the difference
+Speaker 6: today that is a manual sheet and it takes half a day
+Speaker 1: and if the page gave you the difference by month and by region then i would use it every month, definitely
+
+Speaker 4: okay so the audience for d zero seven is basically finance, ten people maybe
+
+Shalini Iyer: ten is generous four
+Ritwik Ghosh: four people
+Speaker 4: then i design it as a working page not a pretty page
+Shalini Iyer: please
+Vikram Sethi: but rajeev sir also opens the reconciliation one he opens the summary not the detail okay
+Ritwik Ghosh: i will put a summary strip on top and the working table below, that covers both
+
+Speaker 1: that works
+Speaker 5: one more thing on d zero seven if the reconciliation shows a difference people will ask which rows so there has to be a way to get to the rows drill through to detail yes
+
+Priya Nair: and that detail will be large
+[01:07:14]
+Priya Nair: it will be filtered by then
+Speaker 5: okay
+Speaker 1: next
+d zero nine product mix and contribution
+Speaker 4: brand category pack size and contribution by value
+Priya Nair: and item level below that
+Ritwik Ghosh: skew level below yes
+Speaker 4: so for example suvarn detergent powder one kg against the five hundred gram
+Vikram Sethi: sovereign bar also the two fifty gram that is a big one for north
+
+Ritwik Ghosh: yes that also
+
+Speaker 2: and nimbu ah the dishwash bar that one is moving well in south
+Speaker 4: okay
+
+Meghna Rao: ritwik on the mix page there is one thing you should know before you design it
+
+[01:08:39]
+Ritwik Ghosh: tell me
+Meghna Rao: about two percent of invoiced volume is landing on the unknown product unknown meaning the minus one member
+
+Speaker 5: yes product key minus one on average around eight thousand one hundred and forty lines a month
+Meghna Rao: the peak was january that was around eleven thousand nine hundred
+Speaker 4: so on my contribution chart there will be a slice called unknown
+
+Meghna Rao: yes
+that is not a good look for a launch is it getting fixed
+
+Meghna Rao: it is on the list the rule is failing ninety eight percent against a ninety nine point five threshold
+
+Ananya Krishnan: which rule number
+Meghna Rao: d q r zero four
+Ananya Krishnan: okay
+
+Priya Nair: so what do we show in the meantime
+either i show unknown honestly or i exclude it and put a note
+Sneha Pillai: do not exclude it silently
+
+Vikram Sethi: no no i would never exclude silently
+[01:10:24]
+Shalini Iyer: because then the total will not match the other page correct and then somebody will make a sheet
+
+Ananya Krishnan: haha now you are learning
+
+Speaker 1: so d zero nine shows unknown as its own bar with a note
+Ritwik Ghosh: and i will make the note visible not a tooltip
+
+Speaker 2: capturing that
+Ananya Krishnan: and Meghna can you send ritwik the monthly numbers for that
+Speaker 5: i will send what i have the figure i quoted is from the last profiling it may have moved
+Ritwik Ghosh: whatever you have is fine
+
+Sneha Pillai: ai fifty one, meghna to Ritwik
+Speaker 4: d twelve executive summary this is the one page for the top and it should be one screen no scroll
+
+Speaker 1: who is the audience rajeev and Shalini
+Shalini Iyer: Rajeev me and group
+Ritwik Ghosh: then it has to work on a phone also
+Speaker 2: Rajeev sir opens everything on the phone
+[01:12:05]
+Ananya Krishnan: everything yes
+Ritwik Ghosh: then no wide tables on d twelve, cards and one trend, that is it
+Shalini Iyer: and the group lines that wei lin listed
+Ritwik Ghosh: i will keep a group view as a second page inside the same report
+makes sense
+
+Speaker 4: now before candidates, can we do access quickly
+
+Ananya Krishnan: yes go
+
+Speaker 4: everything sits on one dataset, drishti sales, import mode
+
+Speaker 2: import means it is a copy
+Speaker 4: it is a copy yes compressed around one point nine gb at the moment and that will grow it will grow that is why i do not want ten more columns on every table the workspace is bcpl drishti prd for production
+
+Priya Nair: and the refresh
+
+Speaker 4: two refreshes, six in the morning and two in the afternoon only two two
+[01:13:41]
+Speaker 8: during month end we need it more
+
+the source only changes once a night anyway
+
+the secondary file comes in the day also sometimes
+Speaker 4: hmm, that is a fair point
+let us note that as an open item rather than deciding now
+Sneha Pillai: refresh frequency, open item
+Speaker 4: security is row level by region code four roles
+Priya Nair: four roles meaning north west south east
+Speaker 4: four roles mapped on the region code
+
+Priya Nair: and who maintains that mapping
+there is a table the security table somebody has to keep it current that somebody is going to be me probably
+
+Ananya Krishnan: okay
+[01:14:57]
+Ananya Krishnan: how many named users are we planning for at the start
+Ritwik Ghosh: about one twenty eight on the list today and how many from sales ops
+
+Ritwik Ghosh: forty one i think
+Vikram Sethi: forty one is less my field team itself is much bigger
+Sneha Pillai: the field team is not getting access at the start na
+Vikram Sethi: then how will they see they see the mail like the agent today hmm that is not the same thing
+
+Ritwik Ghosh: yes
+
+Meghna Rao: and what about people who see everything
+Speaker 4: they are not in a role, they see everything
+
+Shalini Iyer: who decides that list
+Ananya Krishnan: that will have to come from you and Rajeev
+Shalini Iyer: fine i will get it done
+
+Speaker 2: ai fifty two Shalini the all region access list
+
+and naming, every report will be drishti and then the dashboard name
+Shalini Iyer: so drishty primary sales performance
+
+Ritwik Ghosh: correct
+
+Speaker 2: okay because right now the catalogue has forty one reports and nobody can find anything
+
+Speaker ?: forty one and how many of those does anybody actually open
+
+Speaker 2: not even half
+
+[01:16:52]
+Speaker 1: hmm
+Speaker 2: i checked the usage last year most of them nobody has opened at all
+Speaker 6: and all forty one are still sitting there
+
+Speaker ?: okay, candidates
+Ananya Krishnan: so we have the seven committed
+Speaker ?: and there are two more that keep coming up in every conversation scheme effectiveness and the receivables one d zero four and d eleven
+Speaker 1: yes
+Priya Nair: can i make the case for scheme effectiveness
+
+Speaker ?: please
+
+Vikram Sethi: so right now nobody can tell whether a scheme worked we run the quarterly purchase scheme we run the monthly off take one on chandanaa and at the end somebody makes a sheet and says it worked
+
+Speaker ?: and the trade promotion accrual keeps going up
+Priya Nair: yes
+
+Vikram Sethi: and the tpr on nimbua south that one nobody has ever measured properly
+Priya Nair: so a page with scheme wise spend against uplift that is what people keep asking for
+Speaker 4: it is a nice page to build also i have a layout in my head already
+Speaker 1: and d eleven
+Speaker 6: receivables exposure ageing buckets by distributer against the credit limit
+[01:19:12]
+Shalini Iyer: that comes off the receivables side, the open item data
+Speaker ?: is that even in the model today
+Shalini Iyer: no it is an extract we would have to bring it in
+Priya Nair: so it is not a small one
+
+Shalini Iyer: it is not small no okay so both of these are candidates they are not funded
+Speaker 1: i will put them in the pack as candidates and the sponsor decides
+
+Shalini Iyer: meaning it goes up to rajeev
+Vikram Sethi: Rajeev and group, yes
+Speaker ?: hold on hold on
+
+Vikram Sethi: so we are sitting here and adding two more dashboards
+Ananya Krishnan: not adding, marking as candidates
+Speaker 8: same thing na, they will get built and the one thing i have been asking for from february is still not there
+
+Speaker 4: Vikram it is not the same kind of ask
+
+[01:20:40]
+Vikram Sethi: why not
+
+Ritwik Ghosh: because a new page i can build, that is scope
+Ritwik Ghosh: what you are asking changes the grain of every page
+
+Vikram Sethi: i do not know what grain means, i am telling you what sales needs
+Ritwik Ghosh: i understand
+Vikram Sethi: three forty stock lists every page primary and secondary that is it and i am saying again not on the pages that carry revenue then which pages
+Shalini Iyer: i do not know that is for ritwik and Karthik to work out it is not really a layout problem though
+
+Priya Nair: can we not do it as a separate report that only sales opens
+Speaker 4: then it is a new page again and it has the same data problem
+
+Priya Nair: hmm
+Ritwik Ghosh: meghna what is the seventy four percent by region is north better
+Meghna Rao: i do not have it region wise in front of me
+
+[01:22:16]
+Vikram Sethi: because north i am telling you is uploading properly
+Speaker 5: i can split it by region and send
+
+Sneha Pillai: ai fifty three, Meghna, coverage by region
+Vikram Sethi: see if north is ninety percent then for north you can show it
+Ritwik Ghosh: and then north sees one thing and south sees another thing on the same page
+Vikram Sethi: so what
+Ritwik Ghosh: so the national number is a mix of two different qualities
+Shalini Iyer: that is worse than not showing it [crosstalk]
+Ritwik Ghosh: sorry go ahead
+Vikram Sethi: no you carry on you are the designer no no say it i am saying we are making the perfect the enemy of something usable
+Ritwik Ghosh: and i am saying an unusable number is worse than no number
+Speaker 1: okay, we are at twelve minutes on this again
+
+Ananya Krishnan: third time today we are not going to close it in this room then what happens i will pick it up separately
+Speaker 4: with Karthik with Karthik, and with vikram when
+
+[01:24:16]
+Shalini Iyer: i will find a slot
+Speaker 8: hmm
+
+Sneha Pillai: do you want me to put an owner and a date on that one
+
+uh, put it as an open point, i will come back on the owner
+open point no owner yes for now
+Speaker 8: for now means forever
+Ananya Krishnan: Vikram that is not fair
+
+Speaker 8: maybe not, but that is how it feels from my side
+Speaker 1: okay we have four five minutes sneha can you read back the actions
+Speaker 2: yes
+Speaker 2: ai forty six definitions sheet one page net revenue primary secondary fill rate
+Speaker 2: owner Shalini with Ritwik, and it should be signed by Shalini and Vikram and Priya should be on it also
+Sneha Pillai: adding Priya
+
+Speaker 2: ai forty seven Priya list of the existing subscriptions and who is on them next friday
+
+Priya Nair: yes
+ai forty eight the definitions sheet to carry the group terms also sell in sell out
+that is on me and Ananya ai forty nine, data as of card on every page, ritwik yes ai fifty, ritwik, confirm whether plant is derived or in the model
+[01:26:17]
+Speaker 4: that one i will do with ishaan ai fifty one megna sends the unknown product numbers to Ritwik Meghna
+Sneha Pillai: sorry meghna yes ai fifty two Shalini the list of who gets all region access
+
+Shalini Iyer: by end of next week
+Shalini Iyer: ai fifty three meghna secondary coverage split by region
+Speaker ?: i will send it this week
+Sneha Pillai: ai fifty four, ritwik circulates the wireframe pack
+Ritwik Ghosh: friday
+
+friday and that is seven committed and two marked as candidates
+
+Ritwik Ghosh: two marked candidate, not funded, yes
+
+Speaker 2: ai fifty five priya to check the fill rate definition in the existing report
+
+Speaker 2: yes i will look and revert
+Speaker 2: and then there is the open point on distributor level drill down i have not put an owner on that one
+
+leave it as open for now
+
+[01:27:47]
+Sneha Pillai: and no date
+
+Speaker 1: no date for now
+
+Speaker ?: kindly at least put my name against it so it does not disappear
+Speaker ?: i can put you as the raiser
+do the needful
+Ananya Krishnan: okay so to close seven committed two candidates going up for a decision
+
+Ananya Krishnan: and the drill down question stays open
+Speaker 6: and the definitions come first before anything is built
+
+Ritwik Ghosh: i have already started building na
+
+Speaker 6: then build it with a placeholder measure
+Ritwik Ghosh: haha okay
+[01:28:58]
+thanks everyone sorry we ran right to the end
+
+Speaker 2: thank you
+
+Speaker 5: thanks bye
+Vikram Sethi: bye
+Ananya Krishnan: ritwik stay back two minutes
+Ritwik Ghosh: yes yes
+Ananya Krishnan: let me stop the recording
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

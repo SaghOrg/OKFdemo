@@ -1,0 +1,123 @@
+Received: from mail-out-03.northlaneanalytics.example (198.51.100.37) by
+ mx-in-01.bharadwajcp.example with Microsoft SMTP Server id 15.20.7344.007;
+ Thu, 23 Apr 2026 21:48:41 +0530
+Return-Path: <karthik.subramanian@northlaneanalytics.example>
+Message-ID: <CAJ7q2m8Yw2rF9dSj4tLc7mXv0Bn@mail.northlaneanalytics.example>
+Date: Thu, 23 Apr 2026 21:48:30 +0530
+From: Karthik Subramanian <karthik.subramanian@northlaneanalytics.example>
+To: Farida Contractor <farida.contractor@bharadwajcp.example>
+Cc: Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>,
+ Aniruddh Deshpande <aniruddh.deshpande@bharadwajcp.example>,
+ Ishaan Bhatt <ishaan.bhatt@northlaneanalytics.example>,
+ bcpl-datawarehouse@bharadwajcp.example
+Subject: RE: RE: FW: RE: SCD2 load window, measured on DEV (was: DIM_CUSTOMER
+ dimension design - your comments)
+In-Reply-To: <CAJ7q2m8Rt8vM3nQd5zJb1kHs6Pw@mail.northlaneanalytics.example>
+References: <CAJ7q2m8Zq6tY1cHn8jVr3aWs5Dm@mail.northlaneanalytics.example>
+ <BM1PR01MB5530A9C42E71D6F30@mail.bharadwajcp.example>
+ <CAJ7q2m8Lp4uT6bGk9xNw2eRy7Cf@mail.northlaneanalytics.example>
+ <CAJ7q2m8Rt8vM3nQd5zJb1kHs6Pw@mail.northlaneanalytics.example>
+Thread-Topic: SCD2 load window, measured on DEV (was: DIM_CUSTOMER dimension
+ design - your comments)
+Thread-Index: x2q3ipVqOjsr10Tj8Qu+Ak==
+X-Mailer: Microsoft Outlook 16.0
+X-MS-Has-Attach: yes
+X-MS-Exchange-Organization-AttachmentName: XL-03_scd2_load_impact.xlsx
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Farida,
+
+Apologies for the delay on this. I said Friday and it is now Thursday of the
+week after. I did not want to answer an estimate with another estimate, so I
+waited for a clean run.
+
+Attaching XL-03_scd2_load_impact.xlsx. The measurement, the assumptions behind
+it and three scenarios are all in there. Please work from the workbook and not
+from this mail. What is below is only the headline.
+
+1. Measured on DEV on 21-Apr. MAP_DIM_CUSTOMER goes from 4 min 12 sec to
+11 min 40 sec with SCD2 switched on. The delta is 7 min 28 sec. It is lower
+than the figure in your mail of 16-Apr. It is also not zero, and I am not
+going to present it as though it were free.
+
+2. I modelled it against the actual nights in the sample rather than against
+the average, because your point 4 was the real point and the average was
+never the argument. On the worst month end night in that sample the run moves
+to finishing 04:20 IST. Against an availability SLA of 05:30 that leaves 70
+minutes of head room. On an ordinary night the load still starts at 01:00 and
+still closes around 02:05, and the delta disappears into the noise.
+
+3. My conclusion is that the load window cost of SCD2 on DIM_CUSTOMER is
+acceptable, and the workbook is me saying so in writing rather than in a
+meeting. If your reading of the same numbers is different I would much rather
+hear it before the design session than during it.
+
+4. Two caveats, and I would rather flag them myself than have you find them.
+
+   a. The measurement is on DEV, and the DEV copy of ORION was last refreshed
+   on 11-Mar-2026, so the volumes are not today's volumes. The assumptions
+   sheet (sheet 3, or 4, whichever it ended up as) says exactly what I scaled
+   and by how much. If you disagree with the scaling factor, change it in the
+   sheet, the rest recalculates.
+
+   b. Everything in the model is elapsed time for the mapping. I have not
+   modelled contention with anything else that is running on the host at that
+   hour. That needs a night on UAT and I do not have one yet.
+
+On the separate history table. I have not ignored the question, and it is a
+fair one. It is a modelling question rather than a load question and I do not
+want to answer it in a mail at ten to ten at night, because the answer depends
+on what the fact join is allowed to do and on what the reporting layer is
+allowed to see. Give me until the design session and I will take it properly
+with both options written down side by side, and you can shoot at whichever
+one deserves it.
+
+Karthik
+
+Karthik Subramanian
+Data Architect | Project Drishti
+Northlane Analytics
+
+------------------------------------------------------------------------
+This message is intended only for the named recipient and may contain
+information which is confidential or legally privileged. If you have
+received it in error, kindly delete it and inform the sender. Northlane
+Analytics accepts no responsibility for any change made to this message
+after it was sent.
+
+
+________________________________________
+From: Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>
+Sent: 21 April 2026 08:02
+To: Karthik Subramanian <karthik.subramanian@northlaneanalytics.example>
+Cc: Farida Contractor <farida.contractor@bharadwajcp.example>
+Subject: FW: RE: DIM_CUSTOMER dimension design - your comments
+
+karthik quick one from the car, any update on the measurement. farida is
+waiting and the dimension design is sitting behind it, which means ishaan is
+sitting behind it too. also do we need a session with her or can this be
+closed on mail
+
+Get Outlook for iOS
+
+> -----Original Message-----
+> From: Farida Contractor <farida.contractor@bharadwajcp.example>
+> Sent: 16 April 2026 09:26
+> To: Karthik Subramanian <karthik.subramanian@northlaneanalytics.example>
+> Cc: Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>;
+> bcpl-datawarehouse@bharadwajcp.example
+> Subject: RE: DIM_CUSTOMER dimension design - your comments
+>
+> [snip - earlier points trimmed, F]
+>
+> 7. I am not saying no. I am saying the window is the window and I am not
+> putting elapsed time into it on the strength of an estimate, mine or yours.
+> Measure it on DEV, show me the number and the method, and I will look at it
+> again the same day.
+>
+> Regards
+> Farida
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

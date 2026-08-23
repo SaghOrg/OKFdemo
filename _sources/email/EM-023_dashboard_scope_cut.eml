@@ -1,0 +1,116 @@
+Received: from mail.bharadwajcp.example (10.171.44.19) by
+ mx-in-02.northlaneanalytics.example with Microsoft SMTP Server id
+ 15.20.7301.011; Mon, 30 Mar 2026 07:22:53 +0530
+Return-Path: <shalini.iyer@bharadwajcp.example>
+Message-ID: <BM1PR01MB5530F3A17C9D82B4E@mail.bharadwajcp.example>
+Date: Mon, 30 Mar 2026 07:22:41 +0530
+From: Shalini Iyer <shalini.iyer@bharadwajcp.example>
+To: Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>
+Cc: Rajeev Menon <rajeev.menon@bharadwajcp.example>,
+ Priya Nair <priya.nair@bharadwajcp.example>
+Subject: RE: RE: FW: Drishti - discovery close out pack and Friday actions
+In-Reply-To: <CAJ7q2m8Vd3sX7pLm2wRt9fBnQ4k@mail.northlaneanalytics.example>
+References: <CAJ7q2m8Vd3sX7pLm2wRt9fBnQ4k@mail.northlaneanalytics.example>
+Thread-Topic: Drishti - discovery close out pack and Friday actions
+Thread-Index: FVZtlRqLG22xYbgrXPUt5i==
+X-Mailer: Microsoft Outlook 16.0
+Importance: high
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Ananya,
+
+Two seperate things in this mail and the second one is the one that matters.
+
+1. On the close out pack I have no comments beyond what I sent you on Friday
+evening. Please go ahead and issue it, Rajeev has seen it.
+
+2. On the reporting scope. I have the FY27 position back from Group now and I
+have to cut the go-live list. We are not doing twelve. It is seven.
+
+The seven that stay in for go-live:
+
+   D01  Primary Sales Performance
+   D03  Distributor Scorecard
+   D05  Stock and Despatch
+   D06  Order Fulfilment and Fill Rate
+   D07  Revenue Reconciliation
+   D09  Product Mix and Contribution
+   D12  Executive Summary
+
+The five that come out and go to Phase 2:
+
+   D02  Secondary Sales Coverage
+   D04  Scheme Effectiveness
+   D08  GST and Tax Summary
+   D10  Sales Rep Productivity
+   D11  Credit and Receivables Exposure
+
+3. The reason, written down here so that I am not explaining it four times in
+four rooms. Group has frozen the capex line that the BI licence uplift was
+sitting in. Without that uplift we can fund seven dashboards for go-live and
+we cannot fund twelve. That is the whole of it and it is not a negotiation
+I can win from here.
+
+3. There is a second reason and it is not the smaller one. Even if the money
+were there I do not have the user time to take twelve dashboards through UAT.
+The people who would test are the same people who close the month for me, and
+Sales Ops are short handed as it is. Seven is what we can put in front of
+users properly rather than badly.
+
+4. Please do not go back and tell the team that the five are cancelled. They
+are Phase 2. I will make the case for them again at the FY27 review and I
+would rather have
+
+5. Ritwik should not start building anything against the five. Priya, on your
+side please make sure nothing in that list gets switched off in OBIEE, those
+reports carry on the old way until Phase 2 says otherwise.
+
+Rajeev, flagging this to you directly in case Group asks you before it asks
+me. Ananya, can I have the revised build plan by 03/04 please.
+
+Regards,
+Shalini
+
+Shalini Iyer
+Head of Finance Systems
+Bharadwaj Consumer Products Ltd, Mumbai
+
+________________________________________________________________________
+This e-mail and any files transmitted with it are confidential and are
+intended solely for the use of the addressee. If you are not the intended
+recipient kindly notify the sender and delete this message from your
+system. Bharadwaj Consumer Products Ltd accepts no liability for any
+errors or omissions in the contents of this message which arise as a
+result of transmission. Internal circulation only.
+Please consider the environment before printing this e-mail.
+
+
+________________________________________
+From: Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>
+Sent: Friday, 27 March 2026 19:34
+To: Shalini Iyer <shalini.iyer@bharadwajcp.example>
+Cc: Rajeev Menon <rajeev.menon@bharadwajcp.example>; Priya Nair <priya.nair@bharadwajcp.example>
+Subject: RE: FW: Drishti - discovery close out pack and Friday actions
+
+> Hi Shalini,
+>
+> To close the loop on this afternoon. The close out pack is with you for
+> comment and I have kept it to what we actually agreed in the room, nothing
+> extra has crept in.
+>
+> Two things I need back from you before Wednesday. The reporting scope
+> confirmation, and a name for UAT co-ordination on your side. Without the
+> first one Ritwik is sizing a build against a list that is not fixed, which
+> is not a good use of anybody.
+>
+> Parking the Phase 2 conversation for now, we can pick it up once the scope
+> is settled.
+>
+> Best,
+> Ananya
+>
+> Get Outlook for iOS
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

@@ -1,0 +1,20 @@
+RECORDING STUB -- link only, not the recording itself
+Project Drishti / Bharadwaj engagement
+
+Meeting: Data quality readout
+Date: Thu 18-Jun-2026
+Time: 11:00-11:50 IST
+Duration: 00:50:00
+Organiser: Sneha Pillai
+Attendees: Neha, Meghna, Ishaan, Farida, Shalini, Priya, Ananya, Sneha Pillai
+
+Recording URL (SharePoint / Stream, tenant bharadwajcp):
+https://bharadwajcp.sharepoint.example/sites/BCPL-NorthlaneAnalytics/Shared%20Documents/Recordings/2026-06-18_dq_readout.mp4
+
+approx file size: 421 MB
+Transcript cross-ref: 2026-06-18_dq_readout.vtt (auto-generated)
+Retention: 90 day expiry, ~16-Sep-2026
+
+DO NOT COMMIT MEDIA - link only. Recording lives in SharePoint, not in this repository.
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

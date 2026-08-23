@@ -1,0 +1,20 @@
+RECORDING STUB -- link only, not the recording itself
+Project Drishti / Bharadwaj engagement
+
+Meeting: Design sign-off
+Date: Wed 06-May-2026
+Time: 15:30-16:30 IST
+Duration: 01:00:00
+Organiser: Sneha Pillai
+Attendees: Karthik, Ananya, Shalini, Farida, Ani, Ishaan, Sneha Pillai; Rajeev Menon joined at 15:52 IST
+
+Recording URL (SharePoint / Stream, tenant bharadwajcp):
+https://bharadwajcp.sharepoint.example/sites/BCPL-NorthlaneAnalytics/Shared%20Documents/Recordings/2026-05-06_design_signoff.mp4
+
+Approx file size: 512 MB
+Transcript cross-ref: 2026-05-06_design_signoff.vtt (auto-generated, unedited)
+Retention: purges ~04-Aug-2026 (90 days after meeting)
+
+DO NOT COMMIT MEDIA - link only. Recording lives in SharePoint, not in this repository.
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

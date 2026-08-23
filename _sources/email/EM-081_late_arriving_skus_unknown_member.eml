@@ -1,0 +1,192 @@
+Received: from mail-out-03.northlaneanalytics.example (198.51.100.37) by
+ mx-in-02.northlaneanalytics.example with Microsoft SMTP Server id
+ 15.20.7344.007; Wed, 2 Sep 2026 12:26:58 +0530
+Return-Path: <ritwik.ghosh@northlaneanalytics.example>
+Message-ID: <CAJ7q2m8Pf5kD8vRt2nJw7bXc1Sm@mail.northlaneanalytics.example>
+Date: Wed, 02 Sep 2026 12:26:41 +0530
+From: Ritwik Ghosh <ritwik.ghosh@northlaneanalytics.example>
+To: Karthik Subramanian <karthik.subramanian@northlaneanalytics.example>,
+ Ishaan Bhatt <ishaan.bhatt@northlaneanalytics.example>
+Cc: Priya Nair <priya.nair@bharadwajcp.example>,
+ Meghna Rao <meghna.rao@bharadwajcp.example>,
+ Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>
+Subject: RE: RE: FW: VAR-007 - SKUs landing on the UNKNOWN member (-1) and
+ what it does to the product pages
+Thread-Topic: VAR-007 - SKUs landing on the UNKNOWN member (-1)
+In-Reply-To: <BM1PR01MB5530E9A7C24B60D51@mail.bharadwajcp.example>
+References: <BM1PR01MB55301D7F6C0A94E28@mail.bharadwajcp.example>
+ <CAJ7q2m8Ty9wQ4mBv6cLk3nRd8Hf@mail.northlaneanalytics.example>
+ <BM1PR01MB5530E9A7C24B60D51@mail.bharadwajcp.example>
+Thread-Index: Ac8dV2nM8rXz55Sk1Yg+Cr==
+X-Mailer: Microsoft Outlook 16.0
+X-MS-Has-Attach: no
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Karthik, Ishaan,
+
+Two things. One is a design question for Karthik and one is a set of numbers I
+want sanity checked before I put them into the wireframe notes.
+
+Design question first. On the Product Mix page, the moment I put a slicer on
+Category the page stops agreeing with the Primary Sales page. It is not a
+measure problem, I rewrote the measure twice before I accepted that. The rows
+sitting on PRODUCT_KEY = -1 carry UNKNOWN for brand, for category, for pack
+size, for everything, so the moment you slice on any product attribute those
+rows fall out of the visual and the total drops. Same dataset, same date range,
+two different totals on two pages. That is the single worst thing you can put
+in front of a user, because after that they stop believing both numbers and
+not just the wrong one.
+
+Options as I see them and I do not fully like any of them.
+
+a. Show UNKNOWN as a real member in the slicer so the user can see it and
+   include it. Honest. Ugly. Somebody will screenshot it and send it to
+   Rajeev within a week.
+b. Leave it out and put a footnote on the page saying roughly two percent of
+   lines are not classified. Cleaner page. Nobody reads footnotes, and the
+   people who do read them are not the people who need to.
+c. Fix it upstream so the fact rows get re-pointed once the dimension row
+   turns up, and then it stops being a reporting problem at all.
+
+My preference is c with a as the interim, but c is not mine to decide. One
+visual, one message, and at the moment this page is carrying two, na?
+
+The numbers, from Meghna below. I have used these in the notes, correct me if
+I have taken the wrong end of them:
+
+- 2.0 percent of invoiced volume lands on PRODUCT_KEY = -1
+- 8,140 lines a month on average
+- 11,902 in Jan-2026, which is the peak
+- DQ-R-04 sitting at 98.0 percent against a 99.5 percent threshold
+
+Karthik, straight question and a straight answer is fine even if the answer is
+no. Is late arriving dimension handling inside the remediation build or is it
+not? If it is not going in before UAT I will build option a now and we live
+with it. What I do not want to do is build a, throw it away, and then rebuild
+the page halfway through UAT with testers watching.
+
+Priya's point below is the one I would actually put in front of the sponsor,
+not mine. Mine is a layout problem. Hers is a trust problem, and hers is worse.
+
+Screenshots of both pages are in the DEV folder, I have not attached them here,
+the mail gets too big and then it bounces.
+
+Ritwik
+
+Ritwik Ghosh
+BI Developer
+Project Drishti, Northlane Analytics
+
+Get Outlook for iOS
+
+This e-mail is confidential and intended for the named recipient only. If it has
+reached you in error, please delete it and tell us. Northlane Analytics accepts no
+liability for the content of this e-mail once it leaves our systems.
+
+________________________________
+From: Priya Nair <priya.nair@bharadwajcp.example>
+Sent: 01 September 2026 18:07
+To: Ritwik Ghosh <ritwik.ghosh@northlaneanalytics.example>
+Cc: Ishaan Bhatt <ishaan.bhatt@northlaneanalytics.example>; Meghna Rao <meghna.rao@bharadwajcp.example>; Karthik Subramanian <karthik.subramanian@northlaneanalytics.example>
+Subject: RE: FW: VAR-007 - SKUs landing on the UNKNOWN member (-1)
+
+> Hi Ritwik,
+>
+> Just to confirm my understanding, and this is a user point more than a
+> technical one, so please take it as that.
+>
+> On the DEV report you shared yesterday, the prompt for Product Category has
+> a value at the top of the list showing as UNKNOWN, and there is one below
+> it which looks blank. If a user opens the report on the first morning and
+> the first thing in the prompt list is UNKNOWN, they will say the report is
+> broken. They will not read it as two percent of lines pending
+> classification. I have seen exactly this happen with the cube and it took
+> us months to get people to open it again.
+>
+> In OBIEE the same analysis never showed these lines at all, so from the
+> user's side this is going to look like a new problem that we have created,
+> even though I understand from Ishaan that it has been there the whole time
+> and the old report was simply dropping them quietly.
+>
+> Kindly can we decide this before it goes to the users and not during. I am
+> happy with either answer. I only do not want to be the person explaining it
+> at the desk on day one.
+>
+> Also one small thing, the prompt list is not sorted, UNKNOWN is sitting
+> above the
+>
+> Thanks and regards,
+> Priya
+>
+> Priya Nair
+> BI Analyst | Bharadwaj Consumer Products Ltd
+> Please consider the environment before printing this e-mail.
+>
+> > -----Original Message-----
+> > From: Ishaan Bhatt <ishaan.bhatt@northlaneanalytics.example>
+> > Sent: 31 August 2026 23:41
+> > To: Ritwik Ghosh <ritwik.ghosh@northlaneanalytics.example>; Priya Nair
+> > <priya.nair@bharadwajcp.example>
+> > Cc: Meghna Rao <meghna.rao@bharadwajcp.example>; Karthik Subramanian
+> > <karthik.subramanian@northlaneanalytics.example>
+> > Subject: FW: VAR-007 - SKUs landing on the UNKNOWN member (-1)
+> >
+> > ritwik, mechanism in two lines so you can put it in your notes properly
+> > and stop quoting me from chat.
+> >
+> > MAP_FACT_INVOICE_LINE looks the SKU up in the dim. if the SKU is not
+> > there yet, and often it is not, because an invoice can be raised the same
+> > day the SKU is created, the mapping substitutes PRODUCT_KEY = -1 and
+> > carries on. the row is not rejected. nothing is written to ETL_ERROR_LOG.
+> > so the load audit for that night looks completely clean and there is
+> > nothing to alert on.
+> >
+> > the part that actually hurts is the second half. once MAP_DIM_PRODUCT
+> > picks the SKU up on a later night, the fact row is never re-pointed. it
+> > stays on -1 for good. so this is not a one day lag that heals itself,
+> > those rows are permanently unclassified unless somebody goes back and
+> > repairs them.
+> >
+> > ah wait, one correction to what i said in the channel yesterday. it is
+> > not only new SKUs. anything the lookup cannot resolve takes the same
+> > path. new SKUs are just the big bucket.
+> >
+> > nothing has gone in for this one. no mapping change, no fix. it is open.
+> >
+> > Ishaan
+> >
+> > > -----Original Message-----
+> > > From: Meghna Rao <meghna.rao@bharadwajcp.example>
+> > > Sent: 31 August 2026 11:06
+> > > To: Ritwik Ghosh <ritwik.ghosh@northlaneanalytics.example>
+> > > Cc: Ishaan Bhatt <ishaan.bhatt@northlaneanalytics.example>; Priya Nair
+> > > <priya.nair@bharadwajcp.example>; Neha Gokhale
+> > > <neha.gokhale@northlaneanalytics.example>
+> > > Subject: VAR-007 - SKUs landing on the UNKNOWN member (-1)
+> > >
+> > > Ritwik, the counts you asked for on Friday.
+> > >
+> > > All of these are as of the 31-May-2026 profiling run, so they are three
+> > > months old now. Nothing has changed in the mapping since, so I would
+> > > expect them to still hold, but please quote the run date with them
+> > > wherever you use them.
+> > >
+> > > Lines resolving to PRODUCT_KEY = -1 on FACT_INVOICE_LINE, approximately
+> > > 8,140 a month on average. The peak in the sample is 11,902 in Jan-2026.
+> > > Across the period that is 2.0% of invoiced volume.
+> > >
+> > > Against DQ-R-04, completeness, every invoiced SKU resolves to a known
+> > > DIM_PRODUCT member. Threshold 99.5%, actual 98.0%. That is a failure.
+> > >
+> > > On a sample of 500 of the -1 lines, the SKU code resolves in the master
+> > > today. So these are late arrivals and not junk codes, which I think is
+> > > the distinction you were asking about.
+> > >
+> > > Meghna
+> > >
+> > > Meghna Rao
+> > > Data Quality Analyst, Bharadwaj Consumer Products Ltd
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

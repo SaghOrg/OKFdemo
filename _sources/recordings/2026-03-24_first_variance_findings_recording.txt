@@ -1,0 +1,22 @@
+RECORDING STUB -- link only, not the recording itself
+Project Drishti / Bharadwaj engagement
+
+Meeting: First variance findings
+Date: Tue 24-Mar-2026
+Time: 16:00-16:45 IST
+Duration: 00:39:12
+Organiser: Sneha Pillai
+Attendees: Ananya, Karthik, Ishaan, Farida, Shalini, Vikram, Sneha Pillai
+
+Recording URL (SharePoint / Stream, tenant bharadwajcp):
+https://bharadwajcp.sharepoint.example/sites/BCPL-NorthlaneAnalytics/Shared%20Documents/Recordings/2026-03-24_first_variance_findings.mp4
+
+Approx file size: 329 MB
+Transcript cross-ref: 2026-03-24_first_variance_findings.vtt (auto-generated, not reviewed)
+Retention: expires ~22-Jun-2026 (90 days post-meeting)
+
+NOTE - recording started about 6 minutes late, someone forgot to hit record until Ananya asked. first few min of the call are not captured, transcript is likewise short at the start.
+
+DO NOT COMMIT MEDIA - link only. Recording lives in SharePoint, not in this repository.
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

@@ -1,0 +1,237 @@
+09/10/2026, 17:22 - Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them.
+09/10/2026, 17:22 - Ananya Krishnan created group "BCPL UAT War Room"
+09/10/2026, 17:22 - Ananya Krishnan added Priya Nair
+09/10/2026, 17:22 - Ananya Krishnan added Vikram Sethi
+09/10/2026, 17:23 - Ananya Krishnan added Sneha Pillai
+09/10/2026, 17:23 - Ananya Krishnan added Ritwik Ghosh
+09/10/2026, 17:23 - Ananya Krishnan added Ishaan Bhatt
+09/10/2026, 17:24 - Ananya Krishnan added Meghna Rao
+09/10/2026, 17:24 - Ananya Krishnan added Farida Contractor
+09/10/2026, 17:24 - Ananya Krishnan added Neha Gokhale
+09/10/2026, 17:25 - Ananya Krishnan added Karthik Subramanian
+09/10/2026, 17:31 - Ananya Krishnan: Hi all. Setting this up so we are not chasing each other on mail during UAT. Testing runs 12 October to 6 November. Please keep this group for the testing only, anything commercial goes on mail.
+09/10/2026, 17:32 - Ananya Krishnan: There are 14 scripts, UAT-01 through UAT-14, and 9 testers against them. Sneha is circulating the allocation tonight.
+09/10/2026, 17:35 - Sneha Pillai: Allocation going out in the next hour. Please check your name against the scripts and revert to me tonight if something is wrong, not on Monday morning 🙏
+09/10/2026, 17:40 - Vikram Sethi: pls add shalini mam also, she was asking
+09/10/2026, 17:44 - Ananya Krishnan added Shalini Iyer
+09/10/2026, 17:45 - Shalini Iyer: Thank you. I will follow rather than test.
+09/10/2026, 18:02 - Priya Nair: Kindly also add Ani, if there is any issue in the data he is the only one who will know at 11 pm.
+09/10/2026, 18:10 - Ananya Krishnan added Aniruddh Deshpande
+09/10/2026, 18:12 - Aniruddh Deshpande: ok
+09/10/2026, 21:40 - Sneha Pillai: Allocation sent. 9 testers, 14 scripts, some of you have two.
+09/10/2026, 21:41 - Vikram Sethi: i have three
+09/10/2026, 21:44 - Sneha Pillai: You have two Vikram, UAT-03 and UAT-08. The third one in the sheet is Priya's, it is on the row below yours.
+09/10/2026, 21:45 - Vikram Sethi: ok
+09/10/2026, 21:45 - Vikram Sethi: my sheet is showing seperate
+
+10/10/2026, 09:14 - Ritwik Ghosh: uat environment is up. everything is loaded. if you see an old number tell me before you raise it na, might just be the copy not the report
+10/10/2026, 09:20 - Meghna Rao: Noted. I will state the run date on anything I raise.
+10/10/2026, 11:02 - Priya Nair: Ritwik, my login is not working. It says you do not have permission to view this report.
+10/10/2026, 11:03 - Ritwik Ghosh: which workspace
+10/10/2026, 11:04 - Priya Nair: BCPL-DRISHTI-UAT
+10/10/2026, 11:20 - Ritwik Ghosh: added. try now
+10/10/2026, 11:26 - Priya Nair: Working, thank you
+10/10/2026, 14:50 - Ananya Krishnan: Reminder, Monday 8:30 kickoff call for the testers. 20 minutes only, I will not keep you.
+10/10/2026, 14:51 - Vikram Sethi: i am travelling monday morning, will join from car
+10/10/2026, 14:52 - Ananya Krishnan: That is fine.
+10/10/2026, 19:30 - Ishaan Bhatt: uat load finished for tonight, nothing failed. sleeping.
+10/10/2026, 19:31 - Ritwik Ghosh: 👍
+
+11/10/2026, 23:12 - Aniruddh Deshpande: i have checked the uat side, the master data is looking correct after the refresh, one depot code was showing blank but that is same in source also so it is not a testing issue, do not raise it -ani
+11/10/2026, 23:14 - Meghna Rao: Understood, I will leave it.
+11/10/2026, 23:50 - Aniruddh Deshpande: also if anybody is testing tonight please do not, the box is doing its maintenance -ani
+
+12/10/2026, 08:02 - Ananya Krishnan: Good morning all. Day one. Call in 30 minutes.
+12/10/2026, 08:10 - Vikram Sethi: joining from car, may drop
+12/10/2026, 08:31 - Sneha Pillai: Call link sent again on mail for those who cannot find it.
+12/10/2026, 09:15 - Priya Nair: The VPN is dropping every 10 minutes for me today, it is not the report.
+12/10/2026, 09:16 - Priya Nair: if anything breaks just call me on +91 90000 00012 i am not on teams today
+12/10/2026, 09:20 - Meghna Rao: Noted.
+12/10/2026, 09:44 - Neha Gokhale: Before anybody starts raising things. Please say which script and which step. "It is wrong" is not a defect.
+12/10/2026, 09:45 - Ritwik Ghosh: and a screenshot. always a screenshot
+12/10/2026, 10:12 - Meghna Rao: <Media omitted>
+12/10/2026, 10:13 - Meghna Rao: UAT-06 step 4. The percentage column is showing four decimal places, everywhere else it is one.
+12/10/2026, 10:14 - Ritwik Ghosh: cosmetic. taking it. easy fix
+12/10/2026, 10:40 - Priya Nair: <Media omitted>
+12/10/2026, 10:41 - Priya Nair: UAT-02, the chart title is still saying draft.
+12/10/2026, 10:42 - Ritwik Ghosh: yes that is mine, i left it on purpose so i would remember to change it. i did not remember 😅
+12/10/2026, 11:30 - Vikram Sethi: teh stockist filter is not clearing, once i select one stockist i cannot go back to all
+12/10/2026, 11:31 - Vikram Sethi: <Media omitted>
+12/10/2026, 11:35 - Ritwik Ghosh: ctrl click to deselect. but you are right, that is not obvious. i will put a clear button
+12/10/2026, 11:36 - Vikram Sethi: pls do the needful
+12/10/2026, 14:20 - Vikram Sethi: my number is coming different for north
+12/10/2026, 14:21 - Vikram Sethi: stockist billing is not matching what i have in my sheet
+12/10/2026, 14:22 - Ananya Krishnan: Vikram, which script are you on and which period?
+12/10/2026, 14:23 - Vikram Sethi: sept, north
+12/10/2026, 14:40 - Priya Nair: Vikram sir, kindly check which workspace you have opened. Send me a screenshot of the top of the screen.
+12/10/2026, 14:44 - Vikram Sethi: <Media omitted>
+12/10/2026, 14:47 - Priya Nair: That is BCPL-DRISHTI-DEV. You are in the wrong place. Please close it and open the UAT one, I will send the link.
+12/10/2026, 14:48 - Vikram Sethi: arre
+12/10/2026, 14:48 - Vikram Sethi: ok
+12/10/2026, 14:49 - Ritwik Ghosh: 😄
+12/10/2026, 14:52 - Priya Nair: Link sent on your mail also.
+12/10/2026, 15:30 - Vikram Sethi: now it is showing different again but closer
+12/10/2026, 15:31 - Vikram Sethi: still not matching, i will send my file
+12/10/2026, 15:40 - Vikram Sethi: BCPL_reco_Aug26_vikram_v3 (1).xlsx
+12/10/2026, 15:41 - Ananya Krishnan: That is the August one Vikram. We are testing September.
+12/10/2026, 15:42 - Vikram Sethi: same format only
+12/10/2026, 15:55 - Karthik Subramanian: Vikram, please send the September file. Two numbers from different months will never agree and we will spend a day proving that.
+12/10/2026, 15:58 - Vikram Sethi: kindly confirm which one you want, i have four files
+12/10/2026, 16:00 - Karthik Subramanian: The one you would send to Rajeev.
+12/10/2026, 16:01 - Vikram Sethi: ok
+12/10/2026, 18:22 - Sneha Pillai: Day one closed. Everything raised today is in the log. If you told me something on a call and not here, it is not in the log.
+12/10/2026, 18:23 - Sneha Pillai: Please put it here 🙏
+
+13/10/2026, 08:40 - Meghna Rao: <Media omitted>
+13/10/2026, 08:41 - Meghna Rao: UAT-06 step 9. The date axis is showing 01/09/26 in one visual and 01-Sep-2026 in the one below it.
+13/10/2026, 08:42 - Ritwik Ghosh: cosmetic, taking it
+13/10/2026, 09:30 - Priya Nair: UAT-02 step 3. When I export to Excel the last row is not coming.
+13/10/2026, 09:32 - Ritwik Ghosh: is the last row the total row
+13/10/2026, 09:33 - Priya Nair: Yes.
+13/10/2026, 09:34 - Ritwik Ghosh: then that is expected, totals do not export from that visual. but i agree it looks like a bug, i will make the total a real row
+13/10/2026, 09:35 - Priya Nair: Kindly do, otherwise every user will raise it.
+13/10/2026, 11:02 - Farida Contractor: The UAT load did not complete last night. It is restarted now and will be finished by lunch. Please do not test data until I confirm.
+13/10/2026, 11:03 - Meghna Rao: Pausing.
+13/10/2026, 11:04 - Priya Nair: Pausing also.
+13/10/2026, 11:05 - Vikram Sethi: i am anyway in a meeting
+13/10/2026, 13:20 - Farida Contractor: Completed. You may test.
+13/10/2026, 13:21 - Ritwik Ghosh: ok
+13/10/2026, 16:44 - Vikram Sethi: <Media omitted>
+13/10/2026, 16:45 - Vikram Sethi: the TPR amount is not matching for nimbua south
+13/10/2026, 16:50 - Neha Gokhale: Vikram, against which script and which step?
+13/10/2026, 16:52 - Vikram Sethi: UAT-08
+13/10/2026, 16:53 - Neha Gokhale: Which step of UAT-08.
+13/10/2026, 16:58 - Vikram Sethi: i will check and revert
+13/10/2026, 22:40 - Aniruddh Deshpande: vikram that scheme figure question is a separate item and it is already sitting in the tracker, it is not a uat defect, please do not spend your testing time on it -ani
+13/10/2026, 22:41 - Ananya Krishnan: Confirmed. Vikram, please mark that one as out of scope for testing and move on to your next step.
+13/10/2026, 22:55 - Vikram Sethi: ok sir noted
+
+14/10/2026, 09:12 - Ritwik Ghosh: pushed the decimal fix, the draft title fix and the clear button. please re test UAT-02 and UAT-06 today
+14/10/2026, 09:14 - Meghna Rao: Will re test after 11, I have a call.
+14/10/2026, 09:40 - Priya Nair: Clear button is there, working. Thank you.
+14/10/2026, 09:41 - Ritwik Ghosh: one visual one message. one button one job
+14/10/2026, 12:20 - Shalini Iyer: A question rather than a defect. On the reconciliation page, is the period label showing the fiscal quarter or the calendar one?
+14/10/2026, 12:31 - Ritwik Ghosh: fiscal. FY27 Q2 for jul aug sep
+14/10/2026, 12:32 - Shalini Iyer: Good. Please make sure that is written on the page and not only in the tooltip.
+14/10/2026, 12:33 - Ritwik Ghosh: noted
+14/10/2026, 15:02 - Meghna Rao: UAT-11 step 2. Two testers are seeing different row counts on the same filter. I am with Priya on a call about it now.
+14/10/2026, 15:40 - Meghna Rao: Resolved. Priya had a filter left on from the previous step. Not raising it.
+14/10/2026, 15:41 - Priya Nair: My mistake, sorry all.
+14/10/2026, 15:42 - Neha Gokhale: That is fine. That is what a war room is for.
+14/10/2026, 23:20 - Ishaan Bhatt: <Media omitted>
+14/10/2026, 23:21 - Ishaan Bhatt: for whoever raised the blank customer name on UAT-04, it is one row and it is blank in the source too. not a report issue
+14/10/2026, 23:22 - Ishaan Bhatt: will still put a hyphen instead of blank so it does not look broken
+
+15/10/2026, 08:30 - Vikram Sethi: good morning. UAT-08 step 6. my figuers for west stockist off-take are not matching
+15/10/2026, 08:31 - Vikram Sethi: difference is in lacs not crores so it is small but still
+15/10/2026, 08:44 - Karthik Subramanian: Vikram, off-take is not the same thing as billing. If your sheet is off-take and the page is showing invoiced sales they will never agree, and that is correct behaviour rather than a defect.
+15/10/2026, 08:46 - Vikram Sethi: my sheet is both
+15/10/2026, 08:50 - Karthik Subramanian: Then we need to look at the sheet, not the report. Let us take this offline, I will call you at 11.
+15/10/2026, 08:51 - Vikram Sethi: ok
+15/10/2026, 11:40 - Karthik Subramanian: Closed with Vikram. It was two different measures in one column of his sheet. No defect.
+15/10/2026, 11:41 - Ananya Krishnan: Thank you both.
+15/10/2026, 13:02 - Priya Nair: This message was deleted
+15/10/2026, 13:04 - Priya Nair: Sorry, wrong group.
+15/10/2026, 16:30 - Meghna Rao: <Media omitted>
+15/10/2026, 16:31 - Meghna Rao: UAT-13. Getting an access denied on the executive page. Two of us, same message.
+15/10/2026, 16:40 - Ritwik Ghosh: that page is restricted, you are both not in the group for it. it is not a bug but it is not documented either, so i am counting it
+15/10/2026, 16:41 - Meghna Rao: Please count it. If two of nine testers hit it on day four, users will hit it.
+15/10/2026, 16:42 - Ritwik Ghosh: counting it
+
+16/10/2026, 10:05 - Ananya Krishnan: End of week one. Sneha has the count.
+16/10/2026, 10:12 - Sneha Pillai: 23 defects raised in week one. 17 cosmetic, 4 data, 2 access. Nothing that stops testing.
+16/10/2026, 10:14 - Shalini Iyer: 4 data defects. Are any of them affecting a reported figure?
+16/10/2026, 10:30 - Ananya Krishnan: Two of the four are label and formatting on a figure rather than the figure itself. The other two are being looked at today and I will come back to you before the weekend rather than leaving it open.
+16/10/2026, 10:32 - Shalini Iyer: Thank you. Please do come back today.
+16/10/2026, 17:50 - Ananya Krishnan: Shalini, both closed. One was a filter left on by the tester and one was a rounding on a subtotal that Ritwik has fixed.
+16/10/2026, 17:52 - Shalini Iyer: Noted, thank you.
+16/10/2026, 18:00 - Sneha Pillai: The defect log is UAT_defect_log.xlsx, I am maintaining it. If you want a copy ask me, please do not keep your own version.
+16/10/2026, 18:02 - Vikram Sethi: i am keeping my own also
+16/10/2026, 18:03 - Sneha Pillai: 😅 of course you are
+16/10/2026, 18:04 - Sneha Pillai: Please at least send me yours on Friday evenings.
+16/10/2026, 18:20 - Ritwik Ghosh: weekend. nobody test anything, i am deploying
+16/10/2026, 18:21 - Priya Nair: Understood, enjoy the weekend all.
+
+18/10/2026, 21:40 - Vikram Sethi: kindly someone check, i am getting blank screen since evening
+18/10/2026, 21:41 - Vikram Sethi: <Media omitted>
+18/10/2026, 22:10 - Ritwik Ghosh: i am deploying, i said friday. it will be back in an hour
+18/10/2026, 22:11 - Vikram Sethi: ok
+18/10/2026, 22:12 - Vikram Sethi: i did not see the message
+18/10/2026, 23:30 - Ritwik Ghosh: back up
+
+19/10/2026, 09:02 - Ananya Krishnan: Week two. Scripts UAT-09 to UAT-14 are the focus. If your week one script is still open please close it out today.
+19/10/2026, 09:10 - Meghna Rao: UAT-06 closed from my side, all steps passed after the fixes.
+19/10/2026, 09:12 - Priya Nair: UAT-02 closed also.
+19/10/2026, 09:31 - Vikram Sethi: UAT-03 mostly done, two steps pending
+19/10/2026, 09:32 - Sneha Pillai: Which two, so I can put them in the log.
+19/10/2026, 09:40 - Vikram Sethi: i will send in evening
+19/10/2026, 19:40 - Sneha Pillai: Vikram, gentle reminder on the two steps.
+19/10/2026, 21:15 - Vikram Sethi: <Media omitted>
+19/10/2026, 21:16 - Sneha Pillai: That is a photo of your screen, I cannot read the numbers. Can you type them please.
+19/10/2026, 21:30 - Vikram Sethi: step 5 and step 9
+19/10/2026, 21:31 - Sneha Pillai: Thank you
+
+20/10/2026, 10:20 - Neha Gokhale: A general note. Several things raised as defects this week are the report showing what the source contains. That is not a defect. If the source is wrong that is a different conversation and it does not belong in this group.
+20/10/2026, 10:22 - Ananya Krishnan: Agreed, and I will say the same on the call. Please keep raising them though, I would rather triage ten than miss one.
+20/10/2026, 11:44 - Priya Nair: Just to confirm my understanding, if the old report and the new page show different numbers for the same period, do we raise it here or on mail?
+20/10/2026, 11:50 - Karthik Subramanian: Here first, with both screenshots and the exact filters. Mail only if it turns out to be real.
+20/10/2026, 11:51 - Priya Nair: Understood.
+20/10/2026, 15:20 - Meghna Rao: UAT-11 step 7. Top 10 table is showing 9 rows.
+20/10/2026, 15:22 - Ritwik Ghosh: 😐
+20/10/2026, 15:23 - Ritwik Ghosh: taking it. that is a tie break on the tenth row, i know what it is
+20/10/2026, 15:24 - Meghna Rao: On a sample of three different periods, it is 9 rows on all three.
+20/10/2026, 15:25 - Ritwik Ghosh: yes yes it is real, i said i am taking it 😄
+
+21/10/2026, 08:15 - Farida Contractor: The UAT load ran long last night. It finished, everything is there, but if you are testing before 9 in the morning please check the load status first.
+21/10/2026, 08:16 - Farida Contractor: I will post here every morning when it is done.
+21/10/2026, 08:17 - Meghna Rao: Thank you, that helps.
+21/10/2026, 08:40 - Farida Contractor: Done for today.
+21/10/2026, 12:30 - Vikram Sethi: teh stockist master is showing one party which is closed since last year
+21/10/2026, 12:35 - Ishaan Bhatt: is it showing with sales against it or just in the list
+21/10/2026, 12:36 - Vikram Sethi: just in the list
+21/10/2026, 12:40 - Ishaan Bhatt: then it is the master, not the report. it is still an open code in source. raise it with the master data team
+21/10/2026, 12:41 - Vikram Sethi: ok i will tell them, they will not do anything
+21/10/2026, 12:42 - Ishaan Bhatt: probably not
+21/10/2026, 22:50 - Aniruddh Deshpande: that party code vikram is talking about, it is closed in the system but the flag is set at branch level not at party level, this is from very old design, if you filter on it you will lose other parties also so do not touch it -ani
+21/10/2026, 22:52 - Ishaan Bhatt: noted, leaving it
+
+22/10/2026, 09:30 - Ritwik Ghosh: deployed the tie break fix and the total row fix. please re test UAT-11 and UAT-02
+22/10/2026, 09:44 - Meghna Rao: UAT-11 step 7 now showing 10 rows. Passed.
+22/10/2026, 09:45 - Ritwik Ghosh: good
+22/10/2026, 14:02 - Shalini Iyer: How many scripts are fully signed off as of today?
+22/10/2026, 14:20 - Sneha Pillai: Six fully closed, five with steps outstanding, three not started. I will send the sheet.
+22/10/2026, 14:22 - Shalini Iyer: Please send it. And please state the date on the sheet, I have two versions of it already.
+22/10/2026, 14:23 - Sneha Pillai: Will do
+
+26/10/2026, 08:40 - Farida Contractor: Load done for today.
+26/10/2026, 09:20 - Ananya Krishnan: Final stretch. Everything needs to be closed for sign off on 6 November. That is not a lot of working days.
+26/10/2026, 09:22 - Vikram Sethi: i am travelling this week, north and then baddi
+26/10/2026, 09:23 - Ananya Krishnan: Vikram, please finish UAT-08 before you travel or hand it to someone.
+26/10/2026, 09:40 - Vikram Sethi: i will do from hotel
+26/10/2026, 09:41 - Ananya Krishnan: Thank you.
+26/10/2026, 16:30 - Priya Nair: UAT-14 done. All steps passed. Sending the signed script to Sneha.
+26/10/2026, 16:31 - Sneha Pillai: Received
+
+28/10/2026, 07:55 - Farida Contractor: Load done.
+28/10/2026, 10:15 - Meghna Rao: <Media omitted>
+28/10/2026, 10:16 - Meghna Rao: Last one from me. UAT-12 step 3, the footer is overlapping the last row on a 13 inch screen.
+28/10/2026, 10:20 - Ritwik Ghosh: cosmetic. taking it. that is the last one on my list also
+28/10/2026, 23:40 - Vikram Sethi: from hotel. UAT-08 finished. two steps i have marked as pass with comment because the stockist figures are the known issue
+28/10/2026, 23:42 - Vikram Sethi: pls confirm that is ok
+29/10/2026, 07:20 - Ananya Krishnan: That is fine Vikram, thank you for finishing it. Sneha will record the comment against those steps.
+29/10/2026, 07:30 - Sneha Pillai: Recorded.
+
+30/10/2026, 08:10 - Farida Contractor: Load done.
+30/10/2026, 09:44 - Sneha Pillai: Status. Twelve of the fourteen scripts closed, the other two closed with comments, nothing open that blocks. I am tidying the log over the weekend.
+30/10/2026, 09:50 - Ananya Krishnan: Excellent. Thank you everyone, genuinely. This was a much cleaner three weeks than I expected.
+30/10/2026, 09:52 - Ritwik Ghosh: the 17 cosmetic ones in week one were mostly me na
+30/10/2026, 09:53 - Neha Gokhale: It was. And they are all closed, which is the part that matters.
+30/10/2026, 10:02 - Priya Nair: Thank you all, it was actually quite smooth. Kindly keep this group till sign off, I still have questions coming from users.
+30/10/2026, 10:05 - Ananya Krishnan: Group stays until 6 November, then I will archive it.
+30/10/2026, 10:06 - Shalini Iyer: Please share the final log with me before the sign off, not on the day.
+30/10/2026, 10:07 - Sneha Pillai: Will send on Tuesday.
+30/10/2026, 22:15 - Aniruddh Deshpande: good work everybody, in 2017 also we did a testing like this and that time we were sending defects on paper, so this is better -ani
+30/10/2026, 22:20 - Ritwik Ghosh: 😄
+30/10/2026, 22:22 - Meghna Rao: Good night all.
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

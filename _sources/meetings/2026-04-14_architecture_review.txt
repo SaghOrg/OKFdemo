@@ -1,0 +1,458 @@
+Bharadwaj Consumer Products Ltd - Microsoft Teams
+Transcript (auto-generated, unedited machine output)
+Meeting: Architecture review
+14-04-2026 14:00 IST
+Online meeting. One participant joined after start.
+Duration 01:14:41  |  Speakers detected 8 (2 unresolved)
+Confidence: medium. Names and figures may be transcribed incorrectly.
+
+----
+
+[00:00:00]
+Speaker 2: okay i think it is recording now there is a yeah there is the red thing
+Karthik Subramanian: yes it is recording
+Ananya Krishnan: right, so, uh, hi everyone, this is the architecture review, we architecture review, we have got seventy five minutes can everyone hear me okay
+Neha Gokhale: yes yes ma'am, i can hear
+Ananya Krishnan: priya please ananya only we have discussed this
+
+Speaker 5: sorry sorry force of habit
+Ananya Krishnan: no itis fine
+Farida Contractor: ananya i am there but my video will stay off there is some issue with the [inaudible] sorry farida you cut out i said video off bandwidth
+Speaker 2: no problem no problem at all
+Speaker 7: i am taking notes as usual so if anyone says something important please say it slowly
+Karthik Subramanian: noted
+
+Ananya Krishnan: so where is, is anirood joining
+Speaker 1: annie said he will come in a bit late he was on some call with the o'ryan support people
+Ananya Krishnan: okay fine, we will start without him and pick up the source side when he comes so the agenda three things one, karthik will walk the target model, the dimensions mainly, that is the bulk of it two, the date dimension and the month end thing that ishaan found and three the link the database link theory from the twenty fourth farida has pulled some numbers on that
+Farida Contractor: yes i have the aw r we will come to it let us do the model first because that is where the decisions are
+Karthik Subramanian: can i share
+Speaker 2: please
+Karthik Subramanian: one second can you see my screen
+[BLANK_AUDIO]
+
+[00:03:40]
+Ishaan Bhatt: not yet
+Karthik Subramanian: now yes
+Priya Nair: yes we can see it is the powerpoint
+Karthik Subramanian: it is not a powerpoint actually, it is the target model notes we sent last week, the eighth
+Priya Nair: ah okay sorry
+Karthik Subramanian: no it is fine has everyone had a chance to read it
+Farida Contractor: i have read till the fact table part
+Speaker 3: i wrote half of it so
+Karthik Subramanian: yes ishaan is excused
+Neha Gokhale: i skimmed it, i have some rule questions but they can wait
+
+Speaker 1: okay so let me not read it out to you, i will go to the four things i actually want a view on grain first because everything else follows from grain what is the grain of the invoice fact it should be one row per source invoice line that is it nothing else
+Speaker 3: it isn't though
+Speaker 1: correct today it is one row per source invoice line per extract which is not a grain that is an accident
+Speaker 4: that is because of the integration knowledge module
+Farida Contractor: control append insert only
+Speaker 1: yes and we will come back to that at the end because it touches the third agenda item
+Ananya Krishnan: park it
+[00:06:05]
+Speaker 1: parking it sorry, just to confirm my understanding, when you say grain you mean the level of detail in the, in the fact exactly that the thing one row means if you cannot say in one sentence what one row of a fact table means then the table is wrong
+Priya Nair: okay okay, in the cube we never really said it like that but yes it is the same idea
+Karthik Subramanian: right so second thing the dimensions we are conforming date customer product geography scheme sales rep six
+Ishaan Bhatt: plus the tax rate thing but that is but that is not really a dim today
+Karthik Subramanian: no it is not, leave it, that is a separate conversation and neha owns half of it
+Speaker 6: i do not own it yet
+Karthik Subramanian: fair
+Ananya Krishnan: let us not boil the, sorry that is rajeev's line i have started saying it also
+Speaker 1: so date first because it is the quickest and because ishaan found something ishaan do you want to yeah so uh
+Speaker 3: basically the date key on the factis being derived from created underscore t s which is a timestamp on the invoice header and that timestamp is written by the app server in u t c is it yeah
+Speaker 4: i did not know that
+Ishaan Bhatt: nobody did i found it because i was looking at why march numbers moved so what happens is any invoice raised after six thirty in the evening after eighteen thirty i s t on the last day of a month goes into the next month
+
+Priya Nair: oh that would explain, sorry go ahead no please no i was going to say in the report there is always this the finance team every month is asking why the last day is looking short every month, in the reconciliation report
+Speaker 3: yeah i thought it was the cut off timing at the depot no, it is a timezone
+Speaker ?: the invoice date column is a date,in i s t, and it is right and it is sitting right there next to the timestamp that is wrong
+Speaker 3: which is the annoying part honestly
+Farida Contractor: so the interface should be using invoice d t
+[00:10:33]
+Karthik Subramanian: yes
+Speaker 4: and it is using created t s
+Speaker 1: yes
+Speaker 4: okay that is a one line change in the mapping, i can do that in a, that is not a big
+Speaker 1: it is a one line change and it is a nine month restatement haan yes, the history the history yes
+Ananya Krishnan: how much is this one do we have a number about ninety lakh ninety lakh across
+Ishaan Bhatt: across f y twenty six yeah it nets out mostly at the year level obviously it is a boundary thing it moves between months but at a month level it is ninety lakh worth ofrows in the wrong month
+Karthik Subramanian: and at a quarter level it matters for the last month of the quarter only
+Ishaan Bhatt: and finance closes monthly sorry who was that
+Priya Nair: i think that was me i said finance closes monthly
+Ananya Krishnan: ah okay yes they do
+Speaker ?: so the date dimension itself is fine, i want to be clear about that dim date is fine it is a clean calendar it has the fiscal columns it goes to twenty thirty one the dimension is not the problem the key derivation on the fact is the problem
+Speaker 6: can i ask something on that
+
+Speaker 6: is there anything in dim date that says which day is a month end
+Speaker 1: yes there is a month end flag
+Speaker ?: okay good because i want to write a consistency rule on it the date key month should equal the invoice date month that is a hundred percent rule no tolerance
+Karthik Subramanian: that is the right rule and today it wouldfail
+[00:14:02]
+Ishaan Bhatt: today it fails yes
+Neha Gokhale: fine, i will draft it
+Sneha Pillai: sorry neha can you say that once more the rule date key month equals invoice date month thank you
+Ananya Krishnan: okay so that one is understood, frida can you and ishaan take the mapping change offline
+Farida Contractor: yes but not this week not this week this week is the quarter close support i have told this already you have, sorry it is fine
+Ananya Krishnan: next week then next week i can look
+Speaker 5: hello am i audible
+Speaker 2: anirood hi yes you are audible
+Aniruddh Deshpande: sorry sorry, that call went long
+
+Speaker 2: no issue at all, we areon the date dimension, we are about to go to customer okay
+Aniruddh Deshpande: one thing only i will say on the date, because i heard the last part the created timestamp thing, we did this in two thousand seventeen also
+Karthik Subramanian: sorry annie you did what in twenty seventeen
+Aniruddh Deshpande: there was one report, the depot despatch report, same issue was there, month end quantity was going to next month and at that time we changed it to invoice date and it got solved so somebody knew, in the report layer they knew, but in the e d w nobody knew or nobody bothered
+Karthik Subramanian: that is that is actually very useful, thank you
+Ishaan Bhatt: wait, so there is a report somewhere that alreadydoes it correctly
+Speaker 8: in obiee there is, i think, the despatch one
+Priya Nair: the despatch analysis, yes, that one uses invoice date i can check the r p d and confirm
+
+[00:17:20]
+Speaker 2: please that would be a nice corroboration
+Priya Nair: i will check in obi e and revert
+Sneha Pillai: capturing that as an action, priya to check the despatch report
+Speaker 3: yes right, customer
+Karthik Subramanian: yes this is the one i actually want to spend time on so today dim customer is overwrite it is scd one a row changes in the source we update the row in the dimension done no history
+Speaker ?: update elseinsert on the update key
+Karthik Subramanian: correct and the question on the table is whether that stays or whether we go to sed 2
+Karthik Subramanian: scd two, effective dating, versioned rows
+Ananya Krishnan: right yes
+Speaker 1: so let me put the case and then i genuinely want the pushback, i am not presenting a decision here
+Ananya Krishnan: good the case is territory
+Speaker 5: a distributor gets moved from one territory to another that happens
+Speaker 8: it happens a lot how often annie see normally it is quiet but when there is a realignment then in one day fifty sixty parties will change and realignment happens three four times in a year depends on the sales team okay so it is lumpy it is lumpy yes and also there is a hist table in the source customer territory hist from from that time itself it is there
+Speaker 3: yeah i have looked at it, it has eff from and eff to
+Speaker ?: it is there but nobody is maintaining it properly, i can tell you that also
+Karthik Subramanian: we willcome to the quality of it but the point is this if a distributor moves territory in april and we overwrite then all of last year's sales for that distributor get reported against the new territory which is not what happened
+[00:21:03]
+Priya Nair: and the old territory becomes zero
+Karthik Subramanian: the old territory loses history it actually earned, yes that we have seen also
+Speaker 5: in the distributor scorecard, one time in november the west numbers changed and nobody could explain and we saidit must be some refresh issue
+Karthik Subramanian: it was probably not was probably not a refresh issue
+Speaker 5: yes, i am realising
+
+Karthik Subramanian: so that is the argument for sed 2 a territory reassignment must not restate history the fact joins to the version of the customer that was valid on the invoice date not to whatever the customer looks like today yes
+Neha Gokhale: fine i am with you on the principle i just want to say the word out loud because half the room says it differently
+
+Speaker 3: versioned dimension
+Karthik Subramanian: let us all say sed 2 and be done
+Speaker 2: okay so what is the argument against
+Speaker 1: there are three and they are all real one, the dimension gets bigger and the load gets slower two, every downstream query has to join on the surrogate key and not on the customer id, and if someone joins wrong they get double three the source history we would be effective dating from is not clean which annie just said it is not clean and there is a fourth which is not technical which is that scd one is what everybody in the business currently assumes
+Priya Nair: that is true if i ask a sales person which territory is this distributor, they will tell me today's territory, they will not think about last year
+
+Speaker ?: right, so we would be giving them something more correct that they did not ask for
+
+Ananya Krishnan: frida you have been quiet
+Speaker 4: i am listening my concern is only the window the window is the window go on see, dim customer interface today runs in a few minutes, it is not a big thing but if you make it scd two then it is not update else insert any more, it is close the old row, open the new row, compare every column and on a realignment night it will be fifty sixty distributors as anirood said, or more
+Speaker 8: more more fine
+
+[00:25:25]
+Speaker 4: and this is on top of the run which on a month end night is already going three hours plus understood i am not saying no i am saying i want to know the number before i say yes
+Karthik Subramanian: that is fair, and honestly that is the right answer do you have the number
+Farida Contractor: i can estimate it
+Speaker 1: i would rather not estimate it
+Farida Contractor: then somebody has to measure it i will measure it
+
+Speaker 1: i will build it on dev and run it against a real night not a sample and i will send you the timings then i will look at it properly
+Speaker 4: but frankly i will also send you my own view separately because i want it in writing
+Speaker 1: please do
+Speaker 2: sneha action karthik to measure the load cost on dev
+Speaker 7: yes by when
+Speaker 1: give me a week and a bit, the twenty fourth
+Sneha Pillai: twenty fourth of april, karthik
+Ananya Krishnan: and farida to send her load window position
+Speaker 4: i will send it this week
+Speaker 7: noted one thing
+Speaker 2: yes anirood
+[00:27:42]
+Speaker 8: in the source, if you look at the customer table, there is last upd d t and last upd by but the party master is being updated by the sales admin team directly through the form so sometimes they will change the credit limit and the territory in the same save then how will you know which one caused the new row
+Karthik Subramanian: you will not and that is a real design question do we version on every attribute change or only on the ones on the ones that matter
+Ishaan Bhatt: we should pick the columns
+Speaker ?: i think we pick the columns yes territory and depot and maybe customer type
+Ishaan Bhatt: and credit limit becomes scd one inside a scd too row, which is a bit ugly but it is normal
+Speaker 1: it is normal hybrid hybrid yes
+Speaker 5: sorry, this means in the report, if i pull last year's sales by territory, i will get the old territory
+Speaker 1: if we do sed 2 yes
+Speaker 5: and if somebody wants it by today's territory
+
+Speaker 1: then you need the current row as well and you need a second relationship and that is a modelling choice we have to make consciously
+Priya Nair: because both questions get asked i can tell you that sales ops asks today's territory, finance asks what actually happened
+[BLANK_AUDIO]
+
+Karthik Subramanian: that is exactly the tension and it is why i did not want to just do this quietly and put it in a document okay
+Speaker 2: so, to be clear, we are not deciding this today
+
+Speaker ?: we are not deciding it today
+Ananya Krishnan: we are deciding it when we have the timings
+Speaker 1: and when frida has had a proper look
+[00:30:50]
+Farida Contractor: correct correct
+Speaker 2: fine that goes to the sign off session in may
+Speaker 7: should i put a i put a placeholder for that
+Speaker 2: put a placeholder yes, first week of may, i will find a slot
+Ishaan Bhatt: quick one before we move
+Ananya Krishnan: yes
+Ishaan Bhatt: if we do go scd too the effective dating logic has to be written properly it is fiddly like really fiddly, everyone thinks it is easy and then it is not agreed i would want tests written before the mapping is written not after
+Karthik Subramanian: then write the tests first
+
+Ishaan Bhatt: yeah that is what i am saying
+Speaker ?: i will make it a rule one current row per customer, uniqueness, threshold hundred percent
+Speaker 4: good we are at we have used about half the time let us move
+[BLANK_AUDIO]
+Ananya Krishnan: product
+
+Speaker 1: product is much simpler and my proposal here is the opposite i am proposing scd one for dim product overwrite overwrite yes
+Ananya Krishnan: why the difference
+Speaker 1: because s k u attributes basically do not change a s k u gets created it has a brand a category a pack size a u o m an m r p an h s n and then for its whole life it sits there the thing that changes is whether it is whether it is active or not
+Karthik Subramanian: delisting is the active flag
+Speaker ?: right
+[00:33:58]
+Speaker 1: so if we version every s k u we get a dimension full of rows that are identical to the previous row and we get complexity for nothing
+Speaker 6: how many s k u rows are there
+Speaker ?: twelve forty six in master, of which eight sixty two odd are active
+Speaker 6: okay so it is small
+Ishaan Bhatt: it is tiny, it is the smallest thing we load
+Karthik Subramanian: it is tiny today and it will be tiny in twenty thirty
+Priya Nair: can i ask
+Speaker 1: please
+Priya Nair: m r p does change though they revise it every so often one of the soaps was revised i cannot remember which and then the report had to be we had to explain it to finance okay so if we overwrite, then old invoices will show the new m r p
+Karthik Subramanian: they will show the new m r p if you pull m r p from the dimension, yes but we do not report on m r p we report on invoiced value, and the price that was actually charged is on the fact, it is in the line
+Speaker 5: ah okay
+Speaker 1: unit price and gross amount, those are frozen on the fact row, they do not move
+Speaker 5: okay okay, that is fine then i just wanted to check because in the old report there is one analysis where they show m r p versus versus realisation something like that
+Speaker 1: who uses that one
+Priya Nair: honestly i do notthink anybody uses it, it is in the catalogue but i can check the usage
+Karthik Subramanian: if it turns out somebody does use it tell me and we will revisit
+
+Priya Nair: okay
+Speaker 7: parking that for now
+Speaker 1: parking it i have one on product go
+Speaker 6: there are s k u rows with a null category
+[00:37:32]
+Ishaan Bhatt: thirty seven of them thirty seven, yes, i had it as thirty something
+Speaker 6: so if we overwrite and somebody fixes the category next month, we lose the fact that it was wrong
+Karthik Subramanian: we lose the audit trail, yes
+Neha Gokhale: that is not a reason to do type two, i am just noting it
+Speaker 1: no it is a fair note we can catch that in the d q layer instead of in the dimension
+Neha Gokhale: that is what i would prefer
+Speaker ?: so, scd one for product, unless somebody has a strong objection
+Ananya Krishnan: anybody
+Speaker 4: from the load side scd one is obviously easier i have no objection
+Aniruddh Deshpande: no from my side also
+
+Speaker 5: fine
+Speaker ?: okay, i will write it up as scd one for product and put the reasoning in and if it turns out later that we need the history we will change it, it is a smaller change than the customer one sneha did you get that yes product scd onecustomer still open correct
+Aniruddh Deshpande: sorry there is some sound from my side courier has come
+Ananya Krishnan: no problem
+Ishaan Bhatt: [crosstalk] (inaudible) one minute take your time annie
+Ananya Krishnan: so while he is away, geography and scheme, karthik can you do them quickly
+[00:40:09]
+Speaker ?: both are scd one both are small both are boring geography is the depot, twenty two rows
+Speaker 5: is the plant also in geography no only depots
+Aniruddh Deshpande: plants are two only, nashik and buddy, that is not coming into this at all scheme is five rows
+Ishaan Bhatt: five active ones
+
+Speaker 1: five
+Speaker 5: only five schemes
+Speaker 3: in the master there are five yeah
+Priya Nair: because sales ops talks about many more than five like there is one for nimbu ah in the south which they always mentionseparately
+Ishaan Bhatt: they talk about slabs inside a scheme i think
+Karthik Subramanian: that is a good thing to check actually because if the business thinks there are thirty schemes and the master says five then either the master is wrong or the business is using the word differently
+Priya Nair: i will ask
+Ananya Krishnan: do not ask vikram this week, he is travelling
+Speaker 5: i know
+Ananya Krishnan: he will send you a spreadsheet
+Priya Nair: he will send me three spreadsheets
+Ishaan Bhatt: okay, sales rep
+
+[00:42:30]
+Karthik Subramanian: sales rep is sed 2 already and it works i am not touching it it works it works, which is interesting in itself because it means somebody here knew how to do it
+Aniruddh Deshpande: i am back welcome back sorry what did i miss
+Karthik Subramanian: geography and scheme, both staying as they are
+Speaker 2: right we have about half an hour and we have the big one left
+Speaker 1: the link
+Speaker 2: so just to set it up for anirood who was not on the twenty fourth
+Aniruddh Deshpande: i was not yes
+Ananya Krishnan: on the twenty fourth of march we went through the first set of findings and one of them the scheme discount one the double count we said at that time it looks like it is the database link
+[BLANK_AUDIO]
+Speaker 2: we all said it karthik
+Speaker 1: no no no no i said it and i said it with more confidence than i should have okay it was the most visible broken thing in the chain so it got the blame which is exactly how you get the wrong answer can i share now
+Ananya Krishnan: yes please frida
+Farida Contractor: one second can you see it
+Speaker 3: i can see a, is that the a w r
+Speaker 4: yes this is the a w r report this is edw d b p r d zero one twenty third of march one a m to a m to three a m so a normal night normal night nothing special no re run no failure and i took twenty third because that is thenight before the meeting where you all said it is the link
+Speaker 1: fair enough so
+Farida Contractor: top waits, you can see, and here is the s q l net message from d b link total wait for the whole load four point one minutes
+[00:46:26]
+Karthik Subramanian: four point one minutes
+Farida Contractor: four point one
+Speaker 3: for the whole load
+Speaker 4: for the entire load plan all of it every mapping
+Speaker 6: sorry that is the total not the average
+Farida Contractor: that is the total wait time and here six thousand four hundred and twelve round trips average thirty eight milliseconds
+Speaker ?: thirty eight
+Speaker 2: thirty eight m s
+Farida Contractor: and as a share of elapsed it is one point two percent
+Karthik Subramanian: one point two percent of the load one point two
+Speaker 2: okay
+Speaker 4: and i will also say intra data centre in mumbai we are at zero point four milliseconds so thirty eight is high for a round trip but it is not it is not a disaster right
+Ishaan Bhatt: hang on, so the link is basically it is one percent of the problem it is one point two one point two percent of the elapsed time
+Farida Contractor: it is zero percent of the value
+Speaker 1: yes that is the point and i want to say it properly because i was the one who got it wrong a latency problem makes a load slow it does not make a number wrong say that again latency changes when the extract finishes, it does not change what the extract read
+Ananya Krishnan: okay
+[00:49:17]
+Speaker 4: and the second thing which ishaan checked the duplicated amounts are exact duplicates
+Karthik Subramanian: not partial rows not truncated rows not half a batch
+Ishaan Bhatt: same invoice line id, same amount, same everything, different load date
+Speaker 1: if a network was dropping something you would see torn rows, you would see partial batches,you would see rejects in the e dollar table
+Farida Contractor: there are no rejects i checked that also e dollar fact invoice line is empty for those nights
+Speaker 1: so it is not the be link
+Speaker ?: sorry the
+Speaker 1: the d b link the database link right
+Aniruddh Deshpande: can i say one thing yes the link is slow, that part is true, i am not saying it is not slow when orion is busy that stage step will sit there for one hour also
+Farida Contractor: that is correct on a heavy night the invoice line staging goes from twenty odd minutes to seventy plus and the session is just sitting in that wait
+Aniruddh Deshpande: so people see that and they say the link is the problem but slow is not wrong
+Speaker 8: slow is not wrong correct
+Aniruddh Deshpande: we should still fix the link separately on its own merit
+
+Speaker 4: i agree with that
+Speaker 1: agreed but as a performance item not as a variance item okay so hold on
+Speaker 2: i want to make sure i can say this to shalini on friday without getting it wrong the link is not the cause the link is not the cause and the evidence is the a w r from the twenty third and one more thing, which is the one that actually convinced me ishaan pulled the nights
+[00:52:51]
+Speaker 3: i took the nights where the plan closed early like the link was behaving and the nights where it closed really late and i looked at the variance on each and it is the same the fast nights have the same problem as the slow nights
+Speaker 1: there is no correlation
+Ishaan Bhatt: none it is flat
+Neha Gokhale: did you (inaudible)
+Ananya Krishnan: one second neha you are on mute sorry i said did you do that on all the nights or a sample
+
+Ishaan Bhatt: actually actually, hold on, let me be accurate i did it on the ones i had timings for
+Neha Gokhale: okay, so a sample
+Ishaan Bhatt: a sample, yes
+Speaker 6: fine i would want it stated that way i will ask megna to pull the counts properly when she is on it
+Ishaan Bhatt: fair she is right, say sample
+Speaker 2: so then what is it
+Ananya Krishnan: okay
+Karthik Subramanian: i genuinely do not know, and i would rather say that than give you a second wrong answer three weeks after the first one
+
+Ananya Krishnan: that is the right thing it is just we have to say something on friday
+Speaker 1: we say we have eliminated the leading hypothesis and we do not yet have a cause
+Ananya Krishnan: she isnot going to like that
+[00:55:52]
+Speaker ?: she is going to like the alternative less
+Farida Contractor: correct correct
+Speaker 2: okay so what is left, what are we actually going to look at next
+Speaker ?: let me lay out what it can still be, because it is a shorter list than it was this morning one something in the extract itself the way the incremental works two something in the way the fact is written the append three, something in the source data itself, which is the one i understand least
+Ishaan Bhatt: and four, some combination of those, which is usually the answer and four yes can you rank them no
+Ananya Krishnan: fine
+Speaker 1: i can rank the effort tocheck them, i cannot rank the likelihood, that would be guessing again
+Farida Contractor: from my side i can tell you the interface is doing what it says it is doing the incremental predicate is on last upd d t minus one day that is it it is not clever there is nothing hidden in it and the trigger side, control em just fires the scenario at the same time every night, that is all it does there is no logic sitting in control em i believe you
+
+Speaker 1: and frida to be fair has been saying this since the twenty fourth
+Farida Contractor: i havebeen saying it since before the twenty fourth
+Speaker 1: yes
+Speaker 8: i can send you the export of the mapping if you want to read it yourself
+Speaker 1: i would like that actually i will take it out of odie and send
+Speaker 3: sorry farida, out of
+Speaker 4: out of o d i, i will export the mapping
+Speaker 7: thank you
+Speaker 2: sneha put that as an action doing
+Karthik Subramanian: the append is the one that bothers me structurally because a fact table with an insert only knowledge module has no defence if the same row comes twice it goes in twice there is nothing stopping it
+[00:59:40]
+Ishaan Bhatt: there is no merge, there is no key, there is no constraint on the natural key so basically o d i is doing insert insert insert and that is it it is not od i's fault na, it is how it was set up
+Karthik Subramanian: there is no i dem potent behaviour anywhere in that chain sorry what idempotent meaning you can run it twice and get the same answer
+Farida Contractor: if you put control append then that is what you get
+
+Speaker 1: i am not blaming the k m the k m is doing exactly what it was configured to do
+[BLANK_AUDIO]
+Farida Contractor: haan, it was set up like that in twenty twenty one
+Karthik Subramanian: and nobody has questioned it since
+Aniruddh Deshpande: nobody questions anything in that chain, that is the honest truth it runs the batch table says done everybody goes to sleep
+Karthik Subramanian: that is a good line a status of done means the plan reached the last step it does not mean the data is right
+Neha Gokhale: that is exactly why i want the rules a green batch a green batch is not a pass
+Ananya Krishnan: can you write that somewhere neha
+Neha Gokhale: it will be in the framework doc good
+Speaker ?: while we are on the fact can i raise the delete flack thing again
+Karthik Subramanian: yes go ahead
+Ishaan Bhatt: so the mapping has no filter on delete flag none, zero, not a wrong filter, no filter at all
+Speaker 5: so cancelled invoices are also in
+Speaker ?: cancelled and logically deleted boththey are all sitting in the fact as revenue oh but in obi e also
+
+Priya Nair: no wait, the obi e reports read from the warehouse so it would be the same
+[01:02:56]
+Ishaan Bhatt: same problem yes
+Speaker 1: this is the four point two core one
+Speaker 2: four crore odd in f y twenty sixq one alone four point two roughly
+Speaker 1: april to june twenty five yes
+Speaker 8: and here you have to be careful
+Speaker ?: go on annie
+Aniruddh Deshpande: if you put delete flag equal to n in the filter then you will lose a huge amount of old data
+Speaker 1: because
+
+Aniruddh Deshpande: because in the line table there are lots of rows where the flag is blank not y, not n, blank
+Aniruddh Deshpande: null, yes how many it is around ninety two lakh rows
+Ishaan Bhatt: i had it at nine point two million, so same out of out of about six point one core in invoice line
+Karthik Subramanian: so roughly fifteen percent of the table fourteen fifteen percent so the predicate has to be n v l of delete flag comma n equals n and if anybody writes it as delete flag equals n we quietly lose nine million rows and the revenue goes down and everybody panics
+Aniruddh Deshpande: and this i have told before also in a mail last year but anyway
+Karthik Subramanian: i believe you
+Ananya Krishnan: sneha, this is important, the n v l thing
+Sneha Pillai: i have it, n v l delete flag comma n is it n in quotes
+Ishaan Bhatt: yes single quotes, capitaln okay [inaudible]
+Ananya Krishnan: sorry someone spoke
+Ananya Krishnan: okay never mind right, we have about ten minutes karthik anything else on the architecture that has to be decided today no
+[01:06:37]
+Karthik Subramanian: today was scoping the decisions, not taking them, except product
+Ananya Krishnan: except product
+Karthik Subramanian: product is scd one and i will write up why
+Ananya Krishnan: and customer is open pending the timings
+Speaker ?: customer is open and i want frida's number and my number in the same place before we talk about it again
+Farida Contractor: that is fine
+Speaker ?: sorry can i ask one thing about the reporting side before we finish quickly yes if we go to the versioned customer thing does that mean the existing reports will break
+Karthik Subramanian: the o b i e e ones
+Priya Nair: yes the ones we are still running
+Speaker 1: they will not break, they will just be joining to whatever the r p d joins to today, which is the customer id and then they will double count so they will break okay yes, in effect they will break this is what i am worried about, we have forty one reports in the catalogue
+Priya Nair: only twelve are actually used but the other ones are still there
+Speaker 1: we should not be maintaining two layers on a changing model for very long
+Speaker ?: that is a decommission conversation and it is not today
+Speaker 8: okay
+Ananya Krishnan: but it is a real point priya, flag it in the drishty tracker so it does not get lost
+Speaker 5: sorry i am also getting some, my connection is
+Ananya Krishnan: priya you are breaking (inaudible) priya
+Ishaan Bhatt: she has dropped
+Ananya Krishnan: okay she willcome back right actions sneha read them out
+[01:09:47]
+Sneha Pillai: one karthik to build the customer dimension with effective dating on dev and measure the load cost by twenty fourth april yes two farida to send her position on the load window this week yes three, farida to export the fact invoice line mapping and send to karthik yes that i will do tomorrow four ishaan and farida to sequence the date key change not this week
+Farida Contractor: next week
+Speaker 7: five, priya to check the despatch report in obiee for the invoice date usage she has dropped so i will mail her
+Ananya Krishnan: yes mail her
+
+Speaker 6: six neha to draft the two rules the date key month one and the current row one
+Neha Gokhale: i will have them in the framework by end of next week
+Speaker 7: seven karthik to write up the product dimension decision
+Speaker 1: yes
+Sneha Pillai: and eight eight is the variance one, and i do not know how to word it
+Speaker 2: word it as
+Karthik Subramanian: word it as database link hypothesis eliminated root cause not identified investigation continuing
+Speaker 7: root cause not identified
+Speaker 1: not identified
+Speaker ?: and put a review date on it otherwise it will sit there what date let us say the sign off session in may
+Speaker 1: i will have more before that
+Ananya Krishnan: i hope so okay anything else
+Speaker 8: only one small thing
+[01:12:55]
+Speaker 2: yes anirood
+Aniruddh Deshpande: the invoice line table, anything before twenty sixteen is not in that table at all, it is in the archive one and archive is not extracted nobody has touchedit since twenty sixteen so if somebody comes and asks for ten year trend it is not there i am telling you now only so that later there is no drama
+Karthik Subramanian: that is a good flag, thank you
+Speaker 3: i will put it in the mapping sheet
+Speaker 3: ok
+Ananya Krishnan: right, thank you everybody this was useful even though we did not get the answer we wanted on the variance
+Speaker 1: we got a wrong answer removed that is worth something
+Speaker ?: thank you
+Neha Gokhale: thanks all bye
+Sneha Pillai: i will circulate the notes by tomorrow thanks sneha
+Ananya Krishnan: okay i will stop the
+
+----
+end of transcript
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

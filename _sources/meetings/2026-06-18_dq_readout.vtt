@@ -1,0 +1,2387 @@
+WEBVTT
+
+NOTE Auto-generated transcript. Accuracy may vary.
+
+NOTE Bhardwaj Consumer Products Ltd / project Drishty - data quality readout - 18/06/2026 11:00 IST
+
+1
+00:00:03.600 --> 00:00:07.698
+<v Ananya Krishnan>okay i think we are recording now, hold on
+
+2
+00:00:07.865 --> 00:00:11.961
+<v Ananya Krishnan>yeah it says recording started, so
+
+3
+00:00:12.032 --> 00:00:16.890
+<v Neha Gokhale>can everyone hear me
+
+4
+00:00:17.114 --> 00:00:21.584
+<v Priya Nair>yes neha we can hear you
+
+5
+00:00:21.659 --> 00:00:25.696
+<v Ishaan Bhatt>yep clear
+
+6
+00:00:25.736 --> 00:00:32.262
+<v Ananya Krishnan>just for the record this is the bhardwaj consumer products data quality readout, project drishty, eighteenth of june
+
+7
+00:00:32.384 --> 00:00:37.134
+<v Ananya Krishnan>megna are you on
+
+8
+00:00:37.369 --> 00:00:42.201
+<v Meghna Rao>yes i am here, audio only, my camera is not working since morning
+
+9
+00:00:42.258 --> 00:00:46.683
+<v Ananya Krishnan>no problem
+
+10
+00:00:46.845 --> 00:00:51.145
+<v Neha Gokhale>sneha you are joining na
+
+11
+00:00:51.347 --> 00:00:55.494
+<v Sneha Pillai>i am here, i am just opening the notes file
+
+12
+00:00:55.539 --> 00:01:02.199
+<v Sneha Pillai>i am working from home today, not in andaree, so if my audio goes just carry on and i will pick it up from the recording
+
+13
+00:01:02.459 --> 00:01:07.756
+<v Ananya Krishnan>farida said she will be two minutes late, she is finishing something on the run
+
+14
+00:01:07.886 --> 00:01:12.386
+<v Neha Gokhale>okay
+
+15
+00:01:12.436 --> 00:01:16.782
+<v Neha Gokhale>so shall we start or wait for shalini
+
+16
+00:01:16.852 --> 00:01:21.883
+<v Ananya Krishnan>shalini said she may be a bit late, there is something with the closing
+
+17
+00:01:22.005 --> 00:01:27.235
+<v Ananya Krishnan>we should start otherwise fifty minutes will go and we will have done nothing
+
+18
+00:01:27.335 --> 00:01:31.780
+<v Neha Gokhale>haan okay
+
+19
+00:01:32.058 --> 00:01:36.450
+<v Neha Gokhale>so let me share, one second
+
+20
+00:01:36.613 --> 00:01:41.222
+<v Neha Gokhale>can you see my screen
+
+21
+00:01:41.266 --> 00:01:45.569
+<v Priya Nair>not yet
+
+22
+00:01:45.616 --> 00:01:49.795
+<v Ishaan Bhatt>no
+
+23
+00:01:49.913 --> 00:01:53.965
+<v Neha Gokhale>now
+
+24
+00:01:54.016 --> 00:01:58.139
+<v Priya Nair>now yes
+
+25
+00:01:58.332 --> 00:02:03.145
+<v Ishaan Bhatt>yes visible
+
+26
+00:02:03.271 --> 00:02:07.923
+<v Neha Gokhale>okay good
+
+27
+00:02:08.144 --> 00:02:12.588
+<v Farida Contractor>sorry sorry i am here, one second
+
+28
+00:02:12.757 --> 00:02:17.194
+<v Farida Contractor>i had a meeting overrunning, i am on the call now
+
+29
+00:02:17.267 --> 00:02:22.004
+<v Ananya Krishnan>no issue frida we have just started
+
+30
+00:02:22.168 --> 00:02:27.077
+<v Neha Gokhale>okay
+
+31
+00:02:27.244 --> 00:02:31.968
+<v Neha Gokhale>so this is the data quality readout
+
+32
+00:02:32.021 --> 00:02:38.216
+<v Neha Gokhale>the assessment window was the fourth of may to the nineteenth of june so we are basically at the end of it
+
+33
+00:02:38.359 --> 00:02:45.349
+<v Neha Gokhale>what i want to do today is walk the rule results, and then the four or five things that i think need to become items on the tracker
+
+34
+00:02:45.600 --> 00:02:49.691
+<v Ananya Krishnan>and the deck goes out after this
+
+35
+00:02:49.783 --> 00:02:54.360
+<v Neha Gokhale>yes the deck goes out today
+
+36
+00:02:54.618 --> 00:02:59.443
+<v Priya Nair>kindly send the excel also if possible, not only the deck
+
+37
+00:02:59.564 --> 00:03:04.098
+<v Neha Gokhale>yes that is coming, i will come to that in a minute
+
+38
+00:03:04.306 --> 00:03:08.942
+<v Neha Gokhale>so first the shape of it
+
+39
+00:03:09.103 --> 00:03:13.299
+<v Neha Gokhale>we profiled fourteen tables
+
+40
+00:03:13.537 --> 00:03:18.023
+<v Neha Gokhale>seven on the ORION side and seven in the warehouse
+
+41
+00:03:18.171 --> 00:03:23.401
+<v Neha Gokhale>everything i quote today is from the profiling run of the thirty first of may
+
+42
+00:03:23.598 --> 00:03:28.617
+<v Meghna Rao>thirty first of may yes, every count i give is as of that run
+
+43
+00:03:28.880 --> 00:03:33.899
+<v Neha Gokhale>and that matters, because two of the fixes went in after that
+
+44
+00:03:34.000 --> 00:03:38.292
+<v Ishaan Bhatt>yeah the delete flack one went in on the third
+
+45
+00:03:38.407 --> 00:03:43.053
+<v Neha Gokhale>correct
+
+46
+00:03:43.170 --> 00:03:48.135
+<v Neha Gokhale>so some of these will look better next time, i have not restated them
+
+47
+00:03:48.353 --> 00:03:53.849
+<v Neha Gokhale>i would rather show you the run we actually did than a run i have adjusted in my head
+
+48
+00:03:54.103 --> 00:03:58.893
+<v Farida Contractor>that is fine, that is the right way
+
+49
+00:03:59.001 --> 00:04:04.730
+<v Neha Gokhale>the five dimensions i use are completeness, validity, consistency, uniqueness and timeliness
+
+50
+00:04:05.007 --> 00:04:09.978
+<v Neha Gokhale>in that order, and every rule sits under exactly one of them
+
+51
+00:04:10.202 --> 00:04:15.798
+<v Neha Gokhale>there are twenty four rules defined, DQ dash R zero one through to DQ dash R twenty four
+
+52
+00:04:15.989 --> 00:04:20.716
+<v Neha Gokhale>nine of them are failing
+
+53
+00:04:20.890 --> 00:04:25.148
+<v Priya Nair>sorry, nine out of twenty four
+
+54
+00:04:25.416 --> 00:04:29.933
+<v Neha Gokhale>nine out of twenty four yes
+
+55
+00:04:29.985 --> 00:04:34.757
+<v Priya Nair>okay
+
+56
+00:04:35.027 --> 00:04:39.659
+<v Neha Gokhale>and the overall score is seventy one out of a hundred
+
+57
+00:04:39.905 --> 00:04:45.035
+<v Ananya Krishnan>which, i mean, for a landscape of this age that is actually not a disaster
+
+58
+00:04:45.180 --> 00:04:49.933
+<v Neha Gokhale>it is not a disaster, no
+
+59
+00:04:50.144 --> 00:04:57.134
+<v Ananya Krishnan>by dimension, completeness sixty eight, validity seventy four, consistency sixty six, uniqueness seventy nine, timeliness ninety one
+
+60
+00:04:57.269 --> 00:05:01.513
+<v Sneha Pillai>sorry neha can you repeat the consistency one
+
+61
+00:05:01.633 --> 00:05:06.425
+<v Neha Gokhale>sixty six
+
+62
+00:05:06.473 --> 00:05:11.070
+<v Sneha Pillai>thank you
+
+63
+00:05:11.314 --> 00:05:15.557
+<v Neha Gokhale>timeliness being the highest surprises people
+
+64
+00:05:15.739 --> 00:05:20.304
+<v Farida Contractor>that is because the run finishes
+
+65
+00:05:20.491 --> 00:05:25.556
+<v Farida Contractor>whatever else is wrong with it, it finishes, and it finishes every night
+
+66
+00:05:25.797 --> 00:05:30.504
+<v Neha Gokhale>correct
+
+67
+00:05:30.637 --> 00:05:35.424
+<v Ishaan Bhatt>haha
+
+68
+00:05:35.567 --> 00:05:40.635
+<v Neha Gokhale>consistency is the lowest and that is where most of the actual
+
+69
+00:05:40.867 --> 00:05:45.745
+<v Neha Gokhale>uh
+
+70
+00:05:45.910 --> 00:05:50.977
+<v Neha Gokhale>sorry, most of the items that have a rupee number against them
+
+71
+00:05:51.122 --> 00:05:55.224
+<v Ananya Krishnan>right
+
+72
+00:05:55.425 --> 00:06:02.415
+<v Neha Gokhale>and the thing i keep coming back to is materiality, a rule can fail at ninety nine point nine something and still be the biggest one on the list
+
+73
+00:06:02.604 --> 00:06:07.090
+<v Neha Gokhale>so please do not read the percentages as a ranking
+
+74
+00:06:07.304 --> 00:06:11.644
+<v Neha Gokhale>megna do you want to take the profiling summary
+
+75
+00:06:11.853 --> 00:06:16.342
+<v Meghna Rao>yes, i will go table by table quickly
+
+76
+00:06:16.462 --> 00:06:21.141
+<v Neha Gokhale>not too quickly
+
+77
+00:06:21.322 --> 00:06:26.206
+<v Meghna Rao>okay
+
+78
+00:06:26.274 --> 00:06:33.100
+<v Meghna Rao>so on the source side, invoice line is sixty one point eight four million rows, that is six one eight four seven two two zero
+
+79
+00:06:33.206 --> 00:06:38.337
+<v Meghna Rao>invoice header eight point nine million, eight nine zero two one four four
+
+80
+00:06:38.576 --> 00:06:43.151
+<v Meghna Rao>customer, two one four zero
+
+81
+00:06:43.369 --> 00:06:48.484
+<v Meghna Rao>skew master twelve forty six, of which eight six two are active
+
+82
+00:06:48.697 --> 00:06:54.260
+<v Priya Nair>sorry, twelve forty six is the master and eight sixty two are the ones we actually sell
+
+83
+00:06:54.382 --> 00:06:58.626
+<v Meghna Rao>correct correct
+
+84
+00:06:58.764 --> 00:07:03.629
+<v Meghna Rao>and thirty seven of the twelve forty six have a null category code
+
+85
+00:07:03.706 --> 00:07:08.122
+<v Neha Gokhale>hold that one, it comes back later
+
+86
+00:07:08.229 --> 00:07:12.259
+<v Meghna Rao>yes
+
+87
+00:07:12.453 --> 00:07:17.683
+<v Meghna Rao>on the warehouse side the invoice fact is thirty four point one eight million
+
+88
+00:07:17.962 --> 00:07:22.363
+<v Meghna Rao>three four one eight two five five six
+
+89
+00:07:22.572 --> 00:07:26.670
+<v Meghna Rao>the order fact is twelve point six million
+
+90
+00:07:26.866 --> 00:07:31.836
+<v Meghna Rao>dim customer two one four zero, dim product twelve forty six
+
+91
+00:07:32.103 --> 00:07:36.395
+<v Meghna Rao>tax rate master, two hundred and fourteen rows
+
+92
+00:07:36.581 --> 00:07:40.789
+<v Ishaan Bhatt>two fourteen only
+
+93
+00:07:40.946 --> 00:07:45.531
+<v Meghna Rao>two hundred and fourteen yes
+
+94
+00:07:45.732 --> 00:07:50.579
+<v Ishaan Bhatt>okay
+
+95
+00:07:50.670 --> 00:07:54.816
+<v Meghna Rao>uh
+
+96
+00:07:55.057 --> 00:08:00.055
+<v Meghna Rao>sorry someone is at my door, one second, the bell has been going since
+
+97
+00:08:00.327 --> 00:08:04.539
+<v Meghna Rao>[inaudible]
+
+98
+00:08:04.768 --> 00:08:08.832
+<v Neha Gokhale>megna you have dropped i think
+
+99
+00:08:08.991 --> 00:08:13.759
+<v Neha Gokhale>she will come back, her line does this
+
+100
+00:08:13.911 --> 00:08:19.027
+<v Neha Gokhale>while she is coming back let me say the point of the row counts
+
+101
+00:08:19.291 --> 00:08:23.949
+<v Neha Gokhale>the point is not the row counts
+
+102
+00:08:24.109 --> 00:08:31.099
+<v Neha Gokhale>it is that when you put the source next to the warehouse the two do not line up, and there is no single reason for it, there are about five reasons
+
+103
+00:08:31.175 --> 00:08:36.439
+<v Priya Nair>just to confirm my understanding, the fact only goes back to twenty twenty one
+
+104
+00:08:36.671 --> 00:08:42.168
+<v Ishaan Bhatt>yeah, april twenty twenty one onwards in the fact, the source has from twenty sixteen
+
+105
+00:08:42.251 --> 00:08:46.447
+<v Priya Nair>okay that explains a lot actually
+
+106
+00:08:46.613 --> 00:08:52.874
+<v Priya Nair>because in obi e we always had this thing where the older years just were not there and nobody could say why
+
+107
+00:08:53.138 --> 00:08:57.935
+<v Ishaan Bhatt>yep, that is why
+
+108
+00:08:58.019 --> 00:09:02.262
+<v Meghna Rao>sorry i am back, was that the delivery, sorry
+
+109
+00:09:02.310 --> 00:09:06.673
+<v Ananya Krishnan>no problem
+
+110
+00:09:06.887 --> 00:09:11.352
+<v Meghna Rao>shall i continue
+
+111
+00:09:11.545 --> 00:09:15.763
+<v Neha Gokhale>yes go on
+
+112
+00:09:15.829 --> 00:09:21.824
+<v Meghna Rao>on a sample of ten thousand rows from the fact i checked the join back to the source invoice line id
+
+113
+00:09:21.979 --> 00:09:26.320
+<v Meghna Rao>it lands at ninety nine point nine four percent
+
+114
+00:09:26.505 --> 00:09:31.802
+<v Neha Gokhale>which is rule nine, and the threshold on that one is a hundred, so it is a fail
+
+115
+00:09:31.888 --> 00:09:36.130
+<v Meghna Rao>yes
+
+116
+00:09:36.273 --> 00:09:40.710
+<v Neha Gokhale>i will come back to nine, it is not a clean story
+
+117
+00:09:40.782 --> 00:09:45.229
+<v Shalini Iyer>hello, sorry i am late
+
+118
+00:09:45.307 --> 00:09:49.779
+<v Ananya Krishnan>hi shalini, no problem at all
+
+119
+00:09:50.017 --> 00:09:54.454
+<v Shalini Iyer>i was on a call with the closing team, it overran
+
+120
+00:09:54.504 --> 00:09:59.012
+<v Shalini Iyer>what have i missed
+
+121
+00:09:59.057 --> 00:10:04.553
+<v Neha Gokhale>we have done the scope and the scores, i have not started on the individual items yet
+
+122
+00:10:04.706 --> 00:10:09.217
+<v Shalini Iyer>okay good
+
+123
+00:10:09.304 --> 00:10:15.831
+<v Neha Gokhale>quick recap for you, fourteen tables profiled, twenty four rules, nine failing, overall seventy one out of a hundred
+
+124
+00:10:15.940 --> 00:10:20.787
+<v Shalini Iyer>seventy one
+
+125
+00:10:20.858 --> 00:10:25.062
+<v Neha Gokhale>yes
+
+126
+00:10:25.329 --> 00:10:30.225
+<v Shalini Iyer>and what was it last time
+
+127
+00:10:30.372 --> 00:10:34.906
+<v Neha Gokhale>there is no last time, this is the first assessment
+
+128
+00:10:35.009 --> 00:10:39.326
+<v Shalini Iyer>right, of course, sorry
+
+129
+00:10:39.420 --> 00:10:45.781
+<v Neha Gokhale>no it is a fair question, once we have a second run the number will mean something, today it is just a baseline
+
+130
+00:10:45.940 --> 00:10:51.935
+<v Shalini Iyer>my only ask is that whatever we discuss today, i need to be able to tie it back to the trial balance
+
+131
+00:10:52.067 --> 00:10:58.295
+<v Shalini Iyer>if it is a rule failure that does not move a number i will look at it, but it is not my priority this month
+
+132
+00:10:58.340 --> 00:11:02.455
+<v Neha Gokhale>understood
+
+133
+00:11:02.533 --> 00:11:07.394
+<v Ananya Krishnan>that is fair
+
+134
+00:11:07.553 --> 00:11:12.651
+<v Neha Gokhale>i will flag which ones have a rupee number and which ones do not, as i go
+
+135
+00:11:12.786 --> 00:11:17.171
+<v Shalini Iyer>thank you
+
+136
+00:11:17.227 --> 00:11:21.671
+<v Neha Gokhale>okay so, the rule results
+
+137
+00:11:21.783 --> 00:11:26.531
+<v Neha Gokhale>i am not going to read all twenty four
+
+138
+00:11:26.584 --> 00:11:31.167
+<v Neha Gokhale>the ones that pass, they pass, they are in the sheet
+
+139
+00:11:31.445 --> 00:11:38.434
+<v Neha Gokhale>rule one for example, mandatory columns on the invoice fact are not null, threshold ninety nine point nine, actual ninety nine point nine seven, pass
+
+140
+00:11:38.596 --> 00:11:43.528
+<v Neha Gokhale>that one is fine and it has been fine every time i have looked at it
+
+141
+00:11:43.768 --> 00:11:48.899
+<v Priya Nair>is this the same as the file you sent us before, the dq rules master v two
+
+142
+00:11:49.075 --> 00:11:53.694
+<v Neha Gokhale>no, that one is superseded
+
+143
+00:11:53.950 --> 00:11:59.878
+<v Neha Gokhale>dq rules master v two was my working file, please throw it away, it has rules in it that i dropped
+
+144
+00:11:59.987 --> 00:12:04.855
+<v Priya Nair>okay sorry
+
+145
+00:12:04.937 --> 00:12:10.002
+<v Neha Gokhale>no no it is my fault, i should not have circulated it in the first place
+
+146
+00:12:10.106 --> 00:12:15.004
+<v Neha Gokhale>everything now lives in the profiling workbook and meghna owns that
+
+147
+00:12:15.277 --> 00:12:20.175
+<v Meghna Rao>yes, it is the dq profiling results file, last saved on the twelfth
+
+148
+00:12:20.271 --> 00:12:24.342
+<v Priya Nair>and which tab has the rules
+
+149
+00:12:24.443 --> 00:12:28.977
+<v Meghna Rao>there is a dq rules tab, and then failures by table
+
+150
+00:12:29.140 --> 00:12:34.404
+<v Meghna Rao>and sample failures has actual rows in it if you want to look at real examples
+
+151
+00:12:34.626 --> 00:12:39.149
+<v Priya Nair>kindly share it after the call
+
+152
+00:12:39.385 --> 00:12:43.791
+<v Ananya Krishnan>sneha are you capturing
+
+153
+00:12:43.973 --> 00:12:48.938
+<v Sneha Pillai>yes, AI thirty seven, neha to circulate the workbook and the rule set
+
+154
+00:12:49.067 --> 00:12:53.650
+<v Neha Gokhale>it will go with the deck today
+
+155
+00:12:53.885 --> 00:12:58.372
+<v Sneha Pillai>so due tomorrow
+
+156
+00:12:58.635 --> 00:13:03.236
+<v Neha Gokhale>tomorrow at the latest
+
+157
+00:13:03.340 --> 00:13:07.798
+<v Neha Gokhale>okay so the failures
+
+158
+00:13:08.004 --> 00:13:12.618
+<v Neha Gokhale>nine of them
+
+159
+00:13:12.828 --> 00:13:19.156
+<v Neha Gokhale>rule four, rule seven, rule nine, rule twelve, rule fifteen, rule eighteen, rule twenty one, rule twenty three
+
+160
+00:13:19.417 --> 00:13:23.693
+<v Neha Gokhale>that is eight
+
+161
+00:13:23.909 --> 00:13:28.403
+<v Neha Gokhale>and, uh
+
+162
+00:13:28.502 --> 00:13:35.491
+<v Neha Gokhale>sorry, there is one more in the completeness set which is in the sheet, i have not put it on the slide because it is below materiality
+
+163
+00:13:35.561 --> 00:13:39.614
+<v Ananya Krishnan>okay
+
+164
+00:13:39.672 --> 00:13:44.579
+<v Shalini Iyer>which ones have money against them
+
+165
+00:13:44.855 --> 00:13:49.501
+<v Neha Gokhale>four of them, roughly
+
+166
+00:13:49.650 --> 00:13:54.094
+<v Neha Gokhale>seven, fifteen, and, hmm
+
+167
+00:13:54.296 --> 00:13:59.693
+<v Neha Gokhale>let me just do them in order, it will be less confusing for everybody including me
+
+168
+00:13:59.842 --> 00:14:04.478
+<v Shalini Iyer>okay
+
+169
+00:14:04.654 --> 00:14:09.619
+<v Neha Gokhale>uniqueness first, because that is the one i think is the most serious
+
+170
+00:14:09.859 --> 00:14:14.744
+<v Ananya Krishnan>go ahead
+
+171
+00:14:15.006 --> 00:14:19.253
+<v Neha Gokhale>so rule seven
+
+172
+00:14:19.430 --> 00:14:23.893
+<v Neha Gokhale>DQ dash R zero seven, uniqueness
+
+173
+00:14:23.955 --> 00:14:29.120
+<v Neha Gokhale>the statement is, exactly one current flag y row per customer id
+
+174
+00:14:29.280 --> 00:14:34.942
+<v Neha Gokhale>threshold is a hundred percent, because it has to be, there is no acceptable level of this
+
+175
+00:14:35.045 --> 00:14:39.747
+<v Neha Gokhale>we are at ninety nine point one six
+
+176
+00:14:39.825 --> 00:14:44.259
+<v Shalini Iyer>which in rows is what
+
+177
+00:14:44.410 --> 00:14:50.239
+<v Meghna Rao>eighteen customers out of two thousand one hundred and forty carry two rows with current flag y
+
+178
+00:14:50.473 --> 00:14:54.723
+<v Shalini Iyer>eighteen
+
+179
+00:14:54.901 --> 00:14:59.048
+<v Meghna Rao>eighteen, as of the thirty first of may run
+
+180
+00:14:59.213 --> 00:15:03.262
+<v Shalini Iyer>out of two thousand one hundred and forty
+
+181
+00:15:03.500 --> 00:15:07.948
+<v Meghna Rao>yes
+
+182
+00:15:08.005 --> 00:15:12.770
+<v Shalini Iyer>that does not sound like very much
+
+183
+00:15:12.907 --> 00:15:17.489
+<v Neha Gokhale>it is not very much until you look at which eighteen
+
+184
+00:15:17.561 --> 00:15:21.719
+<v Ishaan Bhatt>yeah
+
+185
+00:15:21.765 --> 00:15:26.251
+<v Neha Gokhale>and there is a bigger number sitting underneath it
+
+186
+00:15:26.524 --> 00:15:31.455
+<v Meghna Rao>sixty one customers have at least one overlap in the effective dates
+
+187
+00:15:31.533 --> 00:15:36.597
+<v Meghna Rao>eighteen of those sixty one have actually ended up with two current rows
+
+188
+00:15:36.766 --> 00:15:41.266
+<v Shalini Iyer>ah okay
+
+189
+00:15:41.380 --> 00:15:46.644
+<v Shalini Iyer>so sixty one is the population and eighteen is where it has already gone wrong
+
+190
+00:15:46.889 --> 00:15:51.072
+<v Neha Gokhale>correct, that is exactly it
+
+191
+00:15:51.171 --> 00:15:57.698
+<v Neha Gokhale>this is the type 2 behaviour on the customer dim, it is doing the versioning, it is just closing the old row wrongly
+
+192
+00:15:57.926 --> 00:16:03.024
+<v Neha Gokhale>ishaan do you want to explain the mechanism, you are the one who found it
+
+193
+00:16:03.298 --> 00:16:07.811
+<v Ishaan Bhatt>sure
+
+194
+00:16:07.947 --> 00:16:13.876
+<v Ishaan Bhatt>so when a distributor moves territory, the dim is supposed to close the old row and open a new one
+
+195
+00:16:13.997 --> 00:16:18.143
+<v Ishaan Bhatt>it does open the new one, that part is fine
+
+196
+00:16:18.190 --> 00:16:24.219
+<v Ishaan Bhatt>but the closing row's eff end date is being set to the same timestamp as the new row's eff start date
+
+197
+00:16:24.406 --> 00:16:28.843
+<v Ishaan Bhatt>and the current flag is left as y on both of them
+
+198
+00:16:28.972 --> 00:16:33.630
+<v Shalini Iyer>so both rows are live
+
+199
+00:16:33.867 --> 00:16:38.217
+<v Ishaan Bhatt>both rows are live yeah
+
+200
+00:16:38.415 --> 00:16:43.347
+<v Ishaan Bhatt>so when the fact joins to the dim it matches two rows instead of one
+
+201
+00:16:43.607 --> 00:16:48.057
+<v Ishaan Bhatt>and the line gets counted twice
+
+202
+00:16:48.108 --> 00:16:52.622
+<v Shalini Iyer>for that distributor
+
+203
+00:16:52.820 --> 00:16:57.402
+<v Ishaan Bhatt>for that distributor only, yes, it is not everywhere
+
+204
+00:16:57.627 --> 00:17:02.501
+<v Neha Gokhale>that is the important bit, it is not a general duplication
+
+205
+00:17:02.745 --> 00:17:07.809
+<v Farida Contractor>and there is no unique constraint on it in the target, so nothing errors
+
+206
+00:17:08.050 --> 00:17:12.439
+<v Ishaan Bhatt>correct, nothing errors, it just quietly doubles
+
+207
+00:17:12.626 --> 00:17:17.516
+<v Farida Contractor>as per my earlier mail on this
+
+208
+00:17:17.747 --> 00:17:23.277
+<v Farida Contractor>i had said in may that we should put a constraint on it even if it makes the load fail
+
+209
+00:17:23.396 --> 00:17:29.025
+<v Farida Contractor>i would rather the run fails outright than a number is wrong for a month and nobody knows
+
+210
+00:17:29.140 --> 00:17:33.654
+<v Neha Gokhale>noted
+
+211
+00:17:33.726 --> 00:17:38.295
+<v Shalini Iyer>i agree with farida on that, actually
+
+212
+00:17:38.343 --> 00:17:43.674
+<v Neha Gokhale>so the worked example, and this is the one that i think makes it real for people
+
+213
+00:17:43.763 --> 00:17:48.016
+<v Unknown Speaker>mahalaxmi distributors, pune
+
+214
+00:17:48.062 --> 00:17:52.116
+<v Ishaan Bhatt>dist w zero two four one
+
+215
+00:17:52.386 --> 00:17:58.248
+<v Ishaan Bhatt>they were reassigned on the seventeenth of april, from ter w zero one four to ter w zero one one
+
+216
+00:17:58.441 --> 00:18:03.267
+<v Ishaan Bhatt>and both rows are sitting there with current flag y today
+
+217
+00:18:03.538 --> 00:18:07.724
+<v Priya Nair>and that is one of the eighteen
+
+218
+00:18:07.939 --> 00:18:12.016
+<v Ishaan Bhatt>that is one of the eighteen yes
+
+219
+00:18:12.127 --> 00:18:16.320
+<v Shalini Iyer>and the number on it
+
+220
+00:18:16.481 --> 00:18:21.015
+<v Neha Gokhale>the value we have put against it is sixty five lakh
+
+221
+00:18:21.230 --> 00:18:25.713
+<v Shalini Iyer>sixty five lac
+
+222
+00:18:25.762 --> 00:18:29.855
+<v Neha Gokhale>sixty five lakh, for FY twenty six
+
+223
+00:18:30.078 --> 00:18:34.298
+<v Shalini Iyer>okay, that is not nothing
+
+224
+00:18:34.383 --> 00:18:38.723
+<v Ananya Krishnan>it is on the tracker already, it went on in may
+
+225
+00:18:38.838 --> 00:18:43.360
+<v Sneha Pillai>it is VAR dash zero zero four
+
+226
+00:18:43.529 --> 00:18:48.432
+<v Ananya Krishnan>yes, VAR zero zero four
+
+227
+00:18:48.474 --> 00:18:52.795
+<v Shalini Iyer>who is on it
+
+228
+00:18:52.881 --> 00:18:57.219
+<v Ananya Krishnan>farida is the owner
+
+229
+00:18:57.465 --> 00:19:01.852
+<v Farida Contractor>it is with me
+
+230
+00:19:02.105 --> 00:19:06.300
+<v Farida Contractor>i want to say one thing about the fix though
+
+231
+00:19:06.479 --> 00:19:13.405
+<v Farida Contractor>whatever we do, we cannot just go and update the flag on the existing rows without deciding what the end date should actually be
+
+232
+00:19:13.668 --> 00:19:18.153
+<v Ishaan Bhatt>yeah it needs a proper close out date, not sysdate
+
+233
+00:19:18.278 --> 00:19:22.606
+<v Farida Contractor>correct, not sysdate
+
+234
+00:19:22.648 --> 00:19:29.407
+<v Sneha Pillai>capturing that as an action, AI thirty nine, farida to fix the effective dating so that only one row carries current flag y
+
+235
+00:19:29.503 --> 00:19:33.941
+<v Farida Contractor>put third of july, i cannot get to it before that
+
+236
+00:19:34.191 --> 00:19:38.399
+<v Sneha Pillai>third of july
+
+237
+00:19:38.591 --> 00:19:43.368
+<v Neha Gokhale>there is also rule twenty three which is the same family
+
+238
+00:19:43.609 --> 00:19:49.271
+<v Neha Gokhale>DQ dash R twenty three, consistency, every fact row resolves to a current dim customer row
+
+239
+00:19:49.505 --> 00:19:54.234
+<v Neha Gokhale>threshold a hundred, actual ninety nine point seven one
+
+240
+00:19:54.497 --> 00:19:59.066
+<v Shalini Iyer>and that is the same eighteen
+
+241
+00:19:59.331 --> 00:20:05.392
+<v Neha Gokhale>same family, slightly different population, because that one is measured on fact rows not on customers
+
+242
+00:20:05.670 --> 00:20:09.917
+<v Shalini Iyer>understood
+
+243
+00:20:10.125 --> 00:20:15.455
+<v Meghna Rao>i can give the fact row count for it if anyone wants, it is in failures by table
+
+244
+00:20:15.657 --> 00:20:19.971
+<v Shalini Iyer>no it is fine
+
+245
+00:20:20.028 --> 00:20:24.362
+<v Neha Gokhale>okay
+
+246
+00:20:24.501 --> 00:20:31.028
+<v Sneha Pillai>and AI thirty eight, meghna to re run the profiling on the customer dim after the june release and confirm the count
+
+247
+00:20:31.285 --> 00:20:35.369
+<v Meghna Rao>i can do that by the twenty sixth
+
+248
+00:20:35.631 --> 00:20:41.493
+<v Farida Contractor>as long as it is not a full re run of the plan, i cannot give you that, the window is the window
+
+249
+00:20:41.617 --> 00:20:46.649
+<v Meghna Rao>no it is only profiling, i read from the DW, it does not touch your run
+
+250
+00:20:46.906 --> 00:20:51.282
+<v Farida Contractor>then fine
+
+251
+00:20:51.398 --> 00:20:56.078
+<v Ananya Krishnan>neha before you move on
+
+252
+00:20:56.119 --> 00:21:00.958
+<v Neha Gokhale>yes
+
+253
+00:21:01.053 --> 00:21:05.507
+<v Ananya Krishnan>i think we should deal with the mail
+
+254
+00:21:05.627 --> 00:21:09.710
+<v Neha Gokhale>which mail
+
+255
+00:21:09.754 --> 00:21:14.673
+<v Ananya Krishnan>vikram
+
+256
+00:21:14.769 --> 00:21:19.573
+<v Neha Gokhale>ah
+
+257
+00:21:19.763 --> 00:21:24.034
+<v Neha Gokhale>yes
+
+258
+00:21:24.106 --> 00:21:31.096
+<v Ananya Krishnan>because he has already come back on this and if we do not deal with it now he will raise it at the steerco and it will be a whole thing
+
+259
+00:21:31.177 --> 00:21:36.056
+<v Neha Gokhale>go ahead
+
+260
+00:21:36.177 --> 00:21:41.009
+<v Ananya Krishnan>so he sent something at, i think it was around seven this morning
+
+261
+00:21:41.242 --> 00:21:45.374
+<v Ananya Krishnan>priya you were copied also
+
+262
+00:21:45.625 --> 00:21:49.675
+<v Ananya Krishnan>one second, priya you are on mute
+
+263
+00:21:49.756 --> 00:21:54.360
+<v Priya Nair>[inaudible]
+
+264
+00:21:54.488 --> 00:21:58.910
+<v Priya Nair>sorry, one second
+
+265
+00:21:59.111 --> 00:22:03.511
+<v Priya Nair>yes i have it open, i am here
+
+266
+00:22:03.662 --> 00:22:07.873
+<v Ananya Krishnan>do you want to read it, it is short
+
+267
+00:22:08.143 --> 00:22:12.403
+<v Priya Nair>uh, okay
+
+268
+00:22:12.548 --> 00:22:16.743
+<v Priya Nair>he says, my number is coming different again
+
+269
+00:22:16.883 --> 00:22:23.643
+<v Priya Nair>eighteen stockists cannot be the full picture, in north itself i am seeing more than that where the billing is not matching
+
+270
+00:22:23.798 --> 00:22:28.429
+<v Priya Nair>pls check before you circulate anything to rajeev sir
+
+271
+00:22:28.612 --> 00:22:33.353
+<v Priya Nair>and then there is a second mail
+
+272
+00:22:33.633 --> 00:22:38.631
+<v Priya Nair>which just says, also the tpr amount for nimbu ah south is still wrong
+
+273
+00:22:38.842 --> 00:22:43.237
+<v Ishaan Bhatt>hah
+
+274
+00:22:43.394 --> 00:22:49.389
+<v Ananya Krishnan>yes he sent three in about ten minutes, that is normal, the third one is a forward of the second one
+
+275
+00:22:49.510 --> 00:22:54.049
+<v Shalini Iyer>what is he comparing against
+
+276
+00:22:54.324 --> 00:22:59.153
+<v Priya Nair>his own file i think
+
+277
+00:22:59.239 --> 00:23:04.106
+<v Ananya Krishnan>his own extract, yes
+
+278
+00:23:04.197 --> 00:23:08.907
+<v Neha Gokhale>okay so, against which rule
+
+279
+00:23:09.088 --> 00:23:13.249
+<v Ananya Krishnan>sorry
+
+280
+00:23:13.453 --> 00:23:18.418
+<v Neha Gokhale>i am not being difficult, i genuinely need to know which one he means
+
+281
+00:23:18.502 --> 00:23:24.397
+<v Neha Gokhale>if he is saying the eighteen is understated, that is rule seven and i will go and re run it today
+
+282
+00:23:24.462 --> 00:23:31.452
+<v Neha Gokhale>if he is saying a value in a report does not match his sheet, that is a reconciliation, and it is a different conversation and it is not mine
+
+283
+00:23:31.673 --> 00:23:36.502
+<v Shalini Iyer>it is the second one
+
+284
+00:23:36.625 --> 00:23:41.263
+<v Shalini Iyer>it is always the second one
+
+285
+00:23:41.348 --> 00:23:45.737
+<v Ananya Krishnan>probably yes
+
+286
+00:23:45.975 --> 00:23:50.316
+<v Priya Nair>he is comparing secondary against primary again
+
+287
+00:23:50.496 --> 00:23:54.836
+<v Priya Nair>i have told him, i have told him more than once
+
+288
+00:23:55.074 --> 00:24:01.102
+<v Ishaan Bhatt>actually actually the bigger thing is, he is not filtering the cancelled lines out of his own extract
+
+289
+00:24:01.150 --> 00:24:06.314
+<v Ishaan Bhatt>so his number will always be higher than ours, structurally, whatever we do
+
+290
+00:24:06.509 --> 00:24:10.973
+<v Neha Gokhale>right
+
+291
+00:24:11.149 --> 00:24:15.428
+<v Neha Gokhale>so the eighteen is the eighteen
+
+292
+00:24:15.527 --> 00:24:22.387
+<v Neha Gokhale>it is a count of customer ids carrying two current rows in the dim, it is not a count of everything that is wrong in the world
+
+293
+00:24:22.520 --> 00:24:28.016
+<v Ananya Krishnan>i will reply to him with the customer level detail so he can see the eighteen by name
+
+294
+00:24:28.179 --> 00:24:34.008
+<v Sneha Pillai>capturing that as an action, AI forty, ananya to reply to vikram with the customer level detail
+
+295
+00:24:34.119 --> 00:24:38.702
+<v Ananya Krishnan>by tomorrow, i will do it today itself if i get time
+
+296
+00:24:38.750 --> 00:24:43.558
+<v Shalini Iyer>please copy me
+
+297
+00:24:43.609 --> 00:24:48.404
+<v Ananya Krishnan>yes
+
+298
+00:24:48.645 --> 00:24:52.751
+<v Shalini Iyer>and please do not send him the workbook
+
+299
+00:24:52.941 --> 00:24:57.076
+<v Ananya Krishnan>no no no, just the eighteen
+
+300
+00:24:57.248 --> 00:25:01.880
+<v Shalini Iyer>while we are on the customer master
+
+301
+00:25:02.046 --> 00:25:06.218
+<v Shalini Iyer>is there any check at all on the gstin
+
+302
+00:25:06.412 --> 00:25:10.948
+<v Neha Gokhale>on the format
+
+303
+00:25:11.113 --> 00:25:15.447
+<v Shalini Iyer>on the format yes
+
+304
+00:25:15.599 --> 00:25:22.589
+<v Shalini Iyer>because we get things rejected and nine times out of ten it is because the gstin on the customer is the wrong length or somebody has typed a letter where there should be a digit
+
+305
+00:25:22.865 --> 00:25:26.963
+<v Neha Gokhale>there is no rule for it in the twenty four
+
+306
+00:25:27.146 --> 00:25:31.365
+<v Shalini Iyer>why not
+
+307
+00:25:31.522 --> 00:25:38.511
+<v Neha Gokhale>because it did not come up in the requirement session, and i write rules against what has been agreed, otherwise the rule set becomes my opinion
+
+308
+00:25:38.648 --> 00:25:42.683
+<v Neha Gokhale>if you want it, i will write it
+
+309
+00:25:42.946 --> 00:25:47.485
+<v Shalini Iyer>i want it
+
+310
+00:25:47.653 --> 00:25:52.243
+<v Neha Gokhale>okay
+
+311
+00:25:52.438 --> 00:25:57.334
+<v Meghna Rao>can i add one thing
+
+312
+00:25:57.489 --> 00:26:01.864
+<v Neha Gokhale>please
+
+313
+00:26:02.068 --> 00:26:06.796
+<v Meghna Rao>it was not in the seven ORION tables we profiled either
+
+314
+00:26:06.943 --> 00:26:13.503
+<v Meghna Rao>so i do not have a null rate for it and i do not have a format failure count, i have not looked at that column at all
+
+315
+00:26:13.709 --> 00:26:18.371
+<v Shalini Iyer>hmm
+
+316
+00:26:18.434 --> 00:26:23.831
+<v Priya Nair>just to confirm my understanding, so as of today we do not know how many are wrong
+
+317
+00:26:24.069 --> 00:26:29.565
+<v Neha Gokhale>correct, we do not know, and i would rather say that than give you a number i made up
+
+318
+00:26:29.744 --> 00:26:33.991
+<v Shalini Iyer>fine
+
+319
+00:26:34.124 --> 00:26:38.956
+<v Shalini Iyer>but i want it in the next set, not in six months, in the next set
+
+320
+00:26:39.176 --> 00:26:43.569
+<v Neha Gokhale>it will be in the next rule set
+
+321
+00:26:43.678 --> 00:26:48.032
+<v Neha Gokhale>it will be a validity rule
+
+322
+00:26:48.173 --> 00:26:53.769
+<v Neha Gokhale>and it will need a threshold, so somebody from finance has to tell me what is acceptable
+
+323
+00:26:53.997 --> 00:26:58.695
+<v Shalini Iyer>a hundred percent is acceptable
+
+324
+00:26:58.861 --> 00:27:04.058
+<v Neha Gokhale>a hundred percent is never acceptable in practice but i will write a hundred
+
+325
+00:27:04.172 --> 00:27:08.670
+<v Shalini Iyer>haha, write a hundred
+
+326
+00:27:08.876 --> 00:27:13.350
+<v Ananya Krishnan>sneha can you take that one
+
+327
+00:27:13.514 --> 00:27:19.908
+<v Sneha Pillai>yes, AI forty one, neha to propose a validity rule for gstin format on the customer master for the next rule set
+
+328
+00:27:20.183 --> 00:27:25.056
+<v Neha Gokhale>give me till the tenth of july
+
+329
+00:27:25.246 --> 00:27:29.787
+<v Sneha Pillai>tenth of july
+
+330
+00:27:30.011 --> 00:27:34.066
+<v Shalini Iyer>thank you
+
+331
+00:27:34.260 --> 00:27:39.071
+<v Neha Gokhale>okay, validity
+
+332
+00:27:39.174 --> 00:27:43.459
+<v Priya Nair>rule twelve
+
+333
+00:27:43.703 --> 00:27:48.634
+<v Neha Gokhale>DQ dash R one two, the source delete flag on the fact must be y or n
+
+334
+00:27:48.824 --> 00:27:53.407
+<v Neha Gokhale>threshold a hundred, we are at eighty five point one
+
+335
+00:27:53.652 --> 00:27:57.851
+<v Shalini Iyer>eighty five
+
+336
+00:27:58.122 --> 00:28:02.411
+<v Neha Gokhale>eighty five point one
+
+337
+00:28:02.560 --> 00:28:06.804
+<v Shalini Iyer>that is a very big gap compared to the others
+
+338
+00:28:07.068 --> 00:28:11.968
+<v Neha Gokhale>it is nulls, it is entirely nulls
+
+339
+00:28:12.228 --> 00:28:19.087
+<v Meghna Rao>on invoice line as of the thirty first of may, y is five three eight zero seven zero eight, which is eight point seven percent
+
+340
+00:28:19.361 --> 00:28:24.392
+<v Meghna Rao>n is forty seven point two five million, seventy six point four percent
+
+341
+00:28:24.533 --> 00:28:29.731
+<v Meghna Rao>and null is nine two one five three eight eight, fourteen point nine percent
+
+342
+00:28:29.921 --> 00:28:34.116
+<v Shalini Iyer>nine million rows with nothing in the column
+
+343
+00:28:34.210 --> 00:28:38.212
+<v Meghna Rao>nine point two million yes, give or take
+
+344
+00:28:38.391 --> 00:28:42.537
+<v Ishaan Bhatt>the delete flack is blank on the older rows
+
+345
+00:28:42.691 --> 00:28:47.955
+<v Ishaan Bhatt>it is not that somebody wiped the value, it was never there in the first place
+
+346
+00:28:48.164 --> 00:28:52.681
+<v Shalini Iyer>since when
+
+347
+00:28:52.758 --> 00:28:56.929
+<v Ishaan Bhatt>uh
+
+348
+00:28:57.115 --> 00:29:02.412
+<v Ishaan Bhatt>they are all old rows, that is as far as i want to go without checking properly
+
+349
+00:29:02.627 --> 00:29:08.289
+<v Neha Gokhale>and it matters because if you filter on delete flag equals n you silently lose all of them
+
+350
+00:29:08.539 --> 00:29:12.652
+<v Ishaan Bhatt>yep, that was the whole thing in q one
+
+351
+00:29:12.871 --> 00:29:17.121
+<v Shalini Iyer>that was the four point two core
+
+352
+00:29:17.279 --> 00:29:21.425
+<v Neha Gokhale>four point two crore yes, VAR zero zero one
+
+353
+00:29:21.601 --> 00:29:26.499
+<v Neha Gokhale>and that one is closed now, the filter went in on the third of june
+
+354
+00:29:26.741 --> 00:29:31.319
+<v Farida Contractor>nvl delete flag comma n equals n
+
+355
+00:29:31.581 --> 00:29:36.163
+<v Neha Gokhale>correct
+
+356
+00:29:36.330 --> 00:29:41.661
+<v Shalini Iyer>the apr to jun figure the warehouse was giving me was four three eight point six
+
+357
+00:29:41.770 --> 00:29:46.159
+<v Shalini Iyer>i could not sign that, and i said so at the time
+
+358
+00:29:46.279 --> 00:29:51.036
+<v Ananya Krishnan>understood
+
+359
+00:29:51.244 --> 00:29:57.172
+<v Neha Gokhale>so the reason rule twelve still shows eighty five is that the profiling run is from before the fix
+
+360
+00:29:57.343 --> 00:30:03.206
+<v Neha Gokhale>i did say this at the start but i will keep saying it because it confuses everybody including me
+
+361
+00:30:03.375 --> 00:30:08.175
+<v Neha Gokhale>while we are in this area, rule nine
+
+362
+00:30:08.239 --> 00:30:13.237
+<v Neha Gokhale>DQ dash R zero nine, consistency, one fact row per source invoice line
+
+363
+00:30:13.457 --> 00:30:18.185
+<v Neha Gokhale>threshold a hundred, actual ninety nine point nine four
+
+364
+00:30:18.434 --> 00:30:23.142
+<v Meghna Rao>that is the one i sampled earlier
+
+365
+00:30:23.309 --> 00:30:27.860
+<v Neha Gokhale>part of that is february
+
+366
+00:30:27.924 --> 00:30:32.054
+<v Farida Contractor>the fourteenth of february yes
+
+367
+00:30:32.254 --> 00:30:37.751
+<v Farida Contractor>the plan failed and it was resubmitted by hand, session eight eight four zero one two
+
+368
+00:30:37.903 --> 00:30:43.698
+<v Ishaan Bhatt>and the OD I km on the fact is control append, so it just put the whole night in a second time
+
+369
+00:30:43.902 --> 00:30:48.110
+<v Shalini Iyer>two point nine crore, that one
+
+370
+00:30:48.155 --> 00:30:53.253
+<v Ananya Krishnan>two point nine, and that is closed, it came out at the beginning of april
+
+371
+00:30:53.367 --> 00:30:59.162
+<v Neha Gokhale>the balance of that rule failure is the other duplication item which is already on the tracker
+
+372
+00:30:59.296 --> 00:31:04.593
+<v Neha Gokhale>that one is not a DQ item and it is not mine, so i am not going to open it here
+
+373
+00:31:04.784 --> 00:31:09.063
+<v Shalini Iyer>fine
+
+374
+00:31:09.334 --> 00:31:14.498
+<v Neha Gokhale>i will say one thing though, rule nine is the rule i would watch
+
+375
+00:31:14.572 --> 00:31:19.503
+<v Neha Gokhale>ninety nine point nine four looks like nothing and it is not nothing
+
+376
+00:31:19.601 --> 00:31:23.699
+<v Neha Gokhale>okay
+
+377
+00:31:23.749 --> 00:31:28.747
+<v Neha Gokhale>the next one is not on the slide properly, i will be honest about that
+
+378
+00:31:28.855 --> 00:31:33.001
+<v Neha Gokhale>order lines that do not resolve to a header
+
+379
+00:31:33.208 --> 00:31:37.971
+<v Shalini Iyer>in oreo or in the warehouse
+
+380
+00:31:38.122 --> 00:31:43.039
+<v Priya Nair>or in the DW
+
+381
+00:31:43.297 --> 00:31:47.899
+<v Meghna Rao>both, that is the problem
+
+382
+00:31:48.017 --> 00:31:54.078
+<v Meghna Rao>on a sample of ten thousand order lines i found rows where the order id does not come back to a header
+
+383
+00:31:54.307 --> 00:31:58.931
+<v Priya Nair>is that the fill rate report
+
+384
+00:31:59.200 --> 00:32:03.346
+<v Ishaan Bhatt>yeah it feeds the fill rate one, D zero six
+
+385
+00:32:03.529 --> 00:32:07.751
+<v Priya Nair>so the fill rate will be understated
+
+386
+00:32:07.890 --> 00:32:14.880
+<v Ishaan Bhatt>or overstated, depends which side is missing, if the line is there and the header is not you get one answer, other way round you get another
+
+387
+00:32:15.122 --> 00:32:20.009
+<v Priya Nair>hmm
+
+388
+00:32:20.263 --> 00:32:24.598
+<v Shalini Iyer>how many
+
+389
+00:32:24.791 --> 00:32:31.085
+<v Meghna Rao>the exact count is in failures by table, i did not put it on the slide because i want to check it twice first
+
+390
+00:32:31.331 --> 00:32:35.896
+<v Shalini Iyer>okay
+
+391
+00:32:36.121 --> 00:32:41.237
+<v Neha Gokhale>i am not going to quote a number that meghna has not signed off
+
+392
+00:32:41.481 --> 00:32:45.905
+<v Shalini Iyer>no that is fine, i prefer that actually
+
+393
+00:32:45.976 --> 00:32:50.322
+<v Farida Contractor>can i say something on this
+
+394
+00:32:50.479 --> 00:32:55.257
+<v Neha Gokhale>please
+
+395
+00:32:55.451 --> 00:33:02.441
+<v Farida Contractor>the foreign key from order header to customer was disabled in twenty twenty during the master data cleanup and it was never put back
+
+396
+00:33:02.702 --> 00:33:07.236
+<v Farida Contractor>so on that side there is nothing enforcing anything
+
+397
+00:33:07.420 --> 00:33:12.285
+<v Ishaan Bhatt>on the order line to header one there is still a constraint though
+
+398
+00:33:12.398 --> 00:33:16.621
+<v Farida Contractor>on that one yes, that one is enabled
+
+399
+00:33:16.874 --> 00:33:21.311
+<v Ishaan Bhatt>so it should not be possible in the source at all
+
+400
+00:33:21.394 --> 00:33:25.880
+<v Meghna Rao>then it is happening in the landing or in the fact
+
+401
+00:33:25.926 --> 00:33:31.522
+<v Ishaan Bhatt>could be the incremental window, if the header comes in on a different night to the line
+
+402
+00:33:31.608 --> 00:33:36.370
+<v Ishaan Bhatt>ah wait
+
+403
+00:33:36.589 --> 00:33:42.285
+<v Ishaan Bhatt>ignore my last, the header and the line come in the same step, they are in the same extract
+
+404
+00:33:42.339 --> 00:33:47.309
+<v Ishaan Bhatt>i will check it properly, i do not want to guess on the call
+
+405
+00:33:47.529 --> 00:33:52.597
+<v Farida Contractor>also on the fact interface the flow control is not switched on
+
+406
+00:33:52.800 --> 00:33:57.631
+<v Farida Contractor>so odie is not writing anything into the error table for that one
+
+407
+00:33:57.767 --> 00:34:02.765
+<v Ishaan Bhatt>yeah the e dollar table is empty for the invoice fact, always has been
+
+408
+00:34:02.960 --> 00:34:09.554
+<v Neha Gokhale>which means we cannot see rejects, we can only see what is missing afterwards, which is a much worse position to be in
+
+409
+00:34:09.704 --> 00:34:14.626
+<v Farida Contractor>agreed, but that was a decision taken long before any of us
+
+410
+00:34:14.692 --> 00:34:18.732
+<v Sneha Pillai>capturing that as an action
+
+411
+00:34:18.965 --> 00:34:25.758
+<v Sneha Pillai>AI forty two, ishaan to confirm how many order lines do not resolve to a header and whether the fill rate report is affected
+
+412
+00:34:26.024 --> 00:34:30.401
+<v Ishaan Bhatt>twenty sixth
+
+413
+00:34:30.528 --> 00:34:35.447
+<v Sneha Pillai>twenty sixth of june
+
+414
+00:34:35.714 --> 00:34:40.539
+<v Neha Gokhale>related to that, and this one is small but it is annoying
+
+415
+00:34:40.740 --> 00:34:44.849
+<v Neha Gokhale>the unit of measure
+
+416
+00:34:44.962 --> 00:34:49.181
+<v Ishaan Bhatt>yeah this one is a mess
+
+417
+00:34:49.315 --> 00:34:54.612
+<v Ishaan Bhatt>so the quantities on the order line are in whatever uom the order was placed in
+
+418
+00:34:54.716 --> 00:34:59.043
+<v Ishaan Bhatt>they are not normalised to a base
+
+419
+00:34:59.126 --> 00:35:03.841
+<v Ishaan Bhatt>the conversion happens downstream
+
+420
+00:35:03.884 --> 00:35:09.546
+<v Priya Nair>which is why the cases and the eaches never agree, we used to argue about this every month
+
+421
+00:35:09.651 --> 00:35:14.444
+<v Ishaan Bhatt>right
+
+422
+00:35:14.595 --> 00:35:19.859
+<v Ishaan Bhatt>and the lookup that does the conversion in the product dim is not deduplicated
+
+423
+00:35:20.074 --> 00:35:26.435
+<v Ishaan Bhatt>there is no unique constraint on it, so where there are duplicates the lookup comes back with more than one row
+
+424
+00:35:26.532 --> 00:35:31.357
+<v Ishaan Bhatt>and the mapping just takes whichever one comes back first
+
+425
+00:35:31.422 --> 00:35:35.801
+<v Farida Contractor>which is not deterministic
+
+426
+00:35:35.961 --> 00:35:40.926
+<v Ishaan Bhatt>not deterministic, no, it can be a different row on a different night
+
+427
+00:35:41.144 --> 00:35:46.018
+<v Ishaan Bhatt>so the case quantity flips between two values across loads
+
+428
+00:35:46.131 --> 00:35:50.956
+<v Neha Gokhale>and every time it flips it opens a new version in the dim
+
+429
+00:35:51.044 --> 00:35:56.141
+<v Ishaan Bhatt>yeah, a spurious version, SCD too, and then that version is there forever
+
+430
+00:35:56.288 --> 00:36:00.325
+<v Neha Gokhale>it is a handful of skus
+
+431
+00:36:00.531 --> 00:36:05.762
+<v Meghna Rao>a handful yes, i can name them if needed, they are in the sample failures tab
+
+432
+00:36:05.896 --> 00:36:11.027
+<v Meghna Rao>it is mostly the ones where the pack is in kg or in litres, not the eaches
+
+433
+00:36:11.237 --> 00:36:15.275
+<v Shalini Iyer>is it moving a number
+
+434
+00:36:15.402 --> 00:36:19.625
+<v Neha Gokhale>not materially, no
+
+435
+00:36:19.755 --> 00:36:25.517
+<v Neha Gokhale>it is low priority and i am saying that on the record so nobody comes back to me in september
+
+436
+00:36:25.669 --> 00:36:29.750
+<v Shalini Iyer>then park it
+
+437
+00:36:29.928 --> 00:36:34.003
+<v Ananya Krishnan>parking that for now
+
+438
+00:36:34.054 --> 00:36:38.443
+<v Priya Nair>but for the product mix report it will matter na
+
+439
+00:36:38.504 --> 00:36:44.300
+<v Priya Nair>because the pack size sits on the version, so the report will show two pack sizes for one item
+
+440
+00:36:44.435 --> 00:36:48.727
+<v Ishaan Bhatt>yeah for that report it will matter eventually
+
+441
+00:36:48.844 --> 00:36:53.315
+<v Neha Gokhale>eventually yes, not this month
+
+442
+00:36:53.428 --> 00:36:58.109
+<v Priya Nair>okay, i just wanted it noted
+
+443
+00:36:58.155 --> 00:37:02.446
+<v Sneha Pillai>noted
+
+444
+00:37:02.609 --> 00:37:08.604
+<v Priya Nair>ishaan, sorry, unrelated, did you see the thing i sent you yesterday about the distributor scorecard
+
+445
+00:37:08.669 --> 00:37:12.864
+<v Ishaan Bhatt>the one with the two totals on the same page
+
+446
+00:37:13.040 --> 00:37:17.420
+<v Priya Nair>yes yes that one
+
+447
+00:37:17.474 --> 00:37:22.738
+<v Ishaan Bhatt>i saw it, i think it is the same eighteen thing honestly, it is the same shape
+
+448
+00:37:22.935 --> 00:37:28.099
+<v Priya Nair>that is what i thought also, because it was only three or four distributors
+
+449
+00:37:28.291 --> 00:37:33.116
+<v Ishaan Bhatt>send me the screenshot again i will look at it after this
+
+450
+00:37:33.166 --> 00:37:38.018
+<v Priya Nair>okay i will send
+
+451
+00:37:38.182 --> 00:37:42.244
+<v Neha Gokhale>sorry can we, uh
+
+452
+00:37:42.417 --> 00:37:48.013
+<v Neha Gokhale>can we park that, i have about ten minutes of material left and i want to get through it
+
+453
+00:37:48.187 --> 00:37:53.086
+<v Priya Nair>sorry sorry, go ahead
+
+454
+00:37:53.288 --> 00:37:57.833
+<v Ishaan Bhatt>yeah sorry
+
+455
+00:37:57.994 --> 00:38:02.577
+<v Neha Gokhale>right, this is the one i actually want a decision on
+
+456
+00:38:02.647 --> 00:38:06.813
+<v Neha Gokhale>rule fifteen
+
+457
+00:38:06.892 --> 00:38:13.186
+<v Neha Gokhale>DQ dash R one five, validity, the gst rate on the line matches the rate that was in force on the invoice date
+
+458
+00:38:13.270 --> 00:38:17.452
+<v Neha Gokhale>threshold ninety nine point nine
+
+459
+00:38:17.510 --> 00:38:22.116
+<v Neha Gokhale>actual ninety six point three
+
+460
+00:38:22.192 --> 00:38:27.356
+<v Shalini Iyer>so three point seven percent of lines have the wrong tax on them
+
+461
+00:38:27.418 --> 00:38:32.317
+<v Neha Gokhale>have a rate that does not match what was in force on that date, yes
+
+462
+00:38:32.493 --> 00:38:37.511
+<v Shalini Iyer>that is a restatement issue, that is not a data quality issue
+
+463
+00:38:37.780 --> 00:38:42.575
+<v Neha Gokhale>it is both, but yes
+
+464
+00:38:42.733 --> 00:38:48.761
+<v Meghna Rao>the tax rate master in the warehouse is two hundred and fourteen rows and it is a truncate and reload
+
+465
+00:38:48.887 --> 00:38:53.722
+<v Meghna Rao>it holds current rates only
+
+466
+00:38:53.831 --> 00:38:59.327
+<v Meghna Rao>there is no effective dating on it at all, not a start date, not an end date, nothing
+
+467
+00:38:59.431 --> 00:39:04.629
+<v Meghna Rao>and the failures are concentrated on the chandan a lines, april to september
+
+468
+00:39:04.878 --> 00:39:09.945
+<v Farida Contractor>correct, the interface truncates it and reloads it every night
+
+469
+00:39:09.986 --> 00:39:14.763
+<v Farida Contractor>that is how it was built and nobody has touched it since
+
+470
+00:39:14.951 --> 00:39:19.059
+<v Ishaan Bhatt>but the source table is effective dated
+
+471
+00:39:19.194 --> 00:39:23.680
+<v Ishaan Bhatt>it has eff from and eff to on it, the source knows
+
+472
+00:39:23.925 --> 00:39:28.604
+<v Farida Contractor>yes the source has it, we just did not carry it across
+
+473
+00:39:28.769 --> 00:39:34.399
+<v Farida Contractor>the same table drives the buddy range also, it just happens that only the soap rate moved
+
+474
+00:39:34.576 --> 00:39:39.387
+<v Shalini Iyer>so what actually happened
+
+475
+00:39:39.430 --> 00:39:43.625
+<v Neha Gokhale>chandanaa, the soap, hsn three four zero one
+
+476
+00:39:43.874 --> 00:39:50.201
+<v Neha Gokhale>the rate went from eighteen percent to twelve percent with effect from the first of october twenty twenty five
+
+477
+00:39:50.428 --> 00:39:55.030
+<v Priya Nair>this is the bady plant one na
+
+478
+00:39:55.270 --> 00:40:00.192
+<v Neha Gokhale>the brand is made there yes but that is not why it happened
+
+479
+00:40:00.381 --> 00:40:06.575
+<v Neha Gokhale>it happened because the warehouse only holds the current rate, so the twelve percent got applied backwards
+
+480
+00:40:06.851 --> 00:40:11.021
+<v Shalini Iyer>to the whole year
+
+481
+00:40:11.084 --> 00:40:16.415
+<v Neha Gokhale>to april through september twenty twenty five, which was at eighteen at the time
+
+482
+00:40:16.473 --> 00:40:21.112
+<v Shalini Iyer>oh no
+
+483
+00:40:21.229 --> 00:40:25.700
+<v Shalini Iyer>how much
+
+484
+00:40:25.864 --> 00:40:30.169
+<v Neha Gokhale>forty lakh
+
+485
+00:40:30.320 --> 00:40:34.399
+<v Shalini Iyer>forty lac
+
+486
+00:40:34.505 --> 00:40:38.632
+<v Neha Gokhale>forty lakh, FY twenty six
+
+487
+00:40:38.899 --> 00:40:43.336
+<v Meghna Rao>and that is sitting in the reported numbers today
+
+488
+00:40:43.616 --> 00:40:47.939
+<v Neha Gokhale>it is
+
+489
+00:40:48.077 --> 00:40:52.125
+<v Shalini Iyer>[crosstalk]
+
+490
+00:40:52.331 --> 00:40:57.927
+<v Farida Contractor>sorry i have to drop, there is something with the control em folder, they are calling me
+
+491
+00:40:58.139 --> 00:41:03.270
+<v Farida Contractor>neha i will read the deck, whatever you need from me put it in the actions
+
+492
+00:41:03.369 --> 00:41:07.516
+<v Ananya Krishnan>thanks frida, i will send the actions today
+
+493
+00:41:07.679 --> 00:41:11.764
+<v Farida Contractor>thank you, bye
+
+494
+00:41:11.813 --> 00:41:16.199
+<v Shalini Iyer>sorry, go ahead
+
+495
+00:41:16.438 --> 00:41:20.759
+<v Neha Gokhale>no no you were saying
+
+496
+00:41:20.819 --> 00:41:25.935
+<v Shalini Iyer>i was going to say this is new, i have not seen this one before
+
+497
+00:41:26.057 --> 00:41:31.021
+<v Neha Gokhale>it is new, it is not on the tracker yet, it came out of the profiling
+
+498
+00:41:31.115 --> 00:41:35.714
+<v Ananya Krishnan>it will be VAR zero zero six
+
+499
+00:41:35.827 --> 00:41:40.621
+<v Sneha Pillai>VAR zero zero six, i will add it
+
+500
+00:41:40.776 --> 00:41:46.107
+<v Sneha Pillai>and AI forty three, neha to raise it and put a remediation option on the tracker
+
+501
+00:41:46.258 --> 00:41:50.668
+<v Neha Gokhale>by the twenty fourth
+
+502
+00:41:50.737 --> 00:41:56.001
+<v Shalini Iyer>and can somebody tell me whether this touches the filing or only the reporting
+
+503
+00:41:56.170 --> 00:42:00.931
+<v Neha Gokhale>i do not know
+
+504
+00:42:01.064 --> 00:42:06.793
+<v Neha Gokhale>genuinely, i do not know, and i am not going to answer a tax question on a data quality call
+
+505
+00:42:06.952 --> 00:42:11.551
+<v Shalini Iyer>fair
+
+506
+00:42:11.772 --> 00:42:17.335
+<v Neha Gokhale>what i can tell you is what the warehouse holds, which is one rate per hsn and no dates
+
+507
+00:42:17.594 --> 00:42:22.154
+<v Shalini Iyer>i will check the filing side myself
+
+508
+00:42:22.348 --> 00:42:27.068
+<v Neha Gokhale>last one from me
+
+509
+00:42:27.243 --> 00:42:31.412
+<v Neha Gokhale>rule four
+
+510
+00:42:31.535 --> 00:42:37.265
+<v Neha Gokhale>DQ dash R zero four, completeness, every invoiced sku resolves to a known product in the dim
+
+511
+00:42:37.361 --> 00:42:42.525
+<v Neha Gokhale>threshold ninety nine point five, actual ninety eight point zero
+
+512
+00:42:42.738 --> 00:42:47.215
+<v Neha Gokhale>fail
+
+513
+00:42:47.395 --> 00:42:51.767
+<v Meghna Rao>this is the unknown member
+
+514
+00:42:51.932 --> 00:42:56.291
+<v Meghna Rao>product key minus one
+
+515
+00:42:56.350 --> 00:43:01.414
+<v Meghna Rao>on average eight thousand one hundred and forty lines a month land on it
+
+516
+00:43:01.482 --> 00:43:06.447
+<v Meghna Rao>the peak was january twenty six, eleven thousand nine hundred and two
+
+517
+00:43:06.599 --> 00:43:11.473
+<v Priya Nair>eleven thousand in one month
+
+518
+00:43:11.645 --> 00:43:16.577
+<v Meghna Rao>eleven nine zero two yes, that was the festive replenishment i think
+
+519
+00:43:16.800 --> 00:43:21.608
+<v Neha Gokhale>it is two percent of invoiced volume
+
+520
+00:43:21.777 --> 00:43:26.488
+<v Shalini Iyer>and they stay there
+
+521
+00:43:26.537 --> 00:43:30.938
+<v Ishaan Bhatt>they stay there
+
+522
+00:43:31.179 --> 00:43:37.008
+<v Ishaan Bhatt>once the row lands on minus one nothing ever goes back and re points it when the dim catches up
+
+523
+00:43:37.061 --> 00:43:43.389
+<v Neha Gokhale>there is no late arriving handling in the fact mapping at all, it is not that it is broken, it was never built
+
+524
+00:43:43.493 --> 00:43:48.457
+<v Shalini Iyer>so on any report by brand or by category, two percent is just missing
+
+525
+00:43:48.512 --> 00:43:52.870
+<v Priya Nair>it shows as unknown on the report
+
+526
+00:43:52.961 --> 00:43:57.793
+<v Priya Nair>in the cube also we used to have this, we had a prompt to hide it
+
+527
+00:43:57.990 --> 00:44:02.549
+<v Neha Gokhale>hiding it is worse
+
+528
+00:44:02.693 --> 00:44:06.979
+<v Priya Nair>yes i know, i know
+
+529
+00:44:07.135 --> 00:44:11.175
+<v Shalini Iyer>is there a rupee number on this one
+
+530
+00:44:11.437 --> 00:44:15.486
+<v Neha Gokhale>no, and i am deliberately not putting one
+
+531
+00:44:15.731 --> 00:44:22.192
+<v Neha Gokhale>it is a volume percentage, and if i convert it to money somebody will add it to a total that it does not belong in
+
+532
+00:44:22.289 --> 00:44:26.760
+<v Ananya Krishnan>agreed
+
+533
+00:44:26.858 --> 00:44:31.284
+<v Ananya Krishnan>this becomes VAR zero zero seven
+
+534
+00:44:31.414 --> 00:44:37.044
+<v Ananya Krishnan>it lands in the reporting layer more than anywhere else so i will put ritwik as the owner
+
+535
+00:44:37.100 --> 00:44:43.594
+<v Sneha Pillai>AI forty four, ananya to raise VAR zero zero seven and assign it to the reporting workstream, twenty fourth of june
+
+536
+00:44:43.795 --> 00:44:48.422
+<v Ananya Krishnan>yes
+
+537
+00:44:48.646 --> 00:44:53.511
+<v Shalini Iyer>and the thirty seven skus with no category, is that the same thing
+
+538
+00:44:53.588 --> 00:44:58.073
+<v Meghna Rao>no, that is separate, that is on the master itself
+
+539
+00:44:58.148 --> 00:45:03.479
+<v Meghna Rao>those thirty seven have a row in the dim, they just have nothing in the category
+
+540
+00:45:03.757 --> 00:45:09.021
+<v Neha Gokhale>different failure, same symptom on a report, which is why people conflate them
+
+541
+00:45:09.169 --> 00:45:13.554
+<v Shalini Iyer>before we finish
+
+542
+00:45:13.696 --> 00:45:18.607
+<v Shalini Iyer>what is happening on the credit notes
+
+543
+00:45:18.864 --> 00:45:23.727
+<v Neha Gokhale>that is not a DQ item
+
+544
+00:45:23.796 --> 00:45:29.093
+<v Shalini Iyer>i know it is not, but nobody is telling me anything and it comes up every month
+
+545
+00:45:29.271 --> 00:45:33.273
+<v Ananya Krishnan>it is on the tracker, VAR zero zero five
+
+546
+00:45:33.420 --> 00:45:37.966
+<v Ananya Krishnan>credit notes absent from warehouse
+
+547
+00:45:38.162 --> 00:45:43.132
+<v Ananya Krishnan>open since the twenty fourth of april, and you are the owner
+
+548
+00:45:43.190 --> 00:45:47.716
+<v Shalini Iyer>yes i know i am the owner
+
+549
+00:45:47.853 --> 00:45:52.316
+<v Shalini Iyer>what i am asking is the number
+
+550
+00:45:52.586 --> 00:45:57.556
+<v Ananya Krishnan>the sizing we did was two point four crore for FY twenty six
+
+551
+00:45:57.702 --> 00:46:02.007
+<v Shalini Iyer>two point four core
+
+552
+00:46:02.218 --> 00:46:07.334
+<v Ananya Krishnan>two point four, two point four crore odd, it was a round number
+
+553
+00:46:07.405 --> 00:46:11.906
+<v Shalini Iyer>where did that come from
+
+554
+00:46:12.062 --> 00:46:16.499
+<v Ananya Krishnan>it was a quick sizing, we did it for the may deck
+
+555
+00:46:16.643 --> 00:46:21.177
+<v Ananya Krishnan>it was not validated, i want to be clear about that
+
+556
+00:46:21.282 --> 00:46:25.715
+<v Shalini Iyer>it feels low
+
+557
+00:46:25.960 --> 00:46:30.354
+<v Shalini Iyer>it feels quite low actually
+
+558
+00:46:30.556 --> 00:46:34.991
+<v Ananya Krishnan>it may well be
+
+559
+00:46:35.079 --> 00:46:41.107
+<v Shalini Iyer>i see the rate difference ones every single month and just from memory it is more than that in a year
+
+560
+00:46:41.301 --> 00:46:46.731
+<v Shalini Iyer>i do not want to guess on a call, but that does not feel like the whole of it to me
+
+561
+00:46:46.995 --> 00:46:51.205
+<v Ananya Krishnan>okay
+
+562
+00:46:51.355 --> 00:46:56.180
+<v Ananya Krishnan>shall we take it away and come back with something firmer
+
+563
+00:46:56.443 --> 00:47:01.346
+<v Shalini Iyer>i will do it myself
+
+564
+00:47:01.387 --> 00:47:07.415
+<v Shalini Iyer>give me till the tenth of july and i will tie it back to the trial balance properly, period by period
+
+565
+00:47:07.480 --> 00:47:13.409
+<v Sneha Pillai>AI forty five, shalini to re check the credit note sizing against the trial balance, tenth of july
+
+566
+00:47:13.491 --> 00:47:18.105
+<v Shalini Iyer>yes
+
+567
+00:47:18.261 --> 00:47:23.425
+<v Neha Gokhale>and just to be clear, that number is not in anything i have presented today
+
+568
+00:47:23.662 --> 00:47:27.980
+<v Neha Gokhale>nothing in my deck depends on it
+
+569
+00:47:28.230 --> 00:47:32.906
+<v Shalini Iyer>understood
+
+570
+00:47:33.000 --> 00:47:37.932
+<v Ananya Krishnan>it is a variance line, it is not a DQ line, they are different lists
+
+571
+00:47:38.113 --> 00:47:43.277
+<v Shalini Iyer>i understand the difference, i just want one of them to be right
+
+572
+00:47:43.456 --> 00:47:47.826
+<v Ananya Krishnan>okay we are at time
+
+573
+00:47:47.880 --> 00:47:51.978
+<v Ananya Krishnan>sneha do you want to read the actions back
+
+574
+00:47:52.022 --> 00:47:56.072
+<v Sneha Pillai>quickly, and i will circulate them anyway
+
+575
+00:47:56.138 --> 00:48:01.103
+<v Sneha Pillai>thirty seven, neha, circulate the workbook and the rule set, tomorrow
+
+576
+00:48:01.171 --> 00:48:07.864
+<v Sneha Pillai>thirty eight, meghna, re run the profiling on the customer dim after the june release and confirm the count, twenty sixth
+
+577
+00:48:08.128 --> 00:48:14.090
+<v Sneha Pillai>thirty nine, farida, the effective dating fix so only one row carries current flag y, third of july
+
+578
+00:48:14.341 --> 00:48:19.372
+<v Sneha Pillai>forty, ananya, reply to vikram with the customer level detail, tomorrow
+
+579
+00:48:19.631 --> 00:48:25.061
+<v Sneha Pillai>forty one, neha, propose the gstin format rule for the next rule set, tenth of july
+
+580
+00:48:25.322 --> 00:48:30.951
+<v Sneha Pillai>forty two, ishaan, the order line orphans and whether fill rate is affected, twenty sixth
+
+581
+00:48:31.198 --> 00:48:37.227
+<v Sneha Pillai>forty three, neha, raise VAR zero zero six and put a remediation option on the tracker, twenty fourth
+
+582
+00:48:37.430 --> 00:48:43.491
+<v Sneha Pillai>forty four, ananya, raise VAR zero zero seven and assign it to the reporting workstream, twenty fourth
+
+583
+00:48:43.660 --> 00:48:49.423
+<v Sneha Pillai>forty five, shalini, re check the credit note sizing against the trial balance, tenth of july
+
+584
+00:48:49.520 --> 00:48:53.860
+<v Shalini Iyer>that is nine actions out of a fifty minute call
+
+585
+00:48:53.930 --> 00:48:58.467
+<v Ananya Krishnan>it is a lot yes
+
+586
+00:48:58.539 --> 00:49:03.803
+<v Neha Gokhale>it is a first assessment, it is always a lot, the second one is always shorter
+
+587
+00:49:03.950 --> 00:49:09.546
+<v Priya Nair>neha thank you, this was actually very useful, i have been asking for this for two years
+
+588
+00:49:09.675 --> 00:49:14.512
+<v Neha Gokhale>thank you all
+
+589
+00:49:14.715 --> 00:49:20.245
+<v Neha Gokhale>and please, if you disagree with a number, tell me which rule you are disagreeing with
+
+590
+00:49:20.442 --> 00:49:25.267
+<v Ananya Krishnan>the deck goes out today, i will send it with the workbook
+
+591
+00:49:25.442 --> 00:49:29.593
+<v Shalini Iyer>thank you
+
+592
+00:49:29.736 --> 00:49:33.842
+<v Meghna Rao>bye
+
+593
+00:49:33.890 --> 00:49:38.800
+<v Priya Nair>bye
+
+594
+00:49:39.015 --> 00:49:43.384
+<v Ananya Krishnan>bye everyone
+
+595
+00:49:43.556 --> 00:49:47.935
+<v Ananya Krishnan>let me stop the recording
+
+NOTE SYNTHETIC — generated for internal demo. No real entity depicted.

@@ -1,0 +1,1151 @@
+transcription export
+source file : orion_discovery_0303_teams_recording.m4a
+generated   : 03/03/2026 12:41
+duration    : 01:30:04
+speakers detected : 7
+confidence  : 0.78 (low, multiple overlapping speakers)
+this transcript is machine generated and has not been checked by a person
+
+
+[00:00:03]
+karthik: uh is it recording, i think it has started
+Speaker 5: yes karthik it is recording, the banner is showing
+Speaker 1: okay good, so, uh, good morning everyone, thanks for making the time, this is the oltp discovery session
+Speaker 2: good morning
+Farida Contractor: morning, sorry i am little late, i was stuck on the other call
+Speaker 1: no problem frida, we have only just started
+Speaker 4: no no i am here, i am here
+Speaker 1: so the idea today is, uh, we go through orion, table by table, the ones that matter, i am not designing anything today, i only want to understand the source
+Sneha Pillai: karthik one second, i am taking the notes, is priya joining
+[00:01:15]
+Speaker 1: she said she will join uh she had one report issue in the morning
+unknown: okay i will mark her as joining late
+Speaker 1: annie, before we start, can you hear me properly
+Aniruddh Deshpande: haa haan, i can hear
+Karthik Subramanian: your audio is fine
+
+Speaker 2: it is fine, i am on the laptop only today, the headset is in the office, i am at home till two
+Karthik Subramanian: ok, so, uh, let me just say what i want out of this, three things, one, the shape of the order to cash tables, two, the audit columns, how you people stamp the rows, three, anything that changes a row after it is written
+Aniruddh Deshpande: hmm
+Ishaan Bhatt: sorry karthik, can you say the third one again
+karthik: anything that updates a row after it has been created
+[00:02:35]
+Ishaan Bhatt: okay, got it
+
+Speaker 2: that is, uh, that is a long topic
+Speaker 1: i know it is
+Speaker 2: we did this in 2017 also, one team came, they sat for two weeks, they asked exactly the same, nothing came out of it
+
+Speaker 1: fair enough
+Aniruddh Deshpande: no no i am not saying anything, i am just telling you
+
+Karthik Subramanian: it is a fair point annie
+Farida Contractor: karthik can i ask, is this orion only or the odie side also
+karthik: today orion only, your side we will do separately, next week
+unknown: okay because i have the interface list almost ready
+Speaker 1: yes i saw the mail, we will use that
+Farida Contractor: ok okay
+[00:03:43]
+Priya Nair: sorry, can i just confirm one spelling, aniruddh, is it a n i r u d d h
+Aniruddh Deshpande: haa, two d
+Speaker 5: two d, okay
+
+Aniruddh Deshpande: but everybody is writing ani only, four letters
+
+Speaker 5: i will put aniruddh in the attendee list
+Speaker 1: ishaan are you on the vpn
+Ishaan Bhatt: yeah i am on, i can hit the read only account
+Karthik Subramanian: okay good, so if we need a count we can pull it live
+Speaker 2: no no no, for count you ask me only, that line table you should not be counting in the day time
+ishaan: haan sorry, i will not
+Karthik Subramanian: noted, we will not touch it in the day
+
+Speaker 2: after seven in the evening it is fine
+[00:04:51]
+Speaker 1: okay, right, uh let me start with the history, annie, when was orion built
+Farida Contractor: 2009 it went live, sai adri softech built it, they were a mumbai company
+Sneha Pillai: sorry, sai what
+aniruddh: sai adri, s a h y a d r i
+Sneha Pillai: oh, sahyadri, okay okay
+Aniruddh Deshpande: haan, that is the spelling but everybody is saying it differently
+Karthik Subramanian: and are they still around
+Speaker 2: no we stopped with them in 2014, after that we are supporting it ourselves
+Karthik Subramanian: so nobody from that side is contactable
+
+Speaker 2: nobody, uh one person was there, he also left, even if you find them what will they tell you now [inaudible]
+Karthik Subramanian: no i am just asking whether there is a design document
+[00:06:06]
+Aniruddh Deshpande: there was one functional spec, orion functional spec 2009 dot doc, i have seen that file, maybe 2015 last time
+Karthik Subramanian: do you have a copy of it
+Speaker 2: i will search, but honestly, uh, i am not hopeful, that time everything was on the old drive, and that drive is not there now
+Speaker 1: okay sneha put an action annie to look for the 2009 spec
+unknown: capturing that, that will be a i zero eight
+Speaker 2: put it but do not put a date on it
+
+Sneha Pillai: i will put thirteenth march
+Aniruddh Deshpande: okay, thirteen march, fine [inaudible]
+Speaker 1: what is the front end
+[00:07:06]
+Aniruddh Deshpande: it is oracle forms and reports, some screens they redid in adf afterwards, so if you open the depot screen it is adf, if you open the scheme screen it is still forms
+Speaker 3: is that a problem for us
+
+Speaker 2: for you no, for me yeah, because two different session behaviours, two different logs
+Karthik Subramanian: and the database
+Aniruddh Deshpande: nineteen c enterprise edition, two node rac, mumbai dc
+Karthik Subramanian: and the standby
+Farida Contractor: hyderabad, physical standby, and before you ask, no, you cannot report off it
+Karthik Subramanian: yeah i was going to ask that
+
+Speaker 2: everybody asks, it is open only for the switchover test, that is it
+[00:08:22]
+Karthik Subramanian: understood
+Priya Nair: hi, sorry i am late, my report was not opening
+Speaker 1: no problem priya, come in
+Speaker 6: sorry sorry, uh what have we covered [inaudible]
+Karthik Subramanian: just the history, orion, sahyadri softech, forms and adf
+Priya Nair: okay
+Speaker 5: priya i have marked you joining at eleven eleven
+Speaker 6: yes about that
+Karthik Subramanian: priya you are on mute
+Priya Nair: sorry, is it better now [inaudible]
+[00:09:08]
+Karthik Subramanian: yes now it is fine, so, uh, application release, which one are we on
+Aniruddh Deshpande: twelve point two point eight, r twelve dot two dot eight
+Sneha Pillai: r twelve dot two dot eight, correct [inaudible]
+Speaker 2: correct correct
+Speaker 1: okay, let me start with the customer side, annie, what is the customer table called
+
+Farida Contractor: customer, in oms prod, oms underscore prod is the order to cash schema
+Speaker 5: sorry, oms is o m s
+
+Aniruddh Deshpande: haan, o m s underscore p r o d
+
+Sneha Pillai: got it
+
+[00:10:13]
+Karthik Subramanian: and finance
+aniruddh: fin underscore prod, same database, different schema, gl, receivables, tax rate, all that is on fin side
+
+Karthik Subramanian: same instance
+Aniruddh Deshpande: same instance, same box
+karthik: okay that is useful
+
+ishaan: ani the customer table, what is the primary key
+Speaker 2: cust id, number, but nobody uses cust id, everybody uses cust code, cust code is the party code that sales people know
+Speaker 3: so cust code is unique
+Aniruddh Deshpande: it is unique, there is a unique index on it, cust id is internal, it is a sequence
+Speaker 1: and the type column
+[00:11:17]
+aniruddh: cust type, three values, distributor, modern trade, institutional
+Speaker 1: how many distributors
+
+Aniruddh Deshpande: total customer rows are, uh, two thousand one hundred odd, out of that distributor is three forty
+Karthik Subramanian: three hundred and forty
+
+Aniruddh Deshpande: haan, three forty, that numbr does not change much, one or two get added, one or two get closed
+Speaker 4: karthik that three forty is the number in my staging also
+
+Karthik Subramanian: good, that ties
+unknown: sorry, just to confirm my understanding, in the reports we are showing distributor and dealer separately, is dealer coming from cust type or from somewhere else
+Aniruddh Deshpande: there is no dealer in the table, whoever built that report they must have done something on the code
+
+[00:12:31]
+Speaker 6: hmm, i will check the analysis
+Speaker 2: check the where clause, it will be there
+Karthik Subramanian: park that, priya can you send me that report definition
+Speaker 6: yes i will revert
+Speaker 5: capturing, priya to send the report definition
+
+Karthik Subramanian: what else is on customer
+Aniruddh Deshpande: territory cd, depot cd, credit limit, status flag
+Karthik Subramanian: status flag as in
+
+Aniruddh Deshpande: a or i, active or inactive
+[00:13:16]
+karthik: and there is also active flag
+Aniruddh Deshpande: haan, that is different, active flag is the standard column, every table is having it, status flag is the business one, only on customer
+
+Ishaan Bhatt: wait, so there are two [inaudible]
+Aniruddh Deshpande: there are two, and people mix them, i am telling you now so later you do not come and ask
+unknown: no this is exactly what i wanted
+Ishaan Bhatt: so if i want to know a party is live, which one
+Speaker 2: status flag equal to a, active flag you leave alone
+
+Ishaan Bhatt: okay
+Sneha Pillai: sorry can you repeat, status flag is a and i
+Speaker 2: a for active, i for inactive
+
+Priya Nair: and active flag is y and n
+[00:14:28]
+Farida Contractor: y and n
+Sneha Pillai: okay noted
+karthik: annie, when a distributor moves from one territory to another, what happens
+Aniruddh Deshpande: on customer table the territory cd is overwritten
+Karthik Subramanian: overwritten
+unknown: haan, overwritten, that is it
+Karthik Subramanian: so the old value is gone
+Speaker 2: on that table gone, but there is one history table, customer territory hist
+Sneha Pillai: customer territory hist, one word or
+[00:15:19]
+Farida Contractor: customer underscore territory underscore hist, h i s t
+Speaker 5: thank you
+Speaker 1: what is in it
+
+Aniruddh Deshpande: cust id, territory cd, eff from dt, eff to dt
+Karthik Subramanian: and eff to dt is null when it is current
+Speaker 2: correct correct
+
+Ishaan Bhatt: is there a primary key on that
+Speaker 2: no
+Speaker 3: no primary key
+[00:16:02]
+Farida Contractor: no primary key, no unique constraint, nothing, only one index on cust id and eff from date
+
+Karthik Subramanian: so you can have two rows open at the same time
+Aniruddh Deshpande: you can, and, uh you do
+Speaker 1: you do
+Aniruddh Deshpande: some parties are having overlapping rows, yes
+Karthik Subramanian: how many
+
+aniruddh: i cannot tell you a number now, it is not a big numbr but it is not zero also
+ishaan: can we count it
+Speaker 2: you can count it, do it in the evening
+[00:16:53]
+Sneha Pillai: ishaan to count the overlapping rows, i am capturing
+Ishaan Bhatt: yeah i will do it tonight
+Speaker 1: how do the overlaps get in
+Aniruddh Deshpande: somebody enters wrong, then somebody corrects it, correction is done by editing the row itself, so it is not append only, people go and edit
+
+Ishaan Bhatt: [inaudible]
+Aniruddh Deshpande: sorry karthik you broke
+
+Speaker 1: i said, so the history table is itself edited
+Speaker 2: haan edited in place that is what i am saying
+Karthik Subramanian: right, that is going to matter for us
+[00:17:51]
+Speaker 3: that is going to matter a lot actually
+
+Speaker 2: that is why i am telling [inaudible]
+Speaker 4: karthik sorry, my interface for that table is a full load, i truncate and reload the whole thing every night
+Karthik Subramanian: the whole history table
+Farida Contractor: whole table, it is small
+Speaker 1: how small
+
+Priya Nair: uh, i will check, it is few thousand rows, it finishes in under a minute
+Karthik Subramanian: okay, so basically whatever mess is in the source comes across as it is
+Speaker 4: as it is, yes, i am not doing anything to it, i am just moving it [inaudible]
+
+Karthik Subramanian: no i am not saying you are, i just want to be clear on that
+[00:19:02]
+farida: no no i understood
+
+Sneha Pillai: sorry i missed the name of that table again
+ishaan: customer territory hist
+Sneha Pillai: thank you ishaan
+Speaker 1: alright, let us go to product, sku master
+Aniruddh Deshpande: sku master, in oms prod, sku id primary key sku code unique
+
+Karthik Subramanian: how many rows
+Aniruddh Deshpande: twelve forty six odd, out of that active is eight sixty two, something like that
+Karthik Subramanian: eight sixty two active
+
+[00:19:56]
+Speaker 2: haan, roughly, the rest are delisted or old packs
+
+Ishaan Bhatt: and active is the active flag column
+
+Speaker 2: active flag y
+Ishaan Bhatt: okay
+
+Speaker 1: what are the attributes
+Aniruddh Deshpande: brand cd, category cd, pack size, uom, mrp, hsn code
+Speaker 1: brand codes
+Speaker 2: six brands only, s u v, n m b, k s g, c h d, t r g, r k s
+Priya Nair: suvarn, nimbua, kesari gold, chandanaa, tarang, rakshak
+
+[00:20:47]
+Aniruddh Deshpande: correct
+Speaker 5: sorry priya can you say the second one again
+
+Priya Nair: nimbu ah
+
+Speaker 5: is it n i m b u a
+priya: n i m b u a, nimbua
+
+Speaker 5: thank you
+
+Speaker 1: is there a brand table
+Aniruddh Deshpande: no
+Speaker 1: so brand cd is just a code on sku master
+[00:21:31]
+Aniruddh Deshpande: just a code there is no master for it, brand name is not in the database, it is in people heads
+
+Ishaan Bhatt: ha [inaudible]
+Speaker 2: no really, if you want brand name you have to hardcode
+
+Ishaan Bhatt: hmm, okay, that is a mapping problem for us
+
+Speaker 3: we will need a lookup somewhere
+karthik: yes but not today, category cd [inaudible]
+Aniruddh Deshpande: category cd is there but it is not always filled
+Speaker 1: not always filled
+Aniruddh Deshpande: some rows are blank
+Speaker 1: how many
+Aniruddh Deshpande: thirty odd, thirty five, i do not remember, there is no not null on that column
+Karthik Subramanian: was that deliberate
+unknown: nothing is deliberate in this system
+
+[00:22:46]
+Karthik Subramanian: okay, okay
+Speaker 3: annie, if category is null what does the report do
+Speaker 2: it shows blank, or the report is putting others, depends who wrote it
+Speaker 6: in the report we have others, i think it is a case statement in the analysis
+Speaker 1: okay so somebody has already solved it in obiee
+Speaker 6: in obi e yes, but only in that one report
+karthik: only in one report
+Speaker 6: only in one, the other reports are showing blank
+
+karthik: right, so it is inconsistent
+Speaker 6: it is inconsistent, correct
+[00:23:43]
+Speaker 5: sorry, obi e is the old reporting tool na [inaudible]
+
+unknown: yes obiee, o b i double e
+sneha: ok thank you
+karthik: uom
+Aniruddh Deshpande: kg, lt, ea
+Karthik Subramanian: kilogram, litre, each
+Speaker 2: correct correct
+
+Ishaan Bhatt: and the quantity columns are in cases and eaches
+Speaker 2: on invoice line yes, qty cs and qty ea, on order line also same
+[00:24:30]
+Karthik Subramanian: does anybody convert between them
+Aniruddh Deshpande: not in orion, conversion is happening downstream in excel mostly
+Speaker 1: in excel
+Aniruddh Deshpande: haan
+Karthik Subramanian: ok
+Speaker 2: this is where all your arguments will come from, i am telling you now
+Speaker 1: i believe you, mrp is on sku master
+Farida Contractor: mrp is on sku master, yes
+Ishaan Bhatt: and when mrp changes
+
+Speaker 2: it is updated in the same row
+Speaker 1: so no history again
+
+Speaker 2: no history
+[00:25:36]
+Karthik Subramanian: hmm
+Ishaan Bhatt: so if a pack size changes we lose the old one
+Speaker 2: pack size also same, it is overwritten, only last upd dt will tell you something happened
+Karthik Subramanian: only that
+Speaker 2: only that
+
+Karthik Subramanian: okay, noted, hsn code, that is on sku master also
+Speaker 2: hsn is on sku master, but the rate is not there
+Karthik Subramanian: where is the rate [inaudible]
+Speaker 2: fin prod, tax rate master, hsn code, gst rate percent, and it is having from date and to date
+Speaker 1: the source one has dates on it
+[00:26:40]
+Farida Contractor: source one has, yes
+Speaker 1: ok, uh we will come back to that in the finance session
+
+Speaker 2: fine
+Sneha Pillai: sorry, tax rate master is one word
+
+Aniruddh Deshpande: tax underscore rate underscore master
+Sneha Pillai: thank you
+
+Speaker 3: karthik, sorry, can i ask one thing on sku
+
+Speaker 1: go ahead
+Speaker 3: when a new sku is created, when does it appear
+[00:27:21]
+Speaker 2: when the product team creates it in the screen
+Ishaan Bhatt: and if an invoice is raised the same day
+Speaker 2: then it is raised the same day, what is the issue
+Speaker 3: no i am just, uh, thinking about the sequencing
+
+Speaker 2: sequencing is the product team problem, not mine
+Ishaan Bhatt: [laughs] okay
+Speaker 3: fine, i will park it
+Ishaan Bhatt: park it, we will look at it when we do the dimension work, alright, orders, order header and order line [inaudible]
+Speaker 2: order header, order line, both in oms prod, order id, order no, order dt, cust id, depot cd, order status
+[00:28:22]
+Speaker 1: order status, what are the values
+Aniruddh Deshpande: uh, that i will have to check and tell you, there are some values, i do not want to say wrong
+
+Karthik Subramanian: fine, send it later
+Sneha Pillai: capturing that, ani to send the order status values
+Farida Contractor: haa
+Speaker 1: and order line
+Aniruddh Deshpande: order line id, order id, line no, sku id, qty cs, qty ea
+
+Karthik Subramanian: no amounts on order line
+Aniruddh Deshpande: no amount, order is only quantity, pricing happens at invoicing
+[00:29:17]
+Speaker 1: interesting
+Aniruddh Deshpande: order is order, invoice is invoice, in this system they are not so tightly joined as you think
+Karthik Subramanian: say more
+Speaker 2: invoice header is having order id, but it is nullable
+Karthik Subramanian: it is nullable
+Speaker 2: haan, because some invoices are raised directly
+
+Speaker 1: without an order
+aniruddh: without an order, depot can raise directly
+Speaker 1: how often
+Speaker 2: not often, but it happens
+[00:30:11]
+Speaker 3: so we cannot rely on order id to join
+Farida Contractor: you cannot rely
+Speaker 1: what about the foreign key
+Speaker 2: there is no enforced foreign key from order header to customer
+Ishaan Bhatt: it was never there [inaudible]
+Aniruddh Deshpande: it was there, it was disabled
+Karthik Subramanian: when
+Speaker 2: during the master data cleanup, some years back, it was disabled and never enabled back
+Karthik Subramanian: is that written anywhere
+Aniruddh Deshpande: it is written in the ddl, it is commented out, if you generate the ddl you will see it sitting there as a comment
+
+Speaker 1: okay, ishaan note that
+[00:31:16]
+Speaker 3: yeah i have it
+Speaker 1: annie, is there any status history on orders
+Aniruddh Deshpande: meaning
+
+karthik: like a table that records every status change
+
+Aniruddh Deshpande: no
+Karthik Subramanian: nothing
+aniruddh: no, status is sitting on the header and it is overwritten, whatever is the current status that is what you see
+karthik: so if an order goes from open to partially billed to billed
+Speaker 2: you only see billed
+[00:32:03]
+Karthik Subramanian: and last upd dt
+Farida Contractor: last upd dt will be the time of the last change, which change, that it will not tell you
+Speaker 1: right
+
+Ishaan Bhatt: that kills fill rate history
+Farida Contractor: fill rate they are calculating from invoice against order, not from status [inaudible]
+Speaker 1: okay that is actually cleaner
+Aniruddh Deshpande: cleaner but it is only telling you the end state
+Speaker 3: yeah
+Karthik Subramanian: fine
+Karthik Subramanian: sorry, one second, there is somebody at the door
+
+Speaker 1: no problem
+[00:33:07]
+Ishaan Bhatt: sorry, uh i will be back in thirty seconds
+Karthik Subramanian: take your time, so while ishaan is away, frida, on the order tables, are you extracting both
+
+farida: both, order header and order line, same pattern as the others
+Karthik Subramanian: full or incremental
+
+Farida Contractor: incremental, on last upd dt
+Karthik Subramanian: on last upd dt
+Speaker 4: yes, greater than equal to trunc sysdate minus one
+karthik: so a full day window
+
+Farida Contractor: a full day window, yes, it is like that on every interface
+[00:34:23]
+Speaker 1: is there any change capture anywhere
+Farida Contractor: no, there is no cdc anywhere in this landscape, everything is a timestamp comparison
+
+Speaker 1: on last upd dt
+Speaker 4: on last upd dt, every single one
+Speaker 1: okay, that is good to know clearly
+Aniruddh Deshpande: that has been like that since the beginning, sai adri never gave us anything else
+Speaker 3: sorry i am back, it was the, uh, courier
+Ishaan Bhatt: no problem [inaudible]
+Speaker 3: what did i miss
+Karthik Subramanian: frida was saying there is no cdc, it is all last upd dt
+
+Speaker 3: haan okay, that i knew
+[00:35:33]
+Karthik Subramanian: okay invoices, this is the one i really care about
+Speaker 2: haan i know
+Speaker 1: invoice header and invoice line
+Aniruddh Deshpande: invoice header, invoice line, both oms prod
+Karthik Subramanian: not in finance
+Speaker 2: not in finance, invoicing is in oms prod, finance is only gl and receivables, people keep thinking invoice is in fin prod, it is not
+
+Karthik Subramanian: good, that is clear, invoice header columns
+Speaker 2: invoice id, invoice no, invoice dt, doc type, cust id, depot cd, order id, invoice status, total gross amt, total net amt
+Karthik Subramanian: invoice dt is a date
+
+Aniruddh Deshpande: invoice dt is a date column, yes
+Karthik Subramanian: not a timestamp
+
+[00:36:52]
+Farida Contractor: not a timestamp, it is a date
+
+Speaker 1: and there is a created column also
+Speaker 2: created ts, that is a timestamp
+
+Karthik Subramanian: created ts and invoice dt are different things
+Aniruddh Deshpande: they are different things, invoice dt is the business date on the document, created ts is when the row got written
+Karthik Subramanian: which one does reporting use
+Speaker 2: which reporting
+
+Speaker 1: any of it
+Speaker 2: uh, that depends who wrote the query
+[00:37:42]
+Karthik Subramanian: okay [inaudible]
+Aniruddh Deshpande: some are using invoice dt, some are using created ts, i have seen both
+Speaker 1: ishaan, make a note, i want to know exactly which column each extract keys the date off
+Speaker 3: yeah, i am writing it
+Karthik Subramanian: that is important, do not lose it
+Speaker 3: i have it
+Ishaan Bhatt: doc type
+Speaker 2: doc type, three values, i n v, s t n, s m p
+unknown: what are they
+[00:38:36]
+aniruddh: inv is normal invoice, stn is stock transfer note, depot to depot, smp is sample
+
+Ishaan Bhatt: samples are invoiced
+Aniruddh Deshpande: samples are documented, value is mostly zero or nominal
+Karthik Subramanian: and stn
+
+Speaker 2: stn is not a sale, it is moving stock from one depot to another depot
+Speaker 1: but it sits in the same table
+Speaker 2: same table, same sequence, same everything
+Karthik Subramanian: with a customer id
+Aniruddh Deshpande: with a customer id which is the receiving depot mapped as a customer
+
+unknown: [crosstalk]
+[00:39:35]
+Ishaan Bhatt: sorry go ahead
+
+Ishaan Bhatt: no you go
+Ishaan Bhatt: i was going to ask, so a stn has a cust id which is not a real party
+Farida Contractor: it is a real row in customer table, but it is not a distributor
+Speaker 3: cust type will be
+Aniruddh Deshpande: it will not be distributor
+Speaker 3: okay so we can filter on that
+Aniruddh Deshpande: you can, or you can filter on doc type, doc type is easier
+Speaker 1: hmm, what is the split roughly
+Aniruddh Deshpande: most of it is inv, stn is a small portion, sample is even smaller
+[00:40:38]
+Karthik Subramanian: i want the actual numbers at some point
+aniruddh: i will give
+Karthik Subramanian: okay, invoice line
+Aniruddh Deshpande: invoice line id, invoice id, line no, sku id, qty cs qty ea unit price, gross amt, scheme disc amt, cash disc amt, tax amt, net amt, and scheme id
+Karthik Subramanian: so what is the grain of that table
+
+Aniruddh Deshpande: meaning one row is what
+Speaker 1: yes, one row is what
+
+Speaker 2: one row is one sku on one invoice
+
+Karthik Subramanian: can the same sku come twice on one invoice
+[00:41:41]
+unknown: it can, if the price is different, or if one part is on scheme and one part is not
+Karthik Subramanian: so the grain is one row per line, not per sku
+Speaker 2: correct correct
+Karthik Subramanian: okay, that matters to us a lot, scheme disc amt
+Speaker 2: scheme discount amount, per line
+Karthik Subramanian: we will come to that
+
+Speaker 2: we will have to come to that
+Karthik Subramanian: how big is invoice line
+Aniruddh Deshpande: uh, see, when we started this table was nothing, 2009 to 2012 it was maybe a few lacs of rows in a year, then the depot expansion happened and it went up, and then, uh, the archiving discussion started, every year somebody says we will archive and nobody archives
+
+Speaker 1: ha, yes
+Speaker 2: no really, every year
+[00:43:07]
+Farida Contractor: karthik sorry, i have a question on staging while annie is talking
+Karthik Subramanian: go ahead frida
+
+Farida Contractor: my staging table for invoice line, is it, uh, ishaan you had asked me the row count last week
+Speaker 3: yeah
+
+Speaker 4: i sent you the number for the landing table not the source
+Speaker 3: haa i know, i used the source one from the count you gave earlier
+Farida Contractor: no that one was also landing
+ishaan: oh
+Speaker 4: i will resend
+Speaker 3: ok send both, with the date [inaudible]
+
+farida: i will send both
+Karthik Subramanian: sorry annie, carry on
+
+[00:44:10]
+Aniruddh Deshpande: what was the question
+Ishaan Bhatt: how big is invoice line
+Aniruddh Deshpande: six core odd
+karthik: six crore
+
+Speaker 2: six core sixty one sixty two million, that range
+Speaker 1: ok
+Aniruddh Deshpande: and that is only from 2016 april
+
+Karthik Subramanian: only from 2016
+Speaker 2: before that it is in invoice line archive
+Speaker 1: there is an archive table
+Aniruddh Deshpande: there is it is sitting there nobody has touched it, 2016 they cut it off and moved everything old into it
+[00:45:08]
+Karthik Subramanian: is it extracted
+Speaker 2: no, nobody has looked at that table since 2016
+Speaker 1: is it the same shape
+
+Aniruddh Deshpande: almost the same, one column is not there on the archive
+Speaker 1: which one [inaudible]
+Speaker 2: delete flack
+
+Karthik Subramanian: the archive does not have delete flag
+Aniruddh Deshpande: it does not have that column, it was never put there, it is not there, that is all
+Speaker 1: okay
+
+Speaker 3: karthik, do we need the archive at all
+[00:46:08]
+karthik: for the history reload, maybe, but not for the current scope
+Speaker 3: okay
+Speaker 2: if you need it tell me two weeks in advance
+
+Karthik Subramanian: noted, coming back to stn for a second, the depot to depot movement
+Speaker 2: haan
+Karthik Subramanian: is depot cd on the header the sending depot or the receiving one
+aniruddh: sending
+Karthik Subramanian: always
+
+Aniruddh Deshpande: it should always be sending, but, uh, i will tell you one thing, when we did the nashik cutover this was the whole fight
+[00:47:14]
+Karthik Subramanian: the nashik cutover
+unknown: haan, when nashik plant came onto the system properly, before that they were sending us a file
+Karthik Subramanian: a file
+Aniruddh Deshpande: a file, and somebody in the depot was keying it in, can you see my screen
+Speaker 1: not yet
+Aniruddh Deshpande: one second, now
+
+Karthik Subramanian: yes now i can see
+Aniruddh Deshpande: this is depot master, see, depot cd, depot name, city, state, region, twenty two rows only
+Karthik Subramanian: twenty two depots
+[00:48:27]
+Aniruddh Deshpande: twenty two, six north, six west, five south, five east
+Speaker 1: ok
+
+Speaker 2: now when nashik came on, the plant was despatching, but the depot code they were putting was the old bhiwandi one, for almost, uh, i want to say two months, maybe more
+Karthik Subramanian: and nobody noticed
+Speaker 2: sales noticed, because their west number went up, and the north numbr went down
+Karthik Subramanian: yeah
+Speaker 2: no it is not funny, i was getting calls at eleven at night
+Speaker 1: sorry, no, i meant it is very familiar
+
+Aniruddh Deshpande: everything in this system somebody noticed because the number moved, nobody noticed because a validation failed
+[00:49:36]
+Speaker 1: that is a good line annie
+Speaker 5: sorry can i just get the spelling nashik
+
+Priya Nair: n a s h i k
+Sneha Pillai: thank you priya
+Aniruddh Deshpande: and buddy is the other plant
+Sneha Pillai: sorry
+Aniruddh Deshpande: buddy, himachal, b a d d i
+Sneha Pillai: oh, baddi
+Speaker 2: haan, that one came later, that one was easier, 2011 that unit was commissioned
+unknown: and nashik makes
+Aniruddh Deshpande: nashik is home care and foods, suvarn, nimbua, tarang, two lines, buddy is personal care and hygiene
+
+[00:50:47]
+Speaker 1: kesari gold, chandanaa, rakshak
+Speaker 2: correct correct
+Speaker 6: sir sorry, uh, karthik, there is a despatch report which splits by plant
+Speaker 1: is that in obiee
+Priya Nair: in obi e yes, but the plant is not coming from the database, it is derived from the brand
+Karthik Subramanian: derived from the brand
+Priya Nair: yes, because brand tells you the plant
+
+Speaker 1: that is, uh, that is a modelling assumption sitting inside a report
+Priya Nair: [inaudible]
+Speaker 1: sorry priya you cut out
+[00:51:45]
+Speaker 6: i said it has been like that since before i joined
+
+Speaker 1: okay [inaudible]
+
+Speaker 2: it is correct though, one brand is made in one plant, that is how it is
+Speaker 1: today yes
+Aniruddh Deshpande: today yes
+Speaker 1: if that ever changes the report is silently wrong
+Farida Contractor: then somebody will notice because the number moved
+Speaker 1: exactly, exactly
+sneha: i am capturing the plant derivation point
+unknown: yes capture it, it is not urgent but capture it
+[00:52:41]
+Aniruddh Deshpande: and one more thing on nashik, the two lines have different, uh, different despatch timings, so on month end the second line is invoicing very late
+
+Speaker 1: how late
+Speaker 2: late, i do not want to guess, you ask the plant it people, they will tell you exactly
+unknown: sneha action someone to check the nashik despatch cut off with the plant it contact
+
+Sneha Pillai: capturing that, uh, who is the owner
+Speaker 1: ishaan for now
+unknown: fine
+Speaker 1: okay let us come back, schemes
+Speaker 2: schemes, okay
+[00:53:49]
+Karthik Subramanian: what is the master called
+Aniruddh Deshpande: scheme master, oms prod
+
+Ishaan Bhatt: columns
+Aniruddh Deshpande: scheme id, scheme code, scheme name, scheme type, disc pct, slab qty from, slab qty to, valid from dt, valid to dt, active flag
+Speaker 1: scheme type values
+
+Speaker 2: q p s, monthly, slab, t p r
+Speaker 1: what is qps
+
+Speaker 2: quarterly purchase scheme, distributor buys so many cases in the quarter, he gets a slab rate
+Karthik Subramanian: and tpr
+Farida Contractor: temporary price reduction, it is a per unit thing, so many rupees off per unit
+
+[00:54:53]
+Karthik Subramanian: and slab type
+Speaker 2: slab is like the festive one, two percent, three point five, five, depending how much he lifts
+Speaker 1: and monthly
+
+Aniruddh Deshpande: monthly is flat percent for the month
+Speaker 1: how many schemes are there
+Speaker 2: uh, at any time it is a [inaudible] small number, it is not like some companies where there are hundreds
+Karthik Subramanian: give me an order of magnitude
+Speaker 2: it is single digits, i will confirm
+Karthik Subramanian: okay
+[00:55:51]
+Ishaan Bhatt: ani how does the scheme get attached to a line
+Aniruddh Deshpande: scheme id is on invoice line
+Karthik Subramanian: on the line, not the header
+
+Speaker 2: on the line, because different skus on the same invoice can be on different schemes [inaudible]
+Speaker 3: right
+Speaker 2: and one line can be, uh, only one scheme
+
+Speaker 3: only one
+Speaker 2: only one scheme id, that is the design [inaudible]
+ishaan: what if two schemes apply
+[00:56:37]
+Aniruddh Deshpande: then whichever the calculation picks, that is what goes
+Ishaan Bhatt: which calculation
+Aniruddh Deshpande: that is the thing, there was a calculation logic, 2014 we changed it
+
+Speaker 1: what changed in 2014
+
+aniruddh: the slab handling changed, before that it was calculating on the invoice, after that it became on the period, i had made one sheet at that time, scheme calc logic 2014, it was an xls
+Sneha Pillai: sorry, scheme calc logic
+Aniruddh Deshpande: scheme underscore calc underscore logic underscore 2014
+
+Speaker 5: and it is xls
+
+Aniruddh Deshpande: it is xls, old format
+Speaker 1: do you still have it
+Speaker 2: it is somewhere i will look
+
+Ishaan Bhatt: please look, that would be useful
+
+[00:57:55]
+Aniruddh Deshpande: i will look but that sheet is also, uh, half correct, after 2014 also some things changed
+Karthik Subramanian: still, send whatever you have
+Speaker 2: haan
+Speaker 5: capturing, ani to look for the 2014 scheme sheet
+Karthik Subramanian: and scheme disc amt on the line
+
+Speaker 2: scheme disc amt is the amount of scheme discount on that line
+Ishaan Bhatt: is it always populated
+Speaker 2: no, if there is no scheme it is zero or null
+Speaker 1: zero or null
+Aniruddh Deshpande: both are there [inaudible]
+Karthik Subramanian: hmm, okay
+[00:58:53]
+Speaker 3: is there anything on the finance side for schemes [inaudible]
+unknown: there is scheme accrual, fin prod, scheme accrual, cust id, scheme id, period, accrual amount, posted flag
+Karthik Subramanian: one row per customer per scheme per period [inaudible]
+Aniruddh Deshpande: yes
+Speaker 1: hmm
+Speaker 7: hello, karthik i think i am going
+Speaker 1: annie you are breaking
+Farida Contractor: hello
+Speaker 1: he has dropped
+priya: he will come back, his line does this
+ishaan: should we wait
+
+Karthik Subramanian: let us wait a minute
+[01:00:31]
+Speaker 4: karthik while we wait, can i ask about the staging for scheme master
+Ishaan Bhatt: yes
+
+Farida Contractor: it is a full load also, five rows or whatever it is, it takes no time
+Speaker 1: fine
+
+Speaker 4: i only wanted to say it because it is on the list
+Ishaan Bhatt: noted
+Ishaan Bhatt: karthik, the scheme id on the line, if the scheme validity is closed later, does the line still point at it
+Speaker 1: ask annie when he comes back
+Ishaan Bhatt: yeah
+
+[01:01:28]
+Speaker 6: sorry, in the reports the scheme name is coming from scheme master, if somebody renames a scheme the old reports change also
+Karthik Subramanian: yes, that is the classic problem
+
+Sneha Pillai: so the number for last year changes
+Ishaan Bhatt: the name changes, the numbr should not
+Speaker 6: no i mean the grouping changes
+Karthik Subramanian: ah, yes, if they reuse the code then yes
+Speaker 6: they do reuse
+unknown: they do
+Priya Nair: they do
+Speaker 1: okay that is worth writing down
+Speaker 5: i have it
+
+[01:02:23]
+Speaker 2: hello, sorry, my wifi went
+Speaker 1: no problem annie, we could hear you till scheme accrual
+Speaker 2: haa, what happened was, uh, actually actually let me answer the earlier one, you asked how many schemes, five
+Speaker 1: five schemes
+Aniruddh Deshpande: five, that is the active list
+
+Ishaan Bhatt: okay
+Aniruddh Deshpande: and ishaan you asked something also
+Speaker 3: yeah, if the scheme validity gets closed later, the invoice line still has the old scheme id
+
+Speaker 2: it still has yes, valid to date is changed on the master, the line is not changed
+Speaker 3: so a lookup on validity will fail
+
+[01:03:43]
+Aniruddh Deshpande: it will fail, and then, uh, whatever your code does when the lookup fails
+Speaker 3: hmm
+Speaker 1: that is a good one, note it
+Ishaan Bhatt: noted [inaudible]
+
+Speaker 1: right, the audit columns, this is the thing i wanted most
+Speaker 2: haan this one i can tell you properly, every table in oms prod and fin prod is having the same six columns, at the end of the column list
+karthik: six
+Speaker 2: six, created by, created dt, last upd by, last upd dt, active flag, delete flack
+Speaker 5: sorry, slowly, created by
+Speaker 2: created by, created underscore b y
+
+[01:05:03]
+Sneha Pillai: created dt
+Aniruddh Deshpande: created underscore d t
+Sneha Pillai: last upd by
+aniruddh: last underscore u p d underscore b y
+Speaker 5: last upd dt
+Speaker 2: same, d t
+Sneha Pillai: active flag and delete flag
+
+Speaker 2: active underscore f l g, delete underscore f l a g
+Sneha Pillai: sorry, one is flg and one is flag
+
+[01:05:54]
+Speaker 2: haan
+Speaker 1: seriously
+Speaker 2: seriously, active flag is f l g, delete flack is f l a g
+Karthik Subramanian: sorry why
+Speaker 2: why what
+
+karthik: no, nothing, carry on
+Speaker 2: whoever wrote the second one wrote it fully, that is the whole reason
+ishaan: i have been bitten by that already [inaudible]
+Speaker 3: everybody is bitten by that
+[01:06:45]
+Karthik Subramanian: okay so six columns, consistent across both schemas
+Aniruddh Deshpande: consistent, yes, except one thing
+Speaker 1: here we go
+
+Farida Contractor: on the transaction tables the created column is not created dt
+Karthik Subramanian: it is created ts
+
+Speaker 2: correct correct, created underscore t s, and it is a timestamp
+Speaker 1: which tables
+Farida Contractor: invoice header, invoice line, the archive one also, order header, and on finance side scheme accrual
+Speaker 1: order line
+Aniruddh Deshpande: order line is created dt
+[01:07:58]
+Karthik Subramanian: order header is ts and order line is dt
+Speaker 2: yes
+
+Speaker 1: that is
+
+Aniruddh Deshpande: that is how it is
+
+Speaker 1: fine
+Speaker 5: sorry i want to get this right, invoice header and invoice line have created ts
+Aniruddh Deshpande: haan
+Speaker 5: and order header
+Aniruddh Deshpande: order header also ts [inaudible]
+sneha: and order line is created dt
+[01:08:49]
+Farida Contractor: correct
+Speaker 5: thank you
+
+karthik: annie who writes created by
+Speaker 2: the application, or the batch account
+
+Karthik Subramanian: which batch accounts [inaudible]
+
+unknown: for the loads it is odi load, for the application batch it is batch oms, finance side is svc finbatch, dms interface writes dms iface, sfa side is sfa iface
+Speaker 1: those are the values you see in created by
+Speaker 2: those are the values, and on the very old rows you will see apps
+Speaker 1: apps
+
+Speaker 2: a p p s, that is the migrated data
+Karthik Subramanian: migrated from where
+[01:10:07]
+Farida Contractor: from before, see this is a long story
+
+Speaker 1: no no go on
+Aniruddh Deshpande: no i will keep it short, when we moved the platform, uh, this was 2019 side, 2018 end, 2019, i do not remember exactly the month
+Priya Nair: sorry which year should i write
+Speaker 2: do not write a year, write around 2019
+Speaker 5: ok, around 2019
+Aniruddh Deshpande: at that time we moved to the current version, and the character set was also changed, that was the actual problem, not the version
+Ishaan Bhatt: character set
+Farida Contractor: haan, because the old one was not handling some characters, party names in some regions were coming with junk
+[01:11:23]
+Karthik Subramanian: and you fixed that in the migration
+
+Aniruddh Deshpande: we fixed most of it, some rows are still, uh, i will not say fixed
+Speaker 1: what does that mean
+Aniruddh Deshpande: it means if you look at some old party names you will see a question mark [inaudible]
+Karthik Subramanian: how old
+aniruddh: old, before that migration
+karthik: okay
+Farida Contractor: and those rows the created by is apps, so you can find them if you want [inaudible]
+Speaker 3: that is actually useful for us
+[01:12:16]
+Speaker 2: it is useful, that is why i am telling, nobody asked me this in 2017 also
+
+Karthik Subramanian: [laughs], annie, while we are on this, who has update access on oms prod
+Speaker 2: application has, obviously, dba has, and fin prod is having a direct update grant on oms prod invoice line
+Ishaan Bhatt: fin prod has update on invoice line
+Speaker 2: haan [inaudible]
+karthik: since when
+aniruddh: 2014
+Speaker 1: and it has never been reviewed
+Farida Contractor: nobody has reviewed it, it is sitting there since then
+[01:13:24]
+Speaker 1: that is, uh, that is unusual
+Speaker 2: it is there in the grants, you can see it
+Ishaan Bhatt: sneha capture that as a line
+Speaker 5: capturing, uh, can you say it once more
+Farida Contractor: fin underscore prod is having update grant on oms underscore prod dot invoice underscore line
+Speaker 5: thank you
+Speaker 1: okay, moving on, delete flag
+Farida Contractor: now this one you listen carefully
+
+Karthik Subramanian: i am listening
+Speaker 2: delete flack is y or n, y means the row is logically deleted, n means it is live
+Karthik Subramanian: and that is it
+[01:14:29]
+Aniruddh Deshpande: no [inaudible]
+karthik: no
+Aniruddh Deshpande: some rows it is neither
+Speaker 1: neither
+Speaker 2: it is blank [inaudible]
+
+Speaker 1: null
+aniruddh: null, blank, whatever you want to call it
+Karthik Subramanian: which rows
+Farida Contractor: uh, the old ones
+
+Speaker 1: how old
+[01:15:13]
+Aniruddh Deshpande: old, i do not want to give you a date on the call
+Speaker 1: fine
+Aniruddh Deshpande: it is not all of them, but it is a good number of rows
+Speaker 3: so it is a three valued column
+
+aniruddh: three valued, yes
+
+Karthik Subramanian: so if somebody writes delete flag equals n
+aniruddh: then all those rows are gone from his report
+Karthik Subramanian: silently
+Farida Contractor: silently, and it will look correct, that is the problem, no error, no warning, the query runs fine
+Speaker 1: what is the correct predicate
+[01:16:14]
+Speaker 2: you put n v l delete flag comma n, equal to n
+Karthik Subramanian: nvl of delete flag comma n
+aniruddh: haan, nvl
+
+Karthik Subramanian: ishaan write that down exactly
+
+Ishaan Bhatt: i have it, n v l open bracket delete flack comma quote n quote close bracket equal to quote n quote
+Aniruddh Deshpande: correct correct
+
+Karthik Subramanian: annie is this documented anywhere
+Speaker 2: no
+
+Speaker 1: nowhere
+[01:17:01]
+Aniruddh Deshpande: where will it be documented
+Karthik Subramanian: fair
+unknown: i have told people, i have told in mails also, last year also i told somebody
+Speaker 1: who
+
+Speaker 2: i do not remember, somebody in the reporting side
+
+Sneha Pillai: it was not me
+
+Aniruddh Deshpande: no no not you
+Ishaan Bhatt: okay, this goes into the schema notes
+Aniruddh Deshpande: i will write it
+[01:17:47]
+Speaker 1: you will write it
+Speaker 2: i will write the notes for the tables, i said i will do it
+Speaker 5: capturing that as an action ani to circulate the schema notes
+
+Speaker 2: give me till monday
+Sneha Pillai: monday is the ninth
+aniruddh: ninth is fine [inaudible]
+Karthik Subramanian: annie one more on this, is there anything that runs on its own and changes rows
+Speaker 2: meaning what
+Karthik Subramanian: batch jobs, procs, anything scheduled
+[01:18:34]
+Aniruddh Deshpande: there are some procs
+Karthik Subramanian: what do they do
+Speaker 2: they clean things up
+
+Karthik Subramanian: clean up what
+
+Speaker 2: uh, housekeeping type, marking, tidying, that kind of thing
+Speaker 1: whose are they
+Speaker 2: that is not my folder, ops team is having their own folder
+Farida Contractor: karthik that is not in my one, mine is b c p l e d w daily, the orion housekeeping is a different folder in control em
+Speaker 1: different team
+Speaker 4: different team, different folder, i do not even have view on it, i think
+[01:19:46]
+Aniruddh Deshpande: you will not have
+Speaker 1: and they run
+Aniruddh Deshpande: in the night
+Karthik Subramanian: at what time
+Speaker 2: uh, see i do not want to give you a wrong time, it changes, and honestly i have not looked at that in a long time
+
+unknown: fair enough
+Speaker 2: those are not, uh, those are not application jobs as such
+Karthik Subramanian: okay
+Aniruddh Deshpande: ask the ops people, they will tell you exactly
+
+Karthik Subramanian: sneha park that, we will pick it up separately
+Speaker 5: parking it
+[01:20:48]
+Speaker 1: frida, since we are here, give me the shape of your run
+
+Farida Contractor: my load plan starts at one o clock
+
+Speaker 1: one a m
+Farida Contractor: one a m, ist, every day, sunday also
+Karthik Subramanian: and it takes
+Farida Contractor: on a normal night, uh, under an hour, fifty eight minutes is my average
+Karthik Subramanian: and the sla
+
+Speaker 4: half past five in the morning, business needs it by five thirty
+Karthik Subramanian: so you have a lot of head room
+
+[01:21:53]
+Speaker 4: on a normal night yes, on month end it is different
+
+Speaker 1: how different
+
+unknown: much longer, we can go through it separately
+Ishaan Bhatt: we will
+Speaker 4: because the volume is completely different on those nights
+Speaker 1: understood
+Ishaan Bhatt: farida how are you reading orion
+
+Farida Contractor: over the link, there is one database link, orion prd, it is in stg orion pointing at the read only account
+Speaker 1: which read only account
+[01:22:48]
+Speaker 2: oms ro, o m s underscore r o
+
+Karthik Subramanian: and odie has its own
+Speaker 2: odi stg rd, that one is on the warehouse side
+Priya Nair: yes odie is connecting with that one
+
+Ishaan Bhatt: the be link is the only route in
+Priya Nair: only one link, yes, there used to be a second one, that was removed
+
+Karthik Subramanian: when
+
+farida: uh, before my time on this, it was the consolidation
+Speaker 1: fine
+Speaker 3: karthik we will need to do scd too on some of these dims
+
+[01:23:48]
+Speaker 1: not today
+Speaker 3: no i am just flagging
+Speaker 1: i know, and it is a fair flag, but i am not saying sed 2 or not scd2 in a source discovery, we will take it to the architecture session
+Ishaan Bhatt: fine
+
+Karthik Subramanian: if we start designing the warehouse now we will get neither
+Ishaan Bhatt: yeah okay
+priya: karthik sorry, on the reporting side, do you want the list of reports
+karthik: yeah please
+Priya Nair: there are forty one in the catalogue, but honestly only about twelve are used
+[01:24:49]
+karthik: twelve out of forty one
+Priya Nair: about twelve, i can give you the exact list
+karthik: yes send the list, that is a i, uh, sneha
+
+Priya Nair: that will be a i one two
+Priya Nair: i will revert by wednesday
+
+Speaker 5: eleventh march
+Speaker 6: yeah
+Karthik Subramanian: priya when was the rpd last changed
+Priya Nair: two thousand nineteen i think
+Karthik Subramanian: 2019 [inaudible]
+[01:25:33]
+Speaker 6: yes nothing has changed in the model since then
+Speaker 1: only the reports on top
+
+Speaker 6: only the analyses, yes
+Speaker 1: okay
+Speaker 4: karthik sorry, i have to drop, i have the vendor call at half past
+Speaker 1: no problem frida, thanks
+Speaker 4: i will send the interface list today itself
+Karthik Subramanian: thank you
+Farida Contractor: bye everyone
+Speaker 2: bye
+[01:26:19]
+Speaker 6: bye farida
+
+Karthik Subramanian: ok, we have about eight minutes, sneha can you read back the actions
+sneha: yes, a i zero eight, ani to look for the 2009 functional spec, thirteenth march, a i zero nine, ani to circulate the schema notes for oms prod and fin prod, ninth march, a i one zero, ishaan to profile the delete flag values on invoice header and invoice line, due date for that one
+Karthik Subramanian: twelfth
+
+Priya Nair: twelfth march, a i one one, farida to confirm the extract predicate column for each staging table, tenth march, a i one two, priya to send the list of reports in use, eleventh march, a i one three, karthik to circulate the open question list
+Speaker 1: put thirteenth
+Speaker 5: thirteenth march, and i have the parked items separately
+
+karthik: good
+Aniruddh Deshpande: sneha one thing, on a i zero eight do not chase me on the thirteenth
+[01:27:59]
+Speaker 5: i will chase you on the twelfth
+
+Speaker 2: okay okay
+Karthik Subramanian: annie, honestly, this was very useful
+Aniruddh Deshpande: it is fine, i have told all this before, nobody wrote it down
+Speaker 1: we are writing it down
+
+unknown: that is the difference then
+Karthik Subramanian: [laughs]
+Speaker 3: karthik do you want me to start on the counts tonight
+Karthik Subramanian: yes, delete flag first
+[01:28:44]
+Karthik Subramanian: delete flack first, then the territory overlaps
+Ishaan Bhatt: yes, and send me the raw numbers, not a summary
+Speaker 3: okay
+Speaker 5: karthik are we in the office next week
+Karthik Subramanian: tuesday and wednesday i think
+Sneha Pillai: andaree
+Karthik Subramanian: yes, andheri
+Sneha Pillai: okay i will put it in the notes
+
+Speaker 1: right thank you everybody
+
+Speaker 6: thank you
+[01:29:33]
+Speaker 2: thanks
+Karthik Subramanian: sneha can you stop the recording
+sneha: stopping it now
+
+end of transcript
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

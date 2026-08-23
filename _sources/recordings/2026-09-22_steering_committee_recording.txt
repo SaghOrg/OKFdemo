@@ -1,0 +1,20 @@
+RECORDING STUB -- link only, not the recording itself
+Project Drishti / Bharadwaj engagement
+
+Meeting: Steering committee
+Date: Tue 22-Sep-2026
+Time: 15:00-15:45 IST
+Duration: 00:45:00
+Organiser: Sneha Pillai (chair: Rajeev Menon)
+Attendees: Rajeev Menon (chair), Shalini, Marijke van der Berg (11:30-12:15 CEST), Vikram, Ananya, Karthik, Sneha Pillai
+
+Recording URL (SharePoint / Stream, tenant bharadwajcp):
+https://bharadwajcp.sharepoint.example/sites/BCPL-NorthlaneAnalytics/Shared%20Documents/Recordings/2026-09-22_steering_committee.mp4
+
+Approx file size: 371 MB
+Transcript cross-ref: 2026-09-22_steering_committee.vtt (auto-generated)
+Retention: 90-day auto purge, ~21-Dec-2026
+
+DO NOT COMMIT MEDIA - link only. Recording lives in SharePoint, not in this repository.
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

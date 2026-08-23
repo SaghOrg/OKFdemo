@@ -1,0 +1,150 @@
+Received: from mail-out-01.northlaneanalytics.example (198.51.100.35) by
+ mx-in-02.bharadwajcp.example with Microsoft SMTP Server id 15.20.7344.007;
+ Mon, 28 Sep 2026 17:36:11 +0530
+Return-Path: <sneha.pillai@northlaneanalytics.example>
+Message-ID: <CAJ7q2m8Gk0wCrPw76qNteuCVG5B@mail.northlaneanalytics.example>
+Date: Mon, 28 Sep 2026 17:35:44 +0530
+From: Sneha Pillai <sneha.pillai@northlaneanalytics.example>
+To: Shalini Iyer <shalini.iyer@bharadwajcp.example>,
+ Priya Nair <priya.nair@bharadwajcp.example>,
+ Vikram Sethi <vikram.sethi@bharadwajcp.example>,
+ Meghna Rao <meghna.rao@bharadwajcp.example>
+Cc: drishti-core@northlaneanalytics.example,
+ bcpl-datawarehouse@bharadwajcp.example,
+ bcpl-financesystems@bharadwajcp.example
+Subject: RE: RE: UAT - dates, scripts, and who signs what (pls read the last bit)
+Thread-Topic: UAT - dates, scripts, and who signs what
+In-Reply-To: <BM1PR01MB5530By4mn96qvlSh@mail.bharadwajcp.example>
+References: <BM1PR01MB5530W2IsivGfH6dB@mail.bharadwajcp.example>
+ <BM1PR01MB5530By4mn96qvlSh@mail.bharadwajcp.example>
+X-Mailer: Microsoft Outlook 16.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+
+Hi everyone,
+
+Apologies for the delay on this. I did not want to put dates in writing until
+the enviroment position was confirmed, and it was confirmed on Friday evening,
+so here we are.
+
+UAT runs Monday 12 October 2026 to Friday 06 November 2026. Sign off is due on
+06-Nov. I will chase all of you for it and I am sorry about that in advance.
+
+Scripts. There are 14, UAT-01 to UAT-14. Nine testers between the four teams.
+Each script has one named signer, and one person can sign more than one script,
+which is why the list below looks lopsided.
+
+  UAT-01 / UAT-02 / UAT-03  D01 Primary Sales Performance     signer: Vikram
+  UAT-04 / UAT-05           D03 Distributor Scorecard          signer: Vikram
+  UAT-06 / UAT-07 / UAT-08  D07 Revenue Reconciliation         signer: Shalini
+  UAT-09 / UAT-10           D09 Product Mix and Contribution   signer: Priya
+  UAT-11 to UAT-14          cross checks and the RLS walk       signer: TBC
+
+UAT-11 to UAT-14 are the ones nobody has claimed. Shalini, can I put Meghna's
+name against UAT-13 and UAT-14 for the row count checks, or is she already
+committed elsewhere that fortnight? Meghna, shout if that is unreasonable.
+
+Now the messy part, and it is genuinely messy.
+
+1. Kickoff walkthrough is 10:00 IST on Monday 12/10/2026, one hour, online.
+   Vikram is flying in that morning and lands after lunch, so he cannot make
+   it. Vikram, I will record
+   it and send you the link, please do not ask me to repeat it live, I know you
+   will.
+
+2. The Nashik plant audit sits right on top of week 2 (19-Oct to 23-Oct).
+   Vikram is at the plant for four of those five days. That takes UAT-04 and
+   UAT-05 out of week 2 completely. Two options, either we prepone them into
+   week 1 (tight, the data will still be settling) or we push them to week 3.
+   My preference is week 3. Vikram, your call, but please make it this week.
+
+3. Priya has the month end OBIEE agents in the first week so she is part time
+   until the 16th. Priya, if that changes tell me and I will redraw.
+
+4. Somebody asked me on Friday whether testers can test at 09:00. You can, but
+   the dataset refresh is 06:00 and 14:00 IST, so at 09:00 you are looking at
+   the 06:00 picture and not at anything that changed during the day. Please do
+   not raise that as a defect, it is by design.
+
+5. Access is by REGION_CODE and there are four roles. If you log in and you can
+   only see your own region, that is correct behaviour and again not a defect.
+   If you can see everything and you should not, that IS a defect and please
+   tell me quietly rather than in the group.
+
+Defects. Please do not mail them to me one by one, I lost two on Friday already.
+Everything goes into UAT_defect_log.xlsx which Priya is keeping. One row per
+defect, script ID in the first column, and if the script ID is blank I am going
+to send it back. Neha has asked that anything raised as a data defect names the
+rule it fails, otherwise it goes to the reconciliation pile instead, which is a
+different conversation and a slower one.
+
+Capturing that as an action for myself: I will re-issue this grid once Vikram
+answers on point 2 and once UAT-11 to UAT-14 have names.
+
+Things I still need, by Wednesday please:
+- Vikram: week 1 or week 3 for UAT-04 and UAT-05
+- Shalini: confirmation on Meghna for UAT-13 / UAT-14
+- Priya: the final tester list with logins, including the north people
+- Everyone: diaries.
+
+Thanks all, and sorry again for the delay. It is a four week window and it does
+not have much slack in it, so the sooner the grid is frozen
+
+Best,
+Sneha
+
+Sneha Pillai
+Business Analyst, Project Drishti
+Northlane Analytics
+
+This e-mail is intended only for the named recipients and may contain client
+confidential information. If it has reached you in error please delete it and
+let the sender know.
+Please consider the environment before printing this e-mail.
+
+________________________________
+From: Shalini Iyer <shalini.iyer@bharadwajcp.example>
+Sent: 25 September 2026 08:11
+To: Sneha Pillai <sneha.pillai@northlaneanalytics.example>
+Cc: drishti-core@northlaneanalytics.example; Priya Nair
+<priya.nair@bharadwajcp.example>; Vikram Sethi <vikram.sethi@bharadwajcp.example>
+Subject: RE: UAT - dates, scripts, and who signs what
+
+> Sneha,
+>
+> Gentle reminder. This is the third time I am asking for the window.
+>
+> 1. I cannot block my team's calendars against a date that is not confirmed.
+> 2. Two of the four people I want on this are already committed to the Group
+>    reporting pack that fortnight and I need to reserve them now, not later.
+> 3. Whatever the window is, I am signing off the revenue reconciliation script
+>    myself and nobody else in my team is signing that one.
+>
+> Please send the dates today if you have them, and if you do not have them
+> please say so and I will plan around the uncertainty instead of waiting.
+>
+> Regards,
+> Shalini
+>
+> Shalini Iyer
+> Head of Finance Systems
+> Bharadwaj Consumer Products Ltd
+>
+> ________________________________
+> From: Vikram Sethi <vikram.sethi@bharadwajcp.example>
+> Sent: 24 September 2026 21:38
+> To: Sneha Pillai <sneha.pillai@northlaneanalytics.example>
+> Subject: RE: UAT - dates, scripts, and who signs what
+>
+> > sneha whatever dates you fix pls avoid third week of oct, i am at the
+> > nashik plant audit and i will not be able to sit on a call from there,
+> > network is bad also. rest is fine from my side.
+> >
+> > also my stockist scorecard testing i want to do myself, not the coordinator.
+> >
+> > vikram
+> >
+> > Get Outlook for iOS
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

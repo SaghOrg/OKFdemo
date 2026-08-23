@@ -1,0 +1,544 @@
+BCPL_Drishti_DesignSignoff_06052026_audio1.m4a
+Automatic speech recognition export (raw). Not reviewed.
+Engine: en-IN general v4. Diarisation: 9 speakers detected (expected 8).
+Mean confidence 0.71. Segments with confidence below 0.55 are not marked.
+Bhardwaj Consumer Products Ltd / Northlane Analytics - Project Drishti - design sign off
+06/05/2026 15:30 IST
+
+--- transcript begins ---
+
+hi hi, ok give it a minute, i think shalini is still joining
+Speaker 6: hello
+Ananya Krishnan: hi ishaan
+Speaker 6: hi ananya can you you hear me, i am on the laptop mic today
+Speaker 1: yeah you are fine little bit soft but fine
+Speaker 3: hello hello
+hi frida
+Speaker 3: hi
+[00:00:39]
+Speaker 2: hi everyone
+hi karthik
+Speaker 7: hi all i am here i will keep myself muted
+Speaker 1: thanks sneha so we are waiting for shalini and ani rajeev said he will come in around ten to
+Speaker 1: ok
+Speaker 1: uh and let me just one sec, let me start the recording recording is on now everybody ok with that
+yes fine
+Speaker 3: yes
+Speaker 2: yep
+hello sorry sorry i was on another call
+no problem anirood we have just started
+Speaker 5: one minute my headset is not ok now it is fine, can you hear
+[00:01:53]
+Speaker 1: yes we can hear you
+Speaker 5: haan ok
+Speaker 4: [inaudible]
+Speaker 1: shalini, one second, shalini you are on on mute
+Speaker 4: sorry sorry is it better now
+Speaker 1: perfect yes
+the teams thing keeps doing this to me every single time
+you are not alone ok so we are seven, rajeev will come in later, i think we can start so this is the design sign off uh this is the one we have been building up to for about three weeks now agenda is short three things and i would like to actually finish them today rather than carry them one the dimension strategy, that is customer and product two the scheme discount item, var zero zero three, where we are on root cause and what we are doing about it three quick status on the other two that are in build and then actions
+Speaker 4: sorry can i just ask is the dimension strategy the thing karthik sent last um month
+Speaker 2: yes the workbook and then the mail on the twenty third
+[00:03:49]
+Speaker 4: ok i have um read the mail i have not opened the workbook properly i will be honest
+Speaker 2: that is fine i will walk it
+Speaker 1: and karthik there is also the deck from yesterday the root cause one i am assuming everybody has at least seen it
+Speaker 6: i sent it late so maybe not
+Speaker 3: i saw it i have not read all of it
+Speaker 5: i have not seen
+Speaker 1: ok no issue we will cover the relevant part sneha is is taking notes as usual and i will send actions by tomorrow evening
+yes
+Speaker 1: karthik over to you do you want to share
+Speaker 2: yes let me share one second can you see my screen
+Speaker 1: not yet
+Speaker 2: now
+Speaker 6: yes
+Speaker 4: yes we can see
+Speaker 2: ok good so before i get into it, i want to be clear about what i am asking for today i am not asking for a discussion uh we have had the discussion, i am asking for a decision and specifically a business decision not a technical one which is why shalini is here
+Speaker 1: ok
+[00:06:02]
+Speaker 2: so the question in front of us is does dim customer track history or not
+Speaker 4: history tracking yes
+Speaker 2: yes in our language SED 2
+Speaker 4: i know i just never remember which number is which
+Karthik Subramanian: SCD2 is the one that keeps keeps the old row
+Speaker 8: right
+Speaker 3: and this history change is what is going into the customer interfece that is the one i had raised
+Speaker 2: correct
+Speaker 5: sorry frida which interface dim customer only or product also
+[00:06:59]
+Speaker 3: as of my mail it was only customer
+Karthik Subramanian: we will come to product that is the second half
+Speaker 5: ok ok
+Speaker 2: so the grain question first because everything follows from the grain fact invoice line is one row per source invoice line that is what we agreed in the target model and it joins to dim customer on a surrogate key the whole question is which surrogate key
+Speaker 6: the one that was valid on the invoice date
+Speaker 8: that is the answer, yes, but let me say why today dim customer overwrites so if a distributor moves territory we go and change the territory code on the one row that exists
+Speaker 4: and then last year's sales move with it
+Speaker 2: then last year's sales move with it correct
+Speaker 4: that is the bit i cannot live with
+[00:08:40]
+Speaker 4: that is the bit nobody can live with
+Speaker 4: no because sorry let me finish
+Speaker 2: sorry go ahead
+Speaker 4: if i close a quarter and sign a pack and then somebody in sales ops does a territory realignment in april and my april numbers for a closed quarter change then i have signed something that is no longer true that is not a reporting preference that is an audit problem
+Karthik Subramanian: agreed
+Speaker 4: and i will be asked about it
+Speaker 1: and it does happen, it is um not theoretical, it happened last month
+Shalini Iyer: correct correct
+Speaker 3: so mechanically what SCD2 means on this table we add three columns eff start dt, eff end dt, current flg the current row carries current flg equal to y and an end date of thirty first december forty seven twelve
+Ishaan Bhatt: the oracle high date
+[00:10:17]
+Speaker 2: yes
+Speaker 4: sorry what was that date
+Speaker 6: it is just a very far away date four seven one two, it um means open ended
+Speaker 4: ok that is fine fine, i do not need to understand that part
+Speaker 2: and when the attribute changes we close the old row and we open a new one and the fact joins to whichever row was valid on the invoice date so the april invoice keeps pointing at the april version of that distributor
+Shalini Iyer: and my closed quarter stays closed
+Speaker 2: your closed quarter stays closed
+Speaker 4: then yes from a finance point of view, that is what i want
+Speaker 8: shalini can i just before you say yes formally i want frida to have her say properly
+Speaker 4: of course yes
+Speaker 1: because this is the bit we have gone back and forth on
+[00:11:50]
+Speaker 3: thank you ananya so i will not repeat everything everything, i have put it in writing already my mail of sixteenth april has the position and the numbers are in there my concern was and still is the load window the window is the window it does not get bigger because we have added a good idea to it
+Speaker 2: understood
+Speaker 3: and the point i made was that on month end nights we do not have the room that people think we have i am the one who gets the call so
+she is right about that part
+Speaker 3: thank you ani
+Speaker 2: so two things frida and then you tell me if it is enough one i did not argue argue with your estimate i went and measured it that is the workbook from the twenty second, and the covering mail on the twenty third
+Speaker 3: yes i have seen it
+Speaker 2: and the measurement is a smaller number than the estimate um which i think you accepted
+Speaker 3: i accepted the measurement yes i am not going to argue with a measured number that is not my style
+Speaker 2: i know
+Speaker 3: but i want to say for the uh record that it was measured on dev
+[00:14:06]
+Speaker 2: correct on dev, that is stated in the the assumptions sheet
+Speaker 3: and dev is dev
+Speaker 5: dev copy is old also
+Speaker 3: yes
+Speaker 2: so that is my second thing and it is an action rather than an argument once ishaan has both dimensions rebuilt we run the plan again and we look at a real number
+Speaker 3: on which environment
+Speaker 5: dev first and then whatever we can get on uat when it is available
+Speaker 3: hmm ok i can live with that sequence
+Speaker 4: and farida if the real number comes back worse than the model
+Speaker 3: then we are having this conversation again
+Speaker 1: yes and that is fair i will take that
+[00:15:26]
+and i will say the same thing i said in in april
+Speaker 1: understood
+Speaker 2: frida just to be clear i am not asking asking you to say the window is fine i am asking whether you are blocking the design decision
+Farida Contractor: no no i am not blocking it i am saying it is a risk and it stays on the risk list
+Speaker 1: that i am happy to write down
+Speaker 7: capturing that
+Speaker 3: and the re measurement that should be an action with a date on it
+Speaker 1: yes it will be
+Speaker 5: can i ask one thing
+Speaker 1: go ahead ani
+the customer table in ORION is having the territory history also that table is there since long customer territory hist we did this in 2017 also when the north realignment happened
+[00:17:06]
+yes and i have looked at it
+Speaker 5: so why you are not taking from there directly
+Speaker 2: because it does not close cleanly the eff to dt is nullable and there are rows that overlap each other
+Speaker 5: haan that is true, that is because the form was allowing back dating
+Speaker 2: right
+Speaker 5: some sales guy would put the date as last month and nobody was checking
+Karthik Subramanian: so we can um use it as an input, and ishaan is using it as an input but we cannot use it as the truth
+Speaker 6: yeah i am reading it but the dim is built from the current row plus the change we detect it is all inside the one OD I mapping i um am not adding a second one
+Speaker 5: ok but keep the hist table in the extract do not drop it
+Speaker 6: no no we are keeping it
+Speaker 5: because one day somebody will ask
+Speaker 6: correct
+[00:18:55]
+Speaker 2: that is a fair point actually sneha can we note that we retain map stg customer territory hist
+Speaker 7: yes
+Speaker 5: and i am telling you now when you close the old row be careful with the end date because if you put the same timestamp on both sides then the join will pick both
+Speaker 2: yes
+Speaker 5: we had this exact same problem in the old old EDW in 2017 also
+Speaker 6: noted, i will be careful with it
+Speaker 5: ok
+Speaker 4: karthik one question from my side
+Speaker 2: yes
+Speaker 4: does this change any number that i have already signed
+Karthik Subramanian: no going forward it changes how the number behaves when somebody moves a distributor it does not restate anything that has already been reported
+[00:20:27]
+Speaker 4: ok and it does not touch the trade promotion accrual side
+Speaker 2: no that is a separate item we are coming to it
+Speaker 4: ok then i am comfortable
+Ananya Krishnan: so shalini formally as the business sponsor, are you approving approving SCD2 on dim customer
+yes yes i am approving it
+Speaker 1: thank you
+Speaker 3: sorry can i just check approver is shalini iyer yes
+Speaker 1: yes, shalini is the business approver on that one
+Speaker 7: thank you
+Speaker 2: good that is decided, i will write it up as its own decision record ADR zero zero two
+Speaker 4: and i will get a document i can actually sign
+Speaker 2: yes i will have the dimension strategy note out by monday
+Speaker 4: monday is the eleventh
+Speaker 2: eleventh yes
+[00:22:00]
+Speaker ?: sorry i think somebody just joined
+Speaker 8: hello it is rajeev, i am on the phone, i am in the car so sorry for the noise
+Speaker 1: hi rajeev no problem
+Rajeev Menon: have i missed the whole thing
+no you have missed the first item, i can give you thirty seconds on it
+Speaker 8: please
+Speaker 1: so the customer dimension we are going to keep history on it which means when a distributor moves territory the old sales stay where they were
+that is what shalini wanted
+Speaker 4: yes and i have approved it just now
+Speaker 8: good then i do not need the detail let us not boil the ocean on this one if shalini is happy i am happy
+Speaker 2: understood
+[00:23:18]
+Speaker 8: what is the second item
+product dimension and then the scheme discount variance
+Speaker 8: ok carry on i will listen
+Speaker 2: thanks rajeev so product and this one i want to put on the table properly because it is not um on the agenda i circulated so the columns on dim product are sku code description, brand, pack size, mrp, hsn code, active flg and the thing that has pushed me on it is the product mix and contribution work d zero nine
+Speaker 7: the contribution one
+Speaker 2: yes so if you want to look at contribution over time, and you want to look at it by pack then you need to know um what what the pack size was and what the mrp was at the time of the invoice not what it is today
+ah yes because we changed the soap pack
+exactly that is the case that broke it for me
+and the mrp on the hair oil moved twice in the year na
+[00:25:10]
+Speaker 2: it did
+Speaker 7: so if the dim overwrites then the old invoice looks like it was sold at today's mrp which it was not
+Speaker 4: and then my per unit realisation is wrong
+Speaker 2: your per unit realisation is wrong and worse it is wrong in a way that looks plausible
+Speaker 4: those are the worst ones
+Speaker 2: those are the worst ones, yes
+and nobody would catch it that is the thing
+Speaker 4: correct correct
+Karthik Subramanian: so my recommendation and i am putting this one up today rather than sitting on it dim product also goes SCD2
+so both
+Speaker 2: both, yes
+[00:26:25]
+Speaker 3: hmm that is two interfaces then not one
+Speaker 2: it is two yes
+Speaker 6: you understand why i am going hmm
+Speaker 2: i do and that is exactly why the re measurement action has to cover both and not just customer
+Speaker 7: yes if we are doing this then measure the whole plan not one interface in isolation
+Karthik Subramanian: agreed
+Speaker 3: because it is the plan that has to finish not the um interfece
+completely agreed
+Speaker 5: product table is small only
+Farida Contractor: smaller yes
+Speaker 7: twelve hundred odd skus in the master it is nothing compared to invoice line
+Speaker 6: yeah product is not the expensive one
+[00:27:37]
+Speaker 3: i know that i am not worried about product on its own i am worried about adding two things in the same release
+Speaker 1: that is a delivery point rather than a design point though
+yes but it is my delivery
+Speaker 1: fair ok so can we separate the two, do we agree on the design and then talk about sequencing
+Speaker 3: yes that is cleaner
+Speaker 2: yes
+Speaker 4: karthik can i ask something slightly stupid
+Speaker 2: please
+Speaker 7: if a sku is delisted and then comes back, what happens
+Speaker 2: good question and not stupid the active flg changes and with SED 2 that gives you a new version of the row so you can see the period it was inactive
+[00:29:01]
+Shalini Iyer: which we cannot see today
+Speaker 2: which you cannot see today at all no
+hmm, that is actually useful for me
+Speaker 2: it is one of the side benefits yes
+Speaker 6: also the category thing
+Speaker 2: yes say it
+Speaker 6: there are skus in the master with no category code at all and when somebody finally fills it in with SCD too you can see when it got filled in
+Speaker 2: correct
+Aniruddh Deshpande: some of those are from the migration only, the old rows came without category
+Speaker 6: yeah i thought so
+Speaker 5: 2016 migration that data came in as is nobody cleaned it
+Speaker 2: we will pick that up in the quality work that is neha's side
+Speaker 1: ok so where are we i want to close this one karthik is recommending SCD2 on dim product as well as dim customer shalini has approved customer shalini product
+Shalini Iyer: yes same answer, yes
+[00:30:47]
+Speaker 1: rajeev, anything from you
+Speaker 8: no it is a technical call, i am am not going to second guess it as long as it does not move the plan
+Speaker 1: it does not move the plan
+Speaker 8: then fine
+Speaker 1: ok so that is decided
+Speaker 2: i will write that up as ADR zero zero three
+Speaker 7: zero zero three noted
+Speaker 2: and both of those go into the dimension strategy note
+Ananya Krishnan: which is out on monday
+Speaker 2: monday yes
+Speaker 3: sorry ananya um sequencing you said we would come back to it
+[00:31:49]
+Speaker 1: yes, go on
+Speaker 3: i am not asking to defer anything i want to be clear about that i am asking that the two interfaces do not go into the same night as the fact change
+Speaker 2: that is reasonable
+Speaker 6: yeah that is fine from my side they are are separate anyway
+Speaker 3: and i want the scenerio regenerated properly in Odie not patched
+Ishaan Bhatt: yes
+Speaker 3: because last time somebody regenerated only one and then control em was calling the old version
+Speaker 6: that was uh
+Speaker 3: i am not blaming anybody i am saying it happened
+Speaker 6: no no it did happen i remember
+ok sneha can we note that as part of ishaan's action, regenerate both scenarios
+Speaker 7: yes
+[00:33:06]
+Speaker 3: thank you
+Speaker 5: hello am i back
+Speaker 1: you dropped for a second ani
+Speaker 5: haan, my broadband is doing something, one second ok now it is fine
+Speaker 1: you missed about a minute it was frida on sequencing
+Speaker 5: ok, ok
+Speaker 1: right item three, or item two rather the scheme discount one var zero zero three and i think this is actually the more important half of the meeting
+Speaker 4: this is the trade promotion accrual one
+Speaker 7: yes
+[00:34:16]
+Speaker 4: ok i have been waiting for this
+Speaker 1: karthik or ani whoever wants to take it
+Speaker 2: i will start and ani will correct me
+Speaker 5: ok
+Speaker 2: so the short version we know what is causing it and it it is confirmed it is not a theory any more
+Shalini Iyer: since when
+Speaker 2: since the end of last month and i wrote it up on the twenty eighth
+i do not think i got that
+Speaker 2: you were on the distribution but it is a nine page technical document i would not expect you to read it
+Speaker 4: i will read the first page
+Speaker 2: the first page is the one to read so headline the root cause is source side it is not in the ETL and it is not in our mapping
+[00:35:50]
+Speaker 4: meaning
+Karthik Subramanian: meaning there is a finance procedure inside Odie that rewrites the scheme discount amount on the invoice line
+in Oreo itself
+in ORION itself yes
+Speaker 4: not in the warehouse
+Speaker 2: not in the warehouse
+Speaker 4: hmm that is not what i was told in march
+no it is not not, and that is fair we were looking in the wrong place for a while
+Speaker 4: ok i am not scoring points i just want to know that this one is actually settled
+[00:36:51]
+Speaker 7: it is settled
+it is settled
+Speaker 4: ok good
+Speaker 1: and i want to say this properly on the recording ani found this not us
+Speaker 5: arre no no
+Speaker 5: no ani credit where it is due
+Speaker 5: it is fine it is my system, i should have found it earlier only
+Karthik Subramanian: you found it in a week i had been staring at the mapping for a month
+Speaker 5: hmm
+Speaker 4: so what was was it that you saw ani
+[00:37:52]
+so basically the scheme discount that is sitting on the line in the database is not the amount the invoice was raised with i took one parti one month and i compared and the number on the line is different from what the invoice was actually raised with
+Speaker 4: different how
+Aniruddh Deshpande: it is bigger
+Speaker 4: ok
+Speaker 7: so something is writing into that column and it is not the application and it is not the warehouse people so it has to be finance side
+Speaker 4: and it is
+and it is yes
+Speaker 2: and the procedure is named, it is p recalc scheme discount it sits inside the month end package in fin prod pkg month end
+Speaker 7: sorry karthik, can you say the procedure name again, i want to get it right in the notes
+Speaker 2: P_RECALC_SCHEME_DISCOUNT p underscore recalc underscore scheme underscore discount, all caps
+Speaker 7: and the package
+Speaker 1: FIN_PROD.PKG_MONTH_END
+[00:39:32]
+got it thank you
+Speaker 5: it is the same package we were looking at last month the one i pulled for you
+Speaker 2: yes the twenty seventh you sent me the body
+Speaker 5: haan
+Shalini Iyer: the month end package
+Speaker 1: yes
+Speaker 4: we run that every month
+Speaker 5: hmm
+Speaker 2: shalini i would rather you read the write up than have me summarise it badly here the detail is in there
+Speaker 4: which write up the twenty eighth one
+[00:40:27]
+Speaker 2: the stored procedure walkthrough, yes, ani reviewed it
+Speaker 5: i have sent you my notes also, on that thread
+Shalini Iyer: ok i will read both and then i will come back with questions i am telling you now
+Speaker 6: please do that that is what it is for
+Speaker 8: sorry can i come in
+Speaker 1: yes rajeev
+so the discount thing is a finance system problem not an ETL problem
+Speaker 2: correct
+Speaker 8: then why is it on our tracker
+Speaker 1: because it uh is our number that is wrong at the end of it
+Rajeev Menon: hmm ok and who owns it
+Speaker 1: annie owns it on the tracker tracker, that has not changed
+Speaker 5: yes
+Speaker 8: fine and what is the money on it
+[00:41:55]
+it is in the variance tracker i would rather not quote it from memory
+Rajeev Menon: you are the one who told me the number last month
+Speaker 1: i know and i want to give you the current one, not the one in my head
+ok send it
+Speaker 1: i will it is in the tracker anyway sneha keeps it
+Speaker 7: i will send it with the notes
+Speaker 8: good
+Speaker 1: ok so the actual decision karthik what are we doing about it
+Speaker 2: so this is the one i want signed off today and it is ADR zero zero four and there are basically two options and i have already picked one so tell me if you disagree option one we go to finance and we ask them to change the procedure
+Speaker 4: no
+that was quick
+Speaker 4: no and i will tell you why that procedure is part of my close i am not opening my close process in the middle of a programme and i am certainly not doing it before year end sign off
+[00:43:48]
+Speaker 1: that is exactly the answer i expected and it is the right one
+Shalini Iyer: good
+Speaker 8: agreed do not touch finance
+and that package is from 2011 nobody is going to volunteer to change it the people who wrote it are not there since 2014
+Speaker 2: yes
+we did try to get the documentation once, in 2017 also, nothing came
+Speaker 3: so option two and this is what i am recommending we leave ORION alone in phase one we change our side so that it does not matter what finance does
+Speaker 4: meaning what in practice
+Speaker 2: in practice practice map fact invoice line stops being an append we rebuild rebuild it as a key based merge on invoice line id with a versioned re extract
+so control append goes
+Speaker 2: control append goes on that mapping yes
+Speaker 4: that is a proper rebuild, that is not a change
+[00:45:21]
+Speaker 2: no it is a rebuild i am not pretending otherwise
+Speaker 3: ok and the KM changes on that one interface only
+Speaker 2: that one mapping only
+Speaker 6: so the fact gets a real key on invoice line id and we merge on it
+Speaker 2: yes
+Speaker 6: and everything else stays as it is
+Karthik Subramanian: everything else stays as it is
+ok that is not too bad actually
+it is not trivial either it is the biggest table we have and it has years of history in it
+Speaker 6: no i know i mean conceptually
+Speaker 2: conceptually it is clean yes
+Speaker 5: one thing
+[00:46:32]
+Speaker 2: yes
+Speaker 5: invoice line id that is a sequence it is unique and it is never reused but you should check the archive table also that one is a different story
+Ishaan Bhatt: we are not touching archive
+Speaker 5: no i know but somebody one day will say let us load history from archive and then then you will find the ids are overlapping
+Karthik Subramanian: are they
+Aniruddh Deshpande: i am not hundred percent sure that is why i am saying check
+Speaker 2: ok that is worth an action
+Speaker 8: i will check and tell you
+Speaker 7: annie to confirm is that right
+yes i will confirm invoice line id is unique and not reused
+Speaker 7: thank you
+Speaker 1: and when does this land
+R twenty twenty six point zero nine
+Speaker 3: which is
+[00:48:02]
+Speaker 2: end of september the thirtieth
+Speaker 3: that is a long way away
+Karthik Subramanian: it is
+Speaker 3: and until then
+Speaker 2: until then the scheme discount column in uh the fact is not right and we say so
+Speaker 4: so this is not fixed today
+Ananya Krishnan: no shalini to be very clear we are signing off the approach today, not the fix var zero zero three stays open on the tracker
+Speaker 4: until september
+until the release goes in yes
+Speaker 4: and i still cannot use the discount number until then
+[00:49:03]
+Speaker 2: you cannot use it from the warehouse no
+Shalini Iyer: i will keep doing it the way i am doing it now then
+Speaker 1: for now yes
+Speaker 4: hmm i do um not love it but but i understand it
+Speaker 8: shalini it is september it is not next year
+Speaker 4: i know rajeev
+Speaker 8: let us not boil um the ocean the approach is right
+i said i understand it
+ok ok
+Speaker 1: so formally, are we agreed on the approach
+[00:49:57]
+agreed
+agreed
+Speaker 2: agreed
+Speaker 5: yes
+Speaker 6: yes
+Speaker 8: yes
+Speaker 1: good that is ADR zero zero four then
+Speaker 7: zero zero four, and status of var zero zero three stays open
+Speaker 6: stays open yes ok last item and then actions, we have about eight minutes the two that are in build quick status only i do not want to reopen them
+sorry one second there is somebody at my door
+Ananya Krishnan: go go
+Speaker 6: sorry courier
+Speaker 1: no problem ishaan the delete flag one
+[00:51:18]
+Speaker 5: yeah so var zero zero one, the fact mapping had no delete flack filter on it at all so cancelled lines were coming through and getting getting counted as revenue
+Speaker 4: that is the four point two core
+Ishaan Bhatt: four point two yes FY twenty six q one
+Speaker 4: which is the one i could not sign
+Speaker 6: yes the fix is the NVL predicate, nvl delete flack comma N equal to uh N
+Speaker 5: and do not put plain equal to N
+Speaker 6: no no i know
+Speaker 5: because the blank ones will all vanish and then your history is gone
+yes ani i have it as NVL it is already in the change
+Speaker 5: ok ok [crosstalk]
+Speaker 4: sorry i missed that what will vanish
+Speaker 6: nothing will vanish annie is saying make sure we use NVL and we are
+[00:52:46]
+Speaker 4: ok
+Speaker 1: and that is the june release
+Speaker 6: yes the change is raised it is CHG zero zero two one one eight four
+Speaker 3: sorry can you say the change number again slowly
+Speaker 3: CHG zero zero two one one eight four
+Speaker 7: thank you
+Speaker 1: and the date one
+Speaker 2: that is var zero zero two the date key was being derived from created ts and created ts is written by the application server in UTC
+Shalini Iyer: and invoice dt is not
+Speaker 2: invoice dt is a date and it is in IST yes
+Speaker 4: so anything raised late in the evening on the last day of the month
+[00:53:58]
+Speaker 2: goes into the next month correct
+Speaker 4: that explains a lot actually
+it is about ninety lakh across FY twenty six
+Speaker 4: ninety lac, ok
+Speaker 2: and the fix is that we key off invoice dt and i am writing that up as ADR zero zero five the change is CHG zero zero two one two zero seven
+Speaker 7: two one two zero seven
+Speaker 2: yes
+Speaker 3: both in the same uh release that is what i have
+Speaker 6: yes both together
+Speaker 3: ok, then i need the scenerios by the twenty second at the latest
+[00:55:00]
+Speaker 4: you will have them
+Speaker 4: karthik sorry one more on the date thing
+Speaker 2: yes
+Speaker 4: does that mean my monthly numbers will move when the fix goes in
+Speaker 2: yes at at the boundary for a small number of invoices
+Speaker 4: and i i will need to explain that to [inaudible]
+Speaker 2: sorry shalini you broke up there
+Speaker 4: i said i will need to explain that
+Speaker 2: yes you will and we will give you the walk, invoice by invoice if you want it
+Speaker 4: i will want it
+Speaker 2: ok
+[00:56:04]
+Speaker 1: right actions sneha
+Speaker 7: yes i have seven AI thirty karthik to write up ADR zero zero two and ADR zero zero three dim customer and dim product SCD2 by eleventh may
+yes
+Speaker 7: AI thirty one ishaan to rebuild map dim customer and map dim product for SCD2 on dev and regenerate regenerate both scenarios by twenty second may
+Ishaan Bhatt: twenty second ok
+Sneha Pillai: AI thirty two farida to re run the full load plan timing on dev with both dimensions changed and circulate by twenty ninth may
+Farida Contractor: the full plan not the interface that is what we said
+Speaker 7: the full plan i will write it that way
+Speaker 3: thank you
+Speaker 7: AI thirty three karthik to write up ADR zero zero four, the var zero zero three remediation approach, by eleventh may
+Speaker 2: yes
+[00:57:26]
+Sneha Pillai: AI thirty four [name [name not captured] to confirm invoice line id is unique and never reused
+Speaker 1: that is ani
+Speaker 8: sorry ani by thirteenth may
+Speaker 5: ok
+Speaker 3: AI thirty five shalini to sign the dimension dimension strategy note once it is uh circulated by fifteenth may
+Shalini Iyer: fifteenth yes if it comes on monday i will do it that week
+Speaker 7: AI thirty six me update uh the variance tracker for var zero zero three root cause and status, by eighth may
+Speaker 1: good, thank you sneha
+Sneha Pillai: and i will send the notes tomorrow
+Speaker 1: anything else from anybody
+Speaker 3: no
+Speaker 2: nothing from me
+[00:58:35]
+Speaker 4: i will send my questions after i read the walkthrough
+Speaker 1: please do
+Speaker 8: ananya i am going to drop i am reaching
+yes of course rajeev thank you
+Speaker 8: good meeting this is the first one where we actually decided something
+ha thank you
+Speaker 8: bye all
+Speaker 4: bye rajeev
+Speaker 5: bye
+Speaker 3: ok thank you everyone sneha will will send notes and the tracker tomorrow karthik monday for the note
+[00:59:33]
+Speaker 2: monday
+Speaker 1: thanks all bye
+Speaker 6: bye
+Speaker 3: bye thank you
+Shalini Iyer: thank you bye
+Speaker 5: bye bye
+Speaker ?: [inaudible]
+
+--- transcript ends ---
+[00:59:55] end of recording
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

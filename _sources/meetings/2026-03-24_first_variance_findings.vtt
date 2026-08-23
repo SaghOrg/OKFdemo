@@ -1,0 +1,2129 @@
+WEBVTT
+
+NOTE Auto-generated transcript. Accuracy may vary.
+
+1
+00:00:00.000 --> 00:00:04.182
+<v Ananya Krishnan>ok, ok i think we are on now
+
+2
+00:00:05.344 --> 00:00:13.705
+<v Ananya Krishnan>sorry the recording was not started at all, i have put it on just now, so the first bit is gone
+
+3
+00:00:15.944 --> 00:00:21.271
+<v Sneha Pillai>should i still write from the beginning or from here
+
+4
+00:00:22.252 --> 00:00:27.000
+<v Ananya Krishnan>haan whatever you have, we will fill in after
+
+5
+00:00:30.692 --> 00:00:36.218
+<v Karthik Subramanian>can everyone hear me, my audio was cutting in the earlier call
+
+6
+00:00:37.913 --> 00:00:40.034
+<v Ananya Krishnan>you are clear
+
+7
+00:00:40.034 --> 00:00:42.524
+<v Farida Contractor>i can hear
+
+8
+00:00:42.670 --> 00:00:47.344
+<v Sneha Pillai>there is some echo, i think somebody has two devices on
+
+9
+00:00:47.502 --> 00:00:49.789
+<v Ananya Krishnan>is it me
+
+10
+00:00:50.256 --> 00:00:53.271
+<v Sneha Pillai>no it is gone now
+
+11
+00:00:54.258 --> 00:00:55.751
+<v Ananya Krishnan>ok
+
+12
+00:00:58.213 --> 00:01:07.033
+<v Sneha Pillai>for the record this is the Bhardwaj Consumer Products and Northlane Analytics session, variance findings, twenty fourth march
+
+13
+00:01:07.033 --> 00:01:11.193
+<v Ananya Krishnan>sneha are you in the office today
+
+14
+00:01:11.637 --> 00:01:16.573
+<v Sneha Pillai>no i am from home, i was in andaree yesterday
+
+15
+00:01:16.908 --> 00:01:18.401
+<v Ananya Krishnan>ok
+
+16
+00:01:18.650 --> 00:01:27.780
+<v Ananya Krishnan>ok so this is the first proper readout on the variance work, uh, ishaan has done the first cut of the reconciliation
+
+17
+00:01:28.242 --> 00:01:34.097
+<v Ananya Krishnan>shalini ma'am is on, vikram has not joined yet i think
+
+18
+00:01:34.097 --> 00:01:43.580
+<v Shalini Iyer>i am here, i have another call at quarter to five so if i drop suddenly, sorry in advance
+
+19
+00:01:43.993 --> 00:01:48.601
+<v Ananya Krishnan>no problem, we will try to finish before that
+
+20
+00:01:48.761 --> 00:01:55.578
+<v Ananya Krishnan>vikram messaged, he is at the airport, he will join in ten minutes
+
+21
+00:01:55.906 --> 00:01:57.418
+<v Sneha Pillai>ok
+
+22
+00:01:57.701 --> 00:02:07.512
+<v Ananya Krishnan>so plan for the forty five minutes is, ishaan takes us through what he has found, then we agree what goes into the tracker, then actions
+
+23
+00:02:07.907 --> 00:02:13.382
+<v Ananya Krishnan>and karthik will jump in on the technical side wherever needed
+
+24
+00:02:13.688 --> 00:02:18.910
+<v Karthik Subramanian>i will mostly listen actually, this is ishaan's work not mine
+
+25
+00:02:19.275 --> 00:02:26.800
+<v Ananya Krishnan>no no you will have to explain the o ryan side of it, shalini ma'am will ask
+
+26
+00:02:27.209 --> 00:02:29.546
+<v Shalini Iyer>i will ask
+
+27
+00:02:29.828 --> 00:02:32.486
+<v Karthik Subramanian>then i will explain
+
+28
+00:02:33.308 --> 00:02:34.863
+<v Karthik Subramanian>yes
+
+29
+00:02:35.315 --> 00:02:38.925
+<v Ananya Krishnan>ishaan over to you, are you sharing
+
+30
+00:02:39.130 --> 00:02:41.214
+<v Ishaan Bhatt>yeah one second
+
+31
+00:02:41.787 --> 00:02:44.931
+<v Ishaan Bhatt>can you see my screen
+
+32
+00:02:45.481 --> 00:02:47.353
+<v Ananya Krishnan>not yet
+
+33
+00:02:47.783 --> 00:02:49.276
+<v Ishaan Bhatt>now
+
+34
+00:02:49.836 --> 00:02:51.375
+<v Shalini Iyer>no
+
+35
+00:02:51.716 --> 00:02:54.605
+<v Ishaan Bhatt>sorry sorry wrong window
+
+36
+00:02:54.808 --> 00:02:56.352
+<v Ishaan Bhatt>now
+
+37
+00:02:57.346 --> 00:03:00.667
+<v Ananya Krishnan>yes we can see it
+
+38
+00:03:00.667 --> 00:03:03.981
+<v Shalini Iyer>it is very small on my side
+
+39
+00:03:04.397 --> 00:03:07.083
+<v Ishaan Bhatt>i will zoom, one sec
+
+40
+00:03:07.484 --> 00:03:08.977
+<v Ishaan Bhatt>better
+
+41
+00:03:09.173 --> 00:03:10.833
+<v Shalini Iyer>yes better
+
+42
+00:03:10.990 --> 00:03:13.269
+<v Shalini Iyer>for me also fine
+
+43
+00:03:13.493 --> 00:03:15.215
+<v Ananya Krishnan>go ahead
+
+44
+00:03:16.497 --> 00:03:30.935
+<v Ishaan Bhatt>ok so basically what i have done is, i have taken april to june of last year, so FY twenty six Q one, and i have put the warehouse number next to what finance has
+
+45
+00:03:30.935 --> 00:03:33.710
+<v Shalini Iyer>which extract are you using
+
+46
+00:03:34.015 --> 00:03:38.337
+<v Ishaan Bhatt>the fact directly, invoice line fact, not the obiee report
+
+47
+00:03:39.311 --> 00:03:42.217
+<v Shalini Iyer>ok, ok that is fine
+
+48
+00:03:43.055 --> 00:03:49.137
+<v Ishaan Bhatt>so the warehouse is giving me four three eight point six core for the quarter
+
+49
+00:03:49.497 --> 00:03:58.644
+<v Shalini Iyer>438.60, yes, that is the number i have been given also and that is the number i cannot sign
+
+50
+00:03:59.175 --> 00:04:00.668
+<v Ishaan Bhatt>correct
+
+51
+00:04:01.484 --> 00:04:13.987
+<v Shalini Iyer>my trial balance for apr to june is short of that by 4.20 core, and it has been short by that since the pack went out
+
+52
+00:04:13.987 --> 00:04:20.424
+<v Ishaan Bhatt>yeah so, that is exactly the gap i am seeing, four point two core odd
+
+53
+00:04:20.893 --> 00:04:23.283
+<v Shalini Iyer>not odd, 4.20
+
+54
+00:04:23.583 --> 00:04:25.970
+<v Ishaan Bhatt>sorry, 4.2 core
+
+55
+00:04:26.224 --> 00:04:33.438
+<v Ananya Krishnan>and this is the same gap shalini has been chasing since, uh, since february itself
+
+56
+00:04:33.978 --> 00:04:40.030
+<v Shalini Iyer>since the eleventh of feb, i said it in the kickoff also
+
+57
+00:04:40.030 --> 00:04:41.676
+<v Ananya Krishnan>correct correct
+
+58
+00:04:42.985 --> 00:04:47.856
+<v Ishaan Bhatt>so, so the thing is i think i know why
+
+59
+00:04:48.192 --> 00:04:50.836
+<v Ishaan Bhatt>let him show it
+
+60
+00:04:51.377 --> 00:04:56.003
+<v Ishaan Bhatt>haan, so if you look at this second tab
+
+61
+00:04:56.979 --> 00:05:05.986
+<v Ishaan Bhatt>these are the invoice lines that are in the fact for that quarter, and this column here is the flag from source
+
+62
+00:05:06.936 --> 00:05:08.901
+<v Ishaan Bhatt>delete flack
+
+63
+00:05:09.266 --> 00:05:12.923
+<v Karthik Subramanian>delete flag on invoice line, yes
+
+64
+00:05:13.832 --> 00:05:21.114
+<v Ishaan Bhatt>and the ones marked Y are cancelled, somebody has cancelled the line in orion after it was raised
+
+65
+00:05:24.943 --> 00:05:28.378
+<v Ishaan Bhatt>and we are loading all of them
+
+66
+00:05:28.650 --> 00:05:31.062
+<v Shalini Iyer>all of them
+
+67
+00:05:31.062 --> 00:05:35.099
+<v Ishaan Bhatt>all of them, there is no filter
+
+68
+00:05:35.412 --> 00:05:37.903
+<v Farida Contractor>there is a filter
+
+69
+00:05:40.831 --> 00:05:50.861
+<v Ishaan Bhatt>in the mapping for the fact there is no delete flag filter at all, i went into the mapping, i pulled the xml also
+
+70
+00:05:51.287 --> 00:05:53.304
+<v Farida Contractor>which interface
+
+71
+00:05:56.348 --> 00:05:59.128
+<v Ishaan Bhatt>map fact invoice line
+
+72
+00:05:59.632 --> 00:06:01.125
+<v Farida Contractor>hmm
+
+73
+00:06:01.406 --> 00:06:04.619
+<v Vikram Sethi>hello, hello can you hear me
+
+74
+00:06:05.272 --> 00:06:11.264
+<v Ananya Krishnan>vikram you are on mute, no sorry you are not, we can hear you
+
+75
+00:06:15.065 --> 00:06:23.385
+<v Vikram Sethi>sorry i am at the airport, there is announcement going on so i will keep myself muted mostly
+
+76
+00:06:23.840 --> 00:06:28.878
+<v Ananya Krishnan>no problem, ishaan is just going through the q one gap
+
+77
+00:06:29.335 --> 00:06:31.967
+<v Vikram Sethi>haan ok, which q one
+
+78
+00:06:32.186 --> 00:06:36.879
+<v Ananya Krishnan>FY twenty six q one, apr to june last year
+
+79
+00:06:37.020 --> 00:06:40.128
+<v Vikram Sethi>ok ok, carry on carry on
+
+80
+00:06:40.652 --> 00:06:46.080
+<v Vikram Sethi>only one thing, is this about oreo or about the report
+
+81
+00:06:46.373 --> 00:06:48.642
+<v Ananya Krishnan>about the warehouse, vikram
+
+82
+00:06:48.642 --> 00:06:50.639
+<v Vikram Sethi>ok ok
+
+83
+00:06:51.142 --> 00:06:55.623
+<v Vikram Sethi>[inaudible] flight is announced so i may drop
+
+84
+00:06:56.170 --> 00:06:59.972
+<v Ananya Krishnan>sorry vikram you broke up there
+
+85
+00:07:00.405 --> 00:07:05.481
+<v Vikram Sethi>i said my flight is announced, if i drop i will rejoin
+
+86
+00:07:06.014 --> 00:07:07.604
+<v Ananya Krishnan>ok
+
+87
+00:07:08.136 --> 00:07:16.165
+<v Ishaan Bhatt>so as i was saying, no filter, nothing, the mapping just takes whatever comes into staging and appends it
+
+88
+00:07:18.120 --> 00:07:25.072
+<v Karthik Subramanian>and to be precise, that is not a filter that got broken, it was never there
+
+89
+00:07:27.044 --> 00:07:30.528
+<v Ishaan Bhatt>never there, i checked the export
+
+90
+00:07:31.278 --> 00:07:38.235
+<v Farida Contractor>one minute, the interface was built in twenty twenty one and i did not build it
+
+91
+00:07:38.757 --> 00:07:42.201
+<v Ishaan Bhatt>no no no i am not saying
+
+92
+00:07:42.632 --> 00:07:44.125
+<v Karthik Subramanian>[crosstalk]
+
+93
+00:07:44.454 --> 00:07:46.617
+<v Farida Contractor>let me finish
+
+94
+00:07:47.015 --> 00:07:52.139
+<v Ananya Krishnan>no no nobody is saying that frida, sorry farida
+
+95
+00:07:52.489 --> 00:07:57.958
+<v Farida Contractor>i am only saying, it was inherited, i am not defending it
+
+96
+00:07:58.180 --> 00:08:03.828
+<v Karthik Subramanian>nobody is assigning blame in this meeting, that is not what this is
+
+97
+00:08:04.263 --> 00:08:07.720
+<v Ananya Krishnan>correct, this is just what is true
+
+98
+00:08:08.872 --> 00:08:11.367
+<v Shalini Iyer>can i ask something
+
+99
+00:08:11.367 --> 00:08:12.919
+<v Ananya Krishnan>please
+
+100
+00:08:13.418 --> 00:08:22.538
+<v Shalini Iyer>if the fix is to only take the live lines, then it is a one line change no, why has it not been done
+
+101
+00:08:22.923 --> 00:08:26.806
+<v Ishaan Bhatt>ah, it is, but there is a catch
+
+102
+00:08:27.167 --> 00:08:33.308
+<v Karthik Subramanian>there is a catch and it is important, so let me take thirty seconds
+
+103
+00:08:34.797 --> 00:08:40.579
+<v Karthik Subramanian>the flag on the source table has three states not two
+
+104
+00:08:40.958 --> 00:08:52.569
+<v Karthik Subramanian>Y means the line is cancelled, N means it is live, and then there is a large set of older rows where the column is simply null
+
+105
+00:08:52.934 --> 00:08:54.427
+<v Ishaan Bhatt>blank
+
+106
+00:08:54.826 --> 00:08:56.642
+<v Karthik Subramanian>blank, yes
+
+107
+00:08:57.184 --> 00:08:59.021
+<v Shalini Iyer>null meaning
+
+108
+00:08:59.368 --> 00:09:02.902
+<v Karthik Subramanian>meaning nothing was ever written there
+
+109
+00:09:03.342 --> 00:09:07.411
+<v Shalini Iyer>and those are real sales or not real sales
+
+110
+00:09:07.803 --> 00:09:12.593
+<v Karthik Subramanian>those are real, they are old but they are real
+
+111
+00:09:12.856 --> 00:09:21.111
+<v Ishaan Bhatt>so if somebody writes delete flack equal to N in the filter, which is the obvious thing to write
+
+112
+00:09:21.478 --> 00:09:28.755
+<v Karthik Subramanian>then every one of those old rows silently disappears out of the fact and the history collapses
+
+113
+00:09:29.118 --> 00:09:32.476
+<v Shalini Iyer>ok that would be worse
+
+114
+00:09:32.948 --> 00:09:42.488
+<v Karthik Subramanian>that would be much worse, and it would not throw an error, it would just quietly give you a smaller number
+
+115
+00:09:42.488 --> 00:09:47.015
+<v Ishaan Bhatt>yeah, it will just look like sales dropped
+
+116
+00:09:47.526 --> 00:09:54.344
+<v Karthik Subramanian>the predicate has to be nvl of delete flag comma N equals N
+
+117
+00:09:54.890 --> 00:09:59.920
+<v Sneha Pillai>sorry karthik can you say that once more slowly
+
+118
+00:10:00.242 --> 00:10:08.141
+<v Karthik Subramanian>n v l, open bracket, delete flag, comma, quote N quote, close bracket, equals quote N quote
+
+119
+00:10:08.141 --> 00:10:09.999
+<v Sneha Pillai>got it
+
+120
+00:10:10.443 --> 00:10:15.291
+<v Shalini Iyer>i will not pretend i followed that but i trust it
+
+121
+00:10:15.748 --> 00:10:21.154
+<v Karthik Subramanian>it means treat a blank as if it were live
+
+122
+00:10:21.505 --> 00:10:24.149
+<v Shalini Iyer>and who decides that
+
+123
+00:10:24.690 --> 00:10:31.616
+<v Karthik Subramanian>the mapping decides it, that is the whole point, it is a line of code
+
+124
+00:10:31.616 --> 00:10:37.077
+<v Ishaan Bhatt>it is one expression in od i, that is all it is
+
+125
+00:10:37.453 --> 00:10:39.293
+<v Shalini Iyer>one expression
+
+126
+00:10:40.440 --> 00:10:42.436
+<v Ishaan Bhatt>one expression
+
+127
+00:10:42.618 --> 00:10:48.163
+<v Shalini Iyer>and it has been sitting like that since twenty twenty one
+
+128
+00:10:48.599 --> 00:10:51.557
+<v Ishaan Bhatt>since the fact was built, yes
+
+129
+00:10:51.865 --> 00:10:53.358
+<v Shalini Iyer>hmm
+
+130
+00:10:53.558 --> 00:10:55.984
+<v Shalini Iyer>ok, that i understood
+
+131
+00:10:58.078 --> 00:11:04.890
+<v Farida Contractor>and that change has to go through change control, it is a production interface
+
+132
+00:11:05.425 --> 00:11:07.534
+<v Ananya Krishnan>yes of course
+
+133
+00:11:08.089 --> 00:11:13.537
+<v Farida Contractor>i am just saying because last time somebody, uh, never mind
+
+134
+00:11:14.042 --> 00:11:16.474
+<v Ananya Krishnan>no go on
+
+135
+00:11:16.987 --> 00:11:20.598
+<v Farida Contractor>nothing, it is an old matter
+
+136
+00:11:20.791 --> 00:11:22.285
+<v Ananya Krishnan>ok
+
+137
+00:11:22.824 --> 00:11:29.871
+<v Shalini Iyer>so my question is very simple, can i tie this back to the trial balance
+
+138
+00:11:30.397 --> 00:11:37.775
+<v Ishaan Bhatt>for q one yes, i have done it line by line for one month, june, and it ties
+
+139
+00:11:39.640 --> 00:11:41.577
+<v Shalini Iyer>which month
+
+140
+00:11:44.854 --> 00:11:47.165
+<v Ishaan Bhatt>june twenty five
+
+141
+00:11:47.584 --> 00:11:50.154
+<v Shalini Iyer>and april and may
+
+142
+00:11:51.341 --> 00:11:55.968
+<v Ishaan Bhatt>not yet, i will do it this week
+
+143
+00:11:56.518 --> 00:12:04.502
+<v Shalini Iyer>please do, because i am going to be asked for the whole quarter and not one month
+
+144
+00:12:04.811 --> 00:12:10.907
+<v Ananya Krishnan>we will get you all three months, ishaan can you do that by friday
+
+145
+00:12:11.548 --> 00:12:14.360
+<v Ishaan Bhatt>friday is tight but yes
+
+146
+00:12:14.817 --> 00:12:17.963
+<v Ananya Krishnan>flagging that, it is an action
+
+147
+00:12:18.941 --> 00:12:25.831
+<v Sneha Pillai>capturing that as an action, owner ishaan, due, is it friday the twenty seventh
+
+148
+00:12:26.056 --> 00:12:28.236
+<v Ananya Krishnan>twenty seventh yes
+
+149
+00:12:28.545 --> 00:12:34.556
+<v Shalini Iyer>second question, when the filter goes in, does the quarter number move
+
+150
+00:12:34.857 --> 00:12:37.819
+<v Karthik Subramanian>it will come down, yes
+
+151
+00:12:37.977 --> 00:12:39.952
+<v Shalini Iyer>by 4.20 core
+
+152
+00:12:40.231 --> 00:12:49.345
+<v Karthik Subramanian>by that order, the exact restated figure i would rather give you once it is actually run and not from a spreadsheet
+
+153
+00:12:52.015 --> 00:12:53.508
+<v Shalini Iyer>hmm
+
+154
+00:12:53.671 --> 00:13:01.629
+<v Karthik Subramanian>i do not want to give you a number today that i have to change next week
+
+155
+00:13:01.784 --> 00:13:11.025
+<v Shalini Iyer>fair, but understand my position also, i have a reconciliation gap sitting open in a pack that group has already seen
+
+156
+00:13:11.406 --> 00:13:16.151
+<v Shalini Iyer>and by group i mean clarissen, not our board
+
+157
+00:13:16.345 --> 00:13:17.838
+<v Ananya Krishnan>understood
+
+158
+00:13:17.838 --> 00:13:19.331
+<v Ananya Krishnan>understood
+
+159
+00:13:20.026 --> 00:13:25.040
+<v Shalini Iyer>and every month it stays open somebody asks me why
+
+160
+00:13:25.392 --> 00:13:35.765
+<v Ananya Krishnan>so just to say it back, on the first item we are talking about 42 core of cancelled lines sitting in the quarter as revenue
+
+161
+00:13:35.765 --> 00:13:37.258
+<v Shalini Iyer>yes
+
+162
+00:13:37.398 --> 00:13:38.891
+<v Ishaan Bhatt>yes
+
+163
+00:13:39.401 --> 00:13:40.894
+<v Ananya Krishnan>ok
+
+164
+00:13:41.037 --> 00:13:47.288
+<v Ananya Krishnan>understood, that is exactly why we are doing this in this order
+
+165
+00:13:47.790 --> 00:13:50.469
+<v Vikram Sethi>sorry, sorry go ahead
+
+166
+00:13:50.648 --> 00:13:52.962
+<v Ananya Krishnan>no go ahead vikram
+
+167
+00:13:53.325 --> 00:14:00.135
+<v Vikram Sethi>no no, i will ask at the end, my thing is on the stockist side
+
+168
+00:14:00.135 --> 00:14:03.898
+<v Ananya Krishnan>ok we will come to that
+
+169
+00:14:04.215 --> 00:14:11.016
+<v Ishaan Bhatt>ok so that is the first one, can i go to the second thing
+
+170
+00:14:11.262 --> 00:14:12.755
+<v Ananya Krishnan>go
+
+171
+00:14:16.230 --> 00:14:20.629
+<v Ishaan Bhatt>second one is smaller in money but it is annoying
+
+172
+00:14:20.865 --> 00:14:28.865
+<v Ishaan Bhatt>so the date key on the fact, the one we use to say which month a sale belongs to
+
+173
+00:14:29.204 --> 00:14:32.953
+<v Ishaan Bhatt>it is not coming from the invoice date
+
+174
+00:14:33.261 --> 00:14:35.469
+<v Shalini Iyer>then from where
+
+175
+00:14:36.006 --> 00:14:40.312
+<v Ishaan Bhatt>from the created timestamp on the invoice header
+
+176
+00:14:40.600 --> 00:14:46.637
+<v Karthik Subramanian>and the created timestamp is written by the application server in u t c
+
+177
+00:14:47.028 --> 00:14:49.251
+<v Shalini Iyer>sorry, in what
+
+178
+00:14:49.961 --> 00:14:57.548
+<v Karthik Subramanian>u t c, so it is not india time, it is five and a half hours behind
+
+179
+00:14:58.018 --> 00:14:59.511
+<v Shalini Iyer>so
+
+180
+00:15:03.006 --> 00:15:14.601
+<v Karthik Subramanian>so any invoice that is raised after half past six in the evening on the last day of a month gets a created timestamp that already belongs to the next day
+
+181
+00:15:14.601 --> 00:15:17.596
+<v Karthik Subramanian>and therefore to the next month
+
+182
+00:15:17.596 --> 00:15:19.089
+<v Shalini Iyer>oh
+
+183
+00:15:19.438 --> 00:15:22.321
+<v Shalini Iyer>oh that explains something
+
+184
+00:15:22.563 --> 00:15:24.990
+<v Karthik Subramanian>i thought it might
+
+185
+00:15:25.157 --> 00:15:33.147
+<v Shalini Iyer>the thirtieth and thirty first of every month, the depots bill till late, especially the last day
+
+186
+00:15:33.352 --> 00:15:38.188
+<v Ishaan Bhatt>yeah and that is exactly where the rows are landing wrong
+
+187
+00:15:38.523 --> 00:15:41.453
+<v Shalini Iyer>how much is this one
+
+188
+00:15:41.643 --> 00:15:46.667
+<v Ishaan Bhatt>for the full year i am getting about ninety lakh
+
+189
+00:15:47.090 --> 00:15:51.134
+<v Shalini Iyer>90 lac, across the whole of FY twenty six
+
+190
+00:15:51.690 --> 00:15:53.183
+<v Ishaan Bhatt>yes
+
+191
+00:15:53.377 --> 00:16:02.548
+<v Shalini Iyer>that i can live with as a number but not as a habit, the month has to close in the month
+
+192
+00:16:02.803 --> 00:16:12.849
+<v Karthik Subramanian>agreed, and the fix is to key the fact off the invoice date, which is a proper date in india time
+
+193
+00:16:13.074 --> 00:16:21.004
+<v Karthik Subramanian>it is a change to the same mapping so it can ride along with the other one
+
+194
+00:16:21.342 --> 00:16:31.564
+<v Farida Contractor>if both changes are in the same interface then it is one deployment and one regression, that is better for me
+
+195
+00:16:33.204 --> 00:16:35.941
+<v Karthik Subramanian>that was my thinking also
+
+196
+00:16:36.438 --> 00:16:38.009
+<v Farida Contractor>ok
+
+197
+00:16:38.009 --> 00:16:41.459
+<v Ananya Krishnan>good, so those two travel together
+
+198
+00:16:41.622 --> 00:16:48.662
+<v Sneha Pillai>sorry, is the second one going in the tracker as a separate item or under the first one
+
+199
+00:16:49.376 --> 00:16:50.969
+<v Ananya Krishnan>separate
+
+200
+00:16:51.505 --> 00:16:54.818
+<v Karthik Subramanian>separate, they are different causes
+
+201
+00:16:55.253 --> 00:16:57.091
+<v Sneha Pillai>ok, separate
+
+202
+00:16:57.091 --> 00:16:59.790
+<v Vikram Sethi>can i come in now
+
+203
+00:17:00.728 --> 00:17:02.865
+<v Ananya Krishnan>yes vikram please
+
+204
+00:17:03.289 --> 00:17:11.852
+<v Vikram Sethi>so my number is coming different again and i want to understand which one of these is causing it
+
+205
+00:17:12.004 --> 00:17:24.228
+<v Vikram Sethi>north stock list billing for the quarter, i am getting one figure, the report is showing another, and now you are saying the fact is also wrong
+
+206
+00:17:24.411 --> 00:17:27.426
+<v Karthik Subramanian>which figure are you comparing vikram
+
+207
+00:17:27.782 --> 00:17:31.080
+<v Vikram Sethi>my off take from the region file
+
+208
+00:17:31.414 --> 00:17:38.323
+<v Karthik Subramanian>ok so that is the thing, that is secondary and what we are discussing is primary
+
+209
+00:17:38.619 --> 00:17:43.513
+<v Vikram Sethi>haan but it should still be in the same direction
+
+210
+00:17:43.937 --> 00:17:51.963
+<v Karthik Subramanian>it should be in the same direction but it will never tie, and it is not supposed to tie
+
+211
+00:17:52.618 --> 00:17:54.259
+<v Vikram Sethi>why not
+
+212
+00:17:54.703 --> 00:18:05.383
+<v Karthik Subramanian>because primary sales is bcpl to the distributor and secondary is the distributor to the retailer, they are two different events at two different times
+
+213
+00:18:05.952 --> 00:18:12.491
+<v Vikram Sethi>i know that, i know that, i am in this business eleven years
+
+214
+00:18:13.550 --> 00:18:16.271
+<v Vikram Sethi>actually actually, forget it
+
+215
+00:18:16.271 --> 00:18:19.001
+<v Karthik Subramanian>no please, say it
+
+216
+00:18:19.481 --> 00:18:28.492
+<v Vikram Sethi>my point is only that if two numbers are both wrong then somebody should tell the stock list which one to believe
+
+217
+00:18:28.995 --> 00:18:34.324
+<v Shalini Iyer>the distributors do not see either of these numbers vikram
+
+218
+00:18:34.742 --> 00:18:37.810
+<v Vikram Sethi>they see the claim, ma'am
+
+219
+00:18:38.320 --> 00:18:41.656
+<v Shalini Iyer>that is a different system
+
+220
+00:18:42.647 --> 00:18:44.577
+<v Vikram Sethi>correct correct
+
+221
+00:18:44.984 --> 00:18:48.868
+<v Karthik Subramanian>sorry, i did not mean it like that
+
+222
+00:18:49.011 --> 00:18:51.939
+<v Vikram Sethi>no no it is fine
+
+223
+00:18:51.939 --> 00:18:58.636
+<v Ishaan Bhatt>vikram there is also a coverage issue with the secondary feed which is separate
+
+224
+00:18:58.835 --> 00:19:00.328
+<v Vikram Sethi>meaning
+
+225
+00:19:03.807 --> 00:19:15.555
+<v Ishaan Bhatt>the d m s feed that gives us secondary sales, it does not cover all the distributors, it is coming in at about seventy four percent
+
+226
+00:19:15.555 --> 00:19:17.547
+<v Vikram Sethi>seventy four
+
+227
+00:19:17.901 --> 00:19:23.197
+<v Ishaan Bhatt>seventy four percent of distributors, and it lags by about five days
+
+228
+00:19:23.197 --> 00:19:25.006
+<v Vikram Sethi>five days
+
+229
+00:19:25.380 --> 00:19:28.009
+<v Ishaan Bhatt>roughly five, sometimes more
+
+230
+00:19:28.237 --> 00:19:35.075
+<v Vikram Sethi>then how am i supposed to give a weekly number to rajeev sir
+
+231
+00:19:35.259 --> 00:19:42.037
+<v Vikram Sethi>and the nashville and buddy despatches are always late in the file, always
+
+232
+00:19:42.381 --> 00:19:45.605
+<v Ananya Krishnan>the plant file you mean
+
+233
+00:19:46.154 --> 00:19:49.833
+<v Vikram Sethi>haan, it comes two days late every week
+
+234
+00:19:50.158 --> 00:19:53.643
+<v Ananya Krishnan>ok that is a separate thing
+
+235
+00:19:54.063 --> 00:20:00.139
+<v Ananya Krishnan>that is a fair question and it is a different problem from today's
+
+236
+00:20:00.401 --> 00:20:07.320
+<v Shalini Iyer>vikram, sorry, but the pack i sign is on invoiced sales, not on off take
+
+237
+00:20:11.190 --> 00:20:17.184
+<v Vikram Sethi>i understand ma'am but the field is asking me on off take
+
+238
+00:20:17.620 --> 00:20:21.397
+<v Shalini Iyer>then they are two different conversations
+
+239
+00:20:21.397 --> 00:20:23.215
+<v Vikram Sethi>correct correct
+
+240
+00:20:23.554 --> 00:20:30.722
+<v Ananya Krishnan>let me park that one, i do not want to lose the thread on the fact table
+
+241
+00:20:31.221 --> 00:20:33.587
+<v Vikram Sethi>ok ok park it
+
+242
+00:20:33.804 --> 00:20:37.616
+<v Sneha Pillai>should i note the secondary coverage point
+
+243
+00:20:37.914 --> 00:20:42.430
+<v Ananya Krishnan>note it as raised, not as an action yet
+
+244
+00:20:42.990 --> 00:20:44.483
+<v Sneha Pillai>ok
+
+245
+00:20:44.734 --> 00:20:48.735
+<v Ishaan Bhatt>sorry there is somebody at my door, two seconds
+
+246
+00:20:48.735 --> 00:20:50.352
+<v Ananya Krishnan>no problem
+
+247
+00:20:50.352 --> 00:20:51.845
+<v Vikram Sethi>[inaudible]
+
+248
+00:20:52.630 --> 00:20:54.478
+<v Ananya Krishnan>go go
+
+249
+00:20:54.762 --> 00:20:59.506
+<v Farida Contractor>while he is away can i ask about the deployment
+
+250
+00:20:59.793 --> 00:21:01.286
+<v Ananya Krishnan>yes
+
+251
+00:21:01.534 --> 00:21:11.070
+<v Farida Contractor>if two changes are going into map fact invoice line then i want the scenario regenerated properly and not hot fixed in production
+
+252
+00:21:11.239 --> 00:21:16.037
+<v Karthik Subramanian>absolutely, that is the only way it should be done
+
+253
+00:21:16.572 --> 00:21:26.896
+<v Farida Contractor>because we have had it before where somebody changed the interface and did not regenerate, and then the run picks up the old version
+
+254
+00:21:28.216 --> 00:21:29.786
+<v Karthik Subramanian>understood
+
+255
+00:21:29.786 --> 00:21:33.557
+<v Farida Contractor>and then control em shows green
+
+256
+00:21:34.212 --> 00:21:35.705
+<v Karthik Subramanian>yes
+
+257
+00:21:36.027 --> 00:21:41.672
+<v Farida Contractor>green does not mean correct, that is my whole point in this project
+
+258
+00:21:41.672 --> 00:21:45.728
+<v Karthik Subramanian>i will write that sentence down actually
+
+259
+00:21:46.118 --> 00:21:48.555
+<v Farida Contractor>please write it
+
+260
+00:21:49.027 --> 00:21:53.168
+<v Ishaan Bhatt>sorry sorry i am back, it was a delivery
+
+261
+00:21:53.605 --> 00:21:55.385
+<v Ananya Krishnan>no problem
+
+262
+00:21:55.649 --> 00:22:01.907
+<v Ishaan Bhatt>ok so, third thing, and this one i am less sure about
+
+263
+00:22:02.087 --> 00:22:04.788
+<v Shalini Iyer>is this the discount one
+
+264
+00:22:04.999 --> 00:22:06.493
+<v Ishaan Bhatt>yes
+
+265
+00:22:06.727 --> 00:22:11.043
+<v Shalini Iyer>then this is the one i actually care about most
+
+266
+00:22:11.457 --> 00:22:13.500
+<v Ishaan Bhatt>ok so
+
+267
+00:22:13.949 --> 00:22:20.384
+<v Ishaan Bhatt>the scheme discount amount on the fact does not tie to what finance has accrued
+
+268
+00:22:20.684 --> 00:22:23.451
+<v Shalini Iyer>the trade promotion accrual
+
+269
+00:22:23.809 --> 00:22:27.141
+<v Ishaan Bhatt>yeah, the trade promotion accrual
+
+270
+00:22:27.295 --> 00:22:34.840
+<v Shalini Iyer>for the year, my accrual and your warehouse number are apart by about, hold on
+
+271
+00:22:34.840 --> 00:22:37.954
+<v Shalini Iyer>1.7 core, one point seven, roughly
+
+272
+00:22:37.954 --> 00:22:46.982
+<v Ishaan Bhatt>yes that is the same as what i am getting, one point seven odd for FY twenty six
+
+273
+00:22:47.193 --> 00:22:52.666
+<v Shalini Iyer>and it is always in the same direction, the warehouse is always higher
+
+274
+00:22:52.666 --> 00:22:56.947
+<v Shalini Iyer>always, i have checked it month on month
+
+275
+00:22:57.442 --> 00:23:01.988
+<v Ishaan Bhatt>always higher, never lower, i checked that specifically
+
+276
+00:23:02.383 --> 00:23:05.080
+<v Karthik Subramanian>that is the interesting part
+
+277
+00:23:05.080 --> 00:23:06.801
+<v Shalini Iyer>why interesting
+
+278
+00:23:08.002 --> 00:23:18.821
+<v Karthik Subramanian>because a random error goes both ways, this one only goes one way, so something is being added and never taken away
+
+279
+00:23:19.252 --> 00:23:22.026
+<v Shalini Iyer>so what is adding it
+
+280
+00:23:22.317 --> 00:23:25.784
+<v Karthik Subramanian>that i do not know yet
+
+281
+00:23:26.079 --> 00:23:27.639
+<v Shalini Iyer>hmm
+
+282
+00:23:27.639 --> 00:23:38.454
+<v Karthik Subramanian>but i have a theory and i want to put it on the record so that we either prove it or kill it
+
+283
+00:23:40.835 --> 00:23:42.451
+<v Ananya Krishnan>please
+
+284
+00:23:43.235 --> 00:23:51.691
+<v Karthik Subramanian>so, when i look at the fact rows behind that gap, they are not wrong amounts, they are duplicate rows
+
+285
+00:23:52.204 --> 00:23:57.007
+<v Karthik Subramanian>the same source invoice line is present more than once
+
+286
+00:23:58.435 --> 00:24:07.352
+<v Ishaan Bhatt>yeah, i have got a sample, i can send it, they are exact dupes, same line id, same amount, different load date
+
+287
+00:24:08.026 --> 00:24:12.180
+<v Karthik Subramanian>exact duplicates, that is a very specific signature
+
+288
+00:24:12.449 --> 00:24:15.738
+<v Shalini Iyer>and the discount gets counted twice
+
+289
+00:24:15.896 --> 00:24:32.774
+<v Karthik Subramanian>the discount gets counted twice, and so would everything else on that row, but the gross value is large so a duplicate does not stand out, whereas the discount is small and it stands out immediately
+
+290
+00:24:32.982 --> 00:24:37.505
+<v Shalini Iyer>that is why finance sees it and nobody else does
+
+291
+00:24:38.019 --> 00:24:43.893
+<v Karthik Subramanian>that is why finance sees it and nobody else does, yes
+
+292
+00:24:45.130 --> 00:24:46.623
+<v Shalini Iyer>ok
+
+293
+00:24:47.729 --> 00:24:52.660
+<v Karthik Subramanian>now, why would the same line be picked up twice
+
+294
+00:24:52.826 --> 00:24:59.726
+<v Karthik Subramanian>the mapping loads with a control append, so there is no merge, whatever comes in gets inserted
+
+295
+00:24:59.877 --> 00:25:04.611
+<v Ishaan Bhatt>there is no key based merge at all on the fact
+
+296
+00:25:04.895 --> 00:25:17.259
+<v Karthik Subramanian>correct, and the extract picks rows using a last updated date predicate, trunc of sysdate minus one, so it is a window and the window overlaps by design
+
+297
+00:25:17.586 --> 00:25:22.506
+<v Farida Contractor>it has to overlap, otherwise you lose late rows
+
+298
+00:25:22.905 --> 00:25:26.106
+<v Karthik Subramanian>agreed, the overlap is deliberate
+
+299
+00:25:27.088 --> 00:25:31.124
+<v Karthik Subramanian>so my hypothesis is about the be link
+
+300
+00:25:31.676 --> 00:25:33.673
+<v Shalini Iyer>the what
+
+301
+00:25:33.996 --> 00:25:39.521
+<v Karthik Subramanian>the database link, the link between the staging schema and the source
+
+302
+00:25:39.787 --> 00:25:41.280
+<v Shalini Iyer>ok
+
+303
+00:25:41.615 --> 00:25:50.016
+<v Karthik Subramanian>the staging tables physically sit inside the warehouse database, not inside orion, so every extract crosses that link
+
+304
+00:25:50.586 --> 00:25:56.934
+<v Farida Contractor>yes, and it is one link, orion prd, there is only one
+
+305
+00:25:57.317 --> 00:26:02.624
+<v Karthik Subramanian>correct, one link, and the load knowledge module goes over it
+
+306
+00:26:02.995 --> 00:26:12.103
+<v Karthik Subramanian>now on a heavy night that step is slow, and i mean visibly slow, the session sits waiting on the link
+
+307
+00:26:12.441 --> 00:26:15.926
+<v Farida Contractor>that i can confirm one hundred percent
+
+308
+00:26:16.352 --> 00:26:25.528
+<v Farida Contractor>the invoice line interface is the slowest thing in the whole plan and on a bad night it is not even close
+
+309
+00:26:25.835 --> 00:26:31.257
+<v Farida Contractor>it just sits there in sql net message from the link
+
+310
+00:26:31.458 --> 00:26:41.099
+<v Karthik Subramanian>so, if the extract for a given night runs long enough, the rows it is reading can fall inside the next night's window as well
+
+311
+00:26:41.406 --> 00:26:47.721
+<v Karthik Subramanian>and with a control append and no merge, they go in a second time
+
+312
+00:26:48.006 --> 00:26:50.412
+<v Ishaan Bhatt>and nothing complains
+
+313
+00:26:50.763 --> 00:26:58.896
+<v Karthik Subramanian>and nothing complains, because the batch closes with a done status and the row counts look plausible
+
+314
+00:26:59.305 --> 00:27:04.657
+<v Shalini Iyer>so the link being slow is causing the double counting
+
+315
+00:27:05.762 --> 00:27:08.855
+<v Karthik Subramanian>that is the hypothesis, yes
+
+316
+00:27:09.193 --> 00:27:12.394
+<v Shalini Iyer>and how confident are you
+
+317
+00:27:12.857 --> 00:27:17.000
+<v Karthik Subramanian>moderately, and i want to say that carefully
+
+318
+00:27:17.828 --> 00:27:20.378
+<v Ananya Krishnan>say it carefully then
+
+319
+00:27:20.901 --> 00:27:23.678
+<v Karthik Subramanian>moderately confident, not confident
+
+320
+00:27:24.393 --> 00:27:34.601
+<v Karthik Subramanian>it fits three things, the duplicates are exact, they are concentrated on the heavier nights, and the link is measurably slow on exactly those nights
+
+321
+00:27:35.059 --> 00:27:39.558
+<v Karthik Subramanian>the heavy nights are the month end nights
+
+322
+00:27:39.895 --> 00:27:43.554
+<v Karthik Subramanian>which is also when finance is looking
+
+323
+00:27:43.760 --> 00:27:45.282
+<v Shalini Iyer>correct
+
+324
+00:27:45.282 --> 00:27:48.724
+<v Farida Contractor>i will half agree with you
+
+325
+00:27:49.243 --> 00:27:51.249
+<v Karthik Subramanian>go on
+
+326
+00:27:51.249 --> 00:28:02.248
+<v Farida Contractor>the link is slow, that is not in dispute, i have been saying it since last year and it is in my mail also
+
+327
+00:28:02.462 --> 00:28:09.170
+<v Farida Contractor>but slow is slow, i do not see immediately how slow becomes wrong
+
+328
+00:28:09.532 --> 00:28:13.394
+<v Karthik Subramanian>that is the right question to ask
+
+329
+00:28:13.579 --> 00:28:20.319
+<v Farida Contractor>because in odie the step either completes or it fails, it does not half complete
+
+330
+00:28:20.715 --> 00:28:29.942
+<v Karthik Subramanian>no, agreed, but the point is not that the step half completes, the point is which rows fall inside which night's window
+
+331
+00:28:30.102 --> 00:28:39.028
+<v Karthik Subramanian>frida i am genuinely asking, is there any night where the plan ran long and the numbers were clean
+
+332
+00:28:39.438 --> 00:28:43.094
+<v Farida Contractor>i would have to go and look
+
+333
+00:28:43.596 --> 00:28:47.169
+<v Karthik Subramanian>please look, because that is the test
+
+334
+00:28:47.169 --> 00:28:48.662
+<v Farida Contractor>hmm
+
+335
+00:28:48.870 --> 00:28:52.579
+<v Farida Contractor>ok, i can see the shape of it
+
+336
+00:28:53.602 --> 00:28:55.392
+<v Farida Contractor>na, wait
+
+337
+00:28:55.756 --> 00:29:04.221
+<v Farida Contractor>if that is true then it would happen on every long night and not on some long nights
+
+338
+00:29:04.497 --> 00:29:07.342
+<v Karthik Subramanian>that is a good objection
+
+339
+00:29:07.342 --> 00:29:11.496
+<v Karthik Subramanian>i do not have an answer to it today
+
+340
+00:29:11.981 --> 00:29:13.474
+<v Farida Contractor>hmm
+
+341
+00:29:13.702 --> 00:29:16.488
+<v Farida Contractor>i am not saying no
+
+342
+00:29:16.818 --> 00:29:25.778
+<v Karthik Subramanian>i am not asking you to say yes either, i am asking us to write it down and then test it
+
+343
+00:29:26.263 --> 00:29:29.076
+<v Ananya Krishnan>how do we test it
+
+344
+00:29:29.317 --> 00:29:40.081
+<v Karthik Subramanian>pull the database performance report for a couple of nights, one bad night and one clean night, and see what the link wait actually is against the total
+
+345
+00:29:43.942 --> 00:29:55.020
+<v Karthik Subramanian>if the link is a large share of the elapsed on the bad nights and small on the clean ones, and the duplicates follow the same pattern, then it holds
+
+346
+00:29:55.020 --> 00:30:03.507
+<v Karthik Subramanian>if the duplicates show up on a night where the link was fine, then my theory is dead and we look elsewhere
+
+347
+00:30:07.208 --> 00:30:10.989
+<v Ananya Krishnan>that is clean, i like that
+
+348
+00:30:11.299 --> 00:30:16.520
+<v Sneha Pillai>sorry, so what do i write as the cause for this one
+
+349
+00:30:16.760 --> 00:30:20.114
+<v Ananya Krishnan>write it as the working theory
+
+350
+00:30:20.114 --> 00:30:28.632
+<v Karthik Subramanian>write, uh, suspected cause, latency on the orion prd database link causing rows to be re extracted
+
+351
+00:30:28.632 --> 00:30:30.313
+<v Sneha Pillai>suspected cause
+
+352
+00:30:31.568 --> 00:30:38.391
+<v Karthik Subramanian>put the word suspected in, please, in capitals if the tracker lets you
+
+353
+00:30:38.391 --> 00:30:39.884
+<v Sneha Pillai>ok
+
+354
+00:30:40.273 --> 00:30:44.930
+<v Shalini Iyer>and if it is the link, what is the fix
+
+355
+00:30:45.455 --> 00:30:57.491
+<v Karthik Subramanian>if it is the link there are two fixes and they are independent, make the link faster, and make the load i dem potent so that a re read cannot duplicate
+
+356
+00:30:57.720 --> 00:31:01.001
+<v Shalini Iyer>the second one sounds more useful
+
+357
+00:31:01.387 --> 00:31:08.997
+<v Karthik Subramanian>the second one is more useful whatever the cause turns out to be, which is the honest answer
+
+358
+00:31:09.265 --> 00:31:12.903
+<v Ananya Krishnan>ok so we do the second one regardless
+
+359
+00:31:13.070 --> 00:31:18.607
+<v Karthik Subramanian>i would, yes, but not in this phase and not this week
+
+360
+00:31:19.095 --> 00:31:20.641
+<v Ananya Krishnan>understood
+
+361
+00:31:21.020 --> 00:31:25.757
+<v Farida Contractor>since we are on duplicates, can i bring up february
+
+362
+00:31:26.228 --> 00:31:30.744
+<v Ananya Krishnan>yes, i was going to come to that
+
+363
+00:31:31.105 --> 00:31:35.395
+<v Farida Contractor>so the fourteenth of feb, saturday, the run failed
+
+364
+00:31:35.796 --> 00:31:43.237
+<v Farida Contractor>as per my earlier mail dated sixth of march, the plan failed and it was resubmitted manually
+
+365
+00:31:44.063 --> 00:31:46.734
+<v Farida Contractor>session number is 884012
+
+366
+00:31:46.734 --> 00:31:50.929
+<v Ishaan Bhatt>and the whole night went in twice
+
+367
+00:31:50.929 --> 00:31:55.692
+<v Farida Contractor>the whole night went in a second time, yes
+
+368
+00:31:56.230 --> 00:32:01.556
+<v Shalini Iyer>and how long did that sit in my february number
+
+369
+00:32:01.726 --> 00:32:03.681
+<v Farida Contractor>about three weeks
+
+370
+00:32:03.860 --> 00:32:05.465
+<v Shalini Iyer>three weeks
+
+371
+00:32:05.801 --> 00:32:09.131
+<v Farida Contractor>till meghna's reconciliation picked it up
+
+372
+00:32:09.584 --> 00:32:11.676
+<v Shalini Iyer>and the value
+
+373
+00:32:11.676 --> 00:32:14.173
+<v Ishaan Bhatt>two point nine core
+
+374
+00:32:14.508 --> 00:32:18.592
+<v Shalini Iyer>2.9 core of sales that did not happen
+
+375
+00:32:18.904 --> 00:32:22.347
+<v Ishaan Bhatt>that happened, but got counted twice
+
+376
+00:32:22.593 --> 00:32:26.737
+<v Shalini Iyer>which for my purposes is the same thing
+
+377
+00:32:27.075 --> 00:32:33.095
+<v Vikram Sethi>sorry, 2.9 core in february is the sales number or the duplicate number
+
+378
+00:32:33.506 --> 00:32:35.502
+<v Ishaan Bhatt>the duplicate
+
+379
+00:32:35.737 --> 00:32:38.978
+<v Vikram Sethi>then my february is also inflated
+
+380
+00:32:40.188 --> 00:32:44.112
+<v Shalini Iyer>your february is a different extract vikram
+
+381
+00:32:44.315 --> 00:32:48.144
+<v Vikram Sethi>everything is a different extract in this company
+
+382
+00:32:48.555 --> 00:32:54.137
+<v Ananya Krishnan>sorry, one at a time, i cannot hear either of you
+
+383
+00:32:54.625 --> 00:32:56.453
+<v Ishaan Bhatt>yeah, fair
+
+384
+00:32:56.789 --> 00:33:03.410
+<v Karthik Subramanian>and this is the same mechanism as the third item, just a different trigger
+
+385
+00:33:04.533 --> 00:33:09.689
+<v Karthik Subramanian>control append, no merge, so a second submission appends everything again
+
+386
+00:33:09.914 --> 00:33:12.960
+<v Ananya Krishnan>so it is the same family
+
+387
+00:33:13.300 --> 00:33:20.799
+<v Karthik Subramanian>same family, different trigger, and i would keep them as separate items in the tracker
+
+388
+00:33:21.209 --> 00:33:23.206
+<v Sneha Pillai>separate items, ok
+
+389
+00:33:25.926 --> 00:33:30.793
+<v Shalini Iyer>now, the question i have been asking farida for two weeks
+
+390
+00:33:31.113 --> 00:33:32.938
+<v Farida Contractor>i know
+
+391
+00:33:32.938 --> 00:33:37.165
+<v Shalini Iyer>do we re run february or not
+
+392
+00:33:37.675 --> 00:33:41.097
+<v Farida Contractor>and my answer has not changed
+
+393
+00:33:41.239 --> 00:33:47.901
+<v Shalini Iyer>i need clean february figures, i cannot keep carrying a manual adjustment in a spreadsheet
+
+394
+00:33:48.388 --> 00:34:00.083
+<v Farida Contractor>i understand that, but if i re run february today with the load as it is, i will not fix it, i will make it worse
+
+395
+00:34:02.677 --> 00:34:04.282
+<v Shalini Iyer>why worse
+
+396
+00:34:04.282 --> 00:34:13.239
+<v Farida Contractor>because the load appends, so a re run adds a third copy, it does not replace the second one
+
+397
+00:34:13.640 --> 00:34:16.980
+<v Ishaan Bhatt>we can delete by batch id first
+
+398
+00:34:17.210 --> 00:34:19.118
+<v Farida Contractor>on production
+
+399
+00:34:19.355 --> 00:34:24.517
+<v Ishaan Bhatt>yes, i mean, the batch id is on every row
+
+400
+00:34:24.888 --> 00:34:33.620
+<v Farida Contractor>deleting thirty odd million rows worth of history on a production fact table on a monday is not a small ask
+
+401
+00:34:33.816 --> 00:34:38.868
+<v Ishaan Bhatt>no no not the whole table, only the batch
+
+402
+00:34:38.868 --> 00:34:47.085
+<v Farida Contractor>i know what you mean, i am telling you what it looks like from where i sit
+
+403
+00:34:48.010 --> 00:34:50.301
+<v Ishaan Bhatt>sorry go ahead
+
+404
+00:34:51.423 --> 00:34:54.086
+<v Farida Contractor>no you go ahead
+
+405
+00:34:54.429 --> 00:34:56.846
+<v Ishaan Bhatt>no no you finish
+
+406
+00:34:57.714 --> 00:34:59.981
+<v Farida Contractor>i have finished
+
+407
+00:35:00.401 --> 00:35:03.767
+<v Ananya Krishnan>hold on, let us slow down
+
+408
+00:35:04.317 --> 00:35:07.386
+<v Karthik Subramanian>can i frame the choice
+
+409
+00:35:07.900 --> 00:35:09.394
+<v Ananya Krishnan>please
+
+410
+00:35:11.260 --> 00:35:18.894
+<v Karthik Subramanian>option one, we do nothing to february and finance carries an adjustment until the load is rebuilt properly
+
+411
+00:35:18.894 --> 00:35:24.355
+<v Karthik Subramanian>option two, we delete the duplicate batch and leave the rest alone
+
+412
+00:35:24.560 --> 00:35:31.844
+<v Karthik Subramanian>option three, we truncate the february range and reload it, which is the cleanest and also the riskiest
+
+413
+00:35:31.844 --> 00:35:35.695
+<v Shalini Iyer>option three is what i would want
+
+414
+00:35:36.391 --> 00:35:40.186
+<v Farida Contractor>option three is what i would not want
+
+415
+00:35:40.186 --> 00:35:41.680
+<v Shalini Iyer>obviously
+
+416
+00:35:41.838 --> 00:35:43.967
+<v Ananya Krishnan>vikram has dropped
+
+417
+00:35:44.148 --> 00:35:47.213
+<v Unknown Speaker>he has left the call
+
+418
+00:35:47.756 --> 00:35:51.893
+<v Ananya Krishnan>he said he might, we carry on
+
+419
+00:35:52.139 --> 00:35:56.121
+<v Farida Contractor>not obviously, i am not being difficult
+
+420
+00:35:57.286 --> 00:36:09.685
+<v Farida Contractor>the reload has to come across the link and it is not a small volume, and if it runs long it will run into the morning
+
+421
+00:36:10.058 --> 00:36:13.858
+<v Farida Contractor>and the window is the window
+
+422
+00:36:14.129 --> 00:36:16.801
+<v Shalini Iyer>if it is a weekend
+
+423
+00:36:17.226 --> 00:36:23.028
+<v Farida Contractor>even on a weekend somebody has to sit and watch it
+
+424
+00:36:23.487 --> 00:36:26.501
+<v Shalini Iyer>i can ask for that
+
+425
+00:36:28.937 --> 00:36:34.139
+<v Farida Contractor>asking is not the problem, the problem is if it half finishes
+
+426
+00:36:34.365 --> 00:36:41.107
+<v Karthik Subramanian>there is also a correctness point, and it is not a small one
+
+427
+00:36:41.614 --> 00:36:50.514
+<v Karthik Subramanian>if we reload february today, we reload it through a mapping that still has no delete flag filter
+
+428
+00:36:50.893 --> 00:36:52.387
+<v Ishaan Bhatt>oh
+
+429
+00:36:52.644 --> 00:36:57.209
+<v Karthik Subramanian>so we would be reloading known bad rows
+
+430
+00:36:57.734 --> 00:37:03.176
+<v Shalini Iyer>so we would fix one thing and re import another
+
+431
+00:37:03.374 --> 00:37:04.867
+<v Karthik Subramanian>yes
+
+432
+00:37:05.034 --> 00:37:08.411
+<v Shalini Iyer>then we wait for the filter
+
+433
+00:37:08.884 --> 00:37:17.316
+<v Karthik Subramanian>that would be my instinct, but i do not want to decide it in the last five minutes of a call
+
+434
+00:37:17.616 --> 00:37:19.109
+<v Ananya Krishnan>ok
+
+435
+00:37:19.109 --> 00:37:25.714
+<v Vikram Sethi>sorry, sorry, i got disconnected, boarding announcement, did somebody say february is being redone
+
+436
+00:37:26.647 --> 00:37:30.196
+<v Ananya Krishnan>no vikram, we are discussing whether to
+
+437
+00:37:31.195 --> 00:37:37.967
+<v Vikram Sethi>ok because if february primary cells change then my whole quarter file changes
+
+438
+00:37:37.967 --> 00:37:43.003
+<v Shalini Iyer>vikram that is exactly why it needs to be decided properly
+
+439
+00:37:43.547 --> 00:37:45.353
+<v Vikram Sethi>correct correct
+
+440
+00:37:45.693 --> 00:37:49.696
+<v Ananya Krishnan>so, i am going to do something slightly unsatisfying
+
+441
+00:37:50.217 --> 00:37:53.291
+<v Shalini Iyer>you are going to park it
+
+442
+00:37:53.291 --> 00:37:56.545
+<v Ananya Krishnan>i am going to park it
+
+443
+00:37:57.099 --> 00:37:58.592
+<v Shalini Iyer>hmm
+
+444
+00:37:58.592 --> 00:38:09.946
+<v Ananya Krishnan>not because i want to avoid it, but because the answer changes depending on whether the filter fix is in, and that is a week or two away at least
+
+445
+00:38:10.294 --> 00:38:13.602
+<v Karthik Subramanian>and the sequencing genuinely matters here
+
+446
+00:38:14.135 --> 00:38:16.984
+<v Farida Contractor>i agree with parking it
+
+447
+00:38:17.353 --> 00:38:23.493
+<v Shalini Iyer>i do not love it but i can accept it if there is a date
+
+448
+00:38:23.688 --> 00:38:28.911
+<v Ananya Krishnan>we take it as the first item at the next session
+
+449
+00:38:29.452 --> 00:38:31.593
+<v Shalini Iyer>which is when
+
+450
+00:38:31.593 --> 00:38:36.916
+<v Ananya Krishnan>the architecture review, that is, uh, sneha when is it
+
+451
+00:38:37.110 --> 00:38:39.348
+<v Sneha Pillai>fourteenth of april
+
+452
+00:38:39.770 --> 00:38:42.117
+<v Shalini Iyer>that is three weeks
+
+453
+00:38:43.717 --> 00:38:45.210
+<v Ananya Krishnan>yes
+
+454
+00:38:45.635 --> 00:38:51.633
+<v Shalini Iyer>three weeks is a long time to sit on a wrong [inaudible]
+
+455
+00:38:52.522 --> 00:38:56.169
+<v Ananya Krishnan>it is, and i am not pretending otherwise
+
+456
+00:38:56.379 --> 00:38:57.872
+<v Shalini Iyer>ok
+
+457
+00:38:57.872 --> 00:39:03.756
+<v Shalini Iyer>put it in writing that it was deferred and by whom
+
+458
+00:39:04.132 --> 00:39:07.778
+<v Ananya Krishnan>sneha please capture it exactly like that
+
+459
+00:39:08.045 --> 00:39:14.385
+<v Sneha Pillai>decision deferred to the next session, i will write it as deferred and not as agreed
+
+460
+00:39:14.910 --> 00:39:16.808
+<v Shalini Iyer>thank you
+
+461
+00:39:18.030 --> 00:39:22.671
+<v Farida Contractor>and in the meantime nobody re runs february without telling me
+
+462
+00:39:22.824 --> 00:39:25.112
+<v Ishaan Bhatt>of course not
+
+463
+00:39:25.588 --> 00:39:29.502
+<v Ananya Krishnan>nobody re runs anything, that is understood
+
+464
+00:39:29.927 --> 00:39:36.308
+<v Ananya Krishnan>ok we have six minutes, sneha can you read back what you have
+
+465
+00:39:36.845 --> 00:39:39.082
+<v Sneha Pillai>yes, one second
+
+466
+00:39:39.309 --> 00:39:50.028
+<v Sneha Pillai>so first, ishaan to complete the april and may tie out against the trial balance and send it, by friday the twenty seventh
+
+467
+00:39:50.425 --> 00:39:51.918
+<v Ishaan Bhatt>yes
+
+468
+00:39:52.120 --> 00:40:00.080
+<v Sneha Pillai>second, karthik to write up the filter change and the date key change as one change for the same mapping
+
+469
+00:40:00.400 --> 00:40:06.494
+<v Karthik Subramanian>yes, i will do the note by, let us say the thirty first
+
+470
+00:40:06.979 --> 00:40:08.750
+<v Sneha Pillai>thirty first
+
+471
+00:40:08.941 --> 00:40:14.778
+<v Sneha Pillai>third, farida to confirm what regression she needs before that change goes in
+
+472
+00:40:15.254 --> 00:40:20.325
+<v Farida Contractor>i will send it, but i want the change note first
+
+473
+00:40:20.797 --> 00:40:23.276
+<v Karthik Subramanian>you will have it
+
+474
+00:40:23.723 --> 00:40:33.365
+<v Sneha Pillai>fourth, karthik to pull the database performance report for one bad night and one clean night to test the link theory
+
+475
+00:40:33.688 --> 00:40:40.391
+<v Karthik Subramanian>yes, and i will need help from the d b a side for that
+
+476
+00:40:40.567 --> 00:40:45.079
+<v Ananya Krishnan>anirood will have it, we can ask anirood
+
+477
+00:40:45.346 --> 00:40:49.079
+<v Karthik Subramanian>yes annie can get it in five minutes
+
+478
+00:40:49.079 --> 00:40:52.669
+<v Sneha Pillai>sorry i did not catch the name
+
+479
+00:40:52.669 --> 00:40:56.215
+<v Karthik Subramanian>annie, from the d b a side
+
+480
+00:40:57.435 --> 00:40:58.989
+<v Sneha Pillai>ok
+
+481
+00:40:59.481 --> 00:41:05.899
+<v Sneha Pillai>fifth, the february re run decision is deferred to the fourteenth of april session
+
+482
+00:41:06.421 --> 00:41:08.035
+<v Shalini Iyer>deferred, yes
+
+483
+00:41:08.270 --> 00:41:18.767
+<v Sneha Pillai>sixth, i log three new items in the tracker, the q one one, the month end date one, and the scheme discount one as suspected
+
+484
+00:41:18.767 --> 00:41:24.684
+<v Ananya Krishnan>and the february one is already in the log from before
+
+485
+00:41:25.041 --> 00:41:29.607
+<v Sneha Pillai>it is already there, i will just link them
+
+486
+00:41:29.836 --> 00:41:35.438
+<v Sneha Pillai>and seventh, secondary coverage raised by vikram, noted, no owner yet
+
+487
+00:41:35.913 --> 00:41:38.904
+<v Vikram Sethi>no owner means nothing will happen
+
+488
+00:41:39.345 --> 00:41:47.263
+<v Ananya Krishnan>no, it means i have not decided who yet, i will come back on it this week
+
+489
+00:41:47.637 --> 00:41:49.519
+<v Vikram Sethi>ok ok
+
+490
+00:41:49.519 --> 00:41:53.841
+<v Sneha Pillai>i have that as action fourteen onwards in my sheet
+
+491
+00:41:53.841 --> 00:41:55.334
+<v Ananya Krishnan>good
+
+492
+00:41:56.096 --> 00:41:59.792
+<v Shalini Iyer>one last thing from me before i drop
+
+493
+00:42:00.642 --> 00:42:02.168
+<v Ananya Krishnan>yes
+
+494
+00:42:02.489 --> 00:42:12.768
+<v Shalini Iyer>for the deck on thursday, whatever number goes on the slide, i want it to be the same number that is in the tracker
+
+495
+00:42:13.227 --> 00:42:14.721
+<v Ananya Krishnan>yes
+
+496
+00:42:15.463 --> 00:42:21.399
+<v Shalini Iyer>last time there were two versions floating and i had to explain both
+
+497
+00:42:21.960 --> 00:42:24.535
+<v Ananya Krishnan>that will not happen
+
+498
+00:42:25.047 --> 00:42:31.342
+<v Karthik Subramanian>i am writing the deck so it will be the tracker numbers
+
+499
+00:42:31.342 --> 00:42:34.912
+<v Shalini Iyer>thank you, i have to jump
+
+500
+00:42:35.076 --> 00:42:36.957
+<v Ananya Krishnan>thanks shalini
+
+501
+00:42:37.199 --> 00:42:38.964
+<v Shalini Iyer>bye everyone
+
+502
+00:42:38.964 --> 00:42:40.457
+<v Farida Contractor>bye
+
+503
+00:42:42.087 --> 00:42:45.917
+<v Ananya Krishnan>ok, uh, farida anything else from your side
+
+504
+00:42:46.336 --> 00:42:50.760
+<v Farida Contractor>no, only the regression point which is captured
+
+505
+00:42:51.265 --> 00:42:52.758
+<v Ananya Krishnan>captured
+
+506
+00:42:53.206 --> 00:42:57.408
+<v Sneha Pillai>one second, somebody is typing very loudly
+
+507
+00:42:58.290 --> 00:43:00.658
+<v Farida Contractor>sorry that is me
+
+508
+00:43:00.658 --> 00:43:03.282
+<v Vikram Sethi>ananya one small thing
+
+509
+00:43:03.520 --> 00:43:05.013
+<v Ananya Krishnan>yes
+
+510
+00:43:05.505 --> 00:43:13.865
+<v Vikram Sethi>the sovereign one kg and the ta rang one kg, in the report the numbers are looking odd
+
+511
+00:43:14.301 --> 00:43:16.100
+<v Ananya Krishnan>odd how
+
+512
+00:43:16.570 --> 00:43:23.809
+<v Vikram Sethi>the case quantity is not matching with my file, it is not a small difference also
+
+513
+00:43:24.176 --> 00:43:29.534
+<v Ananya Krishnan>ok, uh, send me a screenshot and i will get ishaan to look
+
+514
+00:43:29.870 --> 00:43:34.510
+<v Vikram Sethi>i will send tonight itself, do the needful
+
+515
+00:43:34.754 --> 00:43:36.398
+<v Ananya Krishnan>will do
+
+516
+00:43:37.699 --> 00:43:41.353
+<v Ishaan Bhatt>send the sku codes also if possible
+
+517
+00:43:41.627 --> 00:43:43.912
+<v Vikram Sethi>haan i will send
+
+518
+00:43:44.153 --> 00:43:47.290
+<v Ananya Krishnan>ok, karthik anything to add
+
+519
+00:43:47.479 --> 00:43:49.846
+<v Karthik Subramanian>only one thing
+
+520
+00:43:50.326 --> 00:43:58.509
+<v Karthik Subramanian>i said moderately confident on the link theory and i want that word to survive into the notes
+
+521
+00:43:59.005 --> 00:44:00.645
+<v Sneha Pillai>it will
+
+522
+00:44:00.922 --> 00:44:09.822
+<v Karthik Subramanian>because if it turns out to be wrong i do not want anyone saying we said it was the answer
+
+523
+00:44:09.822 --> 00:44:15.393
+<v Ananya Krishnan>noted, and that is exactly the right way to hold it
+
+524
+00:44:15.668 --> 00:44:25.514
+<v Ananya Krishnan>ok, thank you everyone, this was a good session, we actually know something now which we did not know two weeks ago
+
+525
+00:44:25.906 --> 00:44:31.864
+<v Ishaan Bhatt>i will push the sample of the dupes into the channel
+
+526
+00:44:32.064 --> 00:44:33.557
+<v Ananya Krishnan>please
+
+527
+00:44:33.865 --> 00:44:37.732
+<v Ananya Krishnan>ok, drishty team, uh, see you on thursday
+
+528
+00:44:38.854 --> 00:44:40.348
+<v Farida Contractor>bye
+
+529
+00:44:40.905 --> 00:44:42.398
+<v Karthik Subramanian>bye
+
+530
+00:44:43.387 --> 00:44:45.069
+<v Vikram Sethi>bye bye
+
+531
+00:44:48.238 --> 00:44:49.731
+<v Sneha Pillai>bye
+
+NOTE SYNTHETIC — generated for internal demo. No real entity depicted.

@@ -1,0 +1,474 @@
+transcript (auto)
+Bhardwaj Consumer Products Ltd  data quality readout
+18/06/2026  11:00 - 11:50 IST  online
+duration 00:49:57   participants detected 8   language en-IN
+machine generated, not reviewed, speaker labels are a best guess
+
+Speaker 7: okay i think we are recording now hold on yeah it says recording started so can everyone hear me
+Priya Nair: yes neha we can hear you
+Speaker 2: yep clear
+Ananya Krishnan: just for the record this is the bhardwaj consumer products data quality quality readout project drishty eighteenth of june megna are you on
+Speaker 4: yes i am here audio only my camera is not working since morning
+Speaker 7: no problem
+Speaker 1: sneha you are joining na
+Sneha Pillai: i am here i am just opening the notes file i am working from home today not in andaree so if my audio goes just carry on and i will pick it up from the recording
+Speaker ?: frida said she will be two minutes late she is finishing something on the run
+Priya Nair: okay so shall we start or wait for shalini
+Ishaan Bhatt: shalini said she may be a bit late there is something with the closing we should start otherwise fifty minutes will go and we will have done nothing
+Neha Gokhale: haan okay so let me share, one second can you see my screen
+Speaker 3: not yet
+Speaker 2: no
+Speaker 2: now now yes
+yes visible
+[00:02:03]
+Neha Gokhale: okay good
+Speaker 5: sorry sorry i am here one second
+Speaker 5: i had a meeting overrunning, i am on the call now
+Speaker 7: no issue frida we have just started
+Neha Gokhale: okay so this is the data quality readout
+Neha Gokhale: the assessment window was the fourth of may to the nineteenth of june so we are basically at the end of it what i want to do today is walk the rule results and then the four or five things that i think need to become items on the tracker
+Ananya Krishnan: and the deck goes out after this
+Neha Gokhale: yes the the deck goes out today
+Speaker 3: kindly send the excel also if possible not only the deck
+Priya Nair: yes that is coming i will come to that in a minute
+Neha Gokhale: so first the shape of it
+Speaker 1: we profiled fourteen tables
+Neha Gokhale: seven on the orion side and seven in the warehouse everything i quote today is from the profiling run of the thirty first of may
+Speaker ?: thirty first of may yes, every count i give is as of that run
+Speaker ?: and that matters because two of the fixes went in after that
+Ishaan Bhatt: yeah the delete flack one went in on the third correct
+Neha Gokhale: so some of these will look better next time, i have not restated them i would rather show you the run we actually did than a run i have adjusted in my head
+[00:03:54]
+Speaker 5: that is fine that is the right way
+Neha Gokhale: the five dimensions i use are completeness validity consistency uniqueness and timeliness in that order and every rule sits under exactly one of them
+Speaker ?: there are twenty four rules defined, dq dash r zero one through to dq dash r twenty four nine of them are failing
+Priya Nair: sorry nine out of twenty four
+Speaker 1: nine out of twenty four yes
+Speaker 3: okay
+Neha Gokhale: and the overall score is is seventy one out of a hundred
+Ananya Krishnan: which i mean for a landscape of this age that is actually not a disaster
+Speaker 1: it is not a disaster, no by dimension completeness sixty eight validity seventy four consistency sixty six uniqueness seventy nine timeliness ninety one
+Sneha Pillai: sorry neha can you repeat the consistency one
+Speaker 1: sixty six
+Sneha Pillai: thank you
+Speaker ?: timeliness being the highest surprises people
+Farida Contractor: that is because the run finishes whatever else is wrong with it it finishes and it finishes every night
+Speaker 1: correct
+haha
+consistency is the lowest and that is where most of the actual uh sorry most of the items that have a rupee number against them
+[00:05:51]
+Speaker 7: right
+Neha Gokhale: and the thing i keep coming back to is materiality a rule can fail at ninety nine point nine something and still be the biggest one on the list
+Speaker 1: so please do not read the percentages as a ranking megna do you want to take the profiling summary
+Meghna Rao: yes i will go table by table quickly
+Speaker 7: not too quickly okay
+Meghna Rao: so on the source side invoice line is sixty one point eight four million rows that is six one eight four seven two two zero invoice header eight point nine million eight nine zero two one four four customer two one four zero
+Speaker 4: skew master twelve forty six of which eight six two are active
+Priya Nair: sorry, twelve forty six is the master and eight sixty two are the ones we actually sell
+Meghna Rao: correct correct
+Speaker 4: and thirty seven of the twelve forty six have a null category code
+Neha Gokhale: hold that one it comes back later
+Speaker 4: yes on the warehouse side the invoice fact is thirty four point one eight million
+Sneha Pillai: three four one eight two five five six
+Speaker 4: the order fact is twelve point six million dim customer two one four zero dim product twelve forty six
+Meghna Rao: tax rate master, two hundred and fourteen rows
+Speaker 2: two fourteen only
+two hundred and fourteen yes
+[00:07:45]
+okay
+Speaker 4: uh
+Meghna Rao: sorry someone is at my door one second the bell has been going since [inaudible]
+Speaker 2: megna you have dropped i think she will come back, her line does this while she is coming back let me say the point of the row counts the point is not the row counts it is that when you put the source next to the warehouse the two do not line up and there is no single reason for it there are about five reasons
+Speaker 3: just to confirm my understanding the fact only goes back to twenty twenty one
+Ishaan Bhatt: yeah, april twenty twenty one onwards in the fact, the source has from twenty sixteen
+Speaker 3: okay that explains a lot actually because in obi e we always had this thing where the older years were not there and nobody could say why
+Ishaan Bhatt: yep that is why
+Speaker 4: sorry i am back was that the delivery sorry
+Speaker ?: no problem
+Meghna Rao: shall i continue
+Speaker 1: yes go on
+Speaker 4: on a sample of ten thousand rows from the fact i checked the join back to the source invoice line id it lands at ninety nine point nine four percent
+Speaker 1: which is rule nine and the threshold on that one is a hundred so it is a fail
+Meghna Rao: yes
+Neha Gokhale: i will come back to nine it is not a clean story
+Shalini Iyer: hello, sorry i am late
+Speaker ?: hi shalini no problem at all
+[00:09:50]
+i was on a call with the closing team it overran what have i i missed
+Speaker 1: we have done the scope and the scores i have not started on the individual individual items yet
+Shalini Iyer: okay good
+Speaker 1: quick recap for you fourteen tables profiled twenty four rules nine failing overall seventy one out of a hundred
+Shalini Iyer: seventy one
+Speaker 1: yes
+Speaker 6: and what was it last time
+Neha Gokhale: there is no last time this is the first assessment
+Shalini Iyer: right of course sorry
+Speaker 1: no it is a fair question, once we have a second run the number will mean something, today it is just a baseline
+Speaker 6: my only ask is that whatever we discuss today i need to be able to tie it back to the trial balance if it is a rule failure that does not move a number i will look at it but it is not my priority this month
+Neha Gokhale: understood
+Speaker 7: that is fair
+Speaker 1: i will flag which ones have a rupee number and which ones do not as i go
+Shalini Iyer: thank you
+Neha Gokhale: okay so the rule results
+Neha Gokhale: i am not going to read all twenty four the ones that pass they pass they are in the sheet rule one for example mandatory columns on the invoice fact are not null threshold ninety nine point nine actual ninety nine point nine seven pass that one is fine and it has been fine every time i have looked at it
+Priya Nair: is this the same as the file you sent us before the dq rules master v two
+[00:11:49]
+Speaker ?: no, that one is superseded dq rules master v two was my working file, please throw it away, it has rules in it that i dropped
+Speaker 3: okay sorry
+Speaker 1: no no it is my fault i should not have circulated it in the first place everything now lives in the profiling workbook and megna owns that
+Speaker 4: yes it is the dq profiling results file last saved on the twelfth
+Priya Nair: and which tab has the rules
+there is a dq rules tab, and then failures by table and sample failures has actual rows in it if you want to look at real examples
+Speaker 3: kindly share it after the call
+Speaker 7: sneha are you capturing
+Speaker 8: yes ai thirty seven neha to circulate the workbook and the rule set
+Neha Gokhale: it will go with the deck today
+Speaker 8: so due tomorrow
+Priya Nair: tomorrow at the latest okay so the failures nine of them rule four rule seven rule nine rule twelve rule fifteen rule eighteen rule twenty one rule twenty three that is eight
+Neha Gokhale: and uh
+Speaker 1: sorry there is one more in the completeness set which is in the sheet i have not put it on the slide because it is below materiality
+Speaker 5: okay
+Speaker 6: which ones have have money against them
+Neha Gokhale: four of them roughly seven fifteen and hmm let me do them in order it will be less confusing for everybody including me
+Speaker 6: okay
+Speaker ?: uniqueness first because that is the one i think is the most serious
+go ahead
+Speaker 1: so rule seven dq dash r zero seven uniqueness
+Neha Gokhale: the statement is exactly one current flag y row per customer id threshold is a hundred percent because it has to be there is no acceptable level of this we are at ninety nine point one six
+[00:14:39]
+Shalini Iyer: which in rows is what
+Speaker 4: eighteen customers out of two thousand one hundred and forty carry two rows with current flag y
+Speaker 6: eighteen
+Speaker 6: eighteen as of the thirty first of may run
+Shalini Iyer: out of two thousand one hundred and forty yes
+Shalini Iyer: that does not sound like very much
+Speaker 1: it is not very much until you look at which eighteen
+Speaker 2: yeah
+Speaker 3: and there is a bigger number sitting underneath it
+sixty one customers have at least one overlap in the effective dates eighteen of those sixty one have actually ended up with two current rows ah okay
+Shalini Iyer: so sixty one is the population and eighteen is where it has already gone wrong
+Speaker 1: correct that is exactly it this is the type 2 behaviour on the customer dim, it is doing the versioning, it is closing the old row wrongly
+Neha Gokhale: ishaan do you want to explain the mechanism you are the one who found it
+Speaker 2: sure so when a distributor moves territory the dim is supposed to close the old row and open a new one
+Ishaan Bhatt: it does open the new one that part is fine but the closing row's eff end date is being set to the same timestamp as the new row's eff start date and the current flag is left as y on both of them
+Speaker 6: so both rows are live
+Ishaan Bhatt: both rows are are live yeah
+[00:16:38]
+Speaker 2: so when the fact joins to the dim it matches two rows instead of one
+Ishaan Bhatt: and the line gets counted twice
+Speaker 1: for that distributor
+Ishaan Bhatt: for that distributor only yes it is not everywhere
+that is the important bit it is not a general duplication
+Speaker ?: and there is no unique constraint on it in the target, so nothing errors
+Speaker 2: correct nothing errors it just quietly doubles
+Speaker 5: as per my earlier mail on this
+Speaker 5: i had said in may that we should put a constraint on it even if it makes the load fail i would rather the run fails outright than a number is wrong for a month and nobody knows
+Speaker 1: noted
+Speaker 6: i agree with farida farida on that actually
+Neha Gokhale: so the worked example and this is the one that i think makes it real for people
+Speaker 2: mahalaxmi distributors pune dist w zero two four one they were reassigned on the seventeenth of april from ter w zero one four to ter w zero one one and both rows are sitting there with current flag y today
+Speaker ?: and that is one of the eighteen
+Ishaan Bhatt: that is one of the eighteen yes
+Speaker 6: and the number on it
+Speaker ?: the value we have put against it is sixty five lakh
+Speaker 6: sixty five lac
+[00:18:25]
+Speaker 1: sixty five lakh, for fy twenty six
+Speaker 6: okay that is not nothing
+Ananya Krishnan: it is on the tracker already it went on in may
+Shalini Iyer: it is var dash zero zero four
+yes var zero zero four
+Shalini Iyer: who is on it
+Ananya Krishnan: frida is the owner
+Speaker 5: it is with me
+Farida Contractor: i want to say one thing about the fix though
+Speaker 5: whatever we do we cannot just go and update the flag on the existing rows without deciding what the end date should actually be
+Ishaan Bhatt: yeah it needs a proper close out date not sysdate
+Farida Contractor: correct, not sysdate
+Speaker 8: capturing that as an action ai thirty nine farida to fix the effective dating so that only one row carries current flag y
+Speaker ?: put third of july i cannot get to it before that
+Speaker 8: third of july
+Neha Gokhale: there is also rule twenty three which is the same family dq dash r twenty three, consistency, every fact row resolves to a current dim customer row threshold a hundred actual ninety nine point seven one
+Shalini Iyer: and that is the same eighteen
+[00:19:59]
+Neha Gokhale: same family slightly different population because that one is measured on fact rows not on customers
+Speaker 6: understood
+Speaker 4: i can give the fact row count for it if anyone wants it is in failures by table
+Speaker 6: no it is is fine
+Neha Gokhale: okay
+Sneha Pillai: and ai thirty eight meghna to re run the profiling on the customer dim after the june release and confirm the count
+Speaker 4: i can do that by the twenty sixth
+Farida Contractor: as long as it is not a full re run of the plan i cannot give you that the window is the window
+Speaker 4: no it is only profiling i read from the dw it does not touch your run
+Farida Contractor: then fine
+Ananya Krishnan: neha before you move on
+Speaker 1: yes
+Speaker 7: i think we should deal with the mail
+Speaker 1: which mail
+Speaker 7: vikram
+Neha Gokhale: ah yes
+Ananya Krishnan: because he has already come back on this and if we do not deal with it now he will raise it at the steerco and it will be a whole thing
+Speaker 1: go ahead so he sent something at i think it was around seven this morning
+Ananya Krishnan: priya you were copied also one second priya you are on mute
+[00:21:49]
+Speaker 3: [inaudible] sorry one second yes i have it open i am here
+Speaker 7: do you want to read it, it is short
+Priya Nair: uh okay
+Priya Nair: he says, my number is coming different again
+eighteen stockists cannot be the full picture in north itself i am seeing more than that where the billing is not matching pls check before you circulate anything to rajeev sir and then there is a second mail which just says also the tpr amount for nimbu ah south is still wrong
+Speaker 2: hah yes he sent three in about ten minutes that is normal the third one is a forward of the second one
+Shalini Iyer: what is he comparing against
+Speaker 3: his own file i think
+his own extract yes
+Speaker ?: okay so against which rule sorry
+Neha Gokhale: i am not being difficult i genuinely need to know which one he means if he is saying the eighteen is understated that is rule seven and i will go and re run it today if he is saying a value in a report does not match his sheet that is a reconciliation and it is a different conversation and it is not mine
+Speaker 6: it is the second one it is always the second one
+Speaker 7: probably yes
+Sneha Pillai: he is comparing secondary against primary again i have told him i have told him more than once
+Speaker ?: actually actually the bigger thing is, he is not filtering the cancelled lines out of his own extract
+Speaker 2: so his number will always be higher than ours structurally whatever we do
+Speaker 1: right so the eighteen is the eighteen it is a count of customer ids carrying two current rows in the dim it is not a count of everything that is wrong in the world
+Speaker 7: i will reply to him with the customer level detail so he can see the eighteen by name
+Sneha Pillai: capturing that as an action ai forty ananya to reply to vikram with the customer level detail
+Ananya Krishnan: by tomorrow, i will do it today itself if i get time
+Speaker 6: please copy me
+Ananya Krishnan: yes
+Speaker 6: and please do not send him the workbook
+[00:24:52]
+Ananya Krishnan: no no no the eighteen
+Shalini Iyer: while we are on the customer master
+Meghna Rao: is there any check at all on the gstin
+Speaker ?: on the format
+Shalini Iyer: on the format yes
+Shalini Iyer: because we get things rejected and nine times out of ten it is because the gstin on the customer is the wrong length or somebody has typed a letter where there should be a digit
+Neha Gokhale: there is no rule for it in the twenty four
+why not
+Neha Gokhale: because it did not come up in the requirement session and i write rules against what has been agreed otherwise the rule set becomes my opinion if you want it i will write it
+Speaker 6: i want it
+Speaker 3: okay
+Speaker 4: can i add one thing
+Speaker ?: please
+Meghna Rao: it was not in the seven orion tables we profiled either so i do not have a null rate for it and i do not have a format failure count, i have not looked at that column at all
+Shalini Iyer: hmm
+Speaker ?: just to confirm my understanding so as of today we do not know how many are wrong
+Speaker 1: correct we do not know and i would rather say that than give you a number i made up
+Speaker 6: fine but i want it in the next set not in six months in the next set
+[00:26:39]
+it will be in the next rule set it will be a validity rule and it will need a threshold, so somebody from finance has to tell me what is acceptable
+Shalini Iyer: a hundred percent is acceptable
+Speaker ?: a hundred percent is never acceptable in practice but i will write a hundred
+Speaker 6: haha write a hundred
+Speaker 7: sneha can you take that one
+Ishaan Bhatt: yes ai forty one neha to propose a validity rule for gstin format on the customer master for the next rule set
+Neha Gokhale: give me till the tenth of july
+Speaker 8: tenth of july
+Shalini Iyer: thank you
+Neha Gokhale: okay validity rule twelve dq dash r one two the source delete flag on the fact must be y or n
+Neha Gokhale: threshold a hundred we are at eighty five point one
+Shalini Iyer: eighty five
+Speaker 3: eighty five point one
+Shalini Iyer: that is a very big gap compared to the others
+Speaker 1: it is nulls it is entirely nulls
+Meghna Rao: on invoice line as of the thirty first of may y is five three eight zero seven zero eight which is eight point seven percent n is forty seven point two five million seventy six point four percent
+Speaker 6: and null is nine two one five three eight eight fourteen point nine percent
+Shalini Iyer: nine million rows with nothing in the column
+Meghna Rao: nine point two million yes give or take
+Ishaan Bhatt: the delete flack is blank on the older rows it is not that somebody wiped the value it was never there in the first place
+[00:28:48]
+since when uh
+Speaker 2: they are all old rows, that is as far as i want to go without checking properly
+Speaker 1: and it matters because if you filter on delete flag equals n you silently lose all of them
+Ishaan Bhatt: yep that was the whole thing in q one
+Shalini Iyer: that was the four point two core
+Neha Gokhale: four point two crore yes var zero zero one and that one is closed now the filter went in on the third of june
+nvl delete flag comma n equals n
+Speaker 1: correct
+Speaker 6: the apr to jun figure the warehouse was giving me was four three eight point six
+Speaker 6: i could not sign that and i said so at the time
+Speaker 7: understood
+Speaker 1: so the reason rule twelve still shows eighty five is that the profiling run is from before the fix i did say this at the start but i will keep saying it because it confuses everybody including me while we are in this area rule nine
+Neha Gokhale: dq dash r zero nine, consistency, one fact row per source invoice line threshold a hundred actual ninety nine point nine four
+Meghna Rao: that is the the one i sampled earlier
+Neha Gokhale: part of that is february
+Farida Contractor: the fourteenth of february yes
+Farida Contractor: the plan failed and it was resubmitted by hand session eight eight four zero one two
+Ishaan Bhatt: and the od i km on the fact is control append so it just put the whole night in a second time
+[00:30:43]
+Shalini Iyer: two point nine crore that one
+Speaker 7: two point nine and that is closed it came out at the beginning of april
+Neha Gokhale: the balance of that rule failure is the other duplication item which is already on the tracker
+Speaker 1: that one is not a dq item and it is not mine so i am not going to open it here
+Speaker 4: fine
+Speaker 1: i will say one thing though rule nine is the rule i would watch ninety nine point nine four looks like nothing and it is not nothing okay the next one is not on the slide properly i will be honest about that order lines that do not resolve to a header
+Speaker 6: in oreo or in the warehouse
+Priya Nair: or in the dw
+Speaker ?: both that is the problem on a sample of ten thousand order lines i found rows where the order id does not come back to a header
+Speaker 3: is that the fill rate report
+Ishaan Bhatt: yeah it feeds the fill rate one d zero six so the fill rate will be understated
+Speaker 2: or overstated depends which side is missing if the line is there and the header is not you get one answer other way round you get another
+Speaker ?: hmm
+Speaker 6: how many
+Speaker 4: the exact count is in failures by table, i did not put it on the slide because i want to check it twice first
+Sneha Pillai: okay
+i am not going to quote a number that megna has not signed off
+Shalini Iyer: no that is fine i prefer that actually
+Speaker ?: can i say something on this
+[00:32:50]
+Neha Gokhale: please
+Speaker 5: the foreign key from order header to customer was disabled in twenty twenty during the master data cleanup and it was never put back so on that side there is nothing enforcing anything
+Ishaan Bhatt: on the order line to header one there is still a constraint though
+Speaker 5: on that one yes that one is enabled so it should not be possible in in the source at all
+Speaker 4: then it is happening in the landing or in the fact
+Speaker ?: could be the incremental window if the header comes in on a different night to the line ah wait ignore my last the header and the line come in the same step they are in the same extract
+i will check it properly i do not want to guess on the call
+Farida Contractor: also on the fact interface the flow control is not switched on
+Speaker 5: so odiee is not writing anything into the error table for that one
+Speaker 2: yeah the e dollar table is empty for the invoice fact, always has been
+Speaker 1: which means we cannot see rejects we can only see what is missing afterwards which is a much worse position to be in
+Farida Contractor: agreed but that was a decision taken long before any of us
+Speaker 8: capturing that as an action ai forty two ishaan to confirm how many order lines do not resolve to a header and whether the fill rate report is affected
+Speaker ?: twenty sixth
+Speaker 8: twenty sixth of june
+Neha Gokhale: related to that and this one is small but it is annoying
+Neha Gokhale: the unit of measure
+Speaker 3: yeah this one is a mess so the quantities on the order line are in whatever uom the order was placed in they are not normalised to a base the conversion happens downstream
+Priya Nair: which is why the cases and the eaches never agree we used to argue about this every month
+Ishaan Bhatt: right
+[00:35:14]
+Speaker 2: and the lookup that does the conversion in the product dim is not deduplicated there is no unique constraint on it so where there are duplicates the lookup comes back with more than one row
+Ishaan Bhatt: and the mapping just takes whichever one comes back first
+Farida Contractor: which is not deterministic
+Ishaan Bhatt: not deterministic no it can be a different row on a different night
+so the case quantity flips between two values across loads
+Neha Gokhale: and every time it flips it opens a new version in the dim
+Speaker ?: yeah a spurious version scd too and then that version is there forever
+Neha Gokhale: it is a handful of skus
+Speaker 4: a handful yes, i can name them if needed, they are in the sample failures tab
+Speaker 4: it is mostly the ones where the pack is in kg or in litres not the eaches
+Shalini Iyer: is it moving a number
+Neha Gokhale: not materially no it is low priority and i am saying that on the record so nobody comes back to to me in september
+Shalini Iyer: then park it
+Speaker 7: parking that for now
+Speaker 3: but for the product mix report it will matter na because the pack size sits on the version so the report will show two pack sizes for one item
+Speaker 2: yeah for that report it will matter eventually
+Neha Gokhale: eventually yes not this month
+Priya Nair: okay i just wanted it noted
+[00:36:58]
+Sneha Pillai: noted
+Priya Nair: ishaan sorry unrelated did you see the thing i sent you yesterday about the distributor scorecard
+Ishaan Bhatt: the one with the two totals on the same page
+Priya Nair: yes yes that one
+Speaker 2: i saw it i think it is the same eighteen thing honestly it is the same shape
+Speaker 3: that is what i thought also, because it was only three or four distributors
+Speaker 2: send me the screenshot again i will look at it after this
+Speaker 3: okay i will send
+Speaker 1: sorry can we uh can we park that i have about ten minutes of material left and i want to get through it
+Priya Nair: sorry sorry, go ahead
+Ishaan Bhatt: yeah sorry
+Neha Gokhale: right this is the one i actually want a decision on rule fifteen dq dash r one five validity the gst rate on the line matches the rate that was in force on the invoice date threshold ninety nine point nine actual ninety six point three
+Shalini Iyer: so three point seven percent of lines have the wrong tax on them
+have a rate that does not match what was in force on that date yes
+Speaker 6: that is a restatement issue that is not a data quality issue
+Speaker 1: it is both but yes
+Speaker 4: the tax rate master in the warehouse is two hundred and fourteen rows and it is a truncate and reload it holds current rates only
+[00:38:53]
+Meghna Rao: there is no effective dating on it at all not a start date not an end date nothing and the failures are concentrated on the chandan a lines april to september
+Speaker 1: correct the interface truncates it and reloads it every night
+Farida Contractor: that is how it was built and nobody has touched it since
+Ishaan Bhatt: but the source table is effective dated it has eff from and eff to on it the source knows
+Farida Contractor: yes the source has it we just did not carry it across the same table drives the buddy range also it just happens that only the soap rate moved
+Speaker 6: so what actually happened
+Neha Gokhale: chandanaa the soap hsn three four zero one
+Neha Gokhale: the rate went from eighteen percent to twelve percent with effect from the first of october twenty twenty five
+Priya Nair: this is the bady plant one na
+Neha Gokhale: the brand is made there yes but that is not why it happened it happened because the warehouse only holds the current rate so the twelve percent got applied backwards
+Shalini Iyer: to the whole year to april through september twenty twenty five which was at eighteen at the time
+Shalini Iyer: oh no how much forty lakh
+Shalini Iyer: forty lac
+forty lakh fy twenty six
+Speaker 6: and that is sitting in the reported numbers today
+Neha Gokhale: it is
+Shalini Iyer: [crosstalk]
+Speaker 5: sorry i have to drop there is something with the control em folder they are calling me neha i will read the deck whatever you need from me put it in the actions
+[00:41:03]
+Speaker 3: thanks frida i will send the actions today
+Farida Contractor: thank you bye
+Shalini Iyer: sorry go ahead
+Neha Gokhale: no no you you were saying
+Meghna Rao: i was going to say this is new i have not seen this one before
+Speaker 1: it is new it is not on the tracker yet it came out of the profiling
+Speaker 5: it will be var zero zero six
+Sneha Pillai: var zero zero six i will add it
+Speaker 8: and ai forty three neha to raise it and put a remediation option on the tracker
+Neha Gokhale: by the twenty fourth
+Speaker 6: and can somebody tell me whether this touches the filing or only the reporting
+Shalini Iyer: i do not know
+Speaker 1: genuinely, i do not know, and i am not going to answer a tax question on a data quality call
+Shalini Iyer: fair
+Neha Gokhale: what i can tell you is what the warehouse holds which is one rate per hsn and no dates
+Shalini Iyer: i will check the filing side myself
+Neha Gokhale: last one from me
+Speaker 1: rule four
+Speaker 1: dq dash r zero four, completeness, every invoiced sku resolves to a known product in the dim threshold ninety nine point five actual ninety eight point zero
+Neha Gokhale: fail this is the unknown member
+Speaker 4: product key minus one
+Speaker 4: on average eight thousand one hundred and forty lines a month land on it the peak was january twenty six eleven thousand nine hundred and two
+Speaker 3: eleven thousand in one month
+[00:43:11]
+Speaker 4: eleven nine zero two yes, that was the festive replenishment i think
+Speaker 1: it is two percent of invoiced volume
+Speaker 6: and they stay there
+Ishaan Bhatt: they stay there once the row lands on minus one nothing ever goes back and re points it when the dim catches up
+there is no late arriving handling in the fact mapping at all, it is not that it is broken, it was never built so on any report by brand or by category two percent is just missing
+Speaker 3: it shows as unknown on the report in the cube also we used to have this we had a prompt to hide it
+Speaker 1: hiding it is worse
+Speaker 3: yes i know, i know
+Speaker 6: is there a rupee number on this one
+Speaker 1: no and i am deliberately not putting one it is a volume percentage and if i convert it to money somebody will add it to a total that it does not belong in
+Speaker ?: agreed this becomes var zero zero seven it lands in the reporting layer more than anywhere else so i will put ritwik as the owner
+Speaker 8: ai forty four, ananya to raise var zero zero seven and assign it to the reporting workstream, twenty fourth of june
+Ananya Krishnan: yes
+Speaker 6: and the thirty seven skus with no category is that the same thing
+Speaker 4: no that is separate that is on the master itself those thirty seven have a row in in the dim they just have nothing in the category
+Neha Gokhale: different failure same symptom on a report which is why people conflate them
+Speaker ?: before we finish
+Shalini Iyer: what is happening on the credit notes
+[00:45:18]
+Neha Gokhale: that is not a dq item
+Shalini Iyer: i know it is not but nobody is telling me anything and it comes up every month
+it is on the tracker var zero zero five credit notes absent from warehouse
+Ananya Krishnan: open since the twenty fourth of april and you are the owner
+Shalini Iyer: yes i know i am the owner what i am asking is the number
+Speaker 7: the sizing we did was two point four crore for fy twenty six
+Shalini Iyer: two point four core
+Speaker 7: two point four four two point four crore odd it was a round number
+Shalini Iyer: where did that come from
+Ananya Krishnan: it was a quick sizing sizing we did it for the may deck it was not validated validated i want to be clear about that
+Shalini Iyer: it feels low it feels quite low actually
+Ananya Krishnan: it may well be
+Speaker 6: i see the rate difference ones every single month and just from memory it is more than that in a year i do not want to guess on a call but that does not feel like the whole of it to me
+Ananya Krishnan: okay shall we take it away and come back with something firmer
+Shalini Iyer: i will do it myself give me till the tenth of july and i will tie it back to the trial balance properly period by period
+Speaker 8: ai forty five shalini to re check the credit note sizing against the trial balance tenth of july
+Shalini Iyer: yes
+[00:47:18]
+Neha Gokhale: and just to be clear that number is not in anything i have presented today nothing in my deck depends on it
+Speaker 6: understood
+Ananya Krishnan: it is a variance line it is not a dq line they are different lists
+Speaker 4: i understand the difference i just want one of them to be right
+Speaker ?: okay we are at time sneha do you want to read the actions back
+Speaker 8: quickly, and i will circulate them anyway thirty seven neha circulate the workbook and the rule set tomorrow thirty eight meghna re run the profiling on the customer dim after the june release and confirm the count twenty sixth thirty nine farida the effective dating fix so only one row carries current flag y third of july
+Speaker 8: forty ananya reply to to vikram with the customer level detail tomorrow
+Sneha Pillai: forty one neha propose propose the gstin format rule for the next rule set tenth of july forty two ishaan the order line orphans and whether fill rate is affected twenty sixth forty three neha raise var zero zero six and put a remediation option on the tracker twenty fourth
+forty four, ananya, raise var zero zero seven and assign it to the reporting workstream, twenty fourth forty five shalini re check the credit note sizing against the trial balance tenth of july
+Ishaan Bhatt: that is nine actions out of a fifty minute call it is a lot yes
+Speaker 5: it is a first assessment it is always a lot the second one is always shorter neha thank you this was actually very useful i have been asking for this for two years
+Neha Gokhale: thank you all and please if you disagree with a number tell me which rule you are disagreeing with
+Ananya Krishnan: the deck goes out today i will send it with the workbook
+Speaker 6: thank you
+Speaker 4: bye
+Speaker 3: bye
+Speaker 7: bye everyone let me stop the recording
+
+end of transcript
+SYNTHETIC — generated for internal demo. No real entity depicted.

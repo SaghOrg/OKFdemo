@@ -1,0 +1,157 @@
+Received: from mail-out-02.northlaneanalytics.example (198.51.100.36) by
+ mx-in-01.bharadwajcp.example with Microsoft SMTP Server id 15.20.7344.007;
+ Thu, 27 Aug 2026 09:38:31 +0530
+Return-Path: <neha.gokhale@northlaneanalytics.example>
+Message-ID: <CAJ7q2m8Bd6nR3tKf9wXp1mVc4Zg@mail.northlaneanalytics.example>
+Date: Thu, 27 Aug 2026 09:38:16 +0530
+From: Neha Gokhale <neha.gokhale@northlaneanalytics.example>
+To: Aniruddh Deshpande <aniruddh.deshpande@bharadwajcp.example>,
+ Farida Contractor <farida.contractor@bharadwajcp.example>
+Cc: Shalini Iyer <shalini.iyer@bharadwajcp.example>,
+ Meghna Rao <meghna.rao@bharadwajcp.example>,
+ Karthik Subramanian <karthik.subramanian@northlaneanalytics.example>
+Subject: RE: RE: VAR-006 TAX_RATE_MASTER not effective dated - DQ-R-15 after
+ CHG0021339
+Thread-Topic: VAR-006 TAX_RATE_MASTER not effective dated
+In-Reply-To: <BM1PR01MB55308F2C61A0D74BE@mail.bharadwajcp.example>
+References: <CAJ7q2m8Vx1qT7cJn5bHr8sWd2Lp@mail.northlaneanalytics.example>
+ <BM1PR01MB55308F2C61A0D74BE@mail.bharadwajcp.example>
+Thread-Index: Ac8cU1kL6nWy44Rt7Xf+Bq==
+X-Mailer: Microsoft Outlook 16.0
+X-MS-Has-Attach: no
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Ani, Farida,
+
+Thank you for running it last night, and thank you for the ACTIVE_FLG point
+below. That was not on my list and it should have been.
+
+Where this sits as of this morning.
+
+The rule is DQ-R-15. Dimension is validity. The statement is that the GST rate
+carried on a fact row matches the rate that was in force on the invoice date.
+Threshold 99.9%.
+
+At the 31-May-2026 profiling run the actual was 96.3%, which is a fail, and
+that is what VAR-006 was opened against. I re-ran the same rule against the new
+structure at about eight this morning and it is back inside the threshold. I am
+deliberately not putting a new percentage into the pack. Every profiling figure
+in the assessment is stated as of the 31-May run across the fourteen tables and
+I am not going to have two run dates sitting in one document. The next full
+profiling run restates all of them together or none of them.
+
+The defect itself, written down in one place so that we stop explaining it on
+calls:
+
+1. BCPL_EDW.TAX_RATE_MASTER was a straight truncate and reload copy of
+   FIN_PROD.TAX_RATE_MASTER, holding current rates only. No EFF_START_DT, no
+   EFF_END_DT, no CURRENT_FLG. 214 rows at the 31-May run.
+2. The source table is effective dated. The warehouse copy was not. That
+   asymmetry is the whole of the defect, there is nothing cleverer going on.
+3. Consequence. Chandanaa, HSN 3401, moved from 18 percent to 12 percent with
+   effect from 01-Oct-2025. Because the warehouse only ever held the current
+   rate, invoice lines from April to September 2025 were resolving 12 percent
+   as well, retrospectively. The rate that was actually applied on the invoice
+   is correct in ORION. The picture in the warehouse was wrong.
+4. The register carries 40 L against it, INR 39,60,000, FY26. I have not
+   re-derived that and I am not proposing to.
+5. Remediated by DIM_TAX_RATE, effective dated, under CHG0021339, deployed
+   26.08.2026.
+
+Two asks and one hold.
+
+Ani, on ACTIVE_FLG and DELETE_FLAG on the source table. Can you or Karthik
+confirm what the new mapping is actually picking up. If it is taking every
+source row regardless of those two flags then DQ-R-15 will pass and the
+dimension will still be carrying rows that were never live, and a rule that
+passes for the wrong reason is worse than one that fails honestly.
+
+Meghna, when the profiling job is free, can you re-run the HSN 3401 comparison
+on a sample and send me the counts with the run date on them. Not urgent. I
+want it in the evidence folder before the pack goes out, not after somebody
+asks for it.
+
+Shalini, subject to the above I will move VAR-006 to closed tomorrow. If you
+want the restated tax lines tied back to the trial balance before I do that,
+tell me today and I will hold it. It is your call and not mine.
+
+Regards,
+Neha
+
+Neha Gokhale
+Data Quality Lead
+Project Drishti, Northlane Analytics
+
+This e-mail is confidential and intended for the named recipient only. If it has
+reached you in error, please delete it and tell us. Northlane Analytics accepts no
+liability for the content of this e-mail once it leaves our systems.
+
+________________________________
+From: Aniruddh Deshpande <aniruddh.deshpande@bharadwajcp.example>
+Sent: 26 August 2026 23:52
+To: Neha Gokhale <neha.gokhale@northlaneanalytics.example>; Farida Contractor <farida.contractor@bharadwajcp.example>
+Cc: Shalini Iyer <shalini.iyer@bharadwajcp.example>; Meghna Rao <meghna.rao@bharadwajcp.example>; Karthik Subramanian <karthik.subramanian@northlaneanalytics.example>
+Subject: RE: VAR-006 TAX_RATE_MASTER not effective dated - DQ-R-15 after CHG0021339
+
+> neha
+>
+> change is done, new table is populated and from tonight the reads are going
+> there, i have kept the old table as it is, please do not drop it, some
+> things are still pointing at it and we will clean that later, we did this in
+> 2017 also and that time somebody dropped a table in a hurry and then two
+> reports were failing for two days and everybody was on call at seven in the
+> morning
+>
+> one thing which you have not asked but you should, in FIN_PROD the rate
+> table is having eff from and eff to since long, it is the copy on our side
+> which was only keeping current rate, so source was never wrong, only the
+> picture in EDW was wrong, i had told this in the mail last year also when
+> the excise question came and at that time nobody wanted to touch it because
+> it was working
+>
+> and there is ACTIVE_FLG and DELETE_FLAG also on that source table, if the
+> new code is taking all rows without seeing those two then you will get rates
+> in the dim which were never live, i have not checked what the new mapping is
+> doing, that part is with karthik and farida
+>
+> for 3401 the rate is 12 from 01-Oct-2025 and 18 before that, that part is
+> straightforward, the problem was never the rate itself
+>
+> box was slow at the end because the stats job also started, nothing to worry
+>
+> -ani
+>
+> > -----Original Message-----
+> > From: Neha Gokhale <neha.gokhale@northlaneanalytics.example>
+> > Sent: 26 August 2026 16:20
+> > To: Aniruddh Deshpande <aniruddh.deshpande@bharadwajcp.example>; Farida
+> > Contractor <farida.contractor@bharadwajcp.example>
+> > Cc: Shalini Iyer <shalini.iyer@bharadwajcp.example>; Meghna Rao
+> > <meghna.rao@bharadwajcp.example>
+> > Subject: VAR-006 TAX_RATE_MASTER not effective dated - DQ-R-15 after
+> > CHG0021339
+> >
+> > Ani, Farida,
+> >
+> > CHG0021339 is scheduled for tonight. Two things I need from you before I
+> > can write anything about VAR-006 in the pack.
+> >
+> > 1. Confirmation that it actually went in, with a timestamp.
+> > 2. Whether the historic rows are being re-resolved against the new
+> >    structure or whether this is fix forward only. Those are two different
+> >    answers and the register says the impact is historic, so fix forward
+> >    only does not close it.
+> >
+> > Shalini asked me yesterday whether this is a GST compliance problem.
+> > Against which rule, is my answer. It is DQ-R-15, validity, threshold
+> > 99.9%, actual 96.3% at the 31-May run, and that is the whole of what I am
+> > claiming. What was actually filed is a Finance question and it is not a
+> > data quality one. I do not want the two getting mixed up in a steering
+> > pack.
+> >
+> > Regards,
+> > Neha
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

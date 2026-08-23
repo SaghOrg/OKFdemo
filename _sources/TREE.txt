@@ -1,0 +1,120 @@
+_sources/
+├── chat/                                                    (2 files,  64 KB)
+│   ├── CH-01_teams_data_workstream.txt                      44 KB
+│   └── CH-02_whatsapp_uat_group.txt                         20 KB
+├── decks/                                                   (6 files, 513 KB)
+│   ├── DK-01_kickoff_v3_FINAL.pptx                          81 KB
+│   ├── DK-02_discovery_findings.pptx                        89 KB
+│   ├── DK-03_variance_rootcause_v2.pptx                     86 KB
+│   ├── DK-04_dq_assessment.pptx                             81 KB
+│   ├── DK-05_dashboard_wireframes.pptx                      89 KB
+│   └── DK-06_steerco_sep2026.pptx                           75 KB
+├── docs/                                                    (5 files, 242 KB)
+│   ├── DOC-01_orion_oltp_schema_notes.docx                  48 KB
+│   ├── DOC-02_odi_job_inventory.docx                        49 KB
+│   ├── DOC-03_stored_procedure_walkthrough.docx             45 KB
+│   ├── DOC-04_dimension_strategy.docx                       49 KB
+│   └── DOC-05_edw_target_model_notes.docx                   45 KB
+├── email/                                                   (15 files, 110 KB)
+│   ├── EM-012_kickoff_logistics.eml                         4 KB
+│   ├── EM-023_dashboard_scope_cut.eml                       5 KB
+│   ├── EM-041_farida_scd2_concern.eml                       5 KB
+│   ├── EM-047_karthik_scd2_counter.eml                      6 KB
+│   ├── EM-055_var004_handover_ishaan.eml                    5 KB
+│   ├── EM-061_marijke_credit_note_escalation.eml            2 KB
+│   ├── EM-063_shalini_validated_credit_note_impact.eml      8 KB
+│   ├── EM-068_golive_slip_30oct.eml                         7 KB
+│   ├── EM-072_feb_duplicate_load_chain.eml                  20 KB
+│   ├── EM-075_tracker_v6_missing_attachment.eml             4 KB
+│   ├── EM-078_gst_rate_taxratemaster_effective_dating.eml   7 KB
+│   ├── EM-081_late_arriving_skus_unknown_member.eml         8 KB
+│   ├── EM-084_north_file_too_big.eml                        4 KB
+│   ├── EM-089_uat_scheduling.eml                            6 KB
+│   └── EM-092_ani_scheme_recalc_late.eml                    13 KB
+├── meetings/                                                (16 files, 712 KB)
+│   ├── 2026-02-11_kickoff_scope.txt                         33 KB (T-01)
+│   ├── 2026-02-11_kickoff_scope.vtt                         59 KB (T-01)
+│   ├── 2026-03-03_oltp_discovery_ani.txt                    48 KB (T-02)
+│   ├── 2026-03-03_oltp_discovery_ani.vtt                    97 KB (T-02)
+│   ├── 2026-03-24_first_variance_findings.txt               30 KB (T-03)
+│   ├── 2026-03-24_first_variance_findings.vtt               53 KB (T-03)
+│   ├── 2026-04-14_architecture_review.txt                   34 KB (T-04)
+│   ├── 2026-04-14_architecture_review.vtt                   66 KB (T-04)
+│   ├── 2026-05-06_design_signoff.txt                        30 KB (T-05)
+│   ├── 2026-05-06_design_signoff.vtt                        58 KB (T-05)
+│   ├── 2026-06-18_dq_readout.txt                            34 KB (T-06)
+│   ├── 2026-06-18_dq_readout.vtt                            59 KB (T-06)
+│   ├── 2026-08-05_dashboard_scope_workshop.txt              46 KB (T-07)
+│   ├── 2026-08-05_dashboard_scope_workshop.vtt              82 KB (T-07)
+│   ├── 2026-09-22_steering_committee.txt                    26 KB (T-08)
+│   └── 2026-09-22_steering_committee.vtt                    46 KB (T-08)
+├── recordings/                                              (8 files, 8 KB)
+│   ├── 2026-02-11_kickoff_scope_recording.txt               1 KB (REC-01)
+│   ├── 2026-03-03_oltp_discovery_ani_recording.txt          1 KB (REC-02)
+│   ├── 2026-03-24_first_variance_findings_recording.txt     1 KB (REC-03)
+│   ├── 2026-04-14_architecture_review_recording.txt         1 KB (REC-04)
+│   ├── 2026-05-06_design_signoff_recording.txt              1 KB (REC-05)
+│   ├── 2026-06-18_dq_readout_recording.txt                  1 KB (REC-06)
+│   ├── 2026-08-05_dashboard_scope_workshop_recording.txt    1 KB (REC-07)
+│   └── 2026-09-22_steering_committee_recording.txt          1 KB (REC-08)
+├── technical/                                               (7 files, 316 KB)
+│   ├── control_m_schedule.txt                               5 KB (TECH-CTLM)
+│   ├── db_config_snippet.properties                         1 KB (TECH-PROPS)
+│   ├── odi_mapping_export_MAP_FACT_INVOICE_LINE.xml         18 KB (TECH-ODI-XML)
+│   ├── pkg_month_end.pkb                                    16 KB (TECH-PKG)
+│   ├── sample_extract_invoice_line.csv                      18 KB (TECH-CSV)
+│   ├── schema_edw.sql                                       127 KB (TECH-SQL-EDW)
+│   └── schema_oltp.sql                                      131 KB (TECH-SQL-OLTP)
+├── trackers/                                                (4 files, 430 KB)
+│   ├── XL-01_variance_tracker_v7.xlsx                       118 KB
+│   ├── XL-02_dq_profiling_results.xlsx                      129 KB
+│   ├── XL-03_scd2_load_impact.xlsx                          97 KB
+│   └── XL-04_source_to_target_mapping.xlsx                  86 KB
+├── MANIFEST.csv                                             Artifact index with hashes
+├── README.md                                                This corpus documented
+├── DISCLAIMER.md                                            Fictional entity statement
+└── TREE.txt                                                 This file
+
+SUMMARY
+=======
+Directories:      8 subdirectories
+Total files:      63 artifacts (excluding MANIFEST.csv, README.md, DISCLAIMER.md, TREE.txt)
+Total size:       ~2.2 MB (including this manifest and documentation)
+
+COUNTS BY CATEGORY
+==================
+chat:             2 files (chat exports)
+decks:            6 files (PowerPoint presentations)
+docs:             5 files (Word documents)
+email:           15 files (email messages)
+meetings:        16 files (8 meetings × 2 formats: .txt notes and .vtt ASR transcripts)
+recordings:       8 files (recording link stubs)
+technical:        7 files (SQL, XML, properties, CSV)
+trackers:         4 files (Excel workbooks)
+
+ARTIFACT TYPES
+==============
+presentations:    6 (DK-01 through DK-06)
+documents:        5 (DOC-01 through DOC-05)
+spreadsheets:     4 (XL-01 through XL-04)
+transcripts:     24 (16 meeting files + 8 recording stubs)
+email messages:  15 (EM-012 through EM-092)
+technical:       7 (TECH-* various formats)
+chat:            2 (CH-01, CH-02)
+────────────────────
+Total:          63
+
+NOTES
+=====
+- Binary files (.pptx, .docx, .xlsx) are pre-extracted to plain text
+  at _build/corpus_text/ for fast searching.
+- No file exceeds 5 MB.
+- No media files, no .py, no __pycache__, no .git.
+- All files carry the synthetic marker.
+- See MANIFEST.csv for SHA256 hashes and metadata.
+- See README.md for format and content guidance.
+
+Generated: 2026-08-23
+Seed: 20260822
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

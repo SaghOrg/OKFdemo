@@ -1,0 +1,476 @@
+Microsoft Teams
+Channel export - Project Drishti / Data workstream
+Team: BCPL Project Drishti (Bharadwaj Consumer Products Ltd + Northlane Analytics)
+Exported: 30/09/2026 11:07 (IST)
+Exported by: Sneha Pillai
+Members: Karthik Subramanian, Ishaan Bhatt, Farida Contractor, Neha Gokhale, Ritwik Ghosh, Priya Nair, Aniruddh Deshpande, Sneha Pillai
+Reactions and system events included. Times are IST. Oldest message first.
+
+--- 04 March 2026 ---
+[04/03/2026, 09:12] Karthik Subramanian: Setting this channel up for the data workstream so we stop losing things in mail threads. Three rules. 1. Anything that changes a mapping gets posted here. 2. Anything that changes a number gets posted here with the query that produced it. 3. If it is a decision, say the word decision.
+[04/03/2026, 09:13] Ishaan Bhatt: ack
+[04/03/2026, 09:20] Farida Contractor: Noted. Please keep production job discussion in this channel also, I do not want to be reading two places at 05:00.
+[04/03/2026, 09:21] Ishaan Bhatt: yep
+[04/03/2026, 09:22] Priya Nair: Kindly add me to the file share also, I am not able to open the folder.
+[04/03/2026, 10:04] Sneha Pillai: Priya added. Notes from yesterday's session with Ani are circulated, please shout if I have mis-recorded anything.
+[04/03/2026, 10:06] Karthik Subramanian: Sneha, one correction. I said the grain of the fact is one row per source invoice line, not one row per invoice. It matters.
+[04/03/2026, 10:07] Sneha Pillai: Corrected. Capturing that as a note, will re-issue.
+[04/03/2026, 23:41] Aniruddh Deshpande: karthik i was searching in my old folder for the scheme working, i am having scheme_calc_logic_2014.xls somewhere, that time we changed the slab logic and i had kept my own notes because the vendor had already left by then, sahyadri softech people, nobody is there now to ask -ani
+[04/03/2026, 23:44] Aniruddh Deshpande: will send tomorrow if i find, the laptop was changed in between so no guarantee
+[04/03/2026, 23:45] Karthik Subramanian: Thank you. Even the notes will help. There is no design document from 2009 that anybody can find, so your file may be the only written record of the 2014 change.
+
+--- 05 March 2026 ---
+[05/03/2026, 08:58] Ishaan Bhatt: morning. ran a count on the fact vs the source for feb. numbers do not tie. checking whether it is my join or something real
+[05/03/2026, 09:02] Karthik Subramanian: Post the query before you post the conclusion.
+[05/03/2026, 09:03] Ishaan Bhatt: fair
+[05/03/2026, 09:31] Ishaan Bhatt: ```
+select count(*) from BCPL_EDW.FACT_INVOICE_LINE f
+where f.DATE_KEY between 20260201 and 20260228;
+```
+[05/03/2026, 09:32] Ishaan Bhatt: and the same window off `OMS_PROD.INVOICE_LINE` joined to the header on INVOICE_ID. edw is higher.
+[05/03/2026, 09:40] Farida Contractor: How much higher, and for which nights. Please give me the dates, I will pull the session log.
+[05/03/2026, 09:44] Ishaan Bhatt: will get you the by-night split. give me an hour
+[05/03/2026, 11:52] Ishaan Bhatt: it is one night. 14 feb.
+[05/03/2026, 11:53] Ishaan Bhatt: whole night is in twice
+Farida Contractor reacted 👍 to a message
+
+--- 06 March 2026 ---
+[06/03/2026, 08:12] Farida Contractor: Confirmed from my side. 1. LP_DAILY_SALES failed on Sat 14-Feb. 2. It was resubmitted by hand, session SESS_884012. 3. The IKM on the fact is IKM Oracle Control Append, so the second submission appended the whole night again instead of replacing it. 4. That is a reconciliation issue and I am raising it as one.
+[06/03/2026, 08:14] Karthik Subramanian: Agreed on all four. Two consequences. 1. The February figure carries duplicated sales that nobody has taken out yet. 2. The load plan is not idempotent, which is a design problem, not an operator problem.
+[06/03/2026, 08:15] Farida Contractor: I would like the second sentence recorded, thank you.
+Karthik Subramanian reacted 👍 to a message
+[06/03/2026, 08:41] Ishaan Bhatt: sized it. about 2.9 Cr of duplicate sales sitting in feb
+[06/03/2026, 08:42] Ishaan Bhatt: and it has been sitting there three weeks
+[06/03/2026, 09:02] Sneha Pillai: Logging it as VAR-008 in the tracker. Opened today.
+[06/03/2026, 09:10] Priya Nair: Just to confirm my understanding, the February report I sent to Sales Ops last week would be carrying this also?
+[06/03/2026, 09:12] Karthik Subramanian: Yes. Anything reading the fact for February is affected until it is cleaned.
+[06/03/2026, 09:13] Priya Nair: Understood. I will intimate them.
+
+--- 09 March 2026 ---
+[09/03/2026, 10:02] Karthik Subramanian: Root cause sprint starts today. Working order: reconcile first, then explain, then fix. Please do not fix anything before we can explain it.
+[09/03/2026, 10:03] Ishaan Bhatt: too late. kidding. nothing pushed
+[09/03/2026, 10:03] Ishaan Bhatt: ignore my last
+[09/03/2026, 10:11] Neha Gokhale: Before anyone raises a defect in this channel, please say which rule it fails. If it is not against a rule it is a reconciliation question and it goes to Farida's thread, not mine.
+[09/03/2026, 10:12] Ritwik Ghosh: noted na
+[09/03/2026, 14:30] Farida Contractor: For everyone's information. LP_DAILY_SALES is triggered by Control-M at 01:00 every day including Sundays. Average elapsed is 58 minutes. With the post load checks and the batch close the run is typically done around 02:05. P95 is 71 minutes. Business availability is 05:30.
+[09/03/2026, 14:31] Farida Contractor: The window is the window. Anything anybody wants to add, I will need a measured number, not an estimate.
+Karthik Subramanian reacted 👍 to a message
+Ishaan Bhatt reacted 👍 to a message
+
+--- 12 March 2026 ---
+[12/03/2026, 11:20] Ishaan Bhatt: dev orion got refreshed yesterday, 11 march. so dev is current as of that date if anyone needs to test against something real
+[12/03/2026, 11:22] Karthik Subramanian: Good. Please note the date somewhere, refreshes here are on request and requests take a while.
+[12/03/2026, 11:23] Ishaan Bhatt: noted in the channel, that is somewhere
+[12/03/2026, 11:41] Farida Contractor: The DEV EDW is not sized like production, please keep that in mind before anybody quotes a runtime off it.
+[12/03/2026, 22:58] Aniruddh Deshpande: the dev box refresh we did on 11th, if you want next one raise the request early, last time it took three weeks and that was when i was chasing daily -ani
+
+--- 17 March 2026 ---
+[17/03/2026, 09:44] Priya Nair: Ritwik, in OBIEE our Distributor Scorecard report has one dashboard prompt at the top and every analysis below picks it up. In the new tool, is it same behaviour?
+[17/03/2026, 09:51] Ritwik Ghosh: not exactly. the slicer sits on a page. i can sync it across pages if we want but i would not sync everything, it gets confusing fast
+[17/03/2026, 09:52] Ritwik Ghosh: one visual one message. if a page needs three prompts to make sense the page is wrong, no?
+[17/03/2026, 09:55] Priya Nair: Please correct me if I am wrong, but then the users will have to set the filter again on each dashboard page?
+[17/03/2026, 09:58] Ritwik Ghosh: only where i do not sync. sending you two screenshots
+[17/03/2026, 09:58] Ritwik Ghosh: [image: option_a.png]
+[17/03/2026, 09:59] Ritwik Ghosh: [image: option_b.png]
+[17/03/2026, 10:14] Priya Nair: Option B is closer to what our users are used to. Kindly keep the trend on top.
+[17/03/2026, 10:15] Ritwik Ghosh: ok
+[17/03/2026, 16:22] Ishaan Bhatt: unrelated. where do the mapping exports actually live
+[17/03/2026, 16:24] Farida Contractor: SharePoint. Document library, Data Warehouse > ODI > Exports. The DDL is in the same place under a different folder.
+[17/03/2026, 16:25] Ishaan Bhatt: so no version control at all
+[17/03/2026, 16:26] Farida Contractor: There is a folder called Archive.
+[17/03/2026, 16:26] Ishaan Bhatt: that is not the same thing
+[17/03/2026, 16:31] Karthik Subramanian: It is a finding and we will write it up as one. Not a criticism of anybody, it is just a fact that the only record of what changed is a file name.
+[17/03/2026, 16:33] Farida Contractor: I have said this since 2023. Please do write it up.
+
+--- 24 March 2026 ---
+[24/03/2026, 17:12] Ishaan Bhatt: ok so. after the call. i pulled the fact for apr-jun 25 and compared line by line against source
+[24/03/2026, 17:13] Ishaan Bhatt: the mapping has no delete flag filter. none. cancelled lines are going in as revenue
+[24/03/2026, 17:14] Ishaan Bhatt: MAP_FACT_INVOICE_LINE, the header join is there, the flag is just not in the where clause anywhere
+[24/03/2026, 17:20] Karthik Subramanian: 1. That would overstate FY26 Q1. 2. Please quantify it before we say it out loud to Finance. 3. Do not change the mapping today.
+[24/03/2026, 18:02] Ishaan Bhatt: 4.2 Cr on apr-jun 25
+[24/03/2026, 18:02] Ishaan Bhatt: that is cancelled lines only, nothing else in that number
+[24/03/2026, 18:40] Karthik Subramanian: Understood. The correct predicate is NVL(DELETE_FLAG,'N') = 'N'. Please write it exactly like that.
+[24/03/2026, 18:41] Ishaan Bhatt: yes i was going to ask
+[24/03/2026, 18:44] Sneha Pillai: Raising this as VAR-001. Opened 24-Mar. Also capturing AI-16 against Ishaan to produce the by-month split.
+[24/03/2026, 19:15] Priya Nair: Sorry, joining late. Does this affect the reports also or only the DW?
+[24/03/2026, 19:22] Ishaan Bhatt: anything reading the fact. so yes
+[24/03/2026, 23:12] Aniruddh Deshpande: this delete flag thing is coming since long, we did this in 2017 also for a different table and same discussion happened, anyway you are putting nvl so it is fine, will check tomorrow morning after the run -ani
+
+--- 26 March 2026 ---
+[26/03/2026, 10:30] Ishaan Bhatt: second one. the date key on the fact is derived off `INVOICE_HEADER.CREATED_TS`
+[26/03/2026, 10:31] Ishaan Bhatt: created_ts is written by the app server in UTC. invoice_dt is a DATE and it is IST
+[26/03/2026, 10:32] Ishaan Bhatt: so anything billed after 18:30 IST on the last day of a month is keyed into the next month
+[26/03/2026, 10:35] Karthik Subramanian: That is the whole mechanism, yes. The fix is to key DIM_DATE off INVOICE_DT. Please do not touch it until it is raised properly as a change.
+[26/03/2026, 10:36] Ishaan Bhatt: sized at about 90 L across the year
+[26/03/2026, 10:40] Farida Contractor: Please raise both of these as separate changes. I do not want one change record covering two mappings, it makes the back-out messy.
+[26/03/2026, 10:41] Karthik Subramanian: Agreed, two changes.
+Farida Contractor reacted 👍 to a message
+[26/03/2026, 10:52] Sneha Pillai: VAR-002 opened. Same date as VAR-001.
+[26/03/2026, 15:40] Neha Gokhale: For the record, that one will show up against DQ-R-21 when I run the rules. Month of DATE_KEY should equal month of INVOICE_DT. Threshold is 100%.
+[26/03/2026, 15:41] Neha Gokhale: Which means it will fail.
+
+--- 02 April 2026 ---
+[02/04/2026, 09:05] Farida Contractor: 1. The batch-id guard is in. 2. A resubmit of LP_DAILY_SALES now checks whether that batch already landed and stops rather than appending. 3. The February duplicates were removed on Tuesday night. 4. Closing VAR-008 from my side.
+[02/04/2026, 09:07] Karthik Subramanian: Thank you. Please keep the guard in the release notes, it is the sort of thing that gets removed by somebody tidying up in two years.
+[02/04/2026, 09:07] Farida Contractor: As per my earlier mail, it is documented.
+Ishaan Bhatt reacted 👍 to a message
+Sneha Pillai reacted 👍 to a message
+[02/04/2026, 09:31] Sneha Pillai: VAR-008 marked Closed 02-Apr in the tracker.
+
+--- 08 April 2026 ---
+[08/04/2026, 12:11] Ritwik Ghosh: question for the group. when the dataset refreshes twice a day, does anybody actually look at the afternoon one?
+[08/04/2026, 12:13] Priya Nair: Sales Ops do. They revert with queries after lunch usually.
+[08/04/2026, 12:14] Ritwik Ghosh: ok then i will not put a "data as of last night" tile, it will be wrong by 2pm
+[08/04/2026, 12:15] Ritwik Ghosh: card, sorry. tile is the old word
+[08/04/2026, 12:40] Ishaan Bhatt: refresh is 06:00 and 14:00. import mode. so whatever you put has to say which of the two it is
+[08/04/2026, 12:41] Ritwik Ghosh: fine, a card with the refresh timestamp then
+[08/04/2026, 14:02] Priya Nair: One more thing. In OBIEE we have an agent that delivers the scorecard every Monday morning. Will that continue?
+[08/04/2026, 14:09] Ritwik Ghosh: that is a subscription in the new tool, different thing, we will look at it in build
+[08/04/2026, 14:10] Priya Nair: Noted, thanks.
+
+--- 16 April 2026 ---
+[16/04/2026, 10:22] Neha Gokhale: Profiling scope is agreed. 14 tables, seven in ORION and seven in the warehouse. Run will be end of May so the numbers are stable across a full month.
+[16/04/2026, 10:24] Karthik Subramanian: Please include DIM_CUSTOMER even though it is small. The interesting failures there are not about volume.
+[16/04/2026, 10:25] Neha Gokhale: It is in. Against which rule are you expecting a failure?
+[16/04/2026, 10:27] Karthik Subramanian: Uniqueness. One current row per customer.
+[16/04/2026, 10:28] Neha Gokhale: DQ-R-07 then. Threshold 100%. I will let the run tell us.
+[16/04/2026, 16:50] Ishaan Bhatt: side note, the dim is only 2,140 rows. the fact is 34 million and change. so if the join goes wrong on the small side it does a lot of damage on the big side
+[16/04/2026, 16:51] Karthik Subramanian: Which is the usual shape of these problems.
+
+--- 20 April 2026 ---
+[20/04/2026, 11:14] Farida Contractor: For information. A territory realignment went through in the West on Friday 17-Apr. DIST-W-0241 Mahalaxmi Distributors has moved from TER-W-014 to TER-W-011. There are a few others in the same batch.
+[20/04/2026, 11:16] Ishaan Bhatt: noted. will keep an eye on the dim for those
+[20/04/2026, 11:17] Ishaan Bhatt: probably nothing
+[20/04/2026, 11:41] Priya Nair: Kindly let me know if the scorecard needs a re-map, the territory hierarchy is hardcoded in two of the analyses.
+[20/04/2026, 11:42] Ritwik Ghosh: hardcoded where sorry
+[20/04/2026, 11:44] Priya Nair: In the report itself. It was done in 2019 and nobody changed it after.
+[20/04/2026, 11:45] Ritwik Ghosh: right. ok. that is going in my list
+[20/04/2026, 11:45] Ritwik Ghosh: long list
+
+--- 24 April 2026 ---
+[24/04/2026, 15:02] Ishaan Bhatt: was poking around staging. there is a table `STG_ORION.STG_CREDIT_NOTE`. it is empty
+[24/04/2026, 15:04] Ishaan Bhatt: not empty as in zero rows today, empty as in the last LOAD_DT on it is 14-NOV-2022
+[24/04/2026, 15:20] Farida Contractor: That is correct. MAP_STG_CREDIT_NOTE was built in 2021. It was disabled on 14-Nov-2022 when the window got tight, and nothing downstream was consuming it, so it was never switched back on.
+[24/04/2026, 15:22] Ishaan Bhatt: nothing downstream at all?
+[24/04/2026, 15:23] Farida Contractor: Nothing. It was landing and stopping there.
+[24/04/2026, 15:40] Karthik Subramanian: Please leave it alone for now, but this needs to be a register entry rather than a chat message. Sneha, can you open it.
+[24/04/2026, 15:52] Sneha Pillai: Opened as VAR-005, "Credit notes absent from warehouse". Owner Shalini Iyer, status Open, opened 24-Apr.
+[24/04/2026, 15:53] Sneha Pillai: I have put Shalini as owner because it is a Finance question and not an ETL one, please correct me if that is wrong.
+[24/04/2026, 15:58] Karthik Subramanian: That is right.
+Farida Contractor reacted 👍 to a message
+[24/04/2026, 23:37] Aniruddh Deshpande: that credit note interface, i remember, we had switched off because the run was going long and nothing was reading it anyway, that time it was supposed to come back in next phase and then next phase did not happen -ani
+
+--- 29 April 2026 ---
+[29/04/2026, 09:31] Priya Nair: Good morning. The DW extract I use for the monthly is showing a different figure from last week. Has something changed?
+[29/04/2026, 09:33] Ishaan Bhatt: nothing has been deployed. what changed
+[29/04/2026, 09:36] Priya Nair: The secondary numbers. Around 3-4% lower than what I had.
+[29/04/2026, 09:44] Ishaan Bhatt: that is the DMS feed. it lands with a five day lag and it only covers about 74% of distributors, so if you pull the same period on two different days you get two different answers until the tail comes in
+[29/04/2026, 09:45] Priya Nair: Ah. So it is not a mistake, it is just not complete yet.
+[29/04/2026, 09:46] Ishaan Bhatt: correct. and it never gets to 100 because the remaining distributors do not upload at all
+[29/04/2026, 09:50] Karthik Subramanian: Priya, please put a caveat on anything you circulate off secondary sales. It is a standing caveat, not a one-off.
+[29/04/2026, 09:51] Priya Nair: Will do.
+[29/04/2026, 09:52] Neha Gokhale: Coverage is a completeness question and it is on my list. It will fail, and it will keep failing, because the rule cannot fix an upload that does not arrive.
+
+--- 07 May 2026 ---
+[07/05/2026, 10:05] Karthik Subramanian: For the record after yesterday. VAR-003 is owned by Ani. The root cause is source-side, not in the ETL. A finance procedure in ORION rewrites the scheme discount amount.
+[07/05/2026, 10:06] Karthik Subramanian: I do not want that shortened to "it is Ani's problem". It is a system behaviour that predates everybody in this channel.
+[07/05/2026, 10:22] Farida Contractor: Understood. So nothing changes in my interfaces for now.
+[07/05/2026, 10:23] Karthik Subramanian: Correct. The approach is ADR-004. MAP_FACT_INVOICE_LINE gets rebuilt as a key-based merge on INVOICE_LINE_ID with a versioned re-extract, and the ORION procedure is left as it is in Phase 1.
+[07/05/2026, 10:30] Farida Contractor: A merge on a 34 million row fact will not be free. I want a measured elapsed before that goes anywhere near production.
+[07/05/2026, 10:31] Karthik Subramanian: You will get one. I would rather measure it than argue about it.
+Farida Contractor reacted 👍 to a message
+[07/05/2026, 10:44] Ishaan Bhatt: what is the target release for that
+[07/05/2026, 10:45] Karthik Subramanian: R2026.09.
+[07/05/2026, 23:50] Aniruddh Deshpande: karthik one thing you should know, fin_prod is having direct update grant on oms_prod.invoice_line, it was given in 2014 when the scheme working was moved and nobody has reviewed it after that, i am telling you because you will ask me later otherwise -ani
+[07/05/2026, 23:52] Aniruddh Deshpande: it is a grant only, i am not saying anything more than that
+[08/05/2026, 07:15] Karthik Subramanian: Thank you Ani, that is useful and I will note it. It tells us who is able to write to those rows. It does not by itself tell us anything else.
+
+--- 13 May 2026 ---
+[13/05/2026, 11:02] Ritwik Ghosh: priya can you send me the list of which OBIEE reports people actually open. not the catalogue. the ones that get used
+[13/05/2026, 11:14] Priya Nair: I will pull the usage. It is a much smaller list than the catalogue, you will be surprised.
+[13/05/2026, 11:15] Ritwik Ghosh: i will not be surprised
+[13/05/2026, 11:15] Ritwik Ghosh: sorry that was meant for the other window
+[13/05/2026, 11:16] Ritwik Ghosh: ignore
+[13/05/2026, 15:31] Priya Nair: Sent on mail. Also attaching screenshot of the two that Sales Ops open every single day.
+[13/05/2026, 15:44] Ritwik Ghosh: got it. thanks. one of these is basically a print of a table with 40 columns na
+[13/05/2026, 15:45] Priya Nair: Yes. They export it to Excel and work from there.
+[13/05/2026, 15:46] Ritwik Ghosh: of course they do
+
+--- 19 May 2026 ---
+[19/05/2026, 15:20] Ishaan Bhatt: quick one. i have 61 customers in DIM_CUSTOMER with overlapping effective dates
+[19/05/2026, 15:21] Ishaan Bhatt: they are all customers who moved territory
+[19/05/2026, 15:23] Ishaan Bhatt: both rows have CURRENT_FLG = 'Y' so the fact joins twice
+[19/05/2026, 15:24] Ishaan Bhatt: checking whether the eff end date is being set to sysdate instead of sysdate-1
+[19/05/2026, 15:31] Ishaan Bhatt: ah wait, ignore my last. it is being set to the same timestamp as the new row's start
+[19/05/2026, 15:32] Ishaan Bhatt: so the two rows are both open and both current at once
+[19/05/2026, 15:44] Karthik Subramanian: > Ishaan Bhatt: both rows have CURRENT_FLG = 'Y' so the fact joins twice
+That is the whole of it. 1. The SCD2 close on DIM_CUSTOMER is wrong, the closing row should end before the new row starts and CURRENT_FLG should go to 'N'. 2. Of the 61, how many are carrying two current rows right now. 3. Quantify the double-counted revenue before anybody says the word bug in front of Finance.
+[19/05/2026, 16:02] Ishaan Bhatt: 18 of the 2,140 have two current rows today
+[19/05/2026, 16:30] Ishaan Bhatt: DIST-W-0241 Mahalaxmi Distributors is the clean example. reassigned 17-Apr, TER-W-014 to TER-W-011, two current rows, everything invoiced to them since then is in the fact twice
+[19/05/2026, 16:32] Farida Contractor: The realignment I posted on 20-Apr.
+[19/05/2026, 16:33] Ishaan Bhatt: yes. that batch
+[19/05/2026, 17:11] Ishaan Bhatt: 65 L
+[19/05/2026, 17:12] Karthik Subramanian: Raise it. There is no unique constraint on the dimension that would have caught this, which is worth writing down separately.
+[19/05/2026, 17:20] Sneha Pillai: VAR-004 opened today, 19-May. Title "Duplicate facts on distributor reassignment".
+[19/05/2026, 17:22] Neha Gokhale: This is DQ-R-07 and DQ-R-23. Both will fail in the run.
+[19/05/2026, 17:23] Neha Gokhale: I will hold the rule set as it is rather than adding a new rule for it, the existing two already say it.
+[19/05/2026, 23:58] Aniruddh Deshpande: the territory change we are doing since always, every year march april there is realignment and every year something breaks somewhere, earlier it was the old reports now it is the dim, anyway good catch -ani
+
+--- 20 May 2026 ---
+[20/05/2026, 09:40] Ishaan Bhatt: taking a full export of the mapping XMLs today so we have a fixed point to work from
+[20/05/2026, 09:41] Ishaan Bhatt: putting it in the sharepoint library with today's date in the folder name
+[20/05/2026, 09:42] Farida Contractor: Please do not overwrite the existing export folder. Make a new one.
+[20/05/2026, 09:43] Ishaan Bhatt: new folder, dated
+[20/05/2026, 09:55] Karthik Subramanian: And please note in the write-up that this export is a snapshot taken on 20-May. Anything that changes after today will not be in it.
+[20/05/2026, 09:56] Ishaan Bhatt: yep
+[20/05/2026, 14:20] Ishaan Bhatt: done. 20-May export is up
+Karthik Subramanian reacted 👍 to a message
+
+--- 21 May 2026 ---
+[21/05/2026, 08:14] Farida Contractor: Last night was a normal run, session SESS_918744, nothing to report. Posting it because Karthik asked for a baseline night.
+[21/05/2026, 08:20] Karthik Subramanian: Perfect, thank you. That is the one I will use for the comparison.
+[21/05/2026, 08:44] Ishaan Bhatt: 21,400 lines roughly on a normal night?
+[21/05/2026, 08:46] Farida Contractor: That is the average. Sundays are around 6,200 and month end can go to 48,900.
+[21/05/2026, 08:47] Ishaan Bhatt: right, so the shape matters more than the average
+
+--- 28 May 2026 ---
+[28/05/2026, 16:02] Priya Nair: Sorry to ask again. Is the DEV copy of ORION going to be refreshed before the next round of testing? The data there is from March.
+[28/05/2026, 16:04] Ishaan Bhatt: 11 march. still 11 march.
+[28/05/2026, 16:05] Priya Nair: So anything I test there will not have the new distributors.
+[28/05/2026, 16:06] Ishaan Bhatt: correct
+[28/05/2026, 16:22] Karthik Subramanian: Test the logic on DEV and the data on UAT. Do not test the data on DEV, it will only mislead you.
+[28/05/2026, 16:23] Priya Nair: Understood. Kindly can somebody raise the refresh request anyway.
+[28/05/2026, 16:40] Farida Contractor: Raised. It goes into a queue.
+[28/05/2026, 16:41] Ishaan Bhatt: the queue
+
+--- 01 June 2026 ---
+[01/06/2026, 10:15] Neha Gokhale: Profiling run completed 31-May across all 14 tables. Everything I quote from here on is as of the 31-May run unless I say otherwise.
+[01/06/2026, 10:16] Neha Gokhale: Please do the same. If a number in this channel does not carry a run date it is not a number, it is a memory.
+Karthik Subramanian reacted 👍 to a message
+[01/06/2026, 10:43] Sneha Pillai: Meghna is not in this channel so I am putting her on the mail thread instead
+[01/06/2026, 10:44] Sneha Pillai: sorry that was meant to be a note to myself, ignore
+[01/06/2026, 10:52] Ishaan Bhatt: source invoice line is 61,847,220 rows as of that run. header is 8,902,144. fact is 34,182,556
+[01/06/2026, 10:53] Ishaan Bhatt: the gap between 61m and 34m is history depth not a defect, before anyone asks
+[01/06/2026, 11:30] Neha Gokhale: A set of rules is failing. I will not put the detail here, it goes in the assessment. But none of them are new to this channel.
+
+--- 03 June 2026 ---
+[03/06/2026, 22:40] Farida Contractor: Both changes are deployed tonight. CHG0021184 is the DELETE_FLAG filter on MAP_FACT_INVOICE_LINE, and CHG0021207 is the DIM_DATE key change to INVOICE_DT. Deployed 03-Jun, will take effect on tonight's run.
+[03/06/2026, 22:41] Farida Contractor: I will confirm in the morning.
+[03/06/2026, 22:52] Ishaan Bhatt: ack
+[04/06/2026, 06:20] Farida Contractor: Run completed. Both changes in. No SLA impact.
+[04/06/2026, 06:21] Farida Contractor: Please validate before anybody tells Finance it is fixed.
+[04/06/2026, 09:12] Ishaan Bhatt: validated the delete flag one. cancelled lines are out. the apr-jun 25 number moves by exactly what we said it would
+[04/06/2026, 09:14] Ishaan Bhatt: date key one also looks right. spot checked the last day of jan and the last day of feb, evening invoices are landing in the correct month now
+[04/06/2026, 09:20] Karthik Subramanian: Good. VAR-001 and VAR-002 can go to Closed with today's date. Please do not close them in the tracker until the by-month restatement has been shared, otherwise somebody will ask for it in three weeks and it will not exist.
+[04/06/2026, 09:22] Sneha Pillai: Capturing that. I will hold both at Closed pending the restatement file.
+[04/06/2026, 09:40] Priya Nair: Will the old reports need re-running for the restated periods?
+[04/06/2026, 09:41] Ritwik Ghosh: everything downstream of the fact, yes
+[04/06/2026, 09:41] Priya Nair: That is a lot of reports.
+[04/06/2026, 09:42] Ritwik Ghosh: it is a handful that matter and the rest nobody opens
+[04/06/2026, 09:43] Priya Nair: That is not a very comforting way of putting it.
+[04/06/2026, 09:44] Priya Nair: But I take the point.
+
+--- 10 June 2026 ---
+[10/06/2026, 12:20] Ishaan Bhatt: mapping inventory sheet is saved. one row per mapping, source, target, IKM, filters, last modified
+[10/06/2026, 12:21] Ishaan Bhatt: it is accurate as of today. i am saying that now so that in three months nobody treats it as gospel
+[10/06/2026, 12:24] Karthik Subramanian: Please put that sentence in cell A1 of the sheet, not in the chat.
+[10/06/2026, 12:25] Ishaan Bhatt: fair point
+Farida Contractor reacted 👍 to a message
+[10/06/2026, 12:44] Farida Contractor: I have reviewed the filter column and it matches what is in the repository as of this week.
+[10/06/2026, 12:45] Farida Contractor: As of this week.
+
+--- 18 June 2026 ---
+[18/06/2026, 12:10] Neha Gokhale: Two new register entries out of this morning.
+[18/06/2026, 12:11] Neha Gokhale: First. BCPL_EDW.TAX_RATE_MASTER is a truncate and reload snapshot. It holds current rates only, no effective dating, although the source is effective dated. The Chandanaa HSN 3401 rate went from 18 percent to 12 percent effective 01-Oct-2025 and the warehouse has applied 12 percent backwards over Apr to Sep 2025.
+[18/06/2026, 12:12] Neha Gokhale: Value is about 40 L. It fails DQ-R-15.
+[18/06/2026, 12:13] Neha Gokhale: Second. There is no late arriving dimension handling on the fact. A SKU that is invoiced before MAP_DIM_PRODUCT has seen it goes to PRODUCT_KEY = -1 and stays there for ever. It is never re-pointed once the dimension row arrives.
+[18/06/2026, 12:14] Neha Gokhale: 2.0 percent of invoiced volume. 8,140 lines a month on average, peak 11,902 in Jan-2026. DQ-R-04 sits at 98.0 percent against a 99.5 percent threshold, so it is a fail.
+[18/06/2026, 12:20] Karthik Subramanian: On the second one, the fix is a re-point pass, not a different key strategy. Please do not let anybody turn this into a modelling debate.
+[18/06/2026, 12:26] Ritwik Ghosh: from my side the second one is worse than it sounds. a product mix page with 2% of volume sitting in a bucket called UNKNOWN looks broken even if the total is right
+[18/06/2026, 12:27] Ritwik Ghosh: users do not read footnotes. they read the biggest bar
+[18/06/2026, 12:40] Sneha Pillai: VAR-006 and VAR-007 opened, both 18-Jun. Also capturing AI-39 against Neha for the rule detail and AI-41 against Ishaan on the re-point.
+[18/06/2026, 12:52] Priya Nair: For the tax one, will the GST report need restating for last year also?
+[18/06/2026, 12:55] Neha Gokhale: For Apr to Sep 2025, yes. That is precisely the affected window.
+[18/06/2026, 23:20] Aniruddh Deshpande: tax rate we have kept only current rate since starting, in orion side it is effective dated properly but that time when the extract was written they took only current, i think 2016 or 2017, we did this in 2017 also for the excise thing and same problem came -ani
+
+--- 22 June 2026 ---
+[22/06/2026, 10:02] Farida Contractor: Please note. Any change to the tax structure means a new table, not a change to the existing one. I do not want a truncate and reload turning into an incremental with three exceptions in it.
+[22/06/2026, 10:04] Karthik Subramanian: Agreed. New dimension, DIM_TAX_RATE, effective dated, and TAX_RATE_MASTER stops being used by the fact.
+[22/06/2026, 10:05] Farida Contractor: Then I will need a change record and a back-out.
+[22/06/2026, 10:05] Karthik Subramanian: Yes.
+[22/06/2026, 15:11] Ishaan Bhatt: this message has been deleted
+[22/06/2026, 15:14] Ishaan Bhatt: sorry, that was for the other channel
+
+--- 25 June 2026 ---
+[25/06/2026, 09:41] Ritwik Ghosh: is anyone able to open the sharepoint this morning. it is spinning for me
+[25/06/2026, 09:44] Priya Nair: Working for me.
+[25/06/2026, 09:45] Ritwik Ghosh: ok it is my vpn then
+[25/06/2026, 11:30] Ishaan Bhatt: neha, on the re-point, do you want me to re-point history also or only from the fix date
+[25/06/2026, 11:52] Neha Gokhale: History as well, otherwise the rule keeps failing on old rows and we can never show it green.
+[25/06/2026, 12:38] Ishaan Bhatt: quick one. the fact is picking up STN documents. inter depot stock transfers. they carry amounts so they are landing in the fact and being counted as sales
+[25/06/2026, 12:39] Ishaan Bhatt: about 4.7% of the lines
+[25/06/2026, 12:41] Karthik Subramanian: Those are not sales, they are movement between our own depots. Change the header filter on MAP_FACT_INVOICE_LINE to DOC_TYPE = 'INV' and leave the rest of the mapping alone.
+[25/06/2026, 12:41] Ishaan Bhatt: ok done then. will put it in the next release
+[25/06/2026, 12:42] Karthik Subramanian: Yes.
+[25/06/2026, 12:44] Ritwik Ghosh: anyone downstairs? the sandwich place is doing the paneer thing today
+[25/06/2026, 12:44] Ishaan Bhatt: not in mumbai this week
+[25/06/2026, 12:45] Priya Nair: I am going down at 1. Kindly wait 10 min.
+[25/06/2026, 12:46] Ritwik Ghosh: 1 is fine
+[25/06/2026, 12:59] Ritwik Ghosh: they are out of it
+[25/06/2026, 13:00] Priya Nair: Every time.
+
+--- 30 June 2026 ---
+[30/06/2026, 09:15] Farida Contractor: Month end tonight. Please nobody deploy anything.
+[30/06/2026, 09:16] Ishaan Bhatt: nothing from me
+[30/06/2026, 09:17] Ritwik Ghosh: nothing
+[30/06/2026, 09:31] Karthik Subramanian: Nothing.
+[01/07/2026, 06:48] Farida Contractor: Month end run completed. Volume was on the high side but well inside the window. No issues.
+Ishaan Bhatt reacted 👍 to a message
+
+--- 06 July 2026 ---
+[06/07/2026, 11:20] Ishaan Bhatt: r2026.07 is cut. contents are the batch id guard and the invoice header filter change. going in on the 8th
+[06/07/2026, 11:22] Farida Contractor: Please send me the scenario list so I know exactly what is regenerating.
+[06/07/2026, 11:23] Ishaan Bhatt: sending
+[06/07/2026, 11:40] Farida Contractor: Received. Two scenarios. That is fine.
+[06/07/2026, 16:02] Priya Nair: Is there any documentation of what the release contains, for the audit folder?
+[06/07/2026, 16:06] Ishaan Bhatt: release notes are in the change record
+[06/07/2026, 16:07] Priya Nair: Thank you, I will pick it from there.
+
+--- 08 July 2026 ---
+[08/07/2026, 07:02] Ishaan Bhatt: r2026.07 went in last night. clean.
+[08/07/2026, 07:14] Farida Contractor: Confirmed from the session log. Nothing to report.
+Karthik Subramanian reacted 👍 to a message
+Priya Nair reacted 👍 to a message
+[08/07/2026, 09:30] Ishaan Bhatt: spot checked the fact. transfers are out, sales lines are unaffected
+[08/07/2026, 09:31] Ishaan Bhatt: moving on
+
+--- 10 July 2026 ---
+[10/07/2026, 17:40] Sneha Pillai: Has anybody got the latest Drishti_status_wk28.pptx? I have a version but I think it is the one from before the Tuesday call.
+[10/07/2026, 17:52] Ritwik Ghosh: not me
+[10/07/2026, 18:20] Priya Nair: I have one saved but the file name has no version on it so I cannot tell.
+[10/07/2026, 18:22] Sneha Pillai: I will chase it. Parking it for now.
+[10/07/2026, 18:23] Sneha Pillai: (that is Ananya's phrase, sorry)
+
+--- 21 July 2026 ---
+[21/07/2026, 09:02] Karthik Subramanian: Back after the audit week. Where are we.
+[21/07/2026, 09:14] Ishaan Bhatt: the re-point is written, not deployed. waiting on a window
+[21/07/2026, 09:15] Farida Contractor: There is no window this week. There is possibly one on the 29th.
+[21/07/2026, 09:16] Ishaan Bhatt: 29th then
+[21/07/2026, 09:44] Neha Gokhale: My rule set has not moved because nothing has been deployed. Same failures as the assessment cut.
+[21/07/2026, 09:52] Ritwik Ghosh: my side has moved a lot actually. i have four pages laid out
+[21/07/2026, 09:53] Ritwik Ghosh: laid out, not built. different thing
+[21/07/2026, 10:30] Priya Nair: Ritwik, in the Distributor Scorecard report, are we keeping the ageing columns? Sales Ops use them.
+[21/07/2026, 10:41] Ritwik Ghosh: ageing is a different page in my head. a scorecard page with ageing on it is two messages on one page
+[21/07/2026, 10:42] Priya Nair: Just to confirm my understanding, so it will be a separate dashboard page and they will click across?
+[21/07/2026, 10:43] Ritwik Ghosh: yes, and i will keep the distributor selection synced between the two so it does not feel like a jump
+[21/07/2026, 10:44] Priya Nair: That is fine then.
+
+--- 28 July 2026 ---
+[28/07/2026, 22:50] Aniruddh Deshpande: farida the box was slow around 11 pm today, i checked it is one of the housekeeping jobs from the other folder, not ours, i have told them but you know how it is, if the run goes long tonight this is why -ani
+[29/07/2026, 06:30] Farida Contractor: Run was 63 minutes. Slightly over the average, well inside. Noted the cause, thank you Ani.
+[29/07/2026, 06:31] Farida Contractor: For the record the housekeeping folder is not ours and we cannot change it.
+[29/07/2026, 09:40] Ishaan Bhatt: re-point deployed. the -1 rows for the last 18 months are re-pointed
+[29/07/2026, 09:41] Ishaan Bhatt: pushed a fix for the incremental side also, new lines get re-pointed the following night rather than never
+[29/07/2026, 10:02] Neha Gokhale: I will re-run DQ-R-04 after tonight's load and confirm the number.
+[30/07/2026, 10:15] Neha Gokhale: DQ-R-04 has moved. Not to green, but it has moved. I will give the exact figure in the next assessment cut rather than quoting a half-run here.
+
+--- 03 August 2026 ---
+[03/08/2026, 09:30] Ritwik Ghosh: build starts today from my side. everything goes on the one dataset, DRISHTI_SALES, import mode
+[03/08/2026, 09:31] Ritwik Ghosh: if anyone needs a measure adding, tell me, do not build your own copy of the model somewhere
+[03/08/2026, 09:44] Priya Nair: Understood. And the security, users will only see their own region?
+[03/08/2026, 09:50] Ritwik Ghosh: yes, row level security on REGION_CODE, four roles
+[03/08/2026, 09:51] Priya Nair: Kindly add me to all four for testing, otherwise I cannot check the totals.
+[03/08/2026, 09:52] Ritwik Ghosh: that defeats the point but yes for uat
+[03/08/2026, 14:20] Ishaan Bhatt: ritwik the dataset is going to be big. import mode on a fact that size will need care with what you bring in
+[03/08/2026, 14:22] Ritwik Ghosh: i am not bringing all columns. and i am aggregating where the page does not need line level
+[03/08/2026, 14:23] Ishaan Bhatt: good
+
+--- 06 August 2026 ---
+[06/08/2026, 10:11] Sneha Pillai: Following yesterday's workshop, actions AI-47 to AI-52 are with this group. I will chase individually rather than here.
+[06/08/2026, 10:14] Ritwik Ghosh: AI-49 is mine, wireframes. on it
+[06/08/2026, 10:15] Priya Nair: AI-51 with me, the report usage list. Already sent in May but I will refresh it.
+[06/08/2026, 10:40] Karthik Subramanian: Please do refresh it. A usage list from May is not evidence in August.
+[06/08/2026, 10:41] Priya Nair: Noted, I will revert by Friday.
+
+--- 11 August 2026 ---
+[11/08/2026, 15:40] Farida Contractor: The DIM_TAX_RATE change is ready from my side but I want it in its own window and not stacked with anything else.
+[11/08/2026, 15:42] Karthik Subramanian: Agreed. Own window.
+[11/08/2026, 15:55] Ishaan Bhatt: i will keep out of that week then
+[11/08/2026, 16:20] Neha Gokhale: When it goes in, tell me the night, I will run DQ-R-15 the following morning and not before.
+[11/08/2026, 16:21] Farida Contractor: I will post the night here.
+
+--- 27 August 2026 ---
+[27/08/2026, 08:05] Farida Contractor: CHG0021339 went in on the night of 26-Aug. DIM_TAX_RATE is live and effective dated, the fact now joins to it instead of TAX_RATE_MASTER.
+[27/08/2026, 08:06] Farida Contractor: The run was 66 minutes. Within the window.
+[27/08/2026, 08:30] Neha Gokhale: Running DQ-R-15 this morning.
+[27/08/2026, 11:02] Neha Gokhale: DQ-R-15 passes on the current period. The Apr to Sep 2025 restatement is a separate exercise and it is with Finance, not with me.
+[27/08/2026, 11:20] Sneha Pillai: Marking VAR-006 Closed, 28-Aug, once the restatement note is circulated. I will hold it one more day.
+[27/08/2026, 11:22] Karthik Subramanian: That is the right way round.
+Farida Contractor reacted 👍 to a message
+[27/08/2026, 23:44] Aniruddh Deshpande: good, this one was pending from long, the rate change came in oct itself and we saw the problem only now, anyway closed is closed -ani
+
+--- 01 September 2026 ---
+[01/09/2026, 09:20] Ishaan Bhatt: dev orion is still on the 11 march refresh by the way. six months
+[01/09/2026, 09:21] Ishaan Bhatt: at this point i am testing against a museum
+[01/09/2026, 09:24] Farida Contractor: The request is in the queue. I have chased it twice.
+[01/09/2026, 09:25] Ishaan Bhatt: not blaming you
+[01/09/2026, 09:40] Karthik Subramanian: Please keep testing data on UAT. It is refreshed monthly and it is the only environment where a data test means anything.
+[01/09/2026, 09:41] Priya Nair: The UAT warehouse is smaller though, no? Last time a full history query there took very long.
+[01/09/2026, 09:44] Karthik Subramanian: It is not sized for a full history reload, correct. For a data test on a period it is fine.
+[01/09/2026, 09:45] Priya Nair: Understood, thank you.
+
+--- 08 September 2026 ---
+[08/09/2026, 11:12] Ritwik Ghosh: sending the first cut of the reconciliation page. this is the one where finance will look at us the hardest
+[08/09/2026, 11:12] Ritwik Ghosh: [image: reco_page_v1.png]
+[08/09/2026, 11:30] Priya Nair: The gross to net steps are clear. Can we have the prompt at the top rather than the side, the users are used to it there.
+[08/09/2026, 11:33] Ritwik Ghosh: slicer. and yes, top is fine for this page
+[08/09/2026, 11:34] Ritwik Ghosh: (edited)
+[08/09/2026, 11:40] Karthik Subramanian: Ritwik, please make sure every number on that page can be traced to a measure with a definition written down. If Finance asks what net revenue means on this page, the answer cannot be "the measure".
+[08/09/2026, 11:41] Ritwik Ghosh: understood na
+[08/09/2026, 15:22] Ishaan Bhatt: karthik can we take the merge design offline, i have three questions and they are all about the key
+[08/09/2026, 15:23] Karthik Subramanian: Yes. Call in 10 minutes.
+[08/09/2026, 15:23] Ishaan Bhatt: ack
+[08/09/2026, 16:41] Ishaan Bhatt: for the channel record. merge is on INVOICE_LINE_ID. one fact row per source line. re-extract is versioned. that is ADR-004 as written
+[08/09/2026, 16:42] Ishaan Bhatt: target release is still R2026.09
+[08/09/2026, 16:50] Farida Contractor: Elapsed measurement please, before that release goes anywhere.
+[08/09/2026, 16:51] Ishaan Bhatt: yes, measuring next week
+
+--- 18 September 2026 ---
+[18/09/2026, 08:40] Aniruddh Deshpande: patch is in, orion is on R12.2.9 now, weekend went ok, one form was giving problem in the morning but that is fixed, if anybody sees anything strange in the extracts tell me first before raising -ani
+[18/09/2026, 08:52] Farida Contractor: Noted. Last night's run was normal, 59 minutes.
+[18/09/2026, 09:10] Ishaan Bhatt: nothing odd in staging counts
+[18/09/2026, 09:11] Ishaan Bhatt: will keep watching for a few nights
+Aniruddh Deshpande reacted 👍 to a message
+[18/09/2026, 16:20] Sneha Pillai: Circulating the tracker later today. XL-01_variance_tracker_v6.xlsx, please use this one and delete anything older.
+[18/09/2026, 16:44] Neha Gokhale: There is no attachment on that message.
+[18/09/2026, 16:45] Sneha Pillai: Sorry. Sending on mail instead.
+[18/09/2026, 16:52] Ritwik Ghosh: also v6? i thought we were past that
+[18/09/2026, 16:55] Sneha Pillai: The saved copy is a later one, I will confirm the version when I send it. TBC.
+[18/09/2026, 17:30] Ishaan Bhatt: this is exactly the sharepoint problem in a different costume
+
+--- 24 September 2026 ---
+[24/09/2026, 10:02] Karthik Subramanian: Status on VAR-003 for anybody who is asked. It is open. The approach is ADR-004, key based merge on INVOICE_LINE_ID with a versioned re-extract, the ORION procedure is untouched in Phase 1, planned for R2026.09 on 30-Sep.
+[24/09/2026, 10:03] Karthik Subramanian: Owner is Ani. If Finance asks, root cause is source-side, not in the ETL. That is as far as anybody should go in a corridor conversation.
+[24/09/2026, 10:20] Farida Contractor: And it is not a load window problem. I would like that said too, because it keeps being described as one.
+[24/09/2026, 10:21] Karthik Subramanian: Noted and agreed.
+Farida Contractor reacted 👍 to a message
+Sneha Pillai reacted 👍 to a message
+[24/09/2026, 10:40] Ishaan Bhatt: measured the merge on the uat box. it is more than the append, obviously, but it is not frightening. writing it up properly rather than posting a number here
+[24/09/2026, 10:41] Farida Contractor: Thank you. That is the right way round.
+[24/09/2026, 14:15] Priya Nair: Kindly can somebody tell me what to say if a user asks why the scheme amount looks different between the old report and the new one.
+[24/09/2026, 14:30] Karthik Subramanian: Say that the scheme discount is under active investigation, that the register entry is open, and that Ani owns it. Do not attempt to explain the mechanism, including me, in a corridor.
+[24/09/2026, 14:31] Priya Nair: Understood. I will revert with exactly that.
+[24/09/2026, 22:40] Aniruddh Deshpande: priya if somebody asks you send them to me directly, this thing is from before and it is not anyone's mistake in this project, i have told karthik also the same -ani
+
+--- 29 September 2026 ---
+[29/09/2026, 09:15] Sneha Pillai: Housekeeping. I am exporting this channel for the file record tomorrow. If there is anything in here that should be in a document and is not, please tell me now.
+[29/09/2026, 09:31] Ishaan Bhatt: half of it probably
+[29/09/2026, 09:32] Ishaan Bhatt: joking. mostly
+[29/09/2026, 09:44] Neha Gokhale: Everything on my side is in the assessment.
+[29/09/2026, 09:50] Farida Contractor: Everything on my side is in a change record or a mail.
+[29/09/2026, 10:02] Karthik Subramanian: Everything that was a decision is written up. Anything that was not a decision does not need to be.
+[29/09/2026, 10:11] Ritwik Ghosh: my screenshots are all here and nowhere else but they are screenshots, na
+[29/09/2026, 10:12] Sneha Pillai: I will take that as no. Exporting tomorrow.
+[29/09/2026, 10:20] Priya Nair: Thank you Sneha. Kindly send me the link when it is done.
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

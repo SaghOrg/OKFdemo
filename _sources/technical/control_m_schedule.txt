@@ -1,0 +1,55 @@
+================================================================================
+CONTROL-M JOB SCHEDULE EXPORT
+Control-M/EM version : 9.0.20
+Folder               : BCPL_EDW_DAILY
+Application           : BCPL_EDW
+Sub Application       : SALES_FIN
+Node / agent          : edw-app-prd-02.bcpl.local (OracleDIAgent1, port 20910)
+Extracted             : 2026-08-19 11:42 IST
+Extracted by          : bcpl-datawarehouse@bharadwajcp.example
+Folder owner          : Farida Contractor
+================================================================================
+
+JOB NAME                     CALENDAR   TIME(IST)  IN-COND                 OUT-COND                RUN AS        HOST                              DESCRIPTION
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+BCPL_EDW_DAILY_LOAD_START    ALLDAYS    01:00      -                       LOAD-START-OK           ODI_LOAD      edw-app-prd-02.bcpl.local         Triggers SCEN_LP_DAILY_SALES v003 (load plan LP_DAILY_SALES) on OracleDIAgent1. Runs every day including Sundays.
+BCPL_EDW_STG_EXTRACT         ALLDAYS    01:00*     LOAD-START-OK           STG-EXTRACT-OK           ODI_LOAD      edw-app-prd-02.bcpl.local         step 1, PKG_STG_EXTRACT (MAP_STG_ORDER_HEADER, MAP_STG_INVOICE_LINE, others). *in-flow marker, see Note 1.
+BCPL_EDW_DIM_LOAD            ALLDAYS    01:40*     STG-EXTRACT-OK          DIM-LOAD-OK              ODI_LOAD      edw-app-prd-02.bcpl.local         step 2, PKG_DIM_LOAD (MAP_DIM_CUSTOMER, MAP_DIM_PRODUCT, ...). *in-flow marker, see Note 1.
+BCPL_EDW_FACT_LOAD           ALLDAYS    02:00*     DIM-LOAD-OK             FACT-LOAD-OK             ODI_LOAD      edw-app-prd-02.bcpl.local         step 3, PKG_FACT_LOAD (MAP_FACT_INVOICE_LINE, ...). *in-flow marker, see Note 1.
+BCPL_EDW_POSTCHK             ALLDAYS    02:35*     FACT-LOAD-OK            LP-DAILY-SALES-DONE      ODI_LOAD      edw-app-prd-02.bcpl.local         step 4, PKG_POST_LOAD_CHECKS then P_ETL_BATCH_CLOSE. *in-flow marker, see Note 1.
+BCPL_EDW_OBIEE_CACHE_SEED    ALLDAYS    03:05      LP-DAILY-SALES-DONE     OBIEE-CACHE-OK           SVC_FINBATCH  edw-app-prd-02.bcpl.local         Seeds OBIEE BI Server cache ahead of business open.
+BCPL_EDW_ALERT_SUMMARY       ALLDAYS    03:20      LP-DAILY-SALES-DONE     -                        SVC_FINBATCH  edw-app-prd-02.bcpl.local         Mails the run summary to bcpl-datawarehouse@bharadwajcp.example.
+BCPL_SFA_SECONDARY_UPLOAD    ALLDAYS    04:00      -                       SEC-UPLOAD-OK/NOTOK      DMS_IFACE     edw-app-prd-02.bcpl.local         Picks up the DMS file drop for LP_SECONDARY_UPLOAD (FACT_SECONDARY_SALES). Frequently no file, see Note 2.
+BCPL_EDW_MONTHEND_FIN        WD+1       03:00      (manual submit)         MTHEND-FIN-OK            SVC_FINBATCH  edw-app-prd-02.bcpl.local         LP_MONTHEND_FIN. Submitted manually, on request, working day +1 of the following fiscal month. No further detail in this export.
+BCPL_PBI_REFRESH_TRIGGER     ALLDAYS    06:00      LP-DAILY-SALES-DONE     PBI-REFRESH-OK           SVC_FINBATCH  bi-gw-prd-01.bcpl.local           Power BI dataset DRISHTI_SALES refresh, workspace BCPL-DRISHTI-PRD. Added to this folder Aug-2026, prev. triggered ad hoc.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+NOTES
+
+1. Steps 2 to 4's in-flow markers (01:40 / 02:00 / 02:35) are scheduling artefacts left
+   over from an earlier, slower cut of the plan. Nobody has gone back and retimed them
+   against what actually happens, which is why three different people will quote you
+   three different completion times off the top of their head. Measured, current:
+   average elapsed 58 min (01:00 start, done by approx. 01:58), P95 71 min, worst
+   month-end night in the Feb-Apr 2026 sample 3h 12m, finishing 04:12 IST. Business
+   availability SLA is 05:30 IST, breached twice in FY26 Q4 (14-Feb-2026, 02-Mar-2026).
+   For "is the warehouse finished with the source" purposes use approx. 02:05 IST, not
+   the in-flow markers above. Raised with Farida twice to get these corrected in
+   control-m, TBC, still open only.
+
+2. LP_SECONDARY_UPLOAD depends on an external file drop from the DMS side. When the
+   file has not landed the job completes NOTOK and is left for a manual look-in the
+   next morning. Not an EDW-side failure, do not page the DW on-call for it.
+
+3. Folder BCPL_ORION_OPS (ORION's own housekeeping - archive purge, redo log switch
+   alerts, listener bounce checks) is owned by a different team and is out of scope
+   for this export. Contact: TBC.
+
+4. STG_ORION.STG_CREDIT_NOTE has no Control-M job feeding it in this folder, or in
+   any other one we could find. The mapping that used to populate it was switched off
+   back in Nov-2022 when the load window got tight, and nothing has run against it
+   since.
+
+Folder last reviewed 14-Jul-2026. Next review TBC.
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

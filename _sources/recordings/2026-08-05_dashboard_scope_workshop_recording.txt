@@ -1,0 +1,22 @@
+RECORDING STUB -- link only, not the recording itself
+Project Drishti / Bharadwaj engagement
+
+Meeting: Dashboard scope workshop
+Date: Wed 05-Aug-2026
+Time: 10:00-11:30 IST
+Duration: 01:30:00
+Organiser: Sneha Pillai
+Attendees: Ritwik, Priya, Vikram, Shalini, Meghna, Ananya, Sneha Pillai; Wei Lin Tan joined 10:00-11:00 IST (12:30-13:30 SGT)
+
+Recording URL (SharePoint / Stream, tenant bharadwajcp):
+https://bharadwajcp.sharepoint.example/sites/BCPL-NorthlaneAnalytics/Shared%20Documents/Recordings/2026-08-05_dashboard_scope_workshop.mp4
+
+Approx file size: 702 MB
+Transcript cross-ref: 2026-08-05_dashboard_scope_workshop.vtt (auto-generated, not proofed)
+Retention: expires ~03-Nov-2026 (90 days post-meeting)
+
+NOTE - video did not come through for the first 22 minutes, audio only (someone's camera driver again). Transcript for that stretch is fine, just no video track worth watching till Ritwik gets to the whiteboard bit.
+
+DO NOT COMMIT MEDIA - link only. Recording lives in SharePoint, not in this repository.
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

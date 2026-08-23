@@ -1,0 +1,22 @@
+RECORDING STUB -- link only, not the recording itself
+Project Drishti / Bharadwaj engagement
+
+Meeting: Kickoff and scope
+Date: Wed 11-Feb-2026
+Time: 15:00-16:00 IST
+Duration: 01:00:00
+Organiser: Sneha Pillai
+Attendees: Rajeev Menon, Shalini, Vikram, Priya, Farida, Ananya, Karthik, Ritwik, Sneha Pillai; Marijke van der Berg joined 15:00-15:20 IST only (10:30-10:50 CET)
+
+Recording URL (SharePoint / Stream, tenant bharadwajcp):
+https://bharadwajcp.sharepoint.example/sites/BCPL-NorthlaneAnalytics/Shared%20Documents/Recordings/2026-02-11_kickoff_scope.mp4
+
+Approx file size: 498 MB
+Transcript cross-ref: 2026-02-11_kickoff_scope.vtt (auto-generated, not proofed)
+Retention: recording expires and is purged from the site 90 days after the meeting (approx 12-May-2026). Owner (Sneha) to save a copy locally if needed before then, per usual practice - nobody actually does this.
+
+recording is intact, full 60 min, no known gaps.
+
+DO NOT COMMIT MEDIA - link only. Recording lives in SharePoint, not in this repository.
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

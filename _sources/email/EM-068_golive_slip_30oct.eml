@@ -1,0 +1,118 @@
+Received: from mail-out-03.northlaneanalytics.example (198.51.100.37) by
+ mx-in-01.bharadwajcp.example with Microsoft SMTP Server id 15.20.7344.007;
+ Wed, 19 Aug 2026 09:14:49 +0530
+Return-Path: <ananya.krishnan@northlaneanalytics.example>
+Message-ID: <CAJ7q2m8NBiiLkR0CczbjE0m5ssi@mail.northlaneanalytics.example>
+Date: Wed, 19 Aug 2026 09:14:33 +0530
+From: Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>
+To: drishti-steerco@bharadwajcp.example
+Cc: drishti-core@northlaneanalytics.example,
+ bcpl-datawarehouse@bharadwajcp.example
+Subject: RE: RE: FW: Drishti - revised go live date (was: wk28 status pack)
+Thread-Topic: Drishti - revised go live date
+In-Reply-To: <BM1PR01MB5530357C515F38F96@mail.bharadwajcp.example>
+References: <CAJ7q2m8aQsnD1G9hYqFiDz7bFlj@mail.northlaneanalytics.example>
+ <BM1PR01MB5530357C515F38F96@mail.bharadwajcp.example>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+
+Rajeev, thank you, taken as accepted. Copying the wider list back in so that
+everybody is working from the same date.
+
+To close the loop. The plan date for go live is now Friday 30 October 2026.
+15-Sep is gone, please stop quoting it, including in anything that goes to
+Klarissen.
+
+Three clarifications on top of last evening's mail:
+
+- Nothing changes in the remediation build. It still lands 25-Sep.
+- I am not putting a UAT window in writing today. It cannot start before
+  05-Oct in any case, and I would rather give you a date I can hold than a date
+  that looks tidy in a plan.
+- On your cost question, nothing in the commercials changes for the date move
+  itself. If that changes I will tell you before you have to ask.
+
+Slide 3 of Drishti_status_wk28.pptx is now out of date. Yes, wk28, that is still
+the last pack anybody has with a timeline slide in it, which tells you something
+about my week. Please work from this mail until I reissue.
+
+Actions:
+- Karthik to confirm remediation dates for VAR-004 and VAR-007 by Friday.
+- Ananya to re-issue the timeline with this week's status pack.
+- Farida and Karthik to confirm the enviroment position before I commit to a
+  UAT window.
+- Everyone, diaries.
+
+Parking the Phase 2 conversation for now, we will pick it up at the September
+steerco.
+
+Best,
+Ananya
+
+Ananya Krishnan
+Engagement Lead, Project Drishti
+Northlane Analytics
+
+This e-mail is intended only for the named recipients and may contain client
+confidential information. If it has reached you in error please delete it and
+let the sender know.
+
+________________________________
+From: Rajeev Menon <rajeev.menon@bharadwajcp.example>
+Sent: 18 August 2026 22:10
+To: Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>
+Subject: RE: FW: Drishti - revised go live date (was: wk28 status pack)
+
+> ok. 30 oct is accepted. i am not going to ask for a third date so please make
+> this one stick.
+>
+> two things. does it add cost, yes or no, if yes give me the number before
+> friday. and let's not boil the ocean replanning everything, only the dates
+> that actually move.
+>
+> i will speak to Amsterdam myself.
+>
+> Rajeev
+>
+> Get Outlook for iOS
+>
+> > From: Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>
+> > Sent: 18 August 2026 17:52
+> > To: drishti-steerco@bharadwajcp.example
+> > Cc: drishti-core@northlaneanalytics.example; bcpl-datawarehouse@bharadwajcp.example
+> > Subject: FW: Drishti - revised go live date (was: wk28 status pack)
+> >
+> > Hi all,
+> >
+> > I would rather flag this now than have it come out at the next steerco.
+> >
+> > We are moving the go live date. 15 September will not hold. The new plan
+> > date is Friday 30 October 2026.
+> >
+> > Three reasons, in the order that they matter:
+> >
+> > 1. ORION is on the R12.2.9 patch weekend from 12 to 20 September. The source
+> >    system is locked for that period. We cannot cut over into it and we
+> >    cannot run a controlled comparison against it while it is being patched.
+> >
+> > 2. VAR-004 and VAR-007 will not be closed in time. Both are still open on
+> >    the remediation list and both affect numbers that people will look at on
+> >    day one. Going live with either of them open is not something I am
+> >    willing to recommend.
+> >
+> > 3. Following from 1 and 2, UAT cannot start before 05 October. Working
+> >    backwards from a UAT that begins in October, 15-Sep was not recoverable,
+> >    and pretending otherwise for another three weeks helps nobody.
+> >
+> > What does not change: the remediation build scope, the dashboard build, and
+> > the September steerco.
+> >
+> > I know this is not the mail anyone wanted on a Tuesday evening. Happy to
+> > walk anybody through the working, and if there is a way to pull it back in
+> > I will take it, but I do not want to commit to one this evening.
+> >
+> > Best,
+> > Ananya
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

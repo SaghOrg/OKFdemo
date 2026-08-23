@@ -1,0 +1,136 @@
+Received: from mail.bharadwajcp.example (10.171.44.19) by
+ mx-in-01.bharadwajcp.example with Microsoft SMTP Server id 15.20.7344.007;
+ Fri, 25 Sep 2026 19:44:02 +0530
+Return-Path: <vikram.sethi@bharadwajcp.example>
+Message-ID: <BM1PR01MB5530byb5uNckOmw1@mail.bharadwajcp.example>
+Date: Fri, 25 Sep 2026 19:43:51 +0530
+From: Vikram Sethi <vikram.sethi@bharadwajcp.example>
+To: Priya Nair <priya.nair@bharadwajcp.example>
+Cc: Meghna Rao <meghna.rao@bharadwajcp.example>
+Subject: RE: RE: FW: north file not going thru (was: UAT login for north team)
+Thread-Topic: UAT login for north team
+In-Reply-To: <BM1PR01MB5518yPcKiRvgq1GZ@mail.bharadwajcp.example>
+References: <BM1PR01MB5530HgiKXSjjarvO@mail.bharadwajcp.example>
+ <BM1PR01MB55040oeFGPRMbw60@mail.bharadwajcp.example>
+ <BM1PR01MB5518yPcKiRvgq1GZ@mail.bharadwajcp.example>
+X-Mailer: Microsoft Outlook for iOS
+Importance: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+
+priya sorry to keep chasing on this one.
+
+it is still bouncing. i tried twice from teh airport lounge and once again from
+hotel wifi just now, every time it is coming back with the same size message,
+our mail is not allowing anything above 20 mb and this file is well over.
+
+so can you pls send it to my personal id, vikram.sethi.personal@gmail.example.
+i can open it on the laptop there and cut the north portion myself over the
+weekend. i know this is not the correct way and i am not making it a habit, but
+i have to give the north stockist billing summary to rajeev sir monday first
+thing and i cannot sit and wait for the id issue to get sorted.
+
+one more thing, i think the version you are working from is not the latest. the
+one i have is BCPL_reco_Aug26_vikram_v3 (1).xlsx, the coordinator sent me that
+after the correction. if yours is still v2 then the stockist figuers for north
+will not tally and my number is coming different from the report anyway, so
+let us not add one more mismatch on top.
+
+on the UAT login part, whatever is pending from my side pls tell me and i will
+do the needful. two of my north people are not able to open the link at all, it
+is asking for some permission and then closing. one is saying he can open but
+then it is blank. kindly confirm what exactly you need from me, i will send
+today itself.
+
+and pls dont mail the file to the whole team, only to me. some of it is TPR
+working which is not final.
+
+vikram
+
+Sent from my iPhone
+
+Vikram Sethi
+National Sales Operations Manager
+Bharadwaj Consumer Products Ltd
+
+Disclaimer: This e-mail and any files transmitted with it are confidential and
+are intended solely for the use of the individual or entity to whom they are
+addressed. If you have received this e-mail in error please notify the sender
+and delete it from your system. Bharadwaj Consumer Products Ltd accepts no
+liability for the contents of this message which arise as a result of e-mail
+transmission. Internal circulation only.
+Please consider the environment before printing this e-mail.
+
+________________________________
+From: Priya Nair <priya.nair@bharadwajcp.example>
+Sent: 25 September 2026 12:06
+To: Vikram Sethi <vikram.sethi@bharadwajcp.example>
+Cc: Meghna Rao <meghna.rao@bharadwajcp.example>
+Subject: RE: FW: north file not going thru (was: UAT login for north team)
+
+> Dear Vikram Sir,
+>
+> Kindly excuse the delay, I was finishing the month end agents yesterday.
+>
+> I have tried to send the north extract three times now and it is coming back
+> every time. The file is bigger than what our mail will accept. I have put it
+> on the SharePoint library but I think you do not have access to that folder,
+> please correct me if I am wrong. I have asked for the folder access to be
+> given but that is a seperate request from the UAT one.
+>
+> On the UAT access, just to confirm my understanding, you want the logins for
+> your north team and not only for yourself? If yes then kindly send me the
+> list of names and I will add them to the request that is already open. I have
+> not put any names in it so far because I did not want to guess.
+>
+> Two of the reports are still being loaded so even after the login is given
+> some prompts may not show values. That is expected at this stage.
+>
+> Kindly revert on the names.
+>
+> Thanks and regards,
+> Priya
+>
+> Priya Nair
+> BI Analyst
+> Bharadwaj Consumer Products Ltd, Andheri East, Mumbai
+>
+> ________________________________
+> From: Meghna Rao <meghna.rao@bharadwajcp.example>
+> Sent: 24 September 2026 16:52
+> To: Priya Nair <priya.nair@bharadwajcp.example>
+> Cc: Vikram Sethi <vikram.sethi@bharadwajcp.example>
+> Subject: RE: UAT login for north team
+>
+> > Priya, the north extract Vikram is asking for is the one I generated last
+> > week. I have not changed anything in it since. If a different cut is
+> > wanted, please tell me which columns and which period and I will re-run it
+> > rather than have three versions floating.
+> >
+> > I am only on copy for the extract, the access request is not with me.
+> >
+> > Meghna
+> >
+> > Meghna Rao
+> > Data Quality Analyst
+> > Bharadwaj Consumer Products Ltd
+> >
+> > ________________________________
+> > From: Vikram Sethi <vikram.sethi@bharadwajcp.example>
+> > Sent: 22 September 2026 07:58
+> > To: Priya Nair <priya.nair@bharadwajcp.example>
+> > Cc: Meghna Rao <meghna.rao@bharadwajcp.example>
+> > Subject: UAT login for north team
+> >
+> > > priya pls arrange UAT login for my north team, they are asking. also
+> > > share teh north file when you get time, i want to check the stockist wise
+> > > billing before i circulate anything.
+> > >
+> > > kindly confirm today.
+> > >
+> > > vikram
+> > >
+> > > Sent from my iPhone
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

@@ -1,0 +1,131 @@
+Received: from mail.bharadwajcp.example (10.171.44.19) by
+ mx-in-02.klarissen.example with Microsoft SMTP Server id 15.20.7344.007; Tue,
+ 21 Jul 2026 21:14:22 +0530
+Return-Path: <shalini.iyer@bharadwajcp.example>
+Message-ID: <BM1PR01MB5530A38BADD48F4BF@mail.bharadwajcp.example>
+Date: Tue, 21 Jul 2026 21:14:07 +0530
+From: Shalini Iyer <shalini.iyer@bharadwajcp.example>
+To: "van der Berg, Marijke" <marijke.vanderberg@klarissen.example>,
+ Rajeev Menon <rajeev.menon@bharadwajcp.example>
+Cc: "Tan, Wei Lin" <weilin.tan@klarissen.example>,
+ Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>,
+ Karthik Subramanian <karthik.subramanian@northlaneanalytics.example>
+Subject: RE: FW: India FY2026 - channel partner credit notes
+Thread-Topic: India FY2026 - channel partner credit notes
+In-Reply-To: <BM1PR01MB553061B7B4CDAD8A5@mail.bharadwajcp.example>
+References: <AM7PR07MB4412668A535BE8B89@mail.klarissen.example>
+ <AM7PR07MB44122AED91115D8CA@mail.klarissen.example>
+ <BM1PR01MB553061B7B4CDAD8A5@mail.bharadwajcp.example>
+X-Mailer: Microsoft Outlook 16.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+
+Marijke, Rajeev,
+
+Apologies for coming back only today. I did not want to put a number in writing
+before I could tie it back to the trial balance.
+
+1. The validated credit note impact on net revenue for FY26 is
+INR 3,11,20,000, that is INR 3.11 Cr. Period covered is 01-Apr-2025 to
+31-Mar-2026, the full FY26, not a part year.
+
+2. That figure is 1,206 documents, all of them CN_TYPE = RATE_DIFF or
+OFF_INV_ADJ. Those are the two types that move the revenue line, the rate
+difference cases and the off invoice adjustments.
+
+3. FY26 Credit Notes in total are 9,318 documents and 31,204 lines out of
+ORION. The remaining 8,112 documents are DAMAGE, RETURN and SCHEME, INR 43.70 Cr,
+and those settle against provisions or come back through the scheme accrual, so
+they do not sit in the 3.11 Cr. (The 1,206 count is as at Friday night's
+extract. If a July document is backdated into FY26 it will move by a few.)
+
+4. On why this is different from the number in the May pack. That was a quick
+sizing, done in a day, to give the programme an order of magnitude. It covered
+April 2025 to December 2025 only, so the whole of FY26 Q4 was missing from it,
+and it left out the OFF_INV_ADJ type completely. Put Jan to Mar back in, add
+OFF_INV_ADJ, and you arrive at 3.11 Cr. The May number was not wrong for what it
+was, it was wrong for what it got used for, which is my fault as much as
+anybody's.
+
+5. What the revalidation actually covered. My team pulled every FY26 credit
+note document from ORION, matched them by document number and party code to the
+AR side, classifed them by CN_TYPE and then tied the revenue affecting types
+back to the FY26 trial balance line by line. Where a document could not be tied
+it has been left out of the 1,206.
+
+6. On the question of since when. VAR-005 "Credit notes absent from warehouse"
+has been on the variance register since 24-Apr-2026 and it is open with me as
+owner. So it is not a new item. What is new as of today is that the number is
+firm.
+
+7. Tracker: I have asked for VAR-005 to be updated with the validated figure.
+The summary sheet will round to 3.10 Cr, the detail sheet carries the full
+3,11,20,000, please quote the detail sheet if it is going anywhere near Group.
+
+Marijke, on the walk, I can have it by month and by credit note type. Tell me
+whether you want it in INR or in EUR at the budget rate and I will send it in
+whichever template Wei Lin needs.
+
+Regards,
+Shalini
+
+Shalini Iyer
+Head of Finance Systems
+Bharadwaj Consumer Products Ltd
+
+Disclaimer: This e-mail and any files transmitted with it are confidential and
+are intended solely for the use of the individual or entity to whom they are
+addressed. If you have received this e-mail in error please notify the sender
+and delete it from your system. Bharadwaj Consumer Products Ltd does not accept
+liability for any errors or omissions in the contents of this message which
+arise as a result of e-mail transmission. Internal use only.
+Please consider the environment before printing this e-mail.
+
+________________________________
+From: Rajeev Menon <rajeev.menon@bharadwajcp.example>
+Sent: 14 July 2026 12:03
+To: Shalini Iyer <shalini.iyer@bharadwajcp.example>
+Cc: Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>
+Subject: FW: India FY2026 - channel partner credit notes
+
+> Shalini - please handle. I need the number by the 21st, not the explanation.
+>
+> Rajeev
+>
+> > From: van der Berg, Marijke <marijke.vanderberg@klarissen.example>
+> > Sent: 14 July 2026 10:48
+> > To: Rajeev Menon <rajeev.menon@bharadwajcp.example>
+> > Cc: Shalini Iyer; Tan, Wei Lin
+> > Subject: FW: India FY2026 - channel partner credit notes
+> >
+> > Rajeev,
+> >
+> > The India channel partner credit notes are not in the warehouse at all.
+> > Since when is this known?
+> >
+> > Wei Lin has asked for the number twice, see below, 13-07-2026 and once
+> > before that in June. He still does not have it.
+> >
+> > Before the next audit call I need three things. The FY26 number. Who owns
+> > it. And the walk from what the warehouse reports to what your Finance team
+> > actually books.
+> >
+> > Please advise.
+> >
+> > M
+> >
+> > > From: Tan, Wei Lin
+> > > Sent: Monday, 13 July 2026 18:42 (SGT)
+> > > Subject: India FY2026 - channel partner credit notes
+> > >
+> > > - The India sell-in does not tie for FY2026 and I cannot close the
+> > >   schedule without an explanation of the difference.
+> > > - I have asked twice for the channel partner credit note total for FY2026
+> > >   and I still do not have a figure.
+> > >
+> > > Can you send the bridge?
+> > >
+> > > Wei Lin
+
+SYNTHETIC — generated for internal demo. No real entity depicted.

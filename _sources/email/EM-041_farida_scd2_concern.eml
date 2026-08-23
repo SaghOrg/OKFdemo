@@ -1,0 +1,106 @@
+Received: from mail.bharadwajcp.example (10.171.44.19) by
+ mx-in-01.northlaneanalytics.example with Microsoft SMTP Server id
+ 15.20.7344.007; Thu, 16 Apr 2026 09:26:11 +0530
+Return-Path: <farida.contractor@bharadwajcp.example>
+Message-ID: <BM1PR01MB5530A9C42E71D6F30@mail.bharadwajcp.example>
+Date: Thu, 16 Apr 2026 09:26:03 +0530
+From: Farida Contractor <farida.contractor@bharadwajcp.example>
+To: Karthik Subramanian <karthik.subramanian@northlaneanalytics.example>
+Cc: Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>,
+ bcpl-datawarehouse@bharadwajcp.example
+Subject: RE: DIM_CUSTOMER dimension design - your comments
+In-Reply-To: <CAJ7q2m8Zq6tY1cHn8jVr3aWs5Dm@mail.northlaneanalytics.example>
+References: <CAJ7q2m8Zq6tY1cHn8jVr3aWs5Dm@mail.northlaneanalytics.example>
+Thread-Topic: DIM_CUSTOMER dimension design - your comments
+Thread-Index: sgnJp43kGEGU3iyqYEsdvQ==
+X-Mailer: Microsoft Outlook 16.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Karthik,
+
+Thank you for the note. I have read it twice. I am not able to agree to SCD2
+on DIM_CUSTOMER as it stands, and I would rather put the reason in writing now
+than have it come out sideways in a design review.
+
+1. The interface for DIM_CUSTOMER runs 4 min 12 sec today. That is the average
+of the last thirty runs and it is stable, it does not move much between a
+Sunday and a Tuesday.
+
+2. With SCD2 that interface stops being an insert. It has to compare every
+incoming row against the current row, close the old row with an end date,
+insert the new row and re-point the flag. On an ordinary night the extra time
+is nothing worth arguing about. On the nights that matter it is not nothing.
+My estimate is 12 to 15 minutes on a month end night. Please note the word
+estimate. I have not measured it and I am not pretending I have, it is a
+number from experience of this pattern on a table of this shape.
+
+3. Before you tell me that 12 minutes is small, look at the Load Window it is
+going into. LP_DAILY_SALES starts at 01:00. Average elapsed is 58 minutes and
+on a normal night we are done around 02:05 including the post load checks and
+the batch close. P95 is 71 minutes. So on the average night, yes, 12 minutes
+is small. The average night is not the one that wakes me up.
+
+4. Month end is the one that wakes me up. On a heavy month end the run has
+finished 04:10, 04:12. The availability SLA is 05:30. That is the head room
+we are actually working with, and it has been like that for two years, it is
+not something the project has caused.
+
+5. We have already breached twice this quarter, 14-Feb and 02-Mar. Both times
+I was on a call at 05:00 explaining it and both times the first question was
+whether anything new had gone into the load recently. If I put SCD2 in during
+April and we breach again in May, the answer to that question is going to be
+
+6. So my question is whether we need SCD2 at all here. Would SCD1 on
+DIM_CUSTOMER with a seperate history table not do the same job. Keep the
+dimension current and small, write the changed rows out to a history table
+with the effective dates sitting on it, and let whoever needs the history
+join to that table instead. The nightly cost then sits on a small insert into
+a history table and not on a compare and update across the whole dimension.
+I am not a modeller and I am willing to be told this is wrong. I would like
+to be told why it is wrong, not that it is wrong.
+
+7. I am not saying no. I am saying the window is the window and I am not
+putting elapsed time into it on the strength of an estimate, mine or yours.
+Measure it on DEV, show me the number and the method, and I will look at it
+again the same day. If it is genuinely small I will say so in the review
+myself, as per my earlier mail on 13/04 about the scenario naming.
+
+Regards
+Farida
+
+Farida Contractor
+ODI / ETL Lead
+Bharadwaj Consumer Products Ltd, Andheri East, Mumbai
+
+________________________________________________________________________
+This e-mail and any files transmitted with it are confidential and are
+intended solely for the use of the addressee. If you are not the intended
+recipient kindly notify the sender and delete this message from your
+system. Bharadwaj Consumer Products Ltd accepts no liability for any
+errors or omissions in the contents of this message which arise as a
+result of transmission. Internal circulation only.
+Please consider the environment before printing this e-mail.
+
+
+-----Original Message-----
+From: Karthik Subramanian <karthik.subramanian@northlaneanalytics.example>
+Sent: 15 April 2026 19:12
+To: Farida Contractor <farida.contractor@bharadwajcp.example>
+Cc: Ananya Krishnan <ananya.krishnan@northlaneanalytics.example>
+Subject: DIM_CUSTOMER dimension design - your comments
+
+> Farida,
+>
+> I am proposing SCD2 on DIM_CUSTOMER. Before I write it up formally I want
+> your view on what it does to the load, because you own the load and I would
+> rather hear the objection now than discover it in a design review.
+>
+> Two questions, and take them in either order. What does the DIM_CUSTOMER
+> build cost you today, and what is the number at the other end of the night
+> that you are actually protecting.
+>
+> Karthik
+
+SYNTHETIC — generated for internal demo. No real entity depicted.
