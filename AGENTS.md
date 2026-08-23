@@ -7,16 +7,43 @@ Everything here is synthetic demo data. No real entity is depicted.
 
 ## Read protocol — do this at the start of EVERY task
 
-Read these before answering anything:
+Read these if present. A missing file here is not an error — it means
+that knowledge hasn't been written yet. Say so rather than inferring.
 
-1. `/context/project-brief.md` — what the engagement is
-2. `/context/active-context.md` — what is happening right now
+1. `/context/project-brief.md`
+2. `/context/active-context.md`
 3. `/context/glossary.md` — REQUIRED. The client, the consultants,
    and finance use different words for the same things.
-4. `/index.md` — catalog of all concepts
+4. `/index.md`
 
-Then grep the relevant subtree. Do not answer from `/context/` alone —
-it is a map, not the territory.
+## Where to look, in order
+
+1. `/index.md` and `/context/` to orient
+2. `/concepts/` — the answer to most questions lives here
+3. `/decisions/` for why something was chosen
+4. `/log.md` for whether a fact has changed
+5. `/meetings/` for what was said and when
+
+**Stop when you have the answer.** The knowledge base is the answer,
+not a pointer to the answer.
+
+## `/_sources/` is an archive, not a search target
+
+`/_sources/` holds the raw artifacts this knowledge base was built
+from — transcripts, decks, emails, brain dumps. It is unprocessed,
+contradictory, and largely superseded. **Do not search it to answer
+questions.**
+
+Every concept carries its provenance in its `sources` frontmatter
+array. That array is your citation trail — you cite source files by
+naming them from the concept's frontmatter, without opening them.
+
+Open a file under `/_sources/` only when one of these is true:
+- You need a verbatim quote for the demo
+- A concept's `sources` array is empty and you must establish provenance
+- The user asks you to go to the source explicitly
+
+If you do open one, say why in your answer.
 
 ## How this knowledge base is organised
 
@@ -35,7 +62,10 @@ absolute paths, e.g. `/concepts/tables/fact-invoice-line.md`.
 
 ## Answering rules
 
-- **Cite the file you got it from.** Every factual claim names its source file.
+- **Cite the concept, and its sources.** Name the concept file you
+  answered from, then name the `_sources/` files listed in its
+  `sources` frontmatter. You are citing provenance recorded in the
+  knowledge base, not files you opened.
 - **Prefer the most recent statement of a fact.** Dates and scope changed
   repeatedly during this engagement. Check `updated` frontmatter and
   `/log.md` before trusting an early document.

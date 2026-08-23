@@ -1,0 +1,8 @@
+# Read by ripgrep, not by git — these paths stay committed and remain
+# explicitly readable, they just stop surfacing in unscoped searches.
+#
+# /_sources/ is the raw archive: long, keyword-dense transcripts that
+# outrank the short distilled concepts they were transformed into.
+# /_canon/ is build input, not knowledge.
+_sources/
+_canon/
