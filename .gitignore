@@ -17,3 +17,6 @@ Thumbs.db
 *.wav
 *.mov
 *.avi
+
+# Claude Code local session state
+.claude/
