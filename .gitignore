@@ -1,0 +1,19 @@
+# Generation-time tooling — not part of the knowledge base
+_build/
+_snapshots/
+.venv-synth/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Never commit media — recordings are linked, not stored
+*.mp4
+*.m4a
+*.wav
+*.mov
+*.avi
