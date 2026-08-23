@@ -95,9 +95,10 @@ Harmonised System of Nomenclature code for GST and excise duty determination. He
 
 In BCPL_EDW, SKU_MASTER is the source for the DIM_PRODUCT dimension with grain one row per SKU. The warehouse adds BRAND_NAME and CATEGORY_NAME as text translations. Natural key is SKU_ID; surrogate key is PRODUCT_KEY. The effective dating of category changes (if any) is not tracked in the warehouse; DIM_PRODUCT is a Type 1 (overwrite) dimension, not SCD2.
 
-## Related Variances
+## Related variances
 
-- **VAR-007**: Late-arriving dimension issue. A SKU invoiced before it appears in SKU_MASTER routes to PRODUCT_KEY = -1 (UNKNOWN) and does not resync when the SKU finally arrives. Affects 2.0% of invoiced volume, averaging 8,140 lines a month.
+- **[VAR-007 — Late-arriving SKUs to UNKNOWN member](/concepts/variances/var-007-late-arriving-sku-unknown-member.md)**: A SKU invoiced before it appears in SKU_MASTER routes to PRODUCT_KEY = -1 (UNKNOWN) and does not resync when the SKU finally arrives. Affects 2.0% of invoiced volume, averaging 8,140 lines a month.
+- **[VAR-006 — GST rate change mishandled](/concepts/variances/var-006-tax-rate-retroactive.md)**: SKU_MASTER's HSN_CODE is the join key into the (formerly non-effective-dated) tax rate tables; the misdating defect lived in the tax rate tables, not here, but this is where the join originates.
 
 ## Related Tables
 

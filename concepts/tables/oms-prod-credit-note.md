@@ -97,3 +97,7 @@ There is no FACT_CREDIT_NOTE in BCPL_EDW. Credit notes were not loaded into the 
 - /concepts/tables/oms-prod-invoice-header.md (credit notes reference invoices via REF_INVOICE_ID)
 - /concepts/tables/oms-prod-credit-note-line.md (detail lines; CN_ID is foreign key)
 - /concepts/tables/oms-prod-customer.md (CUST_ID links to customer master)
+
+## Related variances
+
+- **[VAR-005 — Credit notes absent from warehouse](/concepts/variances/var-005-credit-notes-absent.md)**: this table is the ORION-side source that was never replicated into BCPL_EDW, described above under Known Issues.

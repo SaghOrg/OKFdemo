@@ -74,7 +74,7 @@ This design allows the source system to retain the full history of tax rate chan
 
 VAR-006 ("GST rate change mishandled") documents a critical asymmetry: the **warehouse copy** (`BCPL_EDW.TAX_RATE_MASTER`) was a truncate-and-reload snapshot with no effective dating, while the **source** (this table, FIN_PROD.TAX_RATE_MASTER) retains full history. As a result, when the Chandanaa HSN 3401 rate changed from 18% to 12% on 01-Oct-2025, the warehouse version applied the new rate retrospectively to historical invoices from Apr-Sep-2025.
 
-The fix (`CHG0021339`, deployed 26-Aug-2026) replaced the warehouse snapshot with a proper `DIM_TAX_RATE` dimension carrying effective dating. See `/concepts/variances/var-006.md` for full detail.
+The fix (`CHG0021339`, deployed 26-Aug-2026) replaced the warehouse snapshot with a proper `DIM_TAX_RATE` dimension carrying effective dating. See `/concepts/variances/var-006-tax-rate-retroactive.md` for full detail.
 
 ## Relationships
 
@@ -100,3 +100,7 @@ WHERE HSN_CODE = ?
 ```
 
 On a date with multiple overlapping rates (an error condition), the query would return multiple rows. Application logic should prevent overlaps at insert time.
+
+## Related variances
+
+- **[VAR-006 — GST rate change mishandled](/concepts/variances/var-006-tax-rate-retroactive.md)**: this table is the correctly effective-dated ORION source; the defect was entirely in the warehouse copy (BCPL_EDW.TAX_RATE_MASTER) failing to carry that effective dating across.

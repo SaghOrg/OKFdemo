@@ -83,7 +83,7 @@ The table is **append-mostly, not append-only**. When a user or administrator no
 
 - Links to `/concepts/tables/oms-prod-customer.md` via CUST_ID.
 - Links to `/concepts/tables/oms-prod-territory-master.md` via TERRITORY_CD.
-- Links to `/concepts/variances/var-004.md` (when created) for the SCD2 overlap issue.
+- Links to `/concepts/variances/var-004-scd2-territory-reassignment.md` for the SCD2 overlap issue.
 
 ## Data quality implications for the warehouse
 
@@ -94,3 +94,7 @@ When building the warehouse dimension `DIM_CUSTOMER` with SCD2 effective dating,
 3. **Reprocessing:** If a historical row is corrected (EFF_TO_DT is updated), re-extract all dependent dimensions and facts that reference that customer for the affected date range.
 
 Ani's note (DOC-01) emphasizes that **anybody joining this table to anything must decide for themselves what to do when two rows are open for the same party at the same time.**
+
+## Related variances
+
+- **[VAR-004 — Duplicate facts on distributor reassignment](/concepts/variances/var-004-scd2-territory-reassignment.md)**: the source-side territory history this table carries; the SCD2 defect itself lives in the warehouse's DIM_CUSTOMER, not here, but the worked example (DIST-W-0241) originates from a change recorded in this table.

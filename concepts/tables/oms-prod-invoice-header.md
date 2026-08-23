@@ -112,3 +112,7 @@ CREATE UNIQUE INDEX OMS_PROD.UX_INVHDR_NO ON OMS_PROD.INVOICE_HEADER (INVOICE_NO
 > "INVOICE_ID is the PK. INVOICE_NUM is the document number and it is unique, index UX_INVHDR_NO."
 
 The index name `UX_INVHDR_NO` could reasonably abbreviate either name. The DDL is authoritative; the column is named `INVOICE_NO`, not `INVOICE_NUM`. Ani's description aligns functionally (unique business key) but uses a different column name.
+
+## Related variances
+
+- **[VAR-002 — Month-end boundary drift](/concepts/variances/var-002-date-key-timezone.md)**: CREATED_TS (UTC) vs INVOICE_DT (IST), described above under Known data-quality issues.

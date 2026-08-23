@@ -102,7 +102,7 @@ This is not a defect; it is how the business operates. The correct behavior is t
 - Prefer the SCHEME_ID on the invoice line itself (see `SCHEME_ID` in [/concepts/tables/oms-prod-invoice-line.md](/concepts/tables/oms-prod-invoice-line.md))
 - Use the SCHEME_MASTER only for enrichment (scheme name, type, calculation details)
 
-See also [VAR-007](/concepts/variances/var-007.md) for related late-arriving dimension issues.
+See also [VAR-007](/concepts/variances/var-007-late-arriving-sku-unknown-member.md) for related late-arriving dimension issues.
 
 ### Applied Scheme Recording
 
@@ -133,3 +133,8 @@ Referred to variously as:
 - **Promo accrual** (Marijke, Wei Lin, Group Finance)
 
 All refer to the same entity: promotional discounts applied at the line level on invoices, sourced from SCHEME_MASTER and INVOICE_LINE.
+
+## Related variances
+
+- **[VAR-007 — Late-arriving SKUs to UNKNOWN member](/concepts/variances/var-007-late-arriving-sku-unknown-member.md)**: referenced above under Relationships.
+- **[VAR-003 — Scheme discount double-count](/concepts/variances/var-003-scheme-discount-double-count.md)**: SCHEME_MASTER slab definitions are what FIN_PROD.PKG_MONTH_END.P_RECALC_SCHEME_DISCOUNT reads when it recomputes entitlement; the defect is in how that recomputation is written back to OMS_PROD.INVOICE_LINE, not in this table.

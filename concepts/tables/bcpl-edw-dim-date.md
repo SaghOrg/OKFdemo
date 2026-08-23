@@ -8,7 +8,6 @@ tags:
   - calendar
   - fiscal
   - conformed-dimension
-status: null
 generated:
   by: process:claude-haiku/tables
   at: 2026-08-23T10:36:54Z
@@ -100,10 +99,14 @@ The dimension is stable and comprehensive. No known quality issues. All dates in
 No variances are rooted in DIM_DATE itself. However:
 - **VAR-002** (Date key derivation) involves this dimension indirectly: the mapping for FACT_INVOICE_LINE was corrected to derive DATE_KEY from `INVOICE_DT` (a DATE in IST) rather than from `CREATED_TS` (a TIMESTAMP in UTC). This ensures invoices appear on the commercial date, not the application server write time.
 
-See [/concepts/variances/var-002.md](/concepts/variances/var-002.md) for detail.
+See [/concepts/variances/var-002-date-key-timezone.md](/concepts/variances/var-002-date-key-timezone.md) for detail.
 
 ## Known design notes
 
 From DOC-05: "5844 rows, covering 01-Apr-2015 to 31-Mar-2031, so we have runway and nobody has to think about it again for a while. DATE_KEY is a NUMBER(8) in YYYYMMDD form, which I like, because you can read a key off a fact row without joining anything to it."
 
 The UNKNOWN row at DATE_KEY = -1 is intentional: it allows facts with unmapped dates to carry a known surrogate rather than NULL, supporting downstream reporting logic.
+
+## Related variances
+
+- **[VAR-002 — Month-end boundary drift](/concepts/variances/var-002-date-key-timezone.md)**: not a defect in DIM_DATE itself, but the reason FACT_INVOICE_LINE.DATE_KEY was corrected to derive from INVOICE_DT rather than the UTC-written CREATED_TS.

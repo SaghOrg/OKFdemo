@@ -93,3 +93,7 @@ BCPL_EDW.TAX_RATE_MASTER (the warehouse copy) is a degenerate snapshot:
 
 **Do not use TAX_RATE_MASTER for new reports or analysis.** If you need to look up the rate that applied to an invoice on a specific date, use DIM_TAX_RATE and join on EFF_START_DT and EFF_END_DT. If you are working with data prior to 26-Aug-2026 (the CHG0021339 deployment date), the VAR-006 restatement note should be consulted to understand which rates are correct.
 
+
+## Related variances
+
+- **[VAR-006 — GST rate change mishandled](/concepts/variances/var-006-tax-rate-retroactive.md)**: this table is the defective object at the center of the variance, described in full above.

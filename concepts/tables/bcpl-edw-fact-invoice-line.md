@@ -116,3 +116,12 @@ The DDL comment following the index creation is: `-- *** THERE IS NO UNIQUE CONS
 
 **Resolution**: Neither source explicitly states the partition key. The warehouse is in production; the partition scheme must be documented separately or confirmed with Ani Deshpande.
 
+
+## Related variances
+
+- **[VAR-001 — FY26 Q1 revenue overstated](/concepts/variances/var-001-q1-revenue-overstated.md)**: SRC_DELETE_FLAG not filtered, described above under Data Quality Issues.
+- **[VAR-002 — Month-end boundary drift](/concepts/variances/var-002-date-key-timezone.md)**: DATE_KEY derivation, described above under Dimension Keys.
+- **[VAR-003 — Scheme discount double-count](/concepts/variances/var-003-scheme-discount-double-count.md)**: SCHEME_DISC_AMT double-counted, described above under Data Quality Issues.
+- **[VAR-004 — Duplicate facts on distributor reassignment](/concepts/variances/var-004-scd2-territory-reassignment.md)**: a fact row here joins to two DIM_CUSTOMER rows when the SCD2 bug fires, doubling the affected customer's revenue.
+- **[VAR-007 — Late-arriving SKUs to UNKNOWN member](/concepts/variances/var-007-late-arriving-sku-unknown-member.md)**: PRODUCT_KEY resolves to -1 on this fact when the SKU dimension hasn't caught up yet.
+- **[VAR-008 — Feb duplicate load](/concepts/variances/var-008-feb-duplicate-load.md)**: batch duplication, described above under Data Quality Issues.

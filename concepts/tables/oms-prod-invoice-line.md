@@ -89,7 +89,7 @@ Grain: **one row per SKU per invoice**.
 
 The mapping `MAP_FACT_INVOICE_LINE` originally had no filter on `DELETE_FLAG`, so cancelled invoices and individual cancelled line items were counted as revenue in FY26 Q1. This caused the FY26 Q1 revenue to be overstated. The fix was deployed in `CHG0021184` on 03-Jun-2026; the mapping now filters `NVL(DELETE_FLAG, 'N') = 'N'`.
 
-The column itself is unavailable for rows created before 30-Mar-2019 (NULL means "created before the column existed OR explicitly deleted"), and this is by design (see `/concepts/variances/var-001.md`).
+The column itself is unavailable for rows created before 30-Mar-2019 (NULL means "created before the column existed OR explicitly deleted"), and this is by design (see `/concepts/variances/var-001-q1-revenue-overstated.md`).
 
 ### VAR-003: SCHEME_DISC_AMT rewritten additively by month-end processes
 
@@ -100,7 +100,7 @@ The `SCHEME_DISC_AMT` column is rewritten during the month-end close by FIN_PROD
 
 No reconciliation between the calculated discount and the actual cash effect is recorded in ORION. Finance nets credit notes in Excel outside the warehouse (VAR-005). Quote from Ani: "the SCHEME DISCOUNT amount you see on a line is the outcome of a decision that is not recorded anywhere in ORION" (DOC-01).
 
-This variance remains open; see `/concepts/variances/var-003.md` for status.
+This variance remains open; see `/concepts/variances/var-003-scheme-discount-double-count.md` for status.
 
 ### DELETE_FLAG back-fill gap
 
@@ -130,3 +130,10 @@ There is no table recording the scheme calculation logic or the decision process
 ## Warehouse mapping
 
 The warehouse mapping `MAP_FACT_INVOICE_LINE` loads this table nightly via the incremental extract on `LAST_UPD_DT`. The surrogate `INVOICE_LINE_KEY` is created in `FACT_INVOICE_LINE`; `INVOICE_ID` and `INVOICE_LINE_ID` are carried as degenerate dimensions (non-key identifiers). See `/concepts/tables/oms-prod-invoice-line.md` for the warehouse grain and key structure.
+
+## Related variances
+
+- **[VAR-001 — FY26 Q1 revenue overstated](/concepts/variances/var-001-q1-revenue-overstated.md)**: DELETE_FLAG not filtered on extract, described above.
+- **[VAR-002 — Month-end boundary drift](/concepts/variances/var-002-date-key-timezone.md)**: via INVOICE_HEADER.CREATED_TS (UTC), described above.
+- **[VAR-003 — Scheme discount double-count](/concepts/variances/var-003-scheme-discount-double-count.md)**: SCHEME_DISC_AMT rewritten additively by FIN_PROD.PKG_MONTH_END, described above.
+- **[VAR-005 — Credit notes absent from warehouse](/concepts/variances/var-005-credit-notes-absent.md)**: referenced above in connection with Finance's manual netting process.

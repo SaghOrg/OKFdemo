@@ -9,7 +9,6 @@ tags:
   - conformed-dimension
   - product
   - sku
-status: null
 generated:
   by: process:claude-haiku/tables
   at: 2026-08-23T10:36:54Z
@@ -136,11 +135,11 @@ All facts join on PRODUCT_KEY. HSN_CODE on this table is the natural key for joi
 
 **Fix**: Open. Requires late-arriving dimension handling logic in the mapping—deferring delivery until source has the dimension, or building a catch-up merge.
 
-See [/concepts/variances/var-007.md](/concepts/variances/var-007.md).
+See [/concepts/variances/var-007-late-arriving-sku-unknown-member.md](/concepts/variances/var-007-late-arriving-sku-unknown-member.md).
 
 ### Indirect linkage: VAR-006 — Tax rate changes
 
-TAX_RATE_MASTER (the old tax table without effective dating) was replaced by [/concepts/tables/bcpl-edw-dim-tax-rate.md](DIM_TAX_RATE) on 26-Aug-2026 under CHG0021339. Tax lookups now flow through DIM_PRODUCT.HSN_CODE. See [/concepts/variances/var-006.md](/concepts/variances/var-006.md).
+TAX_RATE_MASTER (the old tax table without effective dating) was replaced by [/concepts/tables/bcpl-edw-dim-tax-rate.md](DIM_TAX_RATE) on 26-Aug-2026 under CHG0021339. Tax lookups now flow through DIM_PRODUCT.HSN_CODE. See [/concepts/variances/var-006-tax-rate-retroactive.md](/concepts/variances/var-006-tax-rate-retroactive.md).
 
 ## Data quality considerations
 
@@ -170,3 +169,8 @@ From DOC-05: "HSN_CODE living here matters more than it looks, because the tax r
 
 Proposed SCD1 on 14-Apr-2026 (ADR-003) but superseded to remain SCD2 to preserve history for product costing and trend analysis. SCD2 was confirmed on 06-May-2026.
 
+
+## Related variances
+
+- **[VAR-007 — Late-arriving SKUs to UNKNOWN member](/concepts/variances/var-007-late-arriving-sku-unknown-member.md)**: the PRODUCT_KEY = -1 UNKNOWN-member issue, described in full above under Variance linkage.
+- **[VAR-006 — GST rate change mishandled](/concepts/variances/var-006-tax-rate-retroactive.md)**: indirect — DIM_PRODUCT.HSN_CODE is the join key into the tax rate tables DIM_TAX_RATE replaced after this variance.

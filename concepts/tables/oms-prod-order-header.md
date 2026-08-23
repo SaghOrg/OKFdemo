@@ -62,7 +62,7 @@ One row per order. Primary key is ORDER_ID (NUMBER(12)).
 
 ### Order Status History
 
-ORDER_STATUS is overwritten in place. There is **no status history table** anywhere in ORION. If a query asks "when did this order move from status X to status Y?", the database cannot answer it. The application log may have it, but logs are rolled over. See [VAR-003](/concepts/variances/var-003.md) for implications for reconciliation.
+ORDER_STATUS is overwritten in place. There is **no status history table** anywhere in ORION. If a query asks "when did this order move from status X to status Y?", the database cannot answer it. The application log may have it, but logs are rolled over. See [VAR-003](/concepts/variances/var-003-scheme-discount-double-count.md) for implications for reconciliation.
 
 ### Partial Despatches
 
@@ -89,3 +89,7 @@ DOC-01 states: "the foreign key from ORDER_HEADER to CUSTOMER was disabled in 20
 The DDL shows the FK as commented out with the note: "The FK to CUSTOMER was disabled in 2020 during the master data cleanup and never re-enabled".
 
 This means CUST_ID values in ORDER_HEADER may not have a matching CUSTOMER record. The warehouse mapping must account for this: if it is joining on CUST_ID and dropping non-matches, that is already handling it quietly. **Recommendation:** Verify in the mapping whether orphaned orders are being dropped or routed to a placeholder customer key.
+
+## Related variances
+
+- **[VAR-003 — Scheme discount double-count](/concepts/variances/var-003-scheme-discount-double-count.md)**: referenced above for the general point that ORION order/invoice status changes are not history-tracked, which is part of why reconciliation problems like VAR-003 are hard to trace after the fact.

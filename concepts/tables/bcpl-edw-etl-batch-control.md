@@ -83,3 +83,7 @@ On 14-Feb-2026, LP_DAILY_SALES was manually re-run (session SESS_884012) after a
 
 The nightly load (LP_DAILY_SALES) typically completes within ~58 minutes (01:00 to 01:58 IST). Including post-load checks and the batch close step, the warehouse is ready by ~02:05 IST, leaving headroom against the 05:30 IST business SLA. Any significant change to the model (new columns, extra lookups, historical loads) must be measured on DEV first, and the cost (elapsed time delta) must be confirmed before deployment.
 
+
+## Related variances
+
+- **[VAR-008 — Feb duplicate load](/concepts/variances/var-008-feb-duplicate-load.md)**: the batch-duplication variance this table's BATCH_ID guard (added with R2026.07, deployed 08-Jul-2026) was built to prevent, described in full above.

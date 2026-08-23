@@ -9,7 +9,6 @@ tags:
   - gst
   - effective-dated
   - variance-remediation
-status: null
 generated:
   by: process:claude-haiku/tables
   at: 2026-08-23T10:36:54Z
@@ -102,7 +101,7 @@ Join pattern: `FACT.HSN_CODE = DIM_TAX_RATE.HSN_CODE AND FACT.DATE_KEY BETWEEN D
 
 **Fix**: Deployed 26-Aug-2026. DIM_TAX_RATE supersedes TAX_RATE_MASTER with effective dating. Fact loads now join on (HSN_CODE, invoice_date) to pick the correct rate for that date.
 
-See [/concepts/variances/var-006.md](/concepts/variances/var-006.md).
+See [/concepts/variances/var-006-tax-rate-retroactive.md](/concepts/variances/var-006-tax-rate-retroactive.md).
 
 ## Predecessor table: TAX_RATE_MASTER
 
@@ -138,3 +137,7 @@ This uncertainty was resolved by the VAR-006 closure: DIM_TAX_RATE is now part o
 
 Loaded nightly as part of the standard warehouse load (LP_DAILY_SALES), typically finishing by 02:05 IST. Tax rate changes in FIN_PROD are picked up on the next nightly load.
 
+
+## Related variances
+
+- **[VAR-006 — GST rate change mishandled](/concepts/variances/var-006-tax-rate-retroactive.md)**: DIM_TAX_RATE is the direct remediation for this variance, described in full above under Variance linkage.

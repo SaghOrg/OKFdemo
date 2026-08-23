@@ -8,7 +8,6 @@ tags:
   - scd2
   - conformed-dimension
   - party-master
-status: null
 generated:
   by: process:claude-haiku/tables
   at: 2026-08-23T10:36:54Z
@@ -138,7 +137,7 @@ All three words refer to the same thing. The reporting layer (Power BI) must cho
 
 **Fix**: Open. Planned design change: add a unique constraint on (CUSTOMER_ID, CURRENT_FLG='Y') to the dimension, and amend the SCD2 close logic to set EFF_END_DT to the sysdate of the new row's start minus 1 second, so rows never overlap in time.
 
-See [/concepts/variances/var-004.md](/concepts/variances/var-004.md).
+See [/concepts/variances/var-004-scd2-territory-reassignment.md](/concepts/variances/var-004-scd2-territory-reassignment.md).
 
 ## Data quality considerations
 
@@ -157,3 +156,7 @@ From DOC-01 (Ani Deshpande): ORION.CUSTOMER has a STATUS_FLG field ('A' = active
 
 From DOC-05: "CREDIT_LIMIT_AMT bothers me slightly. It is a current state number sitting on a dimension, which is perfectly fine if you are looking at a scorecard today and wrong the moment you look back at last year."
 
+
+## Related variances
+
+- **[VAR-004 — Duplicate facts on distributor reassignment](/concepts/variances/var-004-scd2-territory-reassignment.md)**: the SCD2 close-out bug on this table, described in full above under Variance linkage.
