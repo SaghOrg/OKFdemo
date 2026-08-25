@@ -1109,3 +1109,120 @@ For step 5: both checks now have tests, so wiring the validator into pre-push is
 a mechanical change to a covered component. Worth deciding before then whether
 the pre-push hook runs the **test suite** as well as the validator — the suite
 is the thing that catches a validator regression, and it takes two seconds.
+
+---
+
+## Step 5 — pre-push hook running the content checks
+
+**Branch:** `hooks/pre-push-content-checks` (`706ca1d`), cut from
+`fix/empty-flow-collections-and-scanner-tests`.
+**Status:** done, but **the hook blocks every push on `main` as it stands** —
+see below. Gate check passed before starting: `main` (`b8240fe`) validates
+`VALID=72 INVALID=0`, exit 0.
+
+### Which checks pass on `main` today
+
+| Check | Exit | Result |
+|---|---|---|
+| `tools/validate.py` | 0 | `VALID=72 INVALID=0 NO_FRONTMATTER=0` |
+| `tools/check_sources.py` | 0 | `refs=230 files=71 unresolved=0` |
+| **`tools/check_links.py`** | **1** | **`checked=444 files=71 unresolved=18`** |
+| `tools/check_supersession.py` | 0 | `links=6 files=71 unresolved=0` |
+
+**Three of four pass. Link resolution fails on 18 pre-existing broken links.**
+
+### Run time
+
+**0.27s** for all four checks; **0.84s** wall for the hook including shell
+startup. Nowhere near the point where anyone would reach for `--no-verify` out of
+impatience. Worth re-measuring when CI runs them over a larger corpus, but the
+work is linear in file count and the corpus is 71 files.
+
+### The 18 broken links — found, not fixed
+
+They are all the same defect: **the link is inverted.** The bundle path sits in
+the link *text* and a table name sits in the *target*.
+
+```
+- [/concepts/tables/bcpl-edw-fact-invoice-line.md](FACT_INVOICE_LINE)
+                                                   ^ target: no such file
+```
+
+It should be `[FACT_INVOICE_LINE](/concepts/tables/bcpl-edw-fact-invoice-line.md)`.
+Rendered, each one is a dead link whose visible text is a path — so it reads as
+navigable and is not. Across 6 files in `concepts/tables/`.
+
+Not repaired: the step said to add a link check, not to fix link drift. Proved
+repairable in a scratch copy — inverting the 18 takes the check to
+`unresolved=0`, exit 0 — but that scratch copy was discarded.
+
+**This is a prerequisite for enabling the hook.** Until those 18 are fixed,
+turning on `core.hooksPath` means no one can push anything.
+
+### Design notes
+
+- **Four separate scripts**, each runnable alone, because steps 11–12 run these
+  same files. A hook and a CI job holding their own copies of the logic drift,
+  and the drift is silent.
+- **`check_sources.py` was moved, not reimplemented** (closes D4). It dropped
+  PyYAML and now imports the frontmatter reader from `validate.py`. The other two
+  do the same — one reader, not four.
+- **Unreadable frontmatter is deferred, not guessed.** The resolution checks
+  exit 2 and name `validate.py` as the tool that owns the diagnosis, rather than
+  silently skipping a file they cannot parse.
+- **`templates` is excluded from resolution** but still schema-validated. Its
+  references are placeholders on purpose. Excluding the template rather than
+  teaching the checkers to recognise placeholder syntax means an unfilled *copy*
+  in `decisions/` is still caught — which is the failure that actually matters.
+- **`check_supersession` checks only that the target exists.** Whether the pair
+  must point back at each other, and whether `status` must agree, are open
+  decisions (D3). A check that assumed an answer would enforce an unmade one.
+- **Backlink symmetry is not included**, as instructed.
+
+Fail-closed paths all verified non-zero: missing script (1), absent `python3`
+(1), nothing found to check (2), reader unimportable (2), unreadable frontmatter
+(2).
+
+### These hooks are not the enforcement layer
+
+Stating it plainly because the report above could be misread as a control being
+put in place. It is not one. All four gaps from step 4 remain, and step 5 adds a
+fifth:
+
+1. `core.hooksPath` is opt-in. A clone that never runs the setup command has no
+   hooks at all, and nothing in the repository can compel it.
+2. A hook without its executable bit is **silently skipped with exit 0**.
+3. `git push --no-verify` bypasses it, as `git commit --no-verify` bypasses
+   pre-commit.
+4. Nothing verifies that the person pushing ran anything.
+5. **New, and specific to pre-push: the checks run against the working tree, not
+   against the commits being pushed.** If your working tree differs from what you
+   are pushing, the hook checked the wrong thing. It is documented in the hook's
+   own header rather than papered over.
+
+Steps 4–6 are an early-catch layer that saves people from their own mistakes
+quickly and cheaply. **The control is steps 11–12**, where the same four scripts
+run on the pushed ref, on a machine the author does not own, with the result
+made a required check. Gap 5 above is closed there and only there.
+
+### Noticed, deliberately not fixed
+
+1. **The 18 inverted links.** Blocking for enabling the hook.
+2. **The three new scripts have no tests.** `validate.py` and
+   `check_secrets.py` each got a suite in 4b/4c precisely because untested
+   checks are the risk; three more checks just shipped without one. Not in scope
+   here — the step named four checks and their constraints — but it is the same
+   argument, and these become required CI checks at the same moment as the other
+   two.
+3. **The pre-push hook does not run the test suite.** Raised at the end of 4c
+   and still worth deciding: the suite is what catches a regression *in the
+   checks themselves*, and it takes two seconds.
+4. `redaction/planted-fixture-values` and everything above it is still unmerged;
+   `main` still carries planted fixture values in five files.
+
+### Does the plan still look right
+
+Yes, with one ordering point. Step 6 should be the link repair, or the link
+repair should precede whatever step 6 turns out to be — because until the 18 are
+fixed the hook cannot be switched on, and a hook nobody has enabled provides
+exactly as much protection as no hook.

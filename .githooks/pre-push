@@ -1,0 +1,63 @@
+#!/bin/sh
+#
+# Blocks content that is a problem once it reaches other people: malformed
+# frontmatter, and references that do not resolve.
+#
+# The split with pre-commit is deliberate. pre-commit blocks what is a problem
+# once it is in history at all -- credentials, which cannot be un-leaked by a
+# later commit. pre-push blocks what is a problem once someone else pulls it.
+#
+# Enable it in a fresh clone with:
+#
+#     git config core.hooksPath .githooks
+#
+# Fails closed. A missing script, an unavailable python3, or an unresolvable
+# repository root refuses the push. An exit code of 0 means every check ran and
+# passed, never that a check could not run.
+#
+# Scope caveat, deliberately not papered over: these checks run against the
+# WORKING TREE, not against the commits being pushed. If your working tree
+# differs from what you are pushing, this hook checked the wrong thing. CI
+# closes that gap by checking the pushed ref; this hook is an early catch, not
+# the control.
+#
+# `git commit --no-verify`, `git push --no-verify`, an unset core.hooksPath and
+# a hook without its executable bit all bypass this silently.
+
+set -eu
+
+if ! repo_root=$(git rev-parse --show-toplevel 2>/dev/null); then
+    echo "pre-push: cannot determine the repository root. Refusing the push." >&2
+    exit 1
+fi
+
+if ! command -v python3 >/dev/null 2>&1; then
+    echo "pre-push: python3 not found on PATH. Refusing the push." >&2
+    exit 1
+fi
+
+CHECKS="validate check_sources check_links check_supersession"
+
+for name in $CHECKS; do
+    if [ ! -f "$repo_root/tools/$name.py" ]; then
+        echo "pre-push: $repo_root/tools/$name.py is missing. Refusing the push." >&2
+        exit 1
+    fi
+done
+
+failed=""
+for name in $CHECKS; do
+    if ! python3 "$repo_root/tools/$name.py"; then
+        failed="$failed $name"
+    fi
+done
+
+if [ -n "$failed" ]; then
+    echo "" >&2
+    echo "PUSH BLOCKED. Failing checks:$failed" >&2
+    echo "Run any of them on its own:  python3 tools/<name>.py" >&2
+    echo "" >&2
+    exit 1
+fi
+
+exit 0
