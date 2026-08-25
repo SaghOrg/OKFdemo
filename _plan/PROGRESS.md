@@ -275,3 +275,123 @@ Two sequencing points.
 - **Item 1 above points at validator work before step 11.** Enforcing the
   `superseded_by` ⇒ `status` dependency needs a schema keyword
   `tools/validate.py` does not implement, and the validator still has no tests.
+
+---
+
+## Step 3 — make `templates/decision.md` schema-conformant
+
+**Branch:** `template/decision-schema-conformant` (commit `cb1727f`), cut from
+`schema/settle-concept-schema`. Not merged, no remote yet.
+**Status:** done. None of the thirteen decision records was modified.
+
+### New counts
+
+```
+VALID=41  INVALID=31  NO_FRONTMATTER=1  MISSING_TITLE=0  FORMAT_NOTES=0
+exit 1
+```
+
+`VALID` rose 40 → 41: the template now validates and is now being checked.
+`INVALID` is unchanged at 31 — still the `generated.at` timestamps, still
+pending step 2b. `NO_FRONTMATTER=1` is `_plan/PROGRESS.md`, carried over from
+step 1. The template contributes nothing to either failure count and produces no
+format notes.
+
+### What changed
+
+**Frontmatter** is now exactly the shape the thirteen records use, in their
+order: `type, title, description, tags, status, generated, sources, updated`.
+Verified programmatically against all thirteen. The old template was missing
+`description` and `tags`, which every record carries, as well as declaring six
+keys the schema rejects.
+
+**The six undeclared keys.** `deciders`, `consulted` and `informed` moved to a
+body block under the H1, where the records already put them; `consulted` and
+`informed` default to `none recorded`, matching the un-minuted-decision
+convention and the ADR-006 worked example. `id` is folded into `title`, which is
+where the ADR number lives in the records that have one (five of thirteen do;
+the rest are "Go-live…" and "Open question…" records with no ADR number, which is
+why `id` could never have been required). `affects` becomes the
+`## Related concepts` section, present in all thirteen.
+
+**`date`** was not named in the brief as having a destination. It is dropped from
+frontmatter and appears as `**Date:**` in the body block, following ADR-006.
+This is a judgement call worth flagging: `updated` means "date this record last
+changed" and will legitimately drift on every edit, so it cannot carry the date
+the decision was taken. The thirteen records lose that date the first time
+someone edits them. ADR-006, the newest and most carefully written record, keeps
+both. Say if you would rather the template not carry it.
+
+### How the empty `sources` and blank supersession keys were handled
+
+Neither needed a schema allowance.
+
+- **`sources: []`** → one entry carrying the required `resource` field with an
+  obvious placeholder, `/_sources/<folder>/<artifact>`, in the same `<...>` idiom
+  the rest of the template already uses. A full-line comment above it names the
+  optional subfields and restates the un-minuted rule: cite the context, mark the
+  decision line unsourced in the body, never name an artifact that did not
+  produce the decision. A placeholder was chosen over relaxing `minItems` because
+  relaxing it would let a real record ship with no provenance and no complaint,
+  which is the opposite of what the field is for.
+- **`supersedes:` / `superseded_by:`** → both keys removed entirely, matching the
+  seven of thirteen records that use neither. A full-line comment says when to add
+  `supersedes`, and what to set on the other record (`superseded_by` plus
+  `status: superseded`). A blank key is invalid under the schema and always was;
+  omitting is the convention the records already follow.
+
+Note this step did **not** resolve the standing `sources` contradiction logged in
+step 1: the schema sets `minItems: 1` while AGENTS.md says to leave `sources: []`
+where nothing at all is evidenced. The template sidesteps it rather than settling
+it. Worth knowing: ADR-006, the worked example for the un-minuted convention,
+carries five sources — the un-minuted-ness is handled by marking the decision
+*line* unsourced in the body while `sources` carries the surrounding context. On
+that evidence `sources: []` may never be the right answer, and the AGENTS.md
+clause may be the thing that is wrong. Steps 13–15.
+
+### Verify by hand
+
+- `python3 tools/validate.py` → counts above. No line should name `templates/`.
+- The template's frontmatter parses **identically** under PyYAML and under
+  `tools/validate.py` — checked explicitly, because comment handling differs
+  between them (below).
+- Round-trip tested in a scratch tree: the template copied verbatim into
+  `decisions/` validates unfilled (exit 0), and a filled copy — real title, tags,
+  `status: accepted`, a `supersedes` key added per the comment, a
+  `live-capture:claude-opus` stamp and a real source path — also validates.
+- `git status --short decisions/` is empty.
+
+### Noticed, deliberately not fixed
+
+1. **`tools/validate.py` does not strip inline YAML comments.** PyYAML reads
+   `status: draft   # draft | accepted` as `draft`; the step-1 reader returns
+   `"draft   # draft | accepted"` and the enum check then fails. No record uses
+   inline comments and `templates` was in SKIP, so this was invisible until now —
+   the old template used them on four lines. The new template uses full-line
+   comments only, which both readers handle identically. **This is a real defect
+   in the validator, not a template quirk**, and it should be fixed before the
+   push hook: a contributor adding a trailing comment to any record will get a
+   confusing enum or pattern error. Fixing it needs care — a `#` inside a quoted
+   string must survive, and YAML only starts a comment at a `#` preceded by
+   whitespace. It belongs with the validator-test work already logged in step 2.
+
+2. **`## Referenced by` is in twelve of thirteen records** and was added to the
+   template, since it is part of the convention being matched. It is a backlink
+   section, so it starts empty on a new record and is populated by the backlink
+   pass. Flagging it because it is the one section added that is not the
+   destination of a dropped frontmatter key.
+
+3. **`_plan/PROGRESS.md` still fails**, unchanged from step 2. `_plan` is not in
+   `SKIP`. This step removed an entry from `SKIP` rather than adding one, and
+   adding `_plan` is not what was asked, so it stands. Still blocking for step 4.
+
+### Does the plan still look right
+
+Yes. One observation about ordering: this step removed `templates` from `SKIP`,
+which means the `SKIP` set is now live territory rather than frozen. The
+`_plan` entry is the obvious remaining item and could ride along with step 2b —
+both are "make main pass its own validator", and step 4 needs both done.
+
+The validator has now been changed in two of three steps (fail-closed rewrite,
+SKIP edit) and still has no tests. That gap is compounding: item 1 above is a
+defect that a single test over the template file would have caught in step 1.
