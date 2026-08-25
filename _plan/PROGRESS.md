@@ -1645,3 +1645,121 @@ makes `main` unmergeable except by admin bypass — at which point the rule
 records an intention rather than enforcing anything. Worth deciding whether step
 10 enables it and documents the bypass, or declares it and defers enabling until
 the org move.
+
+---
+
+## Step 9 — bot identity: BLOCKED, and one option in the brief does not work
+
+**Branch:** `identity/record-step-9-blocked`, cut from
+`governance/record-step-8`.
+**Status:** **not done.** No identity was created. Nothing was configured. The
+verification was run against the existing account instead, and it produced a
+useful result — see below.
+
+### Why it is blocked
+
+Neither option can be created from here. This is a platform constraint, not a
+tooling gap:
+
+- **Fine-grained PAT** — GitHub exposes no API for minting tokens. `POST
+  /user/personal-access-tokens` returns `404 Not Found`; a token that can mint
+  tokens would defeat the point of scoping them. They are created only at
+  `github.com/settings/personal-access-tokens`.
+- **Machine user** — a separate GitHub account requires an interactive signup
+  with its own distinct email address and verification.
+- **GitHub App** — the third option, not in the brief, also requires the web UI
+  or a browser-based manifest flow.
+
+Current state: the only collaborator is `shsagnik` (admin), and no GitHub App is
+installed.
+
+### The correction that matters: a fine-grained PAT does not give the separation
+
+The brief says either option is acceptable "as long as it is deliberate". **A
+fine-grained PAT owned by you is not a separate identity.** It authenticates as
+you. Every PR it opens is authored by `shsagnik`.
+
+Run against the current account, which is exactly what a PAT would reproduce:
+
+```
+PR author: shsagnik
+
+gh pr review --approve
+  GraphQL: Review Can not approve your own pull request (addPullRequestReview)
+
+POST /repos/shsagnik/OKFdemo/pulls/3/reviews  event=APPROVE
+  HTTP 422 Unprocessable Entity
+  {"errors": ["Review Can not approve your own pull request"]}
+```
+
+That is the exact refusal the step asked for, and it fires. But read what it
+means with a user-owned PAT in play:
+
+- The agent opens a PR using your PAT → **the PR is authored by you**.
+- GitHub then refuses **your** approval of it, because you are the author.
+- You are the sole code owner and sole admin, so nobody else can approve.
+- The PR is unmergeable except by admin bypass.
+
+So a fine-grained PAT does not merely fail to enforce the split — on this
+repository it **inverts** it. Instead of the platform distinguishing who decided
+from who executed, it prevents the decider from recording a decision at all. The
+merge log would show every agent-opened PR merged by admin bypass, which is
+strictly less informative than the honour system it was meant to replace.
+
+**Only a genuinely separate actor delivers the stated goal**: a machine user, or
+a GitHub App acting as `name[bot]`. Both make the PR author someone other than
+you, which is what leaves you free to approve.
+
+### What is needed from you
+
+Pick one and create it; everything downstream is then a short session.
+
+| | Option | Trade-off |
+|---|---|---|
+| **a** | **GitHub App** *(recommended)* | Acts as `name[bot]`, a distinct actor. No extra email, no seat, no password to hold. Repo-scoped permissions, and installation tokens expire hourly rather than living on disk indefinitely. More setup than a PAT. |
+| b | Machine user | Simplest mental model, one account one token. Needs a separate email address, and GitHub's terms treat machine accounts as a permitted exception rather than the norm — worth reading before relying on it for the client. |
+| c | Fine-grained PAT | **Does not achieve the goal.** Recorded only because it was offered; the evidence above is the argument against it. |
+
+For either (a) or (b): grant **write**, not admin — enough to push branches and
+open PRs, not enough to change rulesets, CODEOWNERS or settings. **Do not add it
+to CODEOWNERS**, so its approval can never satisfy a review requirement.
+`.github/CODEOWNERS` on `main` currently contains zero bot entries, which is the
+correct starting state.
+
+### Where the credential should live, once it exists
+
+Not yet configured, since there is nothing to configure. The intended shape,
+recorded now so it is not improvised later:
+
+- **Not in the repository**, under any circumstance. `tools/check_secrets.py`
+  would block it at commit, which is the correct outcome.
+- **Not in `~/.gitconfig`** or any file that gets copied between machines.
+- A separate credential store entry, or an environment variable sourced from one
+  — held locally like a dev secret, but **unlike a dev secret it is not shared
+  between people**. One human, one account, one token; the bot gets its own.
+- For a GitHub App, the private key is the thing held; installation tokens are
+  minted from it per-run and expire, so nothing long-lived sits on disk.
+
+### Verification performed, and cleanup
+
+PR #3 opened with a trivial change, self-approval attempted, refusal captured
+verbatim above, then closed unmerged with its branch deleted. `main` is unchanged
+at `61b3778`; no open PRs remain.
+
+### Does the plan still look right
+
+This is the **third** consecutive step where a control turns out to need an
+organisation or a paid tier: step 7 secret scanning, step 8 code-owner review,
+step 9 a separate actor. That is now a pattern rather than three coincidences,
+and it is the single most important thing to carry into 13–15.
+
+The prototype can hold every *declaration* — CODEOWNERS, `maintainers.yml`, the
+hooks, the checks. It can enforce almost none of them. The transplant note
+should say so plainly: **this repository proves the shape of the controls; the
+client repository is where they first actually bind.**
+
+That also sharpens the step 10 question raised at the end of step 8. With no bot
+identity, no second reviewer and no second admin, a required-review rule has
+nobody who can satisfy it. Step 10 should probably declare the ruleset and
+document what it will do once the org and the bot exist, rather than enabling
+something whose only possible outcome is admin bypass on every merge.
