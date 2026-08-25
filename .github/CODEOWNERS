@@ -1,0 +1,26 @@
+# Who must review changes to what.
+#
+# Last matching pattern wins, so the broad rule comes first and the specific
+# ones override it. Code owners must have write access to this repository --
+# an entry naming someone who does not, or a mistyped username, is ignored
+# silently rather than reported.
+#
+# Changing anything under /schemas/, /tools/ or /.githooks/ changes what CI
+# enforces. That is a governance event, not a content change, which is why they
+# are owned separately from the corpus even though the catch-all already covers
+# them.
+
+*                       @shsagnik
+
+# The declaration of authority owns itself. Without this line, whoever
+# CODEOWNERS was written to constrain can edit it unreviewed.
+/.github/               @shsagnik
+/CODEOWNERS             @shsagnik
+
+# The written protocol.
+/AGENTS.md              @shsagnik
+
+# What the checks enforce.
+/schemas/               @shsagnik
+/tools/                 @shsagnik
+/.githooks/             @shsagnik
