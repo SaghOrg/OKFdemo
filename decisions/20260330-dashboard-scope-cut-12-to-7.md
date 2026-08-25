@@ -11,7 +11,7 @@ tags:
   - phase-2
   - capex-freeze
   - uat
-status: accepted
+status: proposed
 generated:
   by: process:claude-sonnet/decisions
   at: "2026-08-23T11:03:46Z"
