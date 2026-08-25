@@ -26,9 +26,10 @@ MIN_PYTHON = (3, 8)
 # Directories and filenames excluded from validation. `templates` was removed
 # from this set once templates/decision.md was made schema-conformant: a
 # template that cannot be validated is a template that drifts from the schema
-# it is supposed to seed.
+# it is supposed to seed. `_plan` is process scaffolding for the enforcement
+# build-out, not knowledge, and holds no frontmatter.
 SKIP = {"_sources", "_canon", "_qa", "_build", "_snapshots", ".git",
-        ".venv-synth", "schemas", ".github", ".cursor"}
+        ".venv-synth", "schemas", ".github", ".cursor", "_plan"}
 SKIP_NAMES = {"AGENTS.md", "CLAUDE.md", "README.md", "LEARNINGS.md"}
 
 FRONTMATTER = re.compile(r"\A---\s*\n(.*?)\n---\s*\n", re.S)
@@ -126,6 +127,47 @@ def _scalar(token, no):
 BLOCK_HEADER_RE = re.compile(r"^[|>][-+]?[0-9]*$")
 
 
+def _strip_comment(text, no):
+    """Drop a trailing YAML comment from one scalar.
+
+    YAML opens a comment at a `#` only when it starts the scalar or is preceded
+    by whitespace, and never inside a quoted string -- so `Wint3r#2026` keeps
+    its hash and `draft  # draft | accepted` does not.
+    """
+    if not text:
+        return text
+
+    quote = text[0]
+    if quote in "\"'":
+        i = 1
+        while i < len(text):
+            char = text[i]
+            if quote == '"' and char == "\\":
+                i += 2
+                continue
+            if char == quote:
+                if quote == "'" and text[i + 1:i + 2] == "'":
+                    i += 2          # '' is an escaped quote inside '...'
+                    continue
+                break
+            i += 1
+        else:
+            raise YamlError("line %d: unterminated quoted string" % no)
+        rest = text[i + 1:].strip()
+        if rest and not rest.startswith("#"):
+            raise YamlError("line %d: unexpected text after a quoted value" % no)
+        return text[:i + 1]
+
+    at = 0
+    while True:
+        at = text.find("#", at)
+        if at == -1:
+            return text.rstrip()
+        if at == 0 or text[at - 1] in " \t":
+            return text[:at].rstrip()
+        at += 1
+
+
 def _plain_continuation(lines, i, indent, first, no):
     """Fold a plain scalar across following more-indented lines."""
     if BLOCK_HEADER_RE.match(first):
@@ -144,7 +186,7 @@ def _plain_continuation(lines, i, indent, first, no):
             break
         if quoted:
             raise YamlError("line %d: multi-line quoted strings are not supported" % ln.no)
-        parts.append(ln.text)
+        parts.append(_strip_comment(ln.text, ln.no))
         i += 1
     if len(parts) == 1:
         return _scalar(first, no), i
@@ -173,7 +215,8 @@ def _parse_map(lines, i, indent):
         m = KEY_RE.match(ln.text)
         if not m:
             raise YamlError("line %d: cannot read %r as a key" % (ln.no, ln.text[:60]))
-        key, value_text = m.group(1), (m.group(2) or "").strip()
+        key = m.group(1)
+        value_text = _strip_comment((m.group(2) or "").strip(), ln.no)
         if key in out:
             raise YamlError("line %d: duplicate key %r" % (ln.no, key))
         i += 1
@@ -205,7 +248,7 @@ def _parse_seq(lines, i, indent):
             break
         rest = ln.text[1:]
         spaces = len(rest) - len(rest.lstrip(" "))
-        rest = rest.strip()
+        rest = _strip_comment(rest.strip(), ln.no)
         if rest and spaces == 0:
             raise YamlError("line %d: '-' must be followed by a space" % ln.no)
         item_indent = indent + 1 + spaces
