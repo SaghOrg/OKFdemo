@@ -29,11 +29,11 @@ Five PII values are planted in _sources/ as deliberate test artifacts. This sect
 
 | ID | Type | Value | Location in _sources |
 |----|------|-------|-----|
-| PII-1 | Mobile number | `+91 90000 00012` | CH-02 |
-| PII-2 | Personal email | `vikram.sethi.personal@gmail.example` | EM-084 |
-| PII-3 | Masked bank account | `A/c XXXXXXXX4417, IFSC XXXX0000000` | XL-01 (cell comment) |
-| PII-4 | Database passwords | `Bcpl@Str0ng!2026` and `Wint3r#2026` | TECH-PROPS |
-| PII-5 | Aadhaar-format ID | `9999 8888 7777` | DOC-01 |
+| PII-1 | Mobile number | `[REDACTED — planted fixture PII-1, see _canon/pii_plant_register.csv]` | CH-02 |
+| PII-2 | Personal email | `[REDACTED — planted fixture PII-2, see _canon/pii_plant_register.csv]` | EM-084 |
+| PII-3 | Masked bank account | `[REDACTED — planted fixture PII-3, see _canon/pii_plant_register.csv]` | XL-01 (cell comment) |
+| PII-4 | Database passwords | `[REDACTED — planted fixture PII-4, see _canon/pii_plant_register.csv]` | TECH-PROPS |
+| PII-5 | Aadhaar-format ID | `[REDACTED — planted fixture PII-5, see _canon/pii_plant_register.csv]` | DOC-01 |
 
 ### Scan Scope
 
@@ -48,11 +48,11 @@ Five PII values are planted in _sources/ as deliberate test artifacts. This sect
 
 | PII ID | Value | Search Result | Status |
 |--------|-------|---------------|--------|
-| PII-1 | `+91 90000 00012` | NOT FOUND in KB | ✓ PASS |
-| PII-2 | `vikram.sethi.personal@gmail.example` | NOT FOUND in KB | ✓ PASS |
-| PII-3 | `XXXXXXXX4417` | NOT FOUND in KB | ✓ PASS |
-| PII-4 | `Bcpl@Str0ng!2026` or `Wint3r#2026` | NOT FOUND in KB | ✓ PASS |
-| PII-5 | `9999 8888 7777` | NOT FOUND in KB | ✓ PASS |
+| PII-1 | `[REDACTED — planted fixture PII-1, see _canon/pii_plant_register.csv]` | NOT FOUND in KB | ✓ PASS |
+| PII-2 | `[REDACTED — planted fixture PII-2, see _canon/pii_plant_register.csv]` | NOT FOUND in KB | ✓ PASS |
+| PII-3 | `[REDACTED — planted fixture PII-3, see _canon/pii_plant_register.csv]` | NOT FOUND in KB | ✓ PASS |
+| PII-4 | `[REDACTED — planted fixture PII-4, see _canon/pii_plant_register.csv]` | NOT FOUND in KB | ✓ PASS |
+| PII-5 | `[REDACTED — planted fixture PII-5, see _canon/pii_plant_register.csv]` | NOT FOUND in KB | ✓ PASS |
 
 **Conclusion:** No PII leaks. All five planted values remain contained in _sources/.
 

@@ -131,7 +131,7 @@ def _strip_comment(text, no):
     """Drop a trailing YAML comment from one scalar.
 
     YAML opens a comment at a `#` only when it starts the scalar or is preceded
-    by whitespace, and never inside a quoted string -- so `Wint3r#2026` keeps
+    by whitespace, and never inside a quoted string -- so `release#42` keeps
     its hash and `draft  # draft | accepted` does not.
     """
     if not text:

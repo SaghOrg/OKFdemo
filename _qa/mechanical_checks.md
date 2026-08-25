@@ -28,9 +28,9 @@ NOT leaks (checked and cleared):
 - "distributor reassignment" in DK-03/DK-06/XL-01 is VAR-004's TITLE, not the owner handover.
 
 ## PII plants — PASS (5/5), exact values, correct artifacts
-PII-1 `+91 90000 00012` → chat/CH-02 · PII-2 `vikram.sethi.personal@gmail.example` → email/EM-084
-PII-3 `XXXXXXXX4417` → trackers/XL-01 (cell comment) · PII-4 `Bcpl@Str0ng!2026` → technical/db_config_snippet.properties
-PII-5 `9999 8888 7777` → docs/DOC-01
+PII-1 `[REDACTED — planted fixture PII-1, see _canon/pii_plant_register.csv]` → chat/CH-02 · PII-2 `[REDACTED — planted fixture PII-2, see _canon/pii_plant_register.csv]` → email/EM-084
+PII-3 `[REDACTED — planted fixture PII-3, see _canon/pii_plant_register.csv]` → trackers/XL-01 (cell comment) · PII-4 `[REDACTED — planted fixture PII-4, see _canon/pii_plant_register.csv]` → technical/db_config_snippet.properties
+PII-5 `[REDACTED — planted fixture PII-5, see _canon/pii_plant_register.csv]` → docs/DOC-01
 
 ## Planted contradictions — PASS
 - CON-1 go-live: 15 Sep (DK-01, T-01) → 30 Oct (EM-068 only) → 12 Nov (DK-06)
