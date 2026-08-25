@@ -815,3 +815,123 @@ checking had missed, including the session that wrote the rule.
 The argument that justified this step now applies unchanged to
 `tools/check_secrets.py`, which is the other script steps 11–12 will make
 required. Worth a short step before then, or folding its matrix into this suite.
+
+---
+
+## Step 2c — redact the escaped fixture values
+
+**Branch:** `redaction/planted-fixture-values` (commit `4b518eb`), cut from
+`main`. **`main` was fast-forwarded to the step 4b tip first — see below.**
+**Status:** done. No history rewritten. No entropy detection added to the hook.
+
+### Count redacted, per file
+
+| File | Occurrences redacted | Treatment |
+|---|---|---|
+| `_qa/transform_validation.md` | 13 | marker |
+| `_qa/realism_review.md` | 9 | marker; grep commands kept, their output redacted |
+| `_qa/mechanical_checks.md` | 5 | marker |
+| `tools/validate.py` | 1 | replaced with `release#42`, not marked |
+| `_plan/PROGRESS.md` | 1 | marker |
+| **total** | **29** | |
+
+Occurrence counts exceed line counts in two files because a single table cell
+held two values of one plant — PII-3's account and IFSC fragments, PII-4's two
+passwords. Each such cell takes one marker, since the register defines them as
+one plant.
+
+### `_sources/` and `_canon/` were not touched — confirmed
+
+`git status --porcelain -- _sources _canon` returns nothing. The step 2c sweep
+was re-run after the edits:
+
+- **Outside the archives: zero occurrences remain.** Was 29.
+- **Inside the archives: 37 occurrences, unchanged.** `_canon/BRIEF.md` 12,
+  `_canon/pii_plant_register.csv` 12, `_canon/fact_ownership.csv` 5, and one or
+  two in each of the five registered `_sources/` homes.
+
+### Verify by hand
+
+- `python3 tools/validate.py` → `VALID=72 INVALID=0`, exit 0.
+- `python3 tests/test_validate.py` → 37 tests, 1 failure, still only the known
+  `fail-sources-empty.md` one. The `release#42` substitution does not weaken the
+  docstring's claim: the property is pinned by
+  `test_hash_without_a_preceding_space_survives` and by
+  `tests/fixtures/records/pass-hash-no-leading-space.md`.
+- `python3 tools/check_secrets.py --all` → exit 0.
+- `git diff HEAD~1 --stat` → five files, 24 insertions, 24 deletions.
+
+### `main` was merged as a precondition, not as part of this step
+
+The instruction said to branch from the merged `main`, but `main` was still at
+`ac03fa9` — the pre-enforcement fossil. The six-branch chain was linear, so
+`git merge --ff-only` brought all 15 commits with no merge commit and no rewrite.
+`main` is now `b8240fe`, and it passes its own validator (`VALID=72 INVALID=0`,
+exit 0) and carries its own test suite. Flagged because it is a change to `main`
+that this step did not itself name; it matched the recommendation in
+`~/Downloads/OKFdemo-open-decisions-step4b.md` section B, which the instruction
+appeared to be answering.
+
+### Finding for the LEARNINGS pass in 13–15
+
+**An unfilled verification field is not a neutral default — it reads as a passed
+check.** Two instances, and they are not the same shape. The distinction matters
+for how the rule gets written.
+
+1. **`_canon/pii_plant_register.csv` — filled, and wrong.** Its trailing note
+   says *"verified stays 'pending' until the QA phase confirms each plant is
+   present exactly once and nowhere else."* Every row's `verified` column reads
+   **`yes`**, not `pending`. So the check was recorded as performed, and the
+   assertion it certifies was already false when it was recorded — the three
+   QA reports doing the verifying were themselves the leak. A filled
+   verification field that was never actually verified is worse than an empty
+   one, because it is affirmative: a reader has to disprove it rather than
+   notice its absence.
+
+2. **The schema's `verified` key — defined, never used.** `verified` is declared
+   in `schemas/concept.schema.json` with required `by` and `at` subfields, and is
+   used by **zero** of the 72 records. Its own description says human review is
+   "NOT to be written by any transform stage" — so the field exists precisely to
+   record the thing that has never once been recorded. This is the shape the rule
+   as originally stated describes: a channel that exists but is never exercised,
+   which reads as "human review happens here" to anyone looking at the schema.
+
+The general rule for the rewrite should cover both: **a verification field is
+only worth having if something fails when it is absent or stale.** Neither of
+these has that property today. The register's `yes` was never checked against the
+corpus; the schema's `verified` is never required, never dated against
+`stale_after`, and never blocks anything.
+
+Worth noting this is directly checkable and therefore, by the governing
+principle, schema or CI work rather than an AGENTS.md sentence — a check that
+"every plant in the register appears exactly once outside `_qa/`" is roughly the
+step 2c sweep, already written, and could be a third script under `tools/`.
+
+### Noticed, deliberately not fixed
+
+1. **`_canon/` still re-registers all five values across three files** —
+   `pii_plant_register.csv`, `BRIEF.md`, `fact_ownership.csv`. Left untouched as
+   instructed. The fixture has four homes inside the archives rather than one,
+   which is why the register's "exactly once and nowhere else" claim cannot be
+   true even of `_canon/` itself.
+2. **`_qa/transform_validation.md` still concludes** *"No PII leaks. All five
+   planted values remain contained in `_sources/`."* — immediately below the
+   table that was leaking them. The sentence is now false in a second way: the
+   values are contained, but only because they were just redacted. Left alone
+   because rewriting QA findings is not redaction, and that document's wrongness
+   is itself evidence for the finding above.
+3. Everything in `~/Downloads/OKFdemo-open-decisions-step4b.md` sections A2, A3
+   and C still stands.
+
+### Does the plan still look right
+
+Yes, and step 5 is now genuinely unblocked: `main` passes its own validator, so a
+pre-push hook can be developed and tested against it.
+
+One thing this step changes about the plan's shape. The credential hook from step
+4 would not have caught any of these 29 — they are bare values in prose and table
+cells, not assignments — and per instruction it stays that way. So the containment
+story for planted values is not the hook; it is the sweep, which currently exists
+only as a script I wrote inline twice and did not keep. If that check matters
+going forward it should become `tools/check_plants.py` alongside the other two,
+and run in CI at steps 11–12. Raising it rather than doing it.
