@@ -1,4 +1,6 @@
-# Generation-time tooling — not part of the knowledge base
+# Generation-time tooling — not part of the knowledge base.
+# The schema validator used to live in _build/ and was ignored by this rule.
+# It is now tracked at /tools/validate.py; do not put checks under _build/.
 _build/
 _snapshots/
 .venv-synth/
