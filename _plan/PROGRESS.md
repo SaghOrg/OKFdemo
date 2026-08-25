@@ -2158,3 +2158,96 @@ portable, the judgement layer is what AGENTS.md is for, and the platform layer i
 declared but inert.** All three belong in the rewrite, clearly separated, because
 a reader who cannot tell which is which will assume the third category behaves
 like the first.
+
+---
+
+## Step 13 — LEARNINGS.md split
+
+**Branch:** `learnings/split-prototype-archaeology`, cut from
+`enforcement/record-step-12-blocked`.
+**Status:** done. AGENTS.md untouched.
+
+### Final counts
+
+| File | Lines | Words | Entries |
+|---|---|---|---|
+| `/LEARNINGS.md` | **18** | 1,160 | 7 (5 kept + 2 new) |
+| `/_learnings/prototype.md` | 35 | 1,303 | 7 moved |
+
+Was 28 lines / ~1,900 words / 12 entries. The read path is now roughly 40% smaller
+by line count and carries only forward-looking rules.
+
+### Byte-identity of the seven moved entries — confirmed
+
+Extracted by exact line range and hashed before and after; each blob was then
+confirmed present in `prototype.md`:
+
+```
+S1 glossary              identical
+S2 tables                identical
+S3 variances             identical
+S6 context               identical
+S7 mechanics             identical      (multi-line, all four lines)
+S9 review (validation)   identical
+S5 repair                identical
+```
+
+Also verified: no moved entry still appears in `LEARNINGS.md`, none was lost, and
+all twelve originals are accounted for in exactly one of the two files. The five
+kept entries were checked verbatim against `HEAD:LEARNINGS.md` as well.
+
+The two `S9 review` entries needed care — line 19 is the Stage 8 validation
+report, which is archaeology, and line 23 is the adversarial-read finding, which
+is the rule. Line 19 moved, line 23 stayed.
+
+### Order in LEARNINGS.md
+
+S11, S5 follow-up, S10, S9 review, S4, then S12 and S13 appended. As specified.
+
+### One correction carried into the new entry
+
+The brief describes the register as "carrying `verified: pending`". It does not —
+all five rows read **`verified: yes`**; `pending` appears only in the file's
+trailing comment describing the intended protocol. This has come up twice before
+and is noted again only because S13 is now a permanent record, and writing the
+weaker claim into it would have been writing something false.
+
+The entry as written covers **both** shapes, which is stronger than the rule as
+stated: a register that certified an assertion already false, and a schema key
+declared for human review and never once used. Absent and affirmative-but-false
+are different failures, and the affirmative one is worse — a reader must disprove
+it rather than notice a gap.
+
+### `_learnings` added to SKIP
+
+Needed, not optional. `prototype.md` is markdown with no frontmatter and would
+have counted as `NO_FRONTMATTER=1`, failing validation on `main` — the same
+defect `_plan/PROGRESS.md` caused in step 1.
+
+### All checks after the split
+
+```
+validate            exit=0   VALID=72 INVALID=0
+check_sources       exit=0   refs=230 unresolved=0
+check_links         exit=1   unresolved=18      <- the standing 18
+check_supersession  exit=0   broken=0 unpaired=0
+check_hooks         exit=0   problems=0
+check_secrets --all exit=0
+tests               71 passing
+```
+
+Unchanged except that `VALID=72` now excludes `prototype.md` by SKIP rather than
+counting it.
+
+### Does the plan still look right
+
+Step 14 has what it needs: the step 12 inventory gives the boundary, and the read
+path is now small enough that adding the judgement rules to AGENTS.md will not
+bloat it.
+
+Worth flagging for step 14: the inventory has **three** categories, not two.
+Mechanically checked, rests on judgement, and declared-but-inert. The editorial
+rule as stated — keep only what CI cannot check — collapses the second and third
+together, and they are not the same thing. A reader who cannot tell "no machine
+can decide this" from "a machine could decide this but nothing here is running"
+will assume the second is as safe as the first.
