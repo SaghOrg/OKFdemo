@@ -395,3 +395,160 @@ both are "make main pass its own validator", and step 4 needs both done.
 The validator has now been changed in two of three steps (fail-closed rewrite,
 SKIP edit) and still has no tests. That gap is compounding: item 1 above is a
 defect that a single test over the template file would have caught in step 1.
+
+---
+
+## Step 4 — tracked pre-commit hook blocking credentials
+
+**Branch:** `hooks/pre-commit-credential-block` (commit `0903ba6`), cut from
+`template/decision-schema-conformant`. Not merged, no remote yet.
+**Status:** done. No pre-push hook added — that is step 5.
+
+### The setup command
+
+```
+git config core.hooksPath .githooks
+```
+
+Run once per clone. I set it while testing and **unset it again afterwards**, so
+it is not currently enabled in this working copy.
+
+### What changed
+
+Two new tracked files.
+
+- **`.githooks/pre-commit`** — a POSIX `sh` wrapper, stored `100755` so a fresh
+  clone gets it executable. It resolves the repo root, checks the scanner exists
+  and that `python3` is on `PATH`, and refuses the commit if any of that fails.
+- **`tools/check_secrets.py`** — the scan itself, standard library only. Split
+  out from the hook deliberately: CI in steps 11–12 can run the identical check
+  without going through git's hook machinery, which is what "CI mirroring the
+  hooks" needs to mean if it is to be worth anything.
+
+**Coverage** is weighted towards generic secrets, as asked. Assignments of
+`password` / `passwd` / `pwd` / `passphrase` / `secret` / `client_secret` /
+`api_key` / `access_key` / `auth_token` / `aws_secret_access_key` and similar;
+JDBC URLs carrying inline credentials in the query string; the Oracle
+`thin:user/password@host` form; any URL with `user:pass@host`; PEM and PuTTY
+private key headers. Provider tokens are covered too — AWS, GitHub (classic and
+fine-grained), Slack tokens and webhooks, Google, Stripe, Anthropic,
+OpenAI-shaped, npm, JWT, Azure `AccountKey`. Filenames `id_rsa`/`id_dsa`/
+`id_ecdsa`/`id_ed25519`, `*.pem|p12|pfx|jks|keystore|ppk|asc` and `.env` are
+refused whatever they contain, with `.env.example`/`.sample`/`.template`/`.dist`
+allowed through.
+
+**Scope.** Staged content only, read from the **index** via `git show :path`,
+not from the working tree — so what gets scanned is exactly what is being
+committed. `_sources/` and `_canon/` are excluded by path prefix.
+
+**Escape hatches.** Placeholder values (`<yours>`, `${VAR}`, `changeme`,
+`REDACTED`, `****`, …) are recognised and allowed. A line can be exempted with
+an inline `pragma: allowlist secret` marker, which is greppable and shows up in
+review — unlike `--no-verify`, which silently disables every hook at once.
+
+### Test results
+
+**The live test asked for.** Staged a throwaway `.properties` file carrying a
+JDBC URL, a user and a password assignment copied from the planted fixture.
+`git commit` was refused with exit 1, the value redacted in the hook's output,
+`HEAD` unchanged. Unstaged and deleted; never committed.
+
+**Detection matrix — 37 cases, 0 wrong.** 23 credential shapes all blocked
+(every generic form above, all provider tokens, all key headers). 14 lookalikes
+all passed: prose about passwords, a "Password policy" heading, five placeholder
+forms, a JDBC URL with no credentials, `walletAlias=`, `user=` on its own,
+a host:port line, a markdown table of table names, an allowlisted line, and a
+line of `tools/validate.py` containing the word `token`.
+
+**The real fixture.** Copied `_sources/technical/db_config_snippet.properties`
+to a path outside the exclusion: all three passwords detected, including the
+commented-out one. At its real path it is correctly skipped. The fixture was
+read only, never modified or moved.
+
+**Index vs working tree.** A secret present only in the working tree, with a
+clean index, commits fine. A secret staged and then cleaned from the working
+tree still blocks. Both correct.
+
+**Fail-closed paths, all verified non-zero:** scanner missing (commit exit 1),
+`python3` absent from `PATH` (hook exit 1), scanner run outside a repository
+(exit 2), unreadable path (exit 2). A clean commit still succeeds.
+
+**No false positive anywhere:** `python3 tools/check_secrets.py --all` over every
+tracked file exits 0, the scanner included.
+
+### Two fail-open gaps this hook cannot close from inside
+
+1. **`core.hooksPath` is opt-in.** A clone that never runs the setup command has
+   no protection, and nothing in the repository can force it. This is inherent
+   to git, not a defect in the hook. CI is the only real backstop, which is an
+   argument for steps 11–12 mattering more than they might look.
+2. **A non-executable hook is silently skipped, not failed.** Verified: `chmod -x`
+   the hook and git commits happily with exit 0. The mode is stored `100755` so a
+   fresh clone is fine, but anything that strips the bit — a bad `chmod -R`, a
+   filesystem without exec bits — disables the check invisibly. Again only CI
+   catches it.
+
+### Noticed, deliberately not fixed
+
+1. **The planted credentials are duplicated in tracked files outside the
+   read-only archives, and this hook will not catch them.**
+   `_qa/realism_review.md` (lines 146, 161) and `_qa/transform_validation.md`
+   (line 35) carry both of the fixture's passwords as bare literal values in
+   markdown table cells and prose — not reproduced here. They are not
+   assignment-shaped, so no generic rule fires. I scanned `_qa/` rather than excluding it — the brief named only
+   `_sources/` and `_canon/` — so those files pass today but would need attention
+   if the same values ever appeared in `key=value` form. **This is a decision for
+   you:** redact the `_qa/` copies, exclude `_qa/` explicitly, or accept it.
+   Catching a bare password in a table cell needs entropy heuristics, which
+   false-positive badly on this corpus's table names and host:port strings — and
+   a hook that cries wolf gets bypassed, at which point it protects nothing.
+
+2. **`.githooks/` is not in the validator's `SKIP` set.** Harmless right now,
+   because the validator only reads `*.md` and the hook has no extension. But a
+   `README.md` in `.githooks/` would be validated as a knowledge record and fail.
+   I deliberately did not add one; the usage notes live in the hook's own comment
+   header instead.
+
+3. **`_build/check_sources.py` is still stranded and still needs PyYAML** —
+   carried over from step 1, unchanged.
+
+4. **`_plan/PROGRESS.md` still fails the validator**, and 31 records still fail
+   on `generated.at`. Unchanged from steps 2 and 3. Step 5 wires validation into
+   pre-push, so **both must be resolved first or every push is blocked**.
+
+### Something I broke and repaired
+
+While testing the hook I used `git reset --hard HEAD~1` to unwind a throwaway
+commit. That discarded the uncommitted two-line edit to `LEARNINGS.md` that had
+been sitting in the working tree since before step 1 — the `S11` bullet on the
+two mechanisms of staleness. I restored it verbatim from the diff captured in
+step 1; `git diff --stat LEARNINGS.md` reads `2 insertions(+)` again, matching
+the original exactly. Please eyeball the last paragraph of `LEARNINGS.md` and
+confirm it is what you wrote. `--hard` was careless in a tree with unrelated
+uncommitted work in it; the throwaway commits should have been unwound with
+`reset --soft` and an explicit `git restore` of only the test file.
+
+### Does the plan still look right
+
+Yes, and step 4 landing before step 5 was the right order — the credential block
+is useful on its own and does not depend on the validator.
+
+One thing worth stating plainly. Steps 4–6 buy less than the plan implies,
+because of the two gaps above: hooks are opt-in, silently skippable, and
+bypassable with `--no-verify`. They are a good developer-experience layer that
+catches mistakes early, but they are not enforcement. The enforcement in this
+plan is steps 11–12, and the value of building the checks as reusable scripts
+under `tools/` — as done here — is that CI can run the same code rather than a
+drifting reimplementation of it.
+
+### Postscript: the hook blocked this report
+
+Writing this file up, I quoted the test credential verbatim to describe the live
+test. The pre-commit hook refused the commit of `_plan/PROGRESS.md` itself,
+naming the line. The value has been replaced with a description of it. That was
+an unplanned end-to-end test on a real commit rather than a staged fixture, and
+it is the more convincing of the two.
+
+It also makes a point worth carrying into steps 13–15: documentation about
+credentials is a place credentials leak, and the check has to cover prose files,
+not just config.
