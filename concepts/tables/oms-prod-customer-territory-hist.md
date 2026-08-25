@@ -24,7 +24,7 @@ sources:
     last_modified: "2026-08-23"
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:14Z
+  at: "2026-08-23T10:37:14Z"
 ---
 
 ## Purpose and grain

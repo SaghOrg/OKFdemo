@@ -14,7 +14,7 @@ status: accepted
 supersedes: /decisions/20260324-var008-february-reload-deferred.md
 generated:
   by: process:claude-sonnet/decisions
-  at: 2026-08-23T11:03:46Z
+  at: "2026-08-23T11:03:46Z"
 sources:
   - resource: /_sources/email/EM-072_feb_duplicate_load_chain.eml
     id: EM-072

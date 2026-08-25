@@ -24,7 +24,7 @@ sources:
     last_modified: "2026-09-22"
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:17Z
+  at: "2026-08-23T10:37:17Z"
 ---
 
 ## Purpose

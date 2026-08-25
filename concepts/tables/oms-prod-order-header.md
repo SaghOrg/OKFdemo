@@ -10,7 +10,7 @@ tags:
   - order
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:15Z
+  at: "2026-08-23T10:37:15Z"
 sources:
   - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
     id: DOC-01

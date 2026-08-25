@@ -33,155 +33,155 @@ sources:
   id: T-01
   title: Kickoff and scope meeting (raw transcript)
   author: Ananya Krishnan
-  last_modified: 2026-02-11
+  last_modified: "2026-02-11"
 - resource: /_sources/meetings/2026-02-11_kickoff_scope.txt
   id: T-01
   title: Kickoff and scope meeting (circulated notes)
   author: Ananya Krishnan
-  last_modified: 2026-02-11
+  last_modified: "2026-02-11"
 - resource: /_sources/meetings/2026-03-03_oltp_discovery_ani.vtt
   id: T-02
   title: OLTP discovery session with Ani (raw transcript)
   author: Aniruddh Deshpande
-  last_modified: 2026-03-03
+  last_modified: "2026-03-03"
 - resource: /_sources/meetings/2026-03-03_oltp_discovery_ani.txt
   id: T-02
   title: OLTP discovery session with Ani (circulated notes)
   author: Aniruddh Deshpande
-  last_modified: 2026-03-03
+  last_modified: "2026-03-03"
 - resource: /_sources/meetings/2026-03-24_first_variance_findings.vtt
   id: T-03
   title: First variance findings (raw transcript)
   author: Ananya Krishnan
-  last_modified: 2026-03-24
+  last_modified: "2026-03-24"
 - resource: /_sources/meetings/2026-03-24_first_variance_findings.txt
   id: T-03
   title: First variance findings (circulated notes)
   author: Ananya Krishnan
-  last_modified: 2026-03-24
+  last_modified: "2026-03-24"
 - resource: /_sources/meetings/2026-04-14_architecture_review.vtt
   id: T-04
   title: Architecture review (raw transcript)
   author: Karthik Subramanian
-  last_modified: 2026-04-14
+  last_modified: "2026-04-14"
 - resource: /_sources/meetings/2026-04-14_architecture_review.txt
   id: T-04
   title: Architecture review (circulated notes)
   author: Karthik Subramanian
-  last_modified: 2026-04-14
+  last_modified: "2026-04-14"
 - resource: /_sources/meetings/2026-05-06_design_signoff.vtt
   id: T-05
   title: Design sign-off (raw transcript)
   author: Karthik Subramanian
-  last_modified: 2026-05-06
+  last_modified: "2026-05-06"
 - resource: /_sources/meetings/2026-06-18_dq_readout.vtt
   id: T-06
   title: Data quality readout (raw transcript)
   author: Neha Gokhale
-  last_modified: 2026-06-18
+  last_modified: "2026-06-18"
 - resource: /_sources/meetings/2026-06-18_dq_readout.txt
   id: T-06
   title: Data quality readout (circulated notes)
   author: Neha Gokhale
-  last_modified: 2026-06-18
+  last_modified: "2026-06-18"
 - resource: /_sources/meetings/2026-08-05_dashboard_scope_workshop.vtt
   id: T-07
   title: Dashboard scope workshop (raw transcript)
   author: Ritwik Ghosh
-  last_modified: 2026-08-05
+  last_modified: "2026-08-05"
 - resource: /_sources/meetings/2026-08-05_dashboard_scope_workshop.txt
   id: T-07
   title: Dashboard scope workshop (circulated notes)
   author: Ritwik Ghosh
-  last_modified: 2026-08-05
+  last_modified: "2026-08-05"
 - resource: /_sources/meetings/2026-09-22_steering_committee.vtt
   id: T-08
   title: Steering committee (raw transcript)
   author: Rajeev Menon
-  last_modified: 2026-09-22
+  last_modified: "2026-09-22"
 - resource: /_sources/meetings/2026-09-22_steering_committee.txt
   id: T-08
   title: Steering committee (circulated notes)
   author: Rajeev Menon
-  last_modified: 2026-09-22
+  last_modified: "2026-09-22"
 - resource: /_sources/chat/CH-01_teams_data_workstream.txt
   id: CH-01
   title: Teams channel export, data workstream
   author: Karthik Subramanian
-  last_modified: 2026-09-30
+  last_modified: "2026-09-30"
 - resource: /_sources/chat/CH-02_whatsapp_uat_group.txt
   id: CH-02
   title: WhatsApp UAT group export
   author: Priya Nair
-  last_modified: 2026-10-16
+  last_modified: "2026-10-16"
 - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
   id: DOC-01
   title: ORION OLTP schema notes
   author: Aniruddh Deshpande
-  last_modified: 2026-03-09
+  last_modified: "2026-03-09"
 - resource: /_sources/docs/DOC-02_odi_job_inventory.docx
   id: DOC-02
   title: ODI job inventory
   author: Farida Contractor
-  last_modified: 2026-03-20
+  last_modified: "2026-03-20"
 - resource: /_sources/docs/DOC-03_stored_procedure_walkthrough.docx
   id: DOC-03
   title: Stored procedure walkthrough
   author: Karthik Subramanian
-  last_modified: 2026-04-28
+  last_modified: "2026-04-28"
 - resource: /_sources/docs/DOC-04_dimension_strategy.docx
   id: DOC-04
   title: Dimension strategy
   author: Karthik Subramanian
-  last_modified: 2026-05-11
+  last_modified: "2026-05-11"
 - resource: /_sources/docs/DOC-05_edw_target_model_notes.docx
   id: DOC-05
   title: EDW target model notes
   author: Karthik Subramanian
-  last_modified: 2026-04-08
+  last_modified: "2026-04-08"
 - resource: /_sources/decks/DK-02_discovery_findings.pptx
   id: DK-02
   title: Discovery findings deck
   author: Karthik Subramanian
-  last_modified: 2026-03-26
+  last_modified: "2026-03-26"
 - resource: /_sources/decks/DK-05_dashboard_wireframes.pptx
   id: DK-05
   title: Dashboard wireframe pack
   author: Ritwik Ghosh
-  last_modified: 2026-08-07
+  last_modified: "2026-08-07"
 - resource: /_sources/decks/DK-06_steerco_sep2026.pptx
   id: DK-06
   title: Steering committee pack, September 2026
   author: Ananya Krishnan
-  last_modified: 2026-09-22
+  last_modified: "2026-09-22"
 - resource: /_sources/trackers/XL-01_variance_tracker_v7.xlsx
   id: XL-01
   title: Variance tracker v7
   author: Sneha Pillai
-  last_modified: 2026-09-18
+  last_modified: "2026-09-18"
 - resource: /_sources/email/EM-061_marijke_credit_note_escalation.eml
   id: EM-061
   title: Marijke escalates missing credit notes
   author: Marijke van der Berg
-  last_modified: 2026-07-14
+  last_modified: "2026-07-14"
 - resource: /_sources/email/EM-055_var004_handover_ishaan.eml
   id: EM-055
   title: VAR-004 handover to Ishaan
   author: Ananya Krishnan
-  last_modified: 2026-07-09
+  last_modified: "2026-07-09"
 - resource: /_sources/email/EM-089_uat_scheduling.eml
   id: EM-089
   title: UAT scheduling mail
   author: Sneha Pillai
-  last_modified: 2026-09-28
+  last_modified: "2026-09-28"
 - resource: /_sources/email/EM-084_north_file_too_big.eml
   id: EM-084
   title: North file too big
   author: Vikram Sethi
-  last_modified: 2026-09-25
+  last_modified: "2026-09-25"
 generated:
   by: process:claude-sonnet/glossary
-  at: 2026-08-23 10:30:54+00:00
+  at: "2026-08-23T10:30:54Z"
 ---
 
 

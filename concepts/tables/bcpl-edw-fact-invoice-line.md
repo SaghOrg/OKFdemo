@@ -12,7 +12,7 @@ tags:
   - FACT_INVOICE_LINE
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:25Z
+  at: "2026-08-23T10:37:25Z"
 sources:
   - resource: /_sources/technical/schema_edw.sql
     id: TECH-SQL-EDW

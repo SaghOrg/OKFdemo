@@ -22,7 +22,7 @@ sources:
   last_modified: '2026-06-18'
 generated:
   by: process:claude-haiku/meetings
-  at: 2026-08-23 11:14:53+00:00
+  at: "2026-08-23T11:14:53Z"
 ---
 
 

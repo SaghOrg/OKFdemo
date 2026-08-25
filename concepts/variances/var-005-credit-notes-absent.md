@@ -16,7 +16,7 @@ tags:
 owner: Shalini Iyer
 generated:
   by: process:claude-sonnet/variances
-  at: 2026-08-23T10:45:28Z
+  at: "2026-08-23T10:45:28Z"
 sources:
   - resource: /_sources/meetings/2026-06-18_dq_readout.txt
     id: T-06

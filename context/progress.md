@@ -20,7 +20,7 @@ tags:
 - uat
 generated:
   by: process:claude-sonnet/context
-  at: 2026-08-23 11:30:00+00:00
+  at: "2026-08-23T11:30:00Z"
 sources:
 - resource: /_sources/meetings/2026-09-22_steering_committee.txt
   id: T-08

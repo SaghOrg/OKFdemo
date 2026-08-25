@@ -12,7 +12,7 @@ tags:
 - fill-rate
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23 10:37:15+00:00
+  at: "2026-08-23T10:37:15Z"
 sources:
 - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
   id: DOC-01

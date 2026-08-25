@@ -22,7 +22,7 @@ sources:
     last_modified: "2026-03-15"
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:03Z
+  at: "2026-08-23T10:37:03Z"
 ---
 
 ## Purpose and grain

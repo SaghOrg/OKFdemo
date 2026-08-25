@@ -14,7 +14,7 @@ tags:
 - workstreams
 generated:
   by: process:claude-sonnet/context
-  at: 2026-08-23 11:30:00+00:00
+  at: "2026-08-23T11:30:00Z"
 sources:
 - resource: /_sources/decks/DK-01_kickoff_v3_FINAL.pptx
   id: DK-01

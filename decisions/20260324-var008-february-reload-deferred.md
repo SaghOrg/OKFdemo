@@ -14,7 +14,7 @@ status: draft
 superseded_by: /decisions/20260402-var008-february-restatement-and-batch-guard.md
 generated:
   by: process:claude-sonnet/decisions
-  at: 2026-08-23T11:03:46Z
+  at: "2026-08-23T11:03:46Z"
 sources:
   - resource: /_sources/meetings/2026-03-24_first_variance_findings.txt
     id: T-03

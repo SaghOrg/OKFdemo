@@ -4,7 +4,7 @@ title: Knowledge Base Index
 description: Complete catalog of concepts, decisions, meetings, and context for Project Drishti.
 generated:
   by: process:claude-haiku/mechanics
-  at: 2026-08-23T11:32:04Z
+  at: "2026-08-23T11:32:04Z"
 ---
 
 # Knowledge Base Index

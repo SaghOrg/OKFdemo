@@ -12,7 +12,7 @@ tags:
 - ETL_PARAM
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23 10:37:25+00:00
+  at: "2026-08-23T10:37:25Z"
 sources:
 - resource: /_sources/docs/DOC-05_edw_target_model_notes.docx
   id: TECH-SQL-EDW

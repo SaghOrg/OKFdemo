@@ -15,7 +15,7 @@ tags:
 status: draft
 generated:
   by: process:claude-sonnet/decisions
-  at: 2026-08-23T11:03:46Z
+  at: "2026-08-23T11:03:46Z"
 sources:
   - resource: /_sources/meetings/2026-08-05_dashboard_scope_workshop.txt
     id: T-07

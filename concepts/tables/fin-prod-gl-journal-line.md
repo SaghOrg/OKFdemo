@@ -13,12 +13,12 @@ tags:
 - OLTP
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23 10:37:09+00:00
+  at: "2026-08-23T10:37:09Z"
 sources:
 - resource: /_sources/docs/DOC-01_orion_oltp_schema_notes.docx
   id: DOC-01
   author: Aniruddh Deshpande
-  last_modified: 2026-03-08
+  last_modified: "2026-03-08"
 ---
 
 

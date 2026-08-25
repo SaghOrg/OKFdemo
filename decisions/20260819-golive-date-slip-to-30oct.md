@@ -15,7 +15,7 @@ status: superseded
 superseded_by: /decisions/20260922-golive-date-final-12nov.md
 generated:
   by: process:claude-sonnet/decisions
-  at: 2026-08-23T11:03:46Z
+  at: "2026-08-23T11:03:46Z"
 sources:
   - resource: /_sources/decks/DK-01_kickoff_v3_FINAL.pptx
     id: DK-01

@@ -13,7 +13,7 @@ tags:
 status: draft
 generated:
   by: process:claude-sonnet/decisions
-  at: 2026-08-23T11:03:46Z
+  at: "2026-08-23T11:03:46Z"
 sources:
   - resource: /_sources/meetings/2026-09-22_steering_committee.txt
     id: T-08

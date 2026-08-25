@@ -12,7 +12,7 @@ tags:
   - data-quality
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23T10:37:25Z
+  at: "2026-08-23T10:37:25Z"
 sources:
   - resource: /_sources/docs/DOC-05_edw_target_model_notes.docx
     id: TECH-SQL-EDW

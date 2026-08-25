@@ -12,7 +12,7 @@ tags:
 - employee
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23 10:36:54+00:00
+  at: "2026-08-23T10:36:54Z"
 sources:
 - resource: /_sources/technical/schema_edw.sql
   id: SCHEMA

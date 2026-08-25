@@ -14,7 +14,7 @@ tags:
 status: accepted
 generated:
   by: process:claude-sonnet/decisions
-  at: 2026-08-23T11:03:46Z
+  at: "2026-08-23T11:03:46Z"
 sources:
   - resource: /_sources/meetings/2026-05-06_design_signoff.txt
     id: T-05

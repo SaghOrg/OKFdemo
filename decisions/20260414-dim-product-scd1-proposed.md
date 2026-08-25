@@ -13,7 +13,7 @@ status: superseded
 superseded_by: /decisions/20260506-dim-product-scd2.md
 generated:
   by: process:claude-sonnet/decisions
-  at: 2026-08-23T11:03:46Z
+  at: "2026-08-23T11:03:46Z"
 sources:
   - resource: /_sources/meetings/2026-04-14_architecture_review.txt
     id: T-04

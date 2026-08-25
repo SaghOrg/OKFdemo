@@ -20,7 +20,7 @@ sources:
   last_modified: '2026-02-11'
 generated:
   by: process:claude-haiku/tables
-  at: 2026-08-23 10:37:17+00:00
+  at: "2026-08-23T10:37:17Z"
 ---
 
 

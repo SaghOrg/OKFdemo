@@ -19,7 +19,7 @@ tags:
 - lp-daily-sales
 generated:
   by: process:claude-sonnet/context
-  at: 2026-08-23 11:30:00+00:00
+  at: "2026-08-23T11:30:00Z"
 sources:
 - resource: /_sources/docs/DOC-02_odi_job_inventory.docx
   id: DOC-02

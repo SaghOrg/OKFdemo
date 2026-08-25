@@ -7,7 +7,7 @@ description: Append-only record of every fact in this knowledge base that had on
   number is current."
 generated:
   by: process:claude-sonnet/context
-  at: 2026-08-23 11:45:00+00:00
+  at: "2026-08-23T11:45:00Z"
 sources:
 - resource: /_sources/decks/DK-01_kickoff_v3_FINAL.pptx
   id: DK-01
