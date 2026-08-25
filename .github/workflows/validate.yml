@@ -1,0 +1,114 @@
+# The same checks the hooks run locally, run again where a reviewer can see them.
+#
+# A hook is fast feedback for the person writing. It proves nothing to anyone
+# else: a reviewer reading a pull request cannot tell whether the author's hook
+# ran, was skipped with --no-verify, was never enabled because core.hooksPath is
+# opt-in, or was skipped silently because the file lost its executable bit.
+# This job is the only check whose result a second person can see.
+#
+# Every step calls a script under tools/. No check is reimplemented in YAML --
+# two implementations drift, and the drift is silent because both sides keep
+# passing.
+
+name: validate
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+# Least privilege. This job reads the tree and reports; it needs nothing else.
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    # Pinned, not ubuntu-latest: a runner image that moves under us changes what
+    # the checks ran on without anything in this file changing.
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Check out the pull request
+        uses: actions/checkout@v4
+        with:
+          # Full history: --diff compares against the merge base, which a
+          # shallow clone does not have.
+          fetch-depth: 0
+
+      - name: Pin the interpreter
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Record what we are running on
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -VV
+          echo "runner: ${ImageOS:-unknown}"
+
+      # --- the two things CI can assert and a hook cannot ------------------
+      - name: Hooks are present and would arrive executable
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/check_hooks.py
+
+      # --- the same checks the hooks run ----------------------------------
+      - name: Schema conformance
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/validate.py
+
+      - name: Source resolution
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/check_sources.py
+
+      - name: Link resolution
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/check_links.py
+
+      # Supersession target existence and the cross-field invariant from step 6
+      # are the same script: one script per invariant family, so adding a rule
+      # does not add a job step.
+      - name: Supersession integrity
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/check_supersession.py
+
+      - name: Credentials across the diff
+        if: ${{ !cancelled() }}
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          if [ -n "${BASE_SHA:-}" ]; then
+            python3 tools/check_secrets.py --diff "$BASE_SHA"
+          else
+            # Manual run with no pull request to scope against. Scanning
+            # everything is the fail-closed choice: narrower would mean
+            # scanning nothing.
+            python3 tools/check_secrets.py --all
+          fi
+
+      - name: Test suite
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tests/test_validate.py

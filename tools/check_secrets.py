@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Scan for credentials. Used by the pre-commit hook and, later, by CI.
 
-    python3 tools/check_secrets.py --staged    # what is about to be committed
-    python3 tools/check_secrets.py --all       # every tracked file
-    python3 tools/check_secrets.py FILE...     # specific paths
+    python3 tools/check_secrets.py --staged        # what is about to be committed
+    python3 tools/check_secrets.py --diff REF      # what a pull request adds
+    python3 tools/check_secrets.py --all           # every tracked file
+    python3 tools/check_secrets.py FILE...         # specific paths
 
 Exit codes
   0  the scan ran and found nothing
@@ -125,6 +126,17 @@ def tracked_paths():
     return [p.decode("utf-8", "replace") for p in out.split(b"\0") if p]
 
 
+def diff_paths(base):
+    """Files this branch changes relative to `base`, as a pull request shows them.
+
+    Three-dot, so the comparison is against the merge base rather than the tip
+    of `base` -- otherwise unrelated commits landing on the base branch would
+    appear as part of this change.
+    """
+    out = git("diff", "--name-only", "-z", "--diff-filter=ACMR", "%s...HEAD" % base)
+    return [p.decode("utf-8", "replace") for p in out.split(b"\0") if p]
+
+
 def staged_blob(path):
     return git("show", ":" + path)
 
@@ -173,15 +185,18 @@ def redact(value):
 def main(argv):
     if argv[:1] == ["--staged"]:
         paths, read = staged_paths(), staged_blob
+    elif argv[:2:2] == ["--diff"] and len(argv) == 2:
+        paths, read = diff_paths(argv[1]), lambda p: open(p, "rb").read()
     elif argv[:1] == ["--all"]:
         paths, read = tracked_paths(), lambda p: open(p, "rb").read()
     elif argv and not argv[0].startswith("-"):
         paths, read = argv, lambda p: open(p, "rb").read()
     else:
-        die("usage: check_secrets.py [--staged | --all | FILE...]")
+        die("usage: check_secrets.py [--staged | --diff REF | --all | FILE...]")
 
     findings = scan(paths, read)
     if not findings:
+        print("SECRETS  scanned=%d  found=0" % len(paths))
         return 0
 
     sys.stderr.write(

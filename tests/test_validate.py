@@ -696,6 +696,61 @@ class TestSupersessionCheck(unittest.TestCase):
         self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
 
 
+class TestHooksCheck(unittest.TestCase):
+    """tools/check_hooks.py -- the assertion a hook cannot make about itself."""
+
+    def run_here(self):
+        done = subprocess.run([sys.executable, str(REPO / "tools" / "check_hooks.py")],
+                              capture_output=True, text=True, cwd=str(REPO))
+        return done.returncode, done.stdout + done.stderr
+
+    def test_this_repository_passes(self):
+        code, output = self.run_here()
+        self.assertEqual(code, 0, output)
+        self.assertIn("problems=0", output)
+
+    def test_every_declared_hook_exists_and_is_tracked_executable(self):
+        import check_hooks
+        recorded = subprocess.run(["git", "ls-files", "-s", ".githooks"],
+                                  capture_output=True, text=True, cwd=str(REPO)).stdout
+        for name in check_hooks.EXPECTED:
+            with self.subTest(hook=name):
+                self.assertIn(name, recorded, "%s is not tracked" % name)
+                for line in recorded.splitlines():
+                    if line.endswith("/" + name):
+                        self.assertTrue(line.startswith("100755"),
+                                        "%s would reach a clone non-executable: %s"
+                                        % (name, line))
+
+    def test_the_hook_files_are_executable_on_disk(self):
+        for name in ("pre-commit", "pre-push"):
+            with self.subTest(hook=name):
+                self.assertTrue(os.access(str(REPO / ".githooks" / name), os.X_OK))
+
+
+class TestSecretScannerDiffMode(unittest.TestCase):
+
+    def test_diff_mode_requires_a_ref(self):
+        done = subprocess.run(
+            [sys.executable, str(REPO / "tools" / "check_secrets.py"), "--diff"],
+            capture_output=True, text=True, cwd=str(REPO))
+        self.assertEqual(done.returncode, 2, done.stdout + done.stderr)
+
+    def test_diff_mode_fails_closed_on_an_unknown_ref(self):
+        done = subprocess.run(
+            [sys.executable, str(REPO / "tools" / "check_secrets.py"),
+             "--diff", "no-such-ref-exists"],
+            capture_output=True, text=True, cwd=str(REPO))
+        self.assertEqual(done.returncode, 2, done.stdout + done.stderr)
+
+    def test_diff_mode_scans_only_what_changed(self):
+        import check_secrets
+        changed = check_secrets.diff_paths("HEAD~1")
+        everything = check_secrets.tracked_paths()
+        self.assertLess(len(changed), len(everything),
+                        "a one-commit diff should be narrower than the whole tree")
+
+
 class TestSkipSet(unittest.TestCase):
 
     def test_tests_directory_is_skipped(self):
