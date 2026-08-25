@@ -1892,3 +1892,117 @@ onward is explained and none is enforced. The honest options are to buy the tier
 publish the repository, or accept that the prototype demonstrates the shape and
 that first real enforcement happens on the client's organisation — and to write
 steps 13–15 around that last reading, which is what the evidence supports.
+
+---
+
+## Step 11 — CI running the same scripts the hooks run
+
+**Branch:** `ci/github-actions-validate` (`9e66c1f`), cut from
+`enforcement/record-step-10-blocked`. **Open as PR #4.**
+**Status:** done. CI runs, and it is red — on the 18 links, exactly as expected.
+
+### Does every check pass on `main`
+
+**Six of seven. `check_links` fails.**
+
+| Step | Result |
+|---|---|
+| Hooks present and executable | success |
+| Schema conformance | success — `VALID=72 INVALID=0` |
+| Source resolution | success — `refs=230 unresolved=0` |
+| **Link resolution** | **failure — `checked=444 unresolved=18`** |
+| Supersession integrity | success — `links=6 broken=0 unpaired=0` |
+| Credentials across the diff | success — `scanned=10 found=0` |
+| Test suite | success — 71 tests |
+
+The 18 are the pre-existing inverted links found in step 5 and deliberately not
+repaired. CI reports identical numbers to the local run, which is the point of
+calling the same scripts: no drift to reconcile.
+
+**The `if: !cancelled()` guard earned its place on the first run.** Supersession,
+the credential scan and the test suite all executed *after* the link failure
+rather than being hidden behind it. A fail-fast job would have reported one
+problem and concealed six passes.
+
+### Run time — not annoying
+
+```
+job execution only  :  8s
+queued -> finished  : 11s
+the same checks locally: ~3.0s
+```
+
+The 5-second gap is runner startup, checkout at `fetch-depth: 0` and installing
+the pinned interpreter — fixed cost, not proportional to the corpus. Nothing here
+is slow enough that anyone would want to skip it, which matters: the failure mode
+for a slow check is that people route around it, and then it protects nothing.
+
+Worth watching rather than acting on: `fetch-depth: 0` grows with history, not
+with corpus size. On a repository with years of commits that step dominates. If
+it ever does, the fix is to fetch only the merge base rather than to weaken the
+`--diff` scoping.
+
+### What was added, and why it is not YAML
+
+The "no reimplementation in YAML" constraint drove two additions rather than
+shell inside the workflow:
+
+- **`tools/check_hooks.py`** — the two assertions CI can make and a hook cannot,
+  because a hook cannot verify its own absence. It checks the declared hooks
+  exist and that **git records them `100755`**, which is the mode a fresh clone
+  receives. Proved against both failure modes in a scratch clone: a stripped
+  executable bit and a deleted hook are each caught. Step 4 established git skips
+  a non-executable hook silently with exit 0; this is the only place that becomes
+  visible.
+- **`--diff REF` on `check_secrets.py`** — so pull-request scoping lives in the
+  scanner, not in workflow shell. Three-dot against the merge base, so unrelated
+  commits landing on the base branch are not attributed to this change. Fails
+  closed on a missing or unknown ref (exit 2, both tested).
+
+**The step 6 cross-field invariant needed no step of its own** — it lives inside
+`check_supersession.py`. The one-script-per-invariant-family shape from step 6
+pays off here: adding a rule does not add a job step, so the workflow does not
+change when the rules do. A workflow enumerating rules would have drifted from
+the hook the first time a rule was added.
+
+Pinned: `ubuntu-24.04`, not `ubuntu-latest`; Python `3.11`. Neither moves under
+the checks without this file changing. `permissions: contents: read`.
+Eleven test cases added; suite is now **71**.
+
+### The thing this step cannot do, stated plainly
+
+PR #4 reports `FAILURE` to a reviewer. It is also **`mergeable: MERGEABLE`,
+`mergeStateStatus: UNSTABLE`** — not `BLOCKED`.
+
+**The red check does not stop the merge.** The button is green next to it. Making
+a check required is a property of a ruleset or branch protection, which step 10
+established is unavailable on this tier. So CI has achieved the thing a hook
+could not — a result a second person can see — and has not achieved the thing
+that makes it binding.
+
+That is the honest state: **visible, not enforcing.** It is still a real gain over
+the hooks, because a reviewer can now tell the difference between "the checks
+passed" and "the author says the checks passed". But step 12 remains blocked by
+the same gate as step 10.
+
+### Noticed, deliberately not fixed
+
+1. **The 18 inverted links.** Now failing in three places rather than one: the
+   pre-push hook, a local run, and every CI run on every PR from here on. Whatever
+   the merge story turns out to be, this is the one piece of content drift that
+   makes every future check red.
+2. **Actions are pinned by tag, not by SHA.** `actions/checkout@v4` and
+   `actions/setup-python@v5` are mutable references. For a repository whose whole
+   subject is "enforced or explained", that is a supply-chain gap worth closing —
+   `sha_pinning_required` is available in repo settings and currently `false`.
+3. **CI tests one interpreter.** `validate.py` declares `MIN_PYTHON = (3, 8)` and
+   the corpus is checked locally on 3.9 through 3.14, but CI pins 3.11 only. A
+   matrix over the declared floor and the current release would cost seconds and
+   would catch a stdlib assumption that only holds on newer versions.
+
+### Does the plan still look right
+
+Step 11 was doable and is done. Step 12 is not, for the reason recorded in step
+10. The sequence now has a working, visible, fast CI job whose result binds
+nothing — which is a fair description of where the whole enforcement layer stands
+on a private repository on this tier.
