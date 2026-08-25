@@ -23,11 +23,12 @@ import sys
 
 MIN_PYTHON = (3, 8)
 
-# Directories and filenames excluded from validation. Left exactly as the
-# original _build/validate_concepts.py had it -- revisiting this set is a
-# separate piece of work.
+# Directories and filenames excluded from validation. `templates` was removed
+# from this set once templates/decision.md was made schema-conformant: a
+# template that cannot be validated is a template that drifts from the schema
+# it is supposed to seed.
 SKIP = {"_sources", "_canon", "_qa", "_build", "_snapshots", ".git",
-        ".venv-synth", "schemas", "templates", ".github", ".cursor"}
+        ".venv-synth", "schemas", ".github", ".cursor"}
 SKIP_NAMES = {"AGENTS.md", "CLAUDE.md", "README.md", "LEARNINGS.md"}
 
 FRONTMATTER = re.compile(r"\A---\s*\n(.*?)\n---\s*\n", re.S)
