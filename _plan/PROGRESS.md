@@ -1087,7 +1087,7 @@ turns them **red** and forces a deliberate decision.
 
 The suite's own `test_the_tracked_tree_is_clean` caught **four credential-shaped
 lines in the test file itself** — unmarked provider-token data, a variable
-literally named `secret` (so `secret = ...` matched the generic rule), and a
+literally named `secret`, whose assignment matched the generic rule, and a
 docstring quoting an assignment. All fixed by marking the data lines, renaming
 the variable and rewording the prose. The scanner testing its own test file is
 not a trick: it is the same mechanism that caught the step 4 progress report.
@@ -1226,3 +1226,116 @@ Yes, with one ordering point. Step 6 should be the link repair, or the link
 repair should precede whatever step 6 turns out to be — because until the 18 are
 fixed the hook cannot be switched on, and a hook nobody has enabled provides
 exactly as much protection as no hook.
+
+---
+
+## Step 6 — `superseded_by` implies `status: superseded` (D3)
+
+**Branch:** `checks/supersession-status-invariant` (`e1600ca`), cut from
+`hooks/pre-push-content-checks`.
+**Status:** done. Suite green at **65 tests**, verified from a clean clone.
+
+### Which direction fires on `main` today
+
+**Neither.**
+
+| Direction | On `main` | Treatment |
+|---|---|---|
+| `superseded_by` present, status is not `superseded` | **0** | enforced — exit 1 |
+| `status: superseded` with no `superseded_by` | **0** | reported, does not fail |
+
+Direction A fired until step 2b: `20260324-var008-february-reload-deferred.md`
+carried `status: draft` alongside a populated `superseded_by`, so any status
+filter returned a superseded record as a live open question. That was the D2 fix.
+This step is what stops it recurring silently.
+
+Direction B is reported rather than enforced, per the instruction not to assume.
+It is worth stating why it might be legitimate: **`deprecated` was folded into
+`superseded` in step 2**, on the reasoning that they named one state under two
+words. A record retired with no named replacement therefore has no other
+spelling available — it must be `superseded`, and it has nothing to point at.
+Whether that is a real state this KB needs is an open question, and the check
+prints the unpaired records rather than deciding.
+
+### Where it was built, and why not in the schema
+
+**Extended `tools/check_supersession.py`** rather than adding a new script. The
+rule is one of a family, and the family belongs together.
+
+Cross-field rules found while looking, as asked:
+
+| # | Rule | Holds on `main` | Expressible in JSON Schema? |
+|---|---|---|---|
+| 1 | `superseded_by` ⇒ `status: superseded` | yes | yes, `dependentRequired` |
+| 2 | `status: superseded` ⇒ `superseded_by` | yes | yes, `dependentRequired` |
+| 3 | `supersedes` ⇒ target's `superseded_by` points back | yes, 0 violations | **no** — needs a second document |
+| 4 | `supersedes` ⇒ target's `status` is `superseded` | yes, 0 violations | **no** — needs a second document |
+
+**This changes the calculus in the opposite direction to the one anticipated.**
+Finding three more rules would normally argue for implementing the keyword
+properly. It does not here, because **half the family is out of JSON Schema's
+reach entirely** — it validates one document at a time and cannot follow
+`supersedes` into the record being superseded. Implementing `dependentRequired`
+would buy rules 1 and 2 and leave 3 and 4 needing a script anyway, so the schema
+engine would grow, get its own tests, and the family would still be split across
+two places.
+
+The answer to "a growing pile of one-off scripts" is not a schema keyword. It is
+**one script per invariant family**: `check_supersession.py` owns all four
+supersession rules, `check_links.py` owns link resolution, `check_sources.py`
+owns provenance resolution. That keeps the tool count flat as rules are added.
+
+**Rules 3 and 4 were found, not built** — the instruction was to stop and say so.
+Both hold on `main` today. They are one small function in the script that
+already loads every record, and they close the supersede protocol's remaining
+mechanical claims.
+
+### Two other schema claims that are not enforced
+
+Not cross-field, so out of scope here, but they are the same fail-open pattern
+and each is one line in `schemas/concept.schema.json`:
+
+- **`generated`** — the schema's own description says "Required on every
+  authored concept". It is not in `required`. All 71 records carry it.
+- **`title`** — "required by local convention". Not in `required`. All 71 carry
+  it. `validate.py` reports `MISSING_TITLE` without failing.
+
+Both would cost nothing to enforce today and both currently claim a rule nothing
+checks.
+
+### Hook and timing
+
+**No hook change was needed** — `check_supersession` was already in the pre-push
+list from step 5, so extending that script extended the hook. That is the
+argument for grouping by family rather than by rule, made concrete.
+
+All four checks: **0.25s**. Unchanged.
+
+| Check | Exit | Result |
+|---|---|---|
+| `validate.py` | 0 | `VALID=72 INVALID=0` |
+| `check_sources.py` | 0 | `refs=230 unresolved=0` |
+| **`check_links.py`** | **1** | **`unresolved=18`** — still the 18 inverted links |
+| `check_supersession.py` | 0 | `links=6 broken=0 unpaired=0` |
+
+### Noticed, deliberately not fixed
+
+1. **The 18 inverted links.** Still the only thing standing between this hook and
+   being switchable on. Unchanged from step 5.
+2. **Rules 3 and 4 above**, found and not built, per the instruction.
+3. **A third instance of the same phenomenon**: the step 5 progress report tripped
+   the credential scanner, because it described a variable named `secret` in
+   assignment form. Step 4's report did it with a quoted password, step 4c's test
+   file did it with test data. **Writing about credentials keeps producing
+   credential-shaped prose.** Worth a line in the 13–15 LEARNINGS pass: the
+   scanner is right to be blunt about it, and the cost is one reword each time.
+4. `check_links.py` and `check_sources.py` still have no tests;
+   `check_supersession.py` now has ten. The gap named in step 5 is two-thirds
+   still open.
+
+### Does the plan still look right
+
+Yes. One observation for step 11: the family-per-script shape means CI wires four
+stable script names, not a list that grows with every rule. That is worth
+locking in before CI is written, because a CI config enumerating rules would have
+to change every time a rule is added, and would drift from the hook.

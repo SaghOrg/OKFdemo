@@ -1,17 +1,29 @@
 #!/usr/bin/env python3
-"""Every supersedes / superseded_by target must exist.
+"""Supersession integrity.
 
     python3 tools/check_supersession.py
 
+Enforced:
+  * every `supersedes` / `superseded_by` target exists
+  * `superseded_by` present implies `status: superseded`
+
+Reported, not enforced:
+  * `status: superseded` with no `superseded_by`
+
 Exit codes
-  0  the check ran and every supersession target resolves
-  1  the check ran and something does not resolve
+  0  the check ran and every enforced rule holds
+  1  the check ran and an enforced rule is broken
   2  the check could not run
 
-Standard library only. Checks that the target file exists, which is what breaks
-a reader following the chain. It deliberately does not check that the pair
-points back at each other, nor that status agrees -- those are decisions still
-open, and a check that guesses at them would be enforcing an unmade decision.
+Standard library only.
+
+Why the second rule lives here and not in the schema: it is one of a family of
+four supersession invariants, and only two of them are expressible in JSON
+Schema at all. `dependentRequired` can say "superseded_by implies status", but
+it cannot reach into another document to check that the record being superseded
+points back. Splitting a coherent family across a schema keyword and a script
+would put half the rule in each place. One script per invariant family keeps it
+together, and keeps the tool count down.
 """
 
 import pathlib
@@ -28,6 +40,7 @@ except ImportError as exc:                                   # pragma: no cover
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 RESOLUTION_SKIP = SKIP | {"templates"}       # see the note in check_sources.py
 KEYS = ("supersedes", "superseded_by")
+SUPERSEDED = "superseded"
 
 
 def die(message):
@@ -36,7 +49,7 @@ def die(message):
 
 
 def main():
-    problems, checked, files = [], 0, 0
+    problems, unpaired, checked, files = [], [], 0, 0
     for path in sorted(ROOT.rglob("*.md")):
         rel = path.relative_to(ROOT)
         if rel.parts[0] in RESOLUTION_SKIP or rel.name in SKIP_NAMES:
@@ -53,6 +66,15 @@ def main():
         except YamlError as exc:
             die("%s has unreadable frontmatter (%s). Run tools/validate.py." % (rel, exc))
         files += 1
+
+        status = data.get("status")
+        if data.get("superseded_by") is not None and status != SUPERSEDED:
+            problems.append((rel, "superseded_by is set but status is %r, not %r. "
+                                  "A record that names its replacement is superseded."
+                                  % (status, SUPERSEDED)))
+        elif status == SUPERSEDED and data.get("superseded_by") is None:
+            unpaired.append(rel)
+
         for key in KEYS:
             target = data.get(key)
             if target is None:
@@ -63,10 +85,16 @@ def main():
             elif not (ROOT / target.lstrip("/")).exists():
                 problems.append((rel, "%s does not exist: %s" % (key, target)))
 
-    print("SUPERSESSION  links=%d  files=%d  unresolved=%d"
-          % (checked, files, len(problems)))
+    print("SUPERSESSION  links=%d  files=%d  broken=%d  unpaired=%d"
+          % (checked, files, len(problems), len(unpaired)))
     for rel, detail in problems:
         print("  %s\n      %s" % (rel, detail))
+    if unpaired:
+        print("\nUNPAIRED (reported, not enforced -- a record may legitimately be\n"
+              "retired with no named replacement; `deprecated` was folded into\n"
+              "`superseded`, so this state has no other spelling. Needs a decision):")
+        for rel in unpaired:
+            print("   %s" % rel)
     return 1 if problems else 0
 
 
