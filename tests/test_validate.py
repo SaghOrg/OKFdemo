@@ -36,6 +36,7 @@ SCHEMA = REPO / "schemas" / "concept.schema.json"
 
 sys.path.insert(0, str(REPO / "tools"))
 import validate                                              # noqa: E402
+import check_secrets                                          # noqa: E402
 
 EXIT_OK, EXIT_FAILED, EXIT_CANNOT_RUN = 0, 1, 2
 
@@ -366,6 +367,210 @@ class TestSchemaRules(unittest.TestCase):
                          "fixtures exist that no test refers to")
         self.assertEqual(claimed - on_disk, set(),
                          "tests refer to fixtures that do not exist")
+
+
+# ---------------------------------------------------------------------------
+# tools/check_secrets.py -- the pre-commit credential scanner.
+#
+# Every value below is synthetic and invented for this file. None of them is a
+# planted fixture from _canon/pii_plant_register.csv: a test suite quoting the
+# real fixtures is exactly how they escaped into the QA reports in the first
+# place. Each line carries an allowlist marker so the scanner does not flag its
+# own test data when it walks the tracked tree; the marker is stripped by the
+# time the value reaches scan_text().
+# ---------------------------------------------------------------------------
+
+MUST_BLOCK = {
+    "password assignment":     "odi.stg.password=Sw0rdfish!2031",                     # pragma: allowlist secret
+    "pwd assignment":          "db.pwd=hunter2xyz",                                   # pragma: allowlist secret
+    "passwd with a colon":     "passwd: S3cr3tValue!",                                # pragma: allowlist secret
+    "passphrase":              "passphrase = correct-horse-battery",                  # pragma: allowlist secret
+    "client secret":           'client_secret = "a9f8e7d6c5b4a3f2e1d0"',              # pragma: allowlist secret
+    "api key":                 "api_key=AbCdEf123456GhIjKl",                          # pragma: allowlist secret
+    "aws secret access key":   "aws_secret_access_key = wJalrXUtnFEMI/K7MDENG/bPx",   # pragma: allowlist secret
+    "jdbc query-string creds": "url=jdbc:mysql://db:3306/app?user=root&password=r00tpass",  # pragma: allowlist secret
+    "oracle thin user/pass":   "jdbc:oracle:thin:scott/tiger@//orion-db:1521/ORIONPRD",  # pragma: allowlist secret
+    "url with embedded creds": "https://svcacct:Pa55w0rd@internal.example/api",       # pragma: allowlist secret
+    "rsa private key header":  "-----BEGIN RSA PRIVATE KEY-----",  # pragma: allowlist secret
+    "openssh private key":     "-----BEGIN OPENSSH PRIVATE KEY-----",  # pragma: allowlist secret
+    "bare private key header": "-----BEGIN PRIVATE KEY-----",  # pragma: allowlist secret
+    "putty private key":       "PuTTY-User-Key-File-2: ssh-rsa",  # pragma: allowlist secret
+    "aws access key id":       "AKIAIOSFODNN7EXAMPLE",  # pragma: allowlist secret
+    "github token":            "ghp_" + "A" * 36,  # pragma: allowlist secret
+    "github fine-grained":     "github_pat_" + "B" * 30,  # pragma: allowlist secret
+    "slack token":             "xoxb-123456789012-abcdefghijklm",  # pragma: allowlist secret
+    "slack webhook":           "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX",  # pragma: allowlist secret
+    "google api key":          "AIza" + "C" * 35,  # pragma: allowlist secret
+    "stripe live key":         "sk_live_" + "D" * 24,  # pragma: allowlist secret
+    "anthropic api key":       "sk-ant-" + "E" * 30,  # pragma: allowlist secret
+    "npm token":               "npm_" + "F" * 36,  # pragma: allowlist secret
+    "json web token":          "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.abc123",  # pragma: allowlist secret
+    "azure account key":       "AccountKey=abcdefghijklmnopqrstuvwxyz0123456789ABCDEF==",  # pragma: allowlist secret
+}
+
+MUST_ALLOW = {
+    "prose about passwords":   "Finance rotates the password every quarter.",
+    "a heading":               "## Password policy and rotation",
+    "angle-bracket holder":    "password=<your-password-here>",                       # pragma: allowlist secret
+    "env var holder":          "password=${DB_PASSWORD}",                             # pragma: allowlist secret
+    "changeme holder":         "password=changeme",                                   # pragma: allowlist secret
+    "asterisk holder":         "password=********",                                   # pragma: allowlist secret
+    "redacted holder":         "password=REDACTED",                                   # pragma: allowlist secret
+    "jdbc without creds":      "jdbc:oracle:thin:@//edw-db-prd-01.example:1521/BCPLEDW",
+    "wallet alias":            "orion.jdbc.walletAlias=orion_ro_prd",
+    "username alone":          "odi.stg.user=ODI_STG_RD",
+    "host and port":           "odi.agent.host=edw-app-prd-02.example:20910",
+    "a table of table names":  "| `MAP_FACT_INVOICE_LINE` | rebuilt as a key-based merge |",
+    "python token variable":   "    if token.startswith('\"'):",
+    "a line already marked":   "password=NotReallyASecret1  # pragma: allowlist secret",
+}
+
+# Shapes the scanner does NOT catch. Asserted as they actually behave, not as we
+# would like them to. Step 2c proved these escape: every planted value reached
+# the QA reports in one of these two forms and no rule fired.
+KNOWN_GAPS = {
+    "bare value in a table cell": "| PII-9 | Password | Sw0rdfish!2031 | notes |",     # pragma: allowlist secret
+    "credential quoted in prose": "The database password is Sw0rdfish!2031, rotate it.",  # pragma: allowlist secret
+    "value in a backticked cell": "| PII-9 | Passwords | `Sw0rdfish!2031` | TECH |",   # pragma: allowlist secret
+}
+
+
+class TestCredentialScanner(unittest.TestCase):
+
+    def found(self, text):
+        return check_secrets.scan_text("case.txt", text)
+
+    def test_every_credential_shape_is_blocked(self):
+        for name, text in sorted(MUST_BLOCK.items()):
+            with self.subTest(case=name):
+                self.assertTrue(self.found(text),
+                                "not detected: %s" % name)
+
+    def test_every_lookalike_is_allowed(self):
+        for name, text in sorted(MUST_ALLOW.items()):
+            with self.subTest(case=name):
+                self.assertEqual(self.found(text), [],
+                                 "false positive on: %s" % name)
+
+    def test_dangerous_filenames_are_refused_whatever_they_contain(self):
+        for path in ("id_rsa", "deploy/id_ed25519", "certs/server.pem",
+                     "keys/store.jks", ".env", "svc/.env.production"):
+            with self.subTest(path=path):
+                self.assertTrue(check_secrets.scan([path], lambda p: b"harmless\n"),
+                                "%s should be refused on its name alone" % path)
+
+    def test_example_env_files_are_allowed(self):
+        for path in (".env.example", ".env.sample", ".env.template"):
+            with self.subTest(path=path):
+                self.assertEqual(check_secrets.scan([path], lambda p: b"KEY=\n"), [])
+
+    def test_read_only_archives_are_excluded(self):
+        blocked = MUST_BLOCK["password assignment"].encode()
+        for path in ("_sources/technical/db.properties", "_canon/BRIEF.md"):
+            with self.subTest(path=path):
+                self.assertEqual(check_secrets.scan([path], lambda p: blocked), [],
+                                 "%s must not be scanned -- it holds the fixtures" % path)
+        self.assertTrue(check_secrets.scan(["notes/db.properties"], lambda p: blocked),
+                        "a path outside the archives must still be scanned")
+
+    def test_reported_values_are_redacted(self):
+        findings = self.found(MUST_BLOCK["password assignment"])
+        self.assertNotIn("Sw0rdfish!2031", check_secrets.redact(findings[0][3]))
+
+    def test_exit_codes(self):
+        clean = pathlib.Path(tempfile.mkdtemp()) / "clean.txt"
+        clean.write_text("nothing to see\n")
+        self.addCleanup(shutil.rmtree, clean.parent, True)
+        dirty = clean.parent / "dirty.txt"
+        dirty.write_text(MUST_BLOCK["password assignment"] + "\n")
+        for label, args, expected in (
+                ("clean file", [str(clean)], 0),
+                ("file with a credential", [str(dirty)], 1),
+                ("path that does not exist", [str(clean.parent / "nope.txt")], 2),
+                ("no arguments", [], 2)):
+            with self.subTest(case=label):
+                done = subprocess.run(
+                    [sys.executable, str(REPO / "tools" / "check_secrets.py")] + args,
+                    capture_output=True, text=True)
+                self.assertEqual(done.returncode, expected,
+                                 "%s: %s" % (label, done.stdout + done.stderr))
+
+    def test_staged_mode_reads_the_index_not_the_working_tree(self):
+        root = pathlib.Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, root, True)
+        for cmd in (["init", "-q"], ["config", "user.email", "t@example"],
+                    ["config", "user.name", "t"]):
+            subprocess.run(["git"] + cmd, cwd=root, capture_output=True)
+        target = root / "conf.properties"
+
+        target.write_text("harmless\n")
+        subprocess.run(["git", "add", "conf.properties"], cwd=root, capture_output=True)
+        target.write_text(MUST_BLOCK["password assignment"] + "\n")   # not staged
+        done = subprocess.run([sys.executable, str(REPO / "tools" / "check_secrets.py"),
+                               "--staged"], cwd=root, capture_output=True, text=True)
+        self.assertEqual(done.returncode, 0,
+                         "a secret only in the working tree must not block:\n" + done.stderr)
+
+        subprocess.run(["git", "add", "conf.properties"], cwd=root, capture_output=True)
+        target.write_text("harmless\n")                                # cleaned, not staged
+        done = subprocess.run([sys.executable, str(REPO / "tools" / "check_secrets.py"),
+                               "--staged"], cwd=root, capture_output=True, text=True)
+        self.assertEqual(done.returncode, 1,
+                         "a secret staged in the index must block even if the "
+                         "working tree is clean")
+
+    def test_the_tracked_tree_is_clean(self):
+        done = subprocess.run([sys.executable, str(REPO / "tools" / "check_secrets.py"),
+                               "--all"], cwd=str(REPO), capture_output=True, text=True)
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+
+
+class TestCredentialScannerKnownFalsePositives(unittest.TestCase):
+    """Shapes the scanner flags that are not secrets.
+
+    Found while writing this suite, not fixed here -- this step's scope was the
+    empty-flow-collection fix and porting the matrix. Asserted as it behaves so
+    the defect is visible and so a fix turns this test red deliberately.
+    """
+
+    def test_a_redaction_marker_in_assignment_form_is_flagged(self):
+        """`[REDACTED ...]` is not recognised as a placeholder because the
+        placeholder pattern does not include a leading `[`.
+
+        Step 2c wrote its markers inside backticks in tables and prose, so no
+        tracked file trips this today. A file that redacted a secret sitting in
+        assignment form, leaving the marker as the assigned value, would be
+        blocked from commit for containing the redaction of the thing it
+        removed.
+        """
+        flagged = check_secrets.scan_text(
+            "case.md", "password=[REDACTED - planted fixture PII-N]")   # pragma: allowlist secret
+        self.assertTrue(flagged, "the false positive has been fixed; "
+                                 "move this case into MUST_ALLOW")
+        self.assertEqual(flagged[0][2], "generic secret assignment")
+
+
+class TestCredentialScannerKnownGaps(unittest.TestCase):
+    """Shapes the scanner misses, asserted as they behave rather than as wished.
+
+    These are not failures. They pin a real limitation so that it stays visible
+    and so that anyone who narrows the gap sees these tests go red and has to
+    decide deliberately. Closing them needs entropy heuristics, which
+    false-positive on this corpus's table names and host:port strings -- and a
+    hook that cries wolf gets bypassed, at which point it protects nothing.
+    """
+
+    def test_bare_values_in_prose_and_tables_are_not_detected(self):
+        for name, text in sorted(KNOWN_GAPS.items()):
+            with self.subTest(case=name):
+                self.assertEqual(
+                    check_secrets.scan_text("case.md", text), [],
+                    "%s is now detected -- the gap has narrowed. Update this "
+                    "test and the note above it." % name)
+
+    def test_the_gap_is_specific_to_the_absence_of_an_assignment(self):
+        """The same value in `key=value` form is caught, which is the boundary."""
+        self.assertTrue(check_secrets.scan_text("case.md", "password=Sw0rdfish!2031"))  # pragma: allowlist secret
 
 
 class TestSkipSet(unittest.TestCase):
