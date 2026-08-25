@@ -57,6 +57,23 @@ def build_tree(records=(), schema_text=None, omit_schema=False):
     return root
 
 
+def build_checks_tree(records, tools=("validate.py", "check_supersession.py")):
+    """A throwaway repo carrying the resolution checks as well as the validator."""
+    root = build_tree([])
+    for name in tools:
+        shutil.copy(REPO / "tools" / name, root / "tools" / name)
+    (root / "decisions").mkdir(exist_ok=True)
+    for name, text in records.items():
+        (root / "decisions" / name).write_text(text, encoding="utf-8")
+    return root
+
+
+def run_check(root, script):
+    done = subprocess.run([sys.executable, str(root / "tools" / script)],
+                          capture_output=True, text=True)
+    return done.returncode, done.stdout + done.stderr
+
+
 def run_tree(root):
     done = subprocess.run([sys.executable, str(root / "tools" / "validate.py")],
                           capture_output=True, text=True)
@@ -571,6 +588,112 @@ class TestCredentialScannerKnownGaps(unittest.TestCase):
     def test_the_gap_is_specific_to_the_absence_of_an_assignment(self):
         """The same value in `key=value` form is caught, which is the boundary."""
         self.assertTrue(check_secrets.scan_text("case.md", "password=Sw0rdfish!2031"))  # pragma: allowlist secret
+
+
+# ---------------------------------------------------------------------------
+# tools/check_supersession.py -- supersession integrity.
+# ---------------------------------------------------------------------------
+
+def _record(status=None, superseded_by=None, supersedes=None):
+    lines = ["---", "type: decision", 'title: "A record"',
+             "description: A supersession fixture."]
+    if status:
+        lines.append("status: %s" % status)
+    if superseded_by:
+        lines.append("superseded_by: %s" % superseded_by)
+    if supersedes:
+        lines.append("supersedes: %s" % supersedes)
+    lines += ["generated:", "  by: process:claude-sonnet/tests",
+              '  at: "2026-08-25T12:00:00Z"',
+              "sources:", "  - resource: /_sources/docs/DOC-01_example.docx",
+              'updated: "2026-08-25"', "---", "", "Body.", ""]
+    return "\n".join(lines)
+
+
+OTHER = "/decisions/other.md"
+
+
+class TestSupersessionCheck(unittest.TestCase):
+
+    def check(self, records):
+        root = build_checks_tree(records)
+        self.addCleanup(shutil.rmtree, root, True)
+        return run_check(root, "check_supersession.py")
+
+    # -- superseded_by implies status: superseded, the enforced direction ----
+
+    def test_superseded_by_with_matching_status_passes(self):
+        code, output = self.check({
+            "a.md": _record(status="superseded", superseded_by=OTHER),
+            "other.md": _record(status="accepted", supersedes="/decisions/a.md")})
+        self.assertEqual(code, 0, output)
+        self.assertIn("broken=0", output)
+
+    def test_superseded_by_with_status_accepted_is_rejected(self):
+        code, output = self.check({
+            "a.md": _record(status="accepted", superseded_by=OTHER),
+            "other.md": _record(status="accepted")})
+        self.assertEqual(code, 1, output)
+        self.assertIn("superseded_by is set but status is 'accepted'", output)
+
+    def test_superseded_by_with_status_draft_is_rejected(self):
+        """The exact shape D2 had: a superseded record filterable as live."""
+        code, output = self.check({
+            "a.md": _record(status="draft", superseded_by=OTHER),
+            "other.md": _record(status="accepted")})
+        self.assertEqual(code, 1, output)
+        self.assertIn("superseded_by is set but status is 'draft'", output)
+
+    def test_superseded_by_with_no_status_at_all_is_rejected(self):
+        code, output = self.check({
+            "a.md": _record(superseded_by=OTHER),
+            "other.md": _record(status="accepted")})
+        self.assertEqual(code, 1, output)
+        self.assertIn("superseded_by is set but status is None", output)
+
+    # -- status: superseded with no superseded_by, the reported direction ---
+
+    def test_superseded_without_a_replacement_is_reported_not_failed(self):
+        code, output = self.check({"a.md": _record(status="superseded")})
+        self.assertEqual(code, 0,
+                         "an unpaired superseded record must not fail the run "
+                         "while the question is open:\n" + output)
+        self.assertIn("unpaired=1", output)
+        self.assertIn("UNPAIRED", output)
+
+    # -- target existence, from step 5, still holds -------------------------
+
+    def test_superseded_by_pointing_nowhere_is_rejected(self):
+        code, output = self.check({
+            "a.md": _record(status="superseded", superseded_by="/decisions/ghost.md")})
+        self.assertEqual(code, 1, output)
+        self.assertIn("does not exist", output)
+
+    def test_supersedes_pointing_nowhere_is_rejected(self):
+        code, output = self.check({
+            "a.md": _record(status="accepted", supersedes="/decisions/ghost.md")})
+        self.assertEqual(code, 1, output)
+        self.assertIn("does not exist", output)
+
+    def test_a_record_with_no_supersession_fields_passes(self):
+        code, output = self.check({"a.md": _record(status="accepted")})
+        self.assertEqual(code, 0, output)
+
+    # -- fail closed --------------------------------------------------------
+
+    def test_fails_closed_without_the_shared_reader(self):
+        root = build_checks_tree({"a.md": _record(status="accepted")})
+        self.addCleanup(shutil.rmtree, root, True)
+        (root / "tools" / "validate.py").unlink()
+        code, output = run_check(root, "check_supersession.py")
+        self.assertEqual(code, 2, output)
+        self.assertIn("CANNOT RUN", output)
+
+    def test_the_real_corpus_passes(self):
+        done = subprocess.run(
+            [sys.executable, str(REPO / "tools" / "check_supersession.py")],
+            capture_output=True, text=True)
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
 
 
 class TestSkipSet(unittest.TestCase):

@@ -1087,7 +1087,7 @@ turns them **red** and forces a deliberate decision.
 
 The suite's own `test_the_tracked_tree_is_clean` caught **four credential-shaped
 lines in the test file itself** — unmarked provider-token data, a variable
-literally named `secret` (so `secret = ...` matched the generic rule), and a
+literally named `secret`, whose assignment matched the generic rule, and a
 docstring quoting an assignment. All fixed by marking the data lines, renaming
 the variable and rewording the prose. The scanner testing its own test file is
 not a trick: it is the same mechanism that caught the step 4 progress report.
