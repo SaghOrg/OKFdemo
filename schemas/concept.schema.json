@@ -2,9 +2,9 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://bharadwaj.example/schemas/concept.schema.json",
   "title": "OKF concept frontmatter",
-  "description": "Validates the YAML frontmatter of every markdown concept, decision, meeting note and context file in this knowledge base. OKF core fields plus four documented local extensions. `type` is the only required field; absent `status` means stable.",
+  "description": "Validates the YAML frontmatter of every markdown concept, decision, meeting note and context file in this knowledge base. OKF core fields plus four documented local extensions. Absent `status` means stable.",
   "type": "object",
-  "required": ["type"],
+  "required": ["type", "title", "description", "generated"],
   "additionalProperties": false,
 
   "properties": {
@@ -20,7 +20,7 @@
 
     "title": {
       "type": "string",
-      "description": "Human-readable name. Not required by OKF, but required by local convention: set it on every file.",
+      "description": "Human-readable name. Not an OKF requirement; required here, and enforced rather than left to convention.",
       "minLength": 1
     },
 
@@ -147,7 +147,7 @@
 
     "sources": {
       "type": "array",
-      "description": "Provenance for the factual claims in this file. Every claim must trace to a /_sources/ artifact.",
+      "description": "Provenance for the factual claims in this file. Every claim must trace to a /_sources/ artifact. Presence is required by tools/check_sources.py rather than by this schema, because the one legitimate exception is conditional on `type`: an `index` record is generated from the file tree and has no /_sources/ origin. minItems only fires when the key is present, so presence has to be checked somewhere.",
       "minItems": 1,
       "items": {
         "type": "object",

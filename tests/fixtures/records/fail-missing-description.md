@@ -1,12 +1,15 @@
 ---
-type: variance
-title: Minimal valid record
-description: Exactly the required fields and nothing more.
+type: decision
+title: "Valid baseline"
+tags:
+  - test
+status: draft
 generated:
   by: process:claude-sonnet/tests
   at: "2026-08-25T12:00:00Z"
 sources:
   - resource: /_sources/docs/DOC-01_example.docx
+updated: "2026-08-25"
 ---
 
-Body.
+Body text.

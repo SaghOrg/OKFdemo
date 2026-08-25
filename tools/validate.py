@@ -499,7 +499,6 @@ def main():
 
     ok = bad = nofm = 0
     rows = []
-    untitled = []
     format_notes = []
 
     for path in sorted(root.rglob("*.md")):
@@ -536,20 +535,14 @@ def main():
                 rows.append((str(rel), "SCHEMA", problem))
         else:
             ok += 1
-        if not data.get("title"):
-            untitled.append(str(rel))
 
     if ok == 0 and bad == 0 and nofm == 0:
         die("found no records to validate under %s" % root)
 
-    print("VALID=%d  INVALID=%d  NO_FRONTMATTER=%d  MISSING_TITLE=%d  FORMAT_NOTES=%d"
-          % (ok, bad, nofm, len(untitled), len(format_notes)))
+    print("VALID=%d  INVALID=%d  NO_FRONTMATTER=%d  FORMAT_NOTES=%d"
+          % (ok, bad, nofm, len(format_notes)))
     for name, kind, detail in rows:
         print("  %s\n      %s  %s" % (name, kind, detail))
-    if untitled:
-        print("\nCONVENTION (title required locally, not by schema):")
-        for name in untitled:
-            print("   %s" % name)
     if format_notes:
         print("\nFORMAT (reported, not enforced -- `format` is an annotation in "
               "JSON Schema 2020-12\nand the previous validator did not assert it "
