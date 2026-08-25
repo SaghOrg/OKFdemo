@@ -9,18 +9,22 @@
 # enforces. That is a governance event, not a content change, which is why they
 # are owned separately from the corpus even though the catch-all already covers
 # them.
+#
+# Two owners on every path, deliberately. With one owner nothing is reviewable:
+# GitHub never requests review from a pull request's own author, so a sole owner
+# is assigned to nothing and approves nothing.
 
-*                       @shsagnik
+*                       @shsagnik @Anuraag-Tripathi
 
 # The declaration of authority owns itself. Without this line, whoever
 # CODEOWNERS was written to constrain can edit it unreviewed.
-/.github/               @shsagnik
-/CODEOWNERS             @shsagnik
+/.github/               @shsagnik @Anuraag-Tripathi
+/CODEOWNERS             @shsagnik @Anuraag-Tripathi
 
 # The written protocol.
-/AGENTS.md              @shsagnik
+/AGENTS.md              @shsagnik @Anuraag-Tripathi
 
 # What the checks enforce.
-/schemas/               @shsagnik
-/tools/                 @shsagnik
-/.githooks/             @shsagnik
+/schemas/               @shsagnik @Anuraag-Tripathi
+/tools/                 @shsagnik @Anuraag-Tripathi
+/.githooks/             @shsagnik @Anuraag-Tripathi
