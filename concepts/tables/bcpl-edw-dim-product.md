@@ -82,7 +82,7 @@ Current population: 1,246 rows (all time). Of these, 862 are ACTIVE_FLG='Y' and 
 
 **HSN_CODE** (VARCHAR2(10))
 - Harmonized System of Nomenclature (tax code). Held as a string to preserve leading zeros. Example: '0902' for tea.
-- HSN_CODE is the join key for tax rate lookup to [/concepts/tables/bcpl-edw-dim-tax-rate.md](DIM_TAX_RATE).
+- HSN_CODE is the join key for tax rate lookup to [DIM_TAX_RATE](/concepts/tables/bcpl-edw-dim-tax-rate.md).
 - Any changes to the tax model must flow through this dimension, not around it.
 
 ## Product status
@@ -115,9 +115,9 @@ Current population: 1,246 rows (all time). Of these, 862 are ACTIVE_FLG='Y' and 
 ## Relationships
 
 DIM_PRODUCT is a **conformed dimension** shared by:
-- [/concepts/tables/bcpl-edw-fact-invoice-line.md](FACT_INVOICE_LINE)
-- [/concepts/tables/bcpl-edw-fact-order-line.md](FACT_ORDER_LINE)
-- [/concepts/tables/bcpl-edw-fact-secondary-sales.md](FACT_SECONDARY_SALES)
+- [FACT_INVOICE_LINE](/concepts/tables/bcpl-edw-fact-invoice-line.md)
+- [FACT_ORDER_LINE](/concepts/tables/bcpl-edw-fact-order-line.md)
+- [FACT_SECONDARY_SALES](/concepts/tables/bcpl-edw-fact-secondary-sales.md)
 
 All facts join on PRODUCT_KEY. HSN_CODE on this table is the natural key for joining to tax rates.
 
@@ -139,7 +139,7 @@ See [/concepts/variances/var-007-late-arriving-sku-unknown-member.md](/concepts/
 
 ### Indirect linkage: VAR-006 — Tax rate changes
 
-TAX_RATE_MASTER (the old tax table without effective dating) was replaced by [/concepts/tables/bcpl-edw-dim-tax-rate.md](DIM_TAX_RATE) on 26-Aug-2026 under CHG0021339. Tax lookups now flow through DIM_PRODUCT.HSN_CODE. See [/concepts/variances/var-006-tax-rate-retroactive.md](/concepts/variances/var-006-tax-rate-retroactive.md).
+TAX_RATE_MASTER (the old tax table without effective dating) was replaced by [DIM_TAX_RATE](/concepts/tables/bcpl-edw-dim-tax-rate.md) on 26-Aug-2026 under CHG0021339. Tax lookups now flow through DIM_PRODUCT.HSN_CODE. See [/concepts/variances/var-006-tax-rate-retroactive.md](/concepts/variances/var-006-tax-rate-retroactive.md).
 
 ## Data quality considerations
 

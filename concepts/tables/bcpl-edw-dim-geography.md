@@ -80,9 +80,9 @@ Population: 22 rows representing all active BCPL depots, plus UNKNOWN at GEO_KEY
 ## Relationships
 
 DIM_GEOGRAPHY is a **conformed dimension** shared by:
-- [/concepts/tables/bcpl-edw-fact-invoice-line.md](FACT_INVOICE_LINE)
-- [/concepts/tables/bcpl-edw-fact-order-line.md](FACT_ORDER_LINE)
-- [/concepts/tables/bcpl-edw-fact-secondary-sales.md](FACT_SECONDARY_SALES)
+- [FACT_INVOICE_LINE](/concepts/tables/bcpl-edw-fact-invoice-line.md)
+- [FACT_ORDER_LINE](/concepts/tables/bcpl-edw-fact-order-line.md)
+- [FACT_SECONDARY_SALES](/concepts/tables/bcpl-edw-fact-secondary-sales.md)
 
 All facts join on GEO_KEY. This represents the destination location (where the depot shipped the goods), not the customer's sales territory.
 

@@ -82,9 +82,9 @@ This section is load-bearing and appears in every finance reconciliation.
 
 DIM_DATE is a **conformed dimension**—it appears on all three facts: FACT_INVOICE_LINE, FACT_ORDER_LINE, and FACT_SECONDARY_SALES. Every fact uses DATE_KEY to join to this dimension. The same DATE_KEY value always represents the same calendar day across all facts.
 
-- Link to [/concepts/tables/bcpl-edw-fact-invoice-line.md](FACT_INVOICE_LINE)
-- Link to [/concepts/tables/bcpl-edw-fact-order-line.md](FACT_ORDER_LINE)  
-- Link to [/concepts/tables/bcpl-edw-fact-secondary-sales.md](FACT_SECONDARY_SALES)
+- Link to [FACT_INVOICE_LINE](/concepts/tables/bcpl-edw-fact-invoice-line.md)
+- Link to [FACT_ORDER_LINE](/concepts/tables/bcpl-edw-fact-order-line.md)  
+- Link to [FACT_SECONDARY_SALES](/concepts/tables/bcpl-edw-fact-secondary-sales.md)
 
 ## Constraints
 
