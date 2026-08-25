@@ -48,7 +48,7 @@ Live since: **26-Aug-2026** under change request **CHG0021339**.
 - Harmonized System of Nomenclature (tax code).
 - Held as a string to preserve leading zeros. Example: '0902' for tea.
 - Natural key (combined with effective dates).
-- Joins to [/concepts/tables/bcpl-edw-dim-product.md](DIM_PRODUCT).HSN_CODE.
+- Joins to [DIM_PRODUCT](/concepts/tables/bcpl-edw-dim-product.md).HSN_CODE.
 
 ## Tax rate
 
@@ -81,7 +81,7 @@ Live since: **26-Aug-2026** under change request **CHG0021339**.
 ## Relationships
 
 DIM_TAX_RATE appears on:
-- [/concepts/tables/bcpl-edw-fact-invoice-line.md](FACT_INVOICE_LINE) (and potentially other facts that carry tax amounts).
+- [FACT_INVOICE_LINE](/concepts/tables/bcpl-edw-fact-invoice-line.md) (and potentially other facts that carry tax amounts).
 
 Join pattern: `FACT.HSN_CODE = DIM_TAX_RATE.HSN_CODE AND FACT.DATE_KEY BETWEEN DIM_TAX_RATE.EFF_START_DT AND COALESCE(DIM_TAX_RATE.EFF_END_DT, 31-Dec-2099)`
 

@@ -101,7 +101,7 @@ When the fact load does a scheme lookup by invoice date, a miss is a normal case
 ## Relationships
 
 DIM_SCHEME appears on:
-- [/concepts/tables/bcpl-edw-fact-invoice-line.md](FACT_INVOICE_LINE) only (specific to invoice-level promotions).
+- [FACT_INVOICE_LINE](/concepts/tables/bcpl-edw-fact-invoice-line.md) only (specific to invoice-level promotions).
 
 **Not** conformed to other facts. FACT_ORDER_LINE and FACT_SECONDARY_SALES do not have scheme keys.
 

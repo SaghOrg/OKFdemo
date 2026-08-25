@@ -106,9 +106,9 @@ Current population: approximately 2,140 current rows, with projections of ~6,900
 ## Relationships
 
 DIM_CUSTOMER is a **conformed dimension** shared by:
-- [/concepts/tables/bcpl-edw-fact-invoice-line.md](FACT_INVOICE_LINE)
-- [/concepts/tables/bcpl-edw-fact-order-line.md](FACT_ORDER_LINE)
-- [/concepts/tables/bcpl-edw-fact-secondary-sales.md](FACT_SECONDARY_SALES)
+- [FACT_INVOICE_LINE](/concepts/tables/bcpl-edw-fact-invoice-line.md)
+- [FACT_ORDER_LINE](/concepts/tables/bcpl-edw-fact-order-line.md)
+- [FACT_SECONDARY_SALES](/concepts/tables/bcpl-edw-fact-secondary-sales.md)
 
 All facts join on CUSTOMER_KEY to this dimension.
 

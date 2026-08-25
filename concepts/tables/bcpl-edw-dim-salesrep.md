@@ -88,7 +88,7 @@ Population: 610 current rows.
 ## Relationships
 
 DIM_SALESREP appears on:
-- [/concepts/tables/bcpl-edw-fact-invoice-line.md](FACT_INVOICE_LINE) only (sales rep responsible for the sale).
+- [FACT_INVOICE_LINE](/concepts/tables/bcpl-edw-fact-invoice-line.md) only (sales rep responsible for the sale).
 
 **Not** conformed to other facts. FACT_ORDER_LINE and FACT_SECONDARY_SALES do not have sales rep keys.
 
