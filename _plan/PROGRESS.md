@@ -620,7 +620,7 @@ cosmetic, and normalising it would have buried a 105-line diff in a 350-line one
 **4.** Trailing comments are now stripped, implementing YAML's actual rule: a
 `#` opens a comment only at the start of a scalar or when preceded by
 whitespace, and never inside a quoted string. Both cases you named are covered
-and tested — `Wint3r#2026` keeps its hash, `/_sources/doc.md#section-3` keeps its
+and tested — `[REDACTED — planted fixture PII-4, see _canon/pii_plant_register.csv]` keeps its hash, `/_sources/doc.md#section-3` keeps its
 fragment, `"C#"` is untouched, and `draft  # draft | accepted` is trimmed. Text
 after a closing quote that is not a comment is rejected rather than guessed at.
 Checked against PyYAML on eleven comment cases and on all 72 records: identical.

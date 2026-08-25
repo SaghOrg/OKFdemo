@@ -140,17 +140,17 @@ Searched `/Users/Sagnik.Halder/Downloads/OKFdemo/_build/corpus_text/` (pre-extra
 
 | ID | Type | Value | Artifact | Status |
 |---|---|---|---|---|
-| PII-1 | Phone | +91 90000 00012 | CH-02 | verified |
-| PII-2 | Email | vikram.sethi.personal@gmail.example | EM-084 | verified |
-| PII-3 | Card (masked) | XXXXXXXX4417 | XL-01 | verified |
-| PII-4 | Password | Bcpl@Str0ng!2026 | db_config_snippet.properties | verified |
-| PII-5 | Aadhaar-like | 9999 8888 7777 | DOC-01 | verified |
+| PII-1 | Phone | [REDACTED — planted fixture PII-1, see _canon/pii_plant_register.csv] | CH-02 | verified |
+| PII-2 | Email | [REDACTED — planted fixture PII-2, see _canon/pii_plant_register.csv] | EM-084 | verified |
+| PII-3 | Card (masked) | [REDACTED — planted fixture PII-3, see _canon/pii_plant_register.csv] | XL-01 | verified |
+| PII-4 | Password | [REDACTED — planted fixture PII-4, see _canon/pii_plant_register.csv] | db_config_snippet.properties | verified |
+| PII-5 | Aadhaar-like | [REDACTED — planted fixture PII-5, see _canon/pii_plant_register.csv] | DOC-01 | verified |
 
 ### Sweep results
 
 **Phone numbers:**
 ```
-grep -rhoE "[+][0-9]{2}[ -]?[0-9]{5}[ -]?[0-9]{5}" → +91 90000 00012
+grep -rhoE "[+][0-9]{2}[ -]?[0-9]{5}[ -]?[0-9]{5}" → [REDACTED — planted fixture PII-1, see _canon/pii_plant_register.csv]
 ```
 ✓ Only PII-1 found. No unplanted numbers.
 
@@ -158,17 +158,17 @@ grep -rhoE "[+][0-9]{2}[ -]?[0-9]{5}[ -]?[0-9]{5}" → +91 90000 00012
 ```
 grep -rhoE "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+" | grep -viE "bharadwajcp|northlaneanalytics|klarissen" →
   BCPL_EDW@edw-db-prd-01              [database account, not PII]
-  Bcpl@Str0ng                          [database password prefix from PII-4]
+  [REDACTED — planted fixture PII-4, see _canon/pii_plant_register.csv]  [database password prefix from PII-4]
   OMS_RO@orion-db-prd-01               [database account, not PII]
   OMS_RO@orion-db-prd-01.              [database account variant, not PII]
   STG_ORION@edw-db-prd-01              [database account, not PII]
-  vikram.sethi.personal@gmail.example  [PII-2, correctly planted]
+  [REDACTED — planted fixture PII-2, see _canon/pii_plant_register.csv]  [PII-2, correctly planted]
 ```
 ✓ Only PII-2 found in legitimate context. No unplanted personal email addresses. Database account strings are not PII.
 
 **Credit card / ID numbers:**
 ```
-grep -rhoE "[0-9]{4} [0-9]{4} [0-9]{4}" → 9999 8888 7777
+grep -rhoE "[0-9]{4} [0-9]{4} [0-9]{4}" → [REDACTED — planted fixture PII-5, see _canon/pii_plant_register.csv]
 ```
 ✓ Only PII-5 found. No unplanted card or ID numbers.
 
