@@ -30,6 +30,12 @@ except ImportError as exc:                                   # pragma: no cover
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PREFIX = "/_sources/"
 
+# Types exempt from carrying provenance at all. An `index` record is generated
+# from the file tree and has no /_sources/ origin; requiring one would force a
+# fabricated citation, which is the thing the provenance rule exists to stop.
+# Everything else must cite something.
+NO_PROVENANCE_TYPES = {"index"}
+
 # `templates` is validated for schema conformance but excluded from resolution:
 # it is an exemplar, and its references are placeholders on purpose. Excluding
 # the template rather than teaching the checker to recognise placeholder syntax
@@ -66,7 +72,13 @@ def main():
             # validate.py owns reporting malformed frontmatter; refuse to guess.
             die("%s has unreadable frontmatter (%s). Run tools/validate.py." % (rel, exc))
         files += 1
-        for n, source in enumerate(data.get("sources") or []):
+
+        sources = data.get("sources")
+        if not sources and data.get("type") not in NO_PROVENANCE_TYPES:
+            problems.append((rel, -1, "no `sources` key: a record that omits it "
+                                      "entirely cites nothing, and the schema's "
+                                      "minItems cannot fire on an absent key"))
+        for n, source in enumerate(sources or []):
             resource = (source or {}).get("resource")
             checked += 1
             if not isinstance(resource, str) or not resource:
@@ -79,8 +91,8 @@ def main():
     print("SOURCES  refs=%d  files=%d  unresolved=%d" % (checked, files, len(problems)))
     for rel, _, detail in problems:
         print("  %s\n      %s" % (rel, detail))
-    if not checked:
-        die("found no source references under %s" % ROOT)
+    if not files:
+        die("found no records to check under %s" % ROOT)
     return 1 if problems else 0
 
 

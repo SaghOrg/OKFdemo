@@ -326,6 +326,10 @@ FAILING = {
     "fail-duplicate-key.md":                  "duplicate key",
     # schema rules
     "fail-missing-type.md":                   "missing required field 'type'",
+    "fail-type-only.md":                      "missing required field 'title'",
+    "fail-missing-title.md":                  "missing required field 'title'",
+    "fail-missing-description.md":            "missing required field 'description'",
+    "fail-missing-generated.md":              "missing required field 'generated'",
     "fail-unknown-field.md":                  "unknown field 'deciders'",
     "fail-status-not-in-enum.md":             "status: 'proposed' is not one of",
     "fail-status-deprecated.md":              "status: 'deprecated' is not one of",
@@ -379,7 +383,7 @@ class TestSchemaRules(unittest.TestCase):
 
     def test_every_fixture_on_disk_is_covered(self):
         on_disk = {p.name for p in RECORDS.glob("*.md")}
-        claimed = set(FAILING) | {p.name for p in RECORDS.glob("pass-*.md")}
+        claimed = set(FAILING) | set(SOURCES_FAILING) | {p.name for p in RECORDS.glob("pass-*.md")}
         self.assertEqual(on_disk - claimed, set(),
                          "fixtures exist that no test refers to")
         self.assertEqual(claimed - on_disk, set(),
@@ -611,6 +615,48 @@ def _record(status=None, superseded_by=None, supersedes=None):
 
 
 OTHER = "/decisions/other.md"
+
+
+# Enforced by check_sources.py rather than the schema: the one legitimate
+# exception is conditional on `type`, and the schema engine implements no
+# conditional keywords by design.
+SOURCES_FAILING = {"fail-missing-sources.md": "no `sources` key"}
+
+
+class TestSourcesCheck(unittest.TestCase):
+
+    def check(self, fixture):
+        root = build_tree([])
+        self.addCleanup(shutil.rmtree, root, True)
+        shutil.copy(REPO / "tools" / "check_sources.py", root / "tools")
+        shutil.copy(RECORDS / fixture, root / "concepts" / fixture)
+        return run_check(root, "check_sources.py")
+
+    def test_a_record_with_no_sources_key_is_rejected(self):
+        code, output = self.check("fail-missing-sources.md")
+        self.assertEqual(code, 1, output)
+        self.assertIn(SOURCES_FAILING["fail-missing-sources.md"], output)
+
+    def test_a_record_that_carries_sources_passes(self):
+        code, output = self.check("pass-minimal.md")
+        self.assertEqual(code, 1, output)   # resolves nothing: no _sources/ in a temp tree
+        self.assertIn("does not exist", output)
+        self.assertNotIn("no `sources` key", output)
+
+    def test_an_index_record_may_omit_provenance(self):
+        root = build_tree([])
+        self.addCleanup(shutil.rmtree, root, True)
+        shutil.copy(REPO / "tools" / "check_sources.py", root / "tools")
+        (root / "concepts" / "idx.md").write_text(
+            '---\ntype: index\ntitle: Index\ndescription: Generated from the tree.\n'
+            'generated:\n  by: process:claude-sonnet/tests\n  at: "2026-08-25T12:00:00Z"\n---\n\nBody.\n')
+        code, output = run_check(root, "check_sources.py")
+        self.assertEqual(code, 0, "an index record has no /_sources/ origin:\n" + output)
+
+    def test_the_real_corpus_passes(self):
+        done = subprocess.run([sys.executable, str(REPO / "tools" / "check_sources.py")],
+                              capture_output=True, text=True)
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
 
 
 class TestSupersessionCheck(unittest.TestCase):
