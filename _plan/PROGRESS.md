@@ -935,3 +935,58 @@ story for planted values is not the hook; it is the sweep, which currently exist
 only as a script I wrote inline twice and did not keep. If that check matters
 going forward it should become `tools/check_plants.py` alongside the other two,
 and run in CI at steps 11–12. Raising it rather than doing it.
+
+---
+
+## Step 2c — re-issued, found already complete. No action taken.
+
+Step 2c was issued a second time. The work already existed on
+`redaction/planted-fixture-values` (`4b518eb` redaction, `df6ac63` report),
+branched from `main` and **still unmerged**, which is why `main` still shows the
+values and the step looked outstanding.
+
+Verified the existing branch against every specification in the re-issued
+instruction before concluding it needed no work:
+
+| Requirement | State |
+|---|---|
+| `tools/validate.py` — neutral token, not a marker | `release#42`, no marker |
+| `_plan/PROGRESS.md` — redaction marker | marker present |
+| `realism_review.md:153`/`:171` — keep command, redact output | grep command intact, output replaced |
+| `_qa/*` — `[REDACTED — planted fixture PII-N, …]` | exact format, 24 markers |
+| `_sources/` and `_canon/` untouched | `git diff main..branch -- _sources _canon` empty |
+| Verification-field finding recorded | present, both shapes |
+| No history rewrite | two ordinary commits |
+| No entropy detection added to the hook | `check_secrets.py` unchanged |
+
+**Nothing was redone.** Re-running the redaction would have produced a second
+divergent branch doing the same work.
+
+### Correction to the re-issued instruction's premise
+
+The instruction states that `pii_plant_register.csv` "carries `verified:
+pending`". It does not. All five rows read **`verified = yes`**. The word
+`pending` appears only in the file's trailing comment — *"verified stays
+'pending' until the QA phase confirms each plant is present exactly once and
+nowhere else"* — which describes the intended protocol, not the recorded state.
+
+This makes the finding stronger than the rule as stated, and the rule for 13–15
+needs to cover both shapes rather than only the unfilled one:
+
+- **Filled and false** (`pii_plant_register.csv`): the check was recorded as
+  performed, and the assertion it certifies was already untrue when recorded —
+  the three QA reports doing the verifying were themselves the leak. An
+  affirmative false verification is worse than an absent one, because a reader
+  must disprove it rather than notice a gap.
+- **Defined and never exercised** (the schema's `verified` key): declared with
+  required `by`/`at`, used by zero of 72 records. This is the shape the stated
+  rule describes.
+
+The general rule already recorded stands and covers both: **a verification field
+is only worth having if something fails when it is absent or stale.**
+
+### Still outstanding
+
+`redaction/planted-fixture-values` is **not merged**. Until it is, `main` carries
+planted fixture values in five files. Merging it touches `main`, which the
+standing rule reserves, so it is left for an explicit instruction.
