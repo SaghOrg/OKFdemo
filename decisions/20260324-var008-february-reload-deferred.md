@@ -10,7 +10,7 @@ tags:
   - reload
   - truncate-and-reload
   - deferred
-status: draft
+status: superseded
 superseded_by: /decisions/20260402-var008-february-restatement-and-batch-guard.md
 generated:
   by: process:claude-sonnet/decisions
