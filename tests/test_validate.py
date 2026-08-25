@@ -248,6 +248,29 @@ class TestYamlSubset(unittest.TestCase):
         self.assertEqual(self.read("description: one\n  two\n  three\n"),
                          {"description": "one two three"})
 
+    # -- empty flow collections, and only those ----------------------------
+    def test_empty_flow_sequence_is_accepted(self):
+        self.assertEqual(self.read("sources: []\n"), {"sources": []})
+
+    def test_empty_flow_sequence_with_a_space_is_accepted(self):
+        self.assertEqual(self.read("sources: [ ]\n"), {"sources": []})
+
+    def test_empty_flow_mapping_is_accepted(self):
+        self.assertEqual(self.read("generated: {}\n"), {"generated": {}})
+
+    def test_empty_sources_reaches_the_provenance_rule(self):
+        """The point of accepting []: a schema rule judges it, not the parser."""
+        schema = json.loads(SCHEMA.read_text())
+        problems = [m for kind, m in
+                    validate.validate(self.read("type: x\nsources: []\n"), schema)]
+        self.assertIn("sources: needs at least 1 item(s), found 0", problems)
+
+    def test_populated_flow_sequence_is_still_rejected(self):
+        self.assert_rejects("tags: [a, b]\n", "only empty flow collections")
+
+    def test_populated_flow_mapping_is_still_rejected(self):
+        self.assert_rejects("generated: {by: x}\n", "only empty flow collections")
+
     # -- constructs outside the subset are refused, not guessed at ----------
     def test_flow_sequence_is_rejected(self):
         self.assert_rejects("tags: [a, b]\n", "flow collection")
@@ -293,13 +316,6 @@ FAILING = {
     "fail-at-space-separated.md":             "generated.at",
     "fail-at-bare-date.md":                   "generated.at",
     "fail-generated-missing-at.md":           "missing required field 'at'",
-    # KNOWN FAILING, left red deliberately. `minItems: 1` on `sources` is
-    # unreachable: the only way to write an empty array in YAML is `sources: []`,
-    # which is a flow collection and the reader rejects it before any schema rule
-    # runs; `sources:` with no value parses as null and fails the type check
-    # instead. So the rule can never fire, and an author following AGENTS.md line
-    # 112 ("leave sources: []") gets told about flow collections rather than
-    # about provenance. Reported, not fixed -- see _plan/PROGRESS.md step 4b.
     "fail-sources-empty.md":                  "sources: needs at least 1",
     "fail-source-unknown-key.md":             "unknown field 'confidence'",
     "fail-tags-not-unique.md":                "tags: items must be unique",
