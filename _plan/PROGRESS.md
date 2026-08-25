@@ -672,3 +672,146 @@ next tightening: `stale_after`, `updated` and `sources[].last_modified` still us
 `format: date`, which is annotation-only and therefore unenforced. Every one of
 those 246 values is clean and quoted as of this commit, so converting them to
 patterns costs nothing today and closes the last fail-open in the schema.
+
+---
+
+## Step 4b — test suite for `tools/validate.py`
+
+**Branch:** `tests/validator-test-suite` (commit `5deed0e`), cut from
+`content/quote-dates-and-parser-fix`. Nothing else touched except one line of
+`SKIP`.
+**Status:** done. **One test fails, deliberately left failing — see below.**
+
+### The command
+
+```
+python3 tests/test_validate.py          # all of it
+python3 tests/test_validate.py -v       # case by case
+```
+
+Standard library only. Verified from a clean clone on `/usr/bin/python3` (3.9.6).
+`37 tests`, currently `FAILED (failures=1)`.
+
+### What is there
+
+Two layers.
+
+- **Unit** — calls `read_frontmatter()` directly and pins the YAML subset the
+  reader implements, including what it must *refuse*.
+- **End-to-end** — copies `tools/validate.py`, the real schema and one fixture
+  into a throwaway tree and runs it as a subprocess, so exit codes are tested
+  the way a hook experiences them. That is the layer a push gate depends on.
+
+**44 fixtures** in `tests/fixtures/records/` as real `.md` files — 16 `pass-*`,
+28 `fail-*`. `tests` is now in the validator's `SKIP` set; these records are
+deliberately broken and must never be validated as knowledge.
+
+Coverage against what was asked:
+
+| Area | Cases |
+|---|---|
+| Fail-closed | schema missing, schema unreadable (`chmod 0`, skipped if the user can still read it), schema not JSON, schema using an unimplemented keyword, schema using an unchecked format, no records at all, unparseable record |
+| Step 1 defect | block scalar `\|` and folded `>-` both rejected |
+| Step 3 defect | trailing comment stripped after a plain value, after a quoted value, on a list item; whole-line comment ignored |
+| `#` that must survive | inside double quotes, inside single quotes, with no preceding space, in a URL fragment |
+| Dates post-2b | quoted and unquoted timestamps read alike; a date is not type-converted to `datetime` |
+| Nesting | nested object, array of objects, array of objects containing an array of objects (`contested[].positions[]`), sequence flush with its key, folded multi-line scalar |
+| Outside the subset | flow collection, anchor, tab indent, unterminated quote, junk after a quoted value, duplicate key |
+| Schema rules | pass and fail fixture each for the status enum, `generated.by`, `generated.at`, `sources`, `contested` structure and its required fields, `additionalProperties`, `uniqueItems`, required `type` |
+
+Every `fail-*` fixture asserts the **reason**, not just the failure, so a check
+that starts failing for a different reason cannot quietly keep passing. A
+completeness test also asserts that no fixture exists which no test refers to,
+and no test refers to a fixture that does not exist.
+
+### The failing test — a real defect, reported not fixed
+
+```
+FAIL: test_every_fail_fixture_is_rejected_for_the_stated_reason
+      (fixture='fail-sources-empty.md')
+AssertionError: 'sources: needs at least 1' not found in
+      '      YAML PARSE ERROR  line 10: flow collections are not supported'
+```
+
+**`minItems: 1` on `sources` is unreachable. It can never fire.**
+
+The only way to write an empty array in YAML is `sources: []`, which is a flow
+collection, and the reader rejects flow collections before any schema rule runs.
+The alternative, `sources:` with no value, parses as null and fails the type
+check instead. Probed both:
+
+```
+sources: []      -> reader rejects it: line 2: flow collections are not supported
+sources:         -> ['sources: expected array, found null']
+```
+
+Neither path reaches `minItems`. The rule is dead schema.
+
+This is worse than a tidiness problem, because it collides with C1. AGENTS.md
+line 112 tells an author to leave `sources: []` where nothing at all is
+evidenced. Following that instruction produces an error message about **flow
+collection syntax** — which says nothing about provenance and gives the author
+no idea what the actual rule is or that a rule was even involved.
+
+Three ways out, all of them decisions rather than repairs, and none taken here:
+
+1. Delete `minItems: 1` and the AGENTS.md clause together, on the C1 reasoning
+   already recorded — ADR-006 shows the un-minuted case carries context sources
+   anyway, so an empty array may never be correct.
+2. Keep `minItems: 1`, delete the AGENTS.md clause, and accept that the rule is
+   unreachable but harmless — it documents intent even though nothing enforces
+   it. That is precisely the "claims a rule it does not check" pattern this
+   build-out exists to remove, so it is the weakest option.
+3. Teach the reader to accept `[]` and `{}` as empty flow collections only. Small
+   and well-defined, and it makes `minItems` fire with the right message. This
+   is the one I would pick, but it is a change to the validator's YAML subset and
+   belongs in its own step.
+
+### Two defects in my own tests, found and fixed here
+
+Both were mine, not the validator's, so fixing them was in scope.
+
+1. **A fixture was passing by matching its own filename.**
+   `fail-contested-position-no-value.md` asserted the substring `value` against
+   the validator's whole output — which includes the filename. It failed for an
+   entirely unrelated reason (malformed indentation) and the test still passed.
+   Assertions are now narrowed to the validator's detail lines only. This is the
+   exact failure mode the suite exists to prevent, found in the suite itself
+   within an hour of writing it.
+2. **That fixture was also malformed** rather than testing what it claimed. It
+   now carries a position with `source` and `held_by` but no `value`, and fails
+   with `contested[0].positions[1]: missing required field 'value'`.
+
+### Verify by hand
+
+- `python3 tests/test_validate.py` → 37 tests, 1 failure, the one described above.
+- `python3 tools/validate.py` → `VALID=72 INVALID=0`, exit 0. A test asserts this,
+  so the suite fails loudly if the real corpus ever stops validating.
+- `git show --stat HEAD` → `tests/` plus one line of `tools/validate.py`.
+
+### Noticed, deliberately not fixed
+
+1. **`fail-sources-empty.md` is left red.** A permanently failing suite is
+   corrosive — people stop reading it. This must be resolved by a decision, not
+   left as ambient noise, and it should be resolved before step 11 makes the
+   suite a required check.
+2. **`tools/check_secrets.py` has no tests.** It was verified by a 37-case matrix
+   run by hand in step 4 but nothing pins that behaviour. It becomes a CI check
+   at the same time the validator does. Same argument, same risk.
+3. Section C of `~/Downloads/OKFdemo-open-decisions.md` still stands; the failing
+   test above is new evidence for **C1** specifically.
+4. Step 2c is still mid-flight: the sweep was reported and the redaction of the
+   29 unexpected planted-value copies is awaiting a go-ahead. Two of those copies
+   are in `tools/validate.py` and `_plan/PROGRESS.md`. The fixtures written this
+   session deliberately use neutral values (`build#2026`, `Release #42`, `C#`)
+   and add no new copies.
+
+### Does the plan still look right
+
+Yes. This step paid for itself immediately — it found a false-passing test in its
+own first run and an unreachable schema rule that four sessions of manual
+checking had missed, including the session that wrote the rule.
+
+The argument that justified this step now applies unchanged to
+`tools/check_secrets.py`, which is the other script steps 11–12 will make
+required. Worth a short step before then, or folding its matrix into this suite.
