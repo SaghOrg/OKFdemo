@@ -620,7 +620,7 @@ cosmetic, and normalising it would have buried a 105-line diff in a 350-line one
 **4.** Trailing comments are now stripped, implementing YAML's actual rule: a
 `#` opens a comment only at the start of a scalar or when preceded by
 whitespace, and never inside a quoted string. Both cases you named are covered
-and tested — `[REDACTED — planted fixture PII-4, see _canon/pii_plant_register.csv]` keeps its hash, `/_sources/doc.md#section-3` keeps its
+and tested — `release#42` keeps its hash, `/_sources/doc.md#section-3` keeps its
 fragment, `"C#"` is untouched, and `draft  # draft | accepted` is trimmed. Text
 after a closing quote that is not a comment is rejected rather than guessed at.
 Checked against PyYAML on eleven comment cases and on all 72 records: identical.
@@ -1339,3 +1339,75 @@ Yes. One observation for step 11: the family-per-script shape means CI wires fou
 stable script names, not a list that grows with every rule. That is worth
 locking in before CI is written, because a CI config enumerating rules would have
 to change every time a rule is added, and would drift from the hook.
+
+---
+
+## Step 2c (reduced scope) — two of three items were already done
+
+**Branch:** `docs/progress-quote-corrected-docstring`, cut from
+`checks/supersession-status-invariant`, **not** from `main`. See the state
+corrections below.
+**Status:** one edit made. Nothing else needed doing.
+
+### Item by item
+
+1. **`tools/validate.py` — neutral token.** Already done, in the original 2c
+   commit `4b518eb`. The docstring reads `` `release#42` `` and now sits at line
+   147, not 134; the line numbers moved when step 4c added empty-flow-collection
+   handling above it. No change.
+2. **`_plan/PROGRESS.md` — neutral token.** **This was the one outstanding item,
+   and it was a real inconsistency.** The original 2c pass gave this line a
+   redaction marker while giving the docstring a neutral token, so the report
+   quoted a version of the code that did not exist. It now quotes
+   `` `release#42` ``, matching `tools/validate.py:147`. One line changed.
+3. **The register finding.** Already recorded, at lines 877–915 of this file,
+   from the original 2c report. It carries both shapes of the rule rather than
+   only the stated one — see the correction repeated below.
+
+### `_qa/` was left as it is, which means left redacted
+
+The reduced scope says not to redact `_qa/`, on the reasoning that it is
+prototype output that will be discarded. The original 2c pass had already
+redacted it — 22 markers across three files — and that work is in the chain
+under this branch.
+
+**Left alone deliberately.** The instruction's reasoning is about not spending
+effort on a throwaway artifact, and reverting would spend more effort than the
+redaction did, to put fixture values back into files. Nothing is gained by
+undoing it. Flagging rather than deciding silently: say if you want it reverted
+and it is one `git revert` of the `_qa/` hunks.
+
+### Three corrections to the instruction's premises
+
+1. **`main` is not merged.** It sits at `b8240fe`, which is where the step 1–4b
+   chain was fast-forwarded to before the original 2c. It does not contain 2c,
+   4c, 5 or 6. Branching from `main` as instructed would have produced a branch
+   missing four sessions of work and would have re-done items 1 and 3 that
+   already exist. This branch is cut from the chain tip instead.
+2. **The test suite is not 37 tests with a red `minItems`.** That was the state
+   at the end of step 4b. Step 4c fixed the `minItems` failure by teaching the
+   reader empty flow collections, then folded in the credential scanner's
+   matrix; steps 5 and 6 added more. **The suite is 65 tests, all passing.**
+3. **The register's `verified` column does not read `pending`.** All five rows
+   read **`yes`**. `pending` appears only in the file's trailing comment,
+   describing the intended protocol. This makes the finding stronger than the
+   rule as stated, and it needs both shapes:
+   - **filled and false** — the check was recorded as performed, and the
+     assertion it certifies was already untrue when recorded, because the three
+     QA reports doing the verifying were themselves the leak;
+   - **defined and never exercised** — the schema's `verified` key, declared
+     with required `by`/`at`, used by zero of 72 records.
+
+   The rule that covers both, already recorded above for the 13–15 pass: **a
+   verification field is only worth having if something fails when it is absent
+   or stale.**
+
+### Verify by hand
+
+```
+python3 tools/validate.py       ->  VALID=72 INVALID=0 NO_FRONTMATTER=0, exit 0
+python3 tests/test_validate.py  ->  Ran 65 tests, OK
+```
+
+Both unchanged by this edit, which touched one line of prose in a file the
+validator skips.
