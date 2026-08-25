@@ -617,13 +617,134 @@ def _record(status=None, superseded_by=None, supersedes=None):
 OTHER = "/decisions/other.md"
 
 
+def build_links_tree(files):
+    """A throwaway repo carrying check_links.py and some markdown."""
+    root = build_tree([])
+    shutil.copy(REPO / "tools" / "check_links.py", root / "tools" / "check_links.py")
+    for rel, text in files.items():
+        path = root / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding="utf-8")
+    return root
+
+
+TARGET = "concepts/tables/target.md"
+REAL_LINK = "See [TARGET](/concepts/tables/target.md) for detail.\n"
+
+
+class TestLinksCheck(unittest.TestCase):
+
+    def check(self, body, with_target=True):
+        files = {"concepts/a.md": body}
+        if with_target:
+            files[TARGET] = "# Target\n"
+        root = build_links_tree(files)
+        self.addCleanup(shutil.rmtree, root, True)
+        return run_check(root, "check_links.py")
+
+    def test_a_resolving_link_passes(self):
+        code, output = self.check(REAL_LINK)
+        self.assertEqual(code, 0, output)
+        self.assertIn("unresolved=0", output)
+
+    def test_a_dangling_link_is_rejected(self):
+        code, output = self.check(
+            REAL_LINK + "And [GHOST](/concepts/tables/ghost.md) which is not there.\n")
+        self.assertEqual(code, 1, output)
+        self.assertIn("dangling: /concepts/tables/ghost.md", output)
+
+    def test_the_inverted_form_is_rejected(self):
+        """Path in the link text, table name in the target -- the defect that
+        blocked every push in this repository until it was repaired."""
+        code, output = self.check(
+            REAL_LINK + "- [/concepts/tables/target.md](TARGET_NAME)\n")
+        self.assertEqual(code, 1, output)
+        self.assertIn("not a bundle path: TARGET_NAME", output)
+
+    def test_an_anchor_only_link_is_not_checked(self):
+        code, output = self.check(REAL_LINK + "Jump to [the part](#a-heading).\n")
+        self.assertEqual(code, 0, output)
+        self.assertIn("checked=1", output)     # the anchor was not counted
+
+    def test_a_fragment_on_a_real_path_is_stripped_before_resolving(self):
+        code, output = self.check(
+            "See [TARGET](/concepts/tables/target.md#appendix-b) for detail.\n")
+        self.assertEqual(code, 0, output)
+
+    def test_external_urls_are_not_checked(self):
+        code, output = self.check(REAL_LINK + "[docs](https://example.com/x.md)\n")
+        self.assertEqual(code, 0, output)
+        self.assertIn("checked=1", output)
+
+    def test_fails_closed_when_there_is_nothing_to_check(self):
+        root = build_links_tree({"concepts/a.md": "No links here at all.\n"})
+        self.addCleanup(shutil.rmtree, root, True)
+        code, output = run_check(root, "check_links.py")
+        self.assertEqual(code, 2, output)
+        self.assertIn("CANNOT RUN", output)
+
+    def test_the_real_corpus_passes(self):
+        done = subprocess.run([sys.executable, str(REPO / "tools" / "check_links.py")],
+                              capture_output=True, text=True)
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+
+
+class TestLinksCheckKnownGaps(unittest.TestCase):
+    """Asserted as it behaves, not as it should.
+
+    A link inside a fenced code block is illustrative text, not a link, and
+    should not be resolved. check_links.py scans line by line with no fence
+    tracking, so it treats one as real. No tracked file trips this today -- the
+    gap is latent -- but a document showing an example link in a fence would be
+    reported as dangling and would block a push.
+
+    Closing it means tracking fence state across lines, including indented and
+    tilde fences. Written so that a fix turns this red and forces the decision.
+    """
+
+    def test_a_link_inside_a_code_fence_is_wrongly_treated_as_a_link(self):
+        root = build_links_tree({
+            "concepts/a.md": REAL_LINK + "\n```\n[EXAMPLE](/concepts/tables/nope.md)\n```\n",
+            TARGET: "# Target\n"})
+        self.addCleanup(shutil.rmtree, root, True)
+        code, output = run_check(root, "check_links.py")
+        self.assertEqual(code, 1,
+                         "fenced links are now skipped -- the gap has closed, "
+                         "move this into TestLinksCheck:\n" + output)
+        self.assertIn("dangling: /concepts/tables/nope.md", output)
+
+
 # Enforced by check_sources.py rather than the schema: the one legitimate
 # exception is conditional on `type`, and the schema engine implements no
 # conditional keywords by design.
 SOURCES_FAILING = {"fail-missing-sources.md": "no `sources` key"}
 
 
+ARTIFACT = "_sources/docs/DOC-01_example.docx"
+
+
+def _record_citing(resource):
+    return ('---\ntype: decision\ntitle: A cited record\n'
+            'description: Carries provenance.\n'
+            'generated:\n  by: process:claude-sonnet/tests\n'
+            '  at: "2026-08-25T12:00:00Z"\n'
+            'sources:\n  - resource: %s\n---\n\nBody.\n' % resource)
+
+
 class TestSourcesCheck(unittest.TestCase):
+
+    def tree(self, records, with_artifact=True):
+        """A throwaway repo with check_sources.py and, optionally, a real artifact."""
+        root = build_tree([])
+        self.addCleanup(shutil.rmtree, root, True)
+        shutil.copy(REPO / "tools" / "check_sources.py", root / "tools")
+        if with_artifact:
+            path = root / ARTIFACT
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(b"an artifact\n")
+        for name, text in records.items():
+            (root / "concepts" / name).write_text(text, encoding="utf-8")
+        return root
 
     def check(self, fixture):
         root = build_tree([])
@@ -632,16 +753,52 @@ class TestSourcesCheck(unittest.TestCase):
         shutil.copy(RECORDS / fixture, root / "concepts" / fixture)
         return run_check(root, "check_sources.py")
 
+    def test_a_resource_that_resolves_passes(self):
+        root = self.tree({"a.md": _record_citing("/" + ARTIFACT)})
+        code, output = run_check(root, "check_sources.py")
+        self.assertEqual(code, 0, output)
+        self.assertIn("unresolved=0", output)
+
+    def test_a_resource_that_does_not_resolve_is_rejected(self):
+        root = self.tree({"a.md": _record_citing("/_sources/docs/DOC-99_missing.docx")})
+        code, output = run_check(root, "check_sources.py")
+        self.assertEqual(code, 1, output)
+        self.assertIn("does not exist: /_sources/docs/DOC-99_missing.docx", output)
+
+    def test_a_resource_outside_the_archive_is_rejected(self):
+        root = self.tree({"a.md": _record_citing("/concepts/tables/something.md")})
+        code, output = run_check(root, "check_sources.py")
+        self.assertEqual(code, 1, output)
+        self.assertIn("not under /_sources/", output)
+
     def test_a_record_with_no_sources_key_is_rejected(self):
         code, output = self.check("fail-missing-sources.md")
         self.assertEqual(code, 1, output)
         self.assertIn(SOURCES_FAILING["fail-missing-sources.md"], output)
 
-    def test_a_record_that_carries_sources_passes(self):
-        code, output = self.check("pass-minimal.md")
-        self.assertEqual(code, 1, output)   # resolves nothing: no _sources/ in a temp tree
-        self.assertIn("does not exist", output)
-        self.assertNotIn("no `sources` key", output)
+    def test_where_a_missing_sources_key_is_caught(self):
+        """It is check_sources.py, not the schema, and the distinction matters.
+
+        `sources` is deliberately NOT in the schema's required list: exactly one
+        record type legitimately has no provenance -- an `index` is generated
+        from the file tree -- and the schema engine implements no conditional
+        keywords by design. So the schema passes a record with no sources and
+        check_sources.py rejects it. Anyone who assumes the schema owns this
+        will look in the wrong place when it fires.
+        """
+        schema = json.loads(SCHEMA.read_text())
+        self.assertNotIn("sources", schema["required"],
+                         "sources is in the schema now -- update this test and "
+                         "the index exemption in check_sources.py")
+        root = build_tree(["fail-missing-sources.md"])
+        self.addCleanup(shutil.rmtree, root, True)
+        shutil.copy(REPO / "tools" / "check_sources.py", root / "tools")
+        validate_code, validate_out = run_tree(root)
+        sources_code, sources_out = run_check(root, "check_sources.py")
+        self.assertEqual(validate_code, 0,
+                         "the schema is expected to pass it:\n" + validate_out)
+        self.assertEqual(sources_code, 1,
+                         "check_sources is expected to catch it:\n" + sources_out)
 
     def test_an_index_record_may_omit_provenance(self):
         root = build_tree([])
