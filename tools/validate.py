@@ -29,7 +29,8 @@ MIN_PYTHON = (3, 8)
 # it is supposed to seed. `_plan` is process scaffolding for the enforcement
 # build-out, not knowledge, and holds no frontmatter.
 SKIP = {"_sources", "_canon", "_qa", "_build", "_snapshots", ".git",
-        ".venv-synth", "schemas", ".github", ".cursor", "_plan", "tests"}
+        ".venv-synth", "schemas", ".github", ".cursor", "_plan", "tests",
+        "_learnings"}
 SKIP_NAMES = {"AGENTS.md", "CLAUDE.md", "README.md", "LEARNINGS.md"}
 
 FRONTMATTER = re.compile(r"\A---\s*\n(.*?)\n---\s*\n", re.S)
