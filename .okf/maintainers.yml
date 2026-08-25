@@ -22,3 +22,5 @@ effective_from: 2026-08-25
 # Acceptable for a prototype. Not acceptable on the client machine, which must
 # be in an organisation so that ownership is a team reference rather than a
 # person.
+
+# probe: throwaway, closed unmerged
