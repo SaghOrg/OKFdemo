@@ -1411,3 +1411,128 @@ python3 tests/test_validate.py  ->  Ran 65 tests, OK
 
 Both unchanged by this edit, which touched one line of prose in a file the
 validator skips.
+
+---
+
+## Step 7 — remote created, `main` pushed, scanner experiment run
+
+**Branch:** `remote/create-origin-and-push`, cut from
+`docs/progress-quote-corrected-docstring`.
+**Remote:** `https://github.com/shsagnik/OKFdemo` — **private**, created empty
+with no README, .gitignore or licence, so no unrelated-histories merge.
+
+Repo name was not specified in the instruction; `OKFdemo` was chosen to match the
+local directory. Renaming it later costs one command and a remote URL update.
+
+### Gate check before starting
+
+`main` (`b8240fe`) validates `VALID=72 INVALID=0`, exit 0. Its test suite runs 37
+tests with 1 failure — the known `minItems` red, which is **main's expected
+state**, because `main` predates step 4c. Gate satisfied.
+
+### The experiment — a negative result, and a stronger one than expected
+
+**Did push protection block the push? No.**
+**Did secret scanning raise an alert afterwards? No.**
+
+But not for the reason anticipated. The hypothesis was that GitHub's scanners
+match provider-specific token formats and would skim past a generic
+`password=` in a properties file. **We never got far enough to test that.**
+
+```
+PATCH /repos/shsagnik/OKFdemo  security_and_analysis[secret_scanning][status]=enabled
+  -> HTTP 422  "Secret scanning is not available for this repository."
+
+GET  /repos/shsagnik/OKFdemo/secret-scanning/alerts
+  -> HTTP 404  "Secret scanning is disabled on this repository."
+```
+
+**Secret scanning could not be switched on at all.** On a private repository it
+requires GitHub Advanced Security / Secret Protection, which this account does
+not carry (`plan: null`). Push protection depends on secret scanning, so it
+stayed `disabled` too — the PATCH returned success but the resulting object
+still reads `"secret_scanning_push_protection": {"status": "disabled"}`.
+
+The planted credential is confirmed present in the pushed history:
+`origin/main:_sources/technical/db_config_snippet.properties` carries two
+`odi.stg.password` lines.
+
+**Three layers to the finding, in increasing order of importance:**
+
+1. **Availability, not pattern matching, is the binding constraint.** The
+   platform control is not weak here — it is absent. Nothing scanned anything.
+2. **Even where it is available, generic secrets are a separate opt-in.** The
+   settings object exposes `secret_scanning_non_provider_patterns`, GitHub's
+   scanner for exactly the kind of secret planted here, and it reads
+   `disabled`. So the original hypothesis survives as a second-order finding:
+   under GHAS, generic patterns still need deliberate enabling.
+3. **Visibility and safety pull in opposite directions.** Secret scanning is
+   free on *public* repositories. The configuration that protects the content —
+   private — is the configuration that removes the scanner. Going public to gain
+   the scanner would publish the thing the scanner is meant to protect. Not
+   tested here, deliberately: flipping the repo public to observe it would have
+   published the corpus.
+
+### So what is actually standing there
+
+**On this repository today: nothing.**
+
+- Platform secret scanning: unavailable, cannot be enabled.
+- Push protection: unavailable, depends on the above.
+- `tools/check_secrets.py`: exists, tested by 25 must-block cases — but
+  `core.hooksPath` is **still unset**, so the pre-commit hook does not run.
+- CI: does not exist yet. Steps 11–12.
+
+This answers the question the step posed. It is not that our hook is a
+belt-and-braces backup to a platform control. **On a private repository on a
+standard plan, the local hook is the only mechanism that exists at all** — and
+it is currently switched off. That makes steps 11–12 load-bearing rather than
+confirmatory, because a CI job runs regardless of what any individual has
+configured on their machine.
+
+It also retroactively justifies the weighting in step 4. Building the scanner
+around generic `password=` / JDBC / private-key shapes rather than provider
+tokens was the right call, and not because GitHub's provider patterns are
+redundant — because on this repository they are not running.
+
+### What is on the remote
+
+`main` plus the six merged branches. `git ls-remote --heads origin`:
+
+```
+b8240fe  refs/heads/main
+90adb5c  refs/heads/tooling/validator-runnable-from-clone
+66bde15  refs/heads/schema/settle-concept-schema
+08d3110  refs/heads/template/decision-schema-conformant
+cee128b  refs/heads/hooks/pre-commit-credential-block
+d96ce8a  refs/heads/content/quote-dates-and-parser-fix
+b8240fe  refs/heads/tests/validator-test-suite
+```
+
+### Not pushed, and worth knowing
+
+`main` on the remote is at the end of **step 4b**. Four sessions of work exist
+only locally, on five unpushed branches:
+
+| Branch | Contains |
+|---|---|
+| `redaction/planted-fixture-values` | step 2c fixture redaction |
+| `fix/empty-flow-collections-and-scanner-tests` | step 4c — `minItems` fix, scanner tests |
+| `hooks/pre-push-content-checks` | step 5 — pre-push hook, three check scripts |
+| `checks/supersession-status-invariant` | step 6 — D3 |
+| `docs/progress-quote-corrected-docstring` | step 2c reduced scope |
+
+Consequence: the remote's default branch still carries the known-red `minItems`
+test and the pre-4c validator. Anyone cloning it gets the step 4b state. Also
+still unpushed: `decision/adr-006-fact-credit-note`, the reference branch that
+must never be merged, and `transform/okf-knowledge-base`, which predates all of
+this.
+
+### Does the plan still look right
+
+Yes, with one emphasis change. Steps 8–10 declare CODEOWNERS, roles and a
+ruleset. Those are review controls and worth having. But this step establishes
+that **there is no automated content control on this remote at all** until CI
+exists, and that the hooks cannot supply one because they run on machines nobody
+else can see. If anything is going to be reordered, moving CI earlier does more
+than any of 8–10.
