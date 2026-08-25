@@ -1536,3 +1536,112 @@ that **there is no automated content control on this remote at all** until CI
 exists, and that the hooks cannot supply one because they run on machines nobody
 else can see. If anything is going to be reordered, moving CI earlier does more
 than any of 8–10.
+
+---
+
+## Step 8 — authority declared in the repo
+
+**Merged to `main` as PR #1** (`61b3778`), from
+`governance/codeowners-and-maintainers`, branched from `origin/main` rather than
+from the local chain — see the divergence note at the end.
+**Status:** done. Ordering constraint satisfied: CODEOWNERS is on `main` **before**
+step 10 turns on "require review from Code Owners".
+
+### What was added
+
+- **`.github/CODEOWNERS`** — path-scoped, broad rule first since the last
+  matching pattern wins. `/schemas/`, `/tools/` and `/.githooks/` are owned
+  separately from the corpus because changing them changes what CI enforces.
+  `/.github/` owns the declaration of authority itself.
+- **`.okf/maintainers.yml`** — `primary: shsagnik`, `deputy: null`,
+  `steward: shsagnik`, `effective_from: 2026-08-25`. The limitation below is
+  restated inside the file, because that file is the one an agent reads.
+
+**PR #1 is also the first merge commit this repository has ever had.** Every
+prior change was rebased, cherry-picked or fast-forwarded.
+
+### `.okf/` needs no SKIP entry
+
+Checked rather than assumed: `tools/validate.py` globs `*.md` only
+(`root.rglob("*.md")`), so `maintainers.yml` is never read. Adding `.okf` to
+`SKIP` would have been a no-op edit that also conflicts with the chain's copy of
+`validate.py`. **If anyone later puts a `.md` under `.okf/`, the entry becomes
+necessary** — that is the trigger to watch for.
+
+### Verification: the code owner was NOT assigned, and that is the finding
+
+Opened PR #2 touching `schemas/concept.schema.json`, inspected it, closed it
+unmerged and deleted its branch. Nothing landed — `git diff origin/main --
+schemas/` is empty.
+
+```
+author         : shsagnik
+files          : ["schemas/concept.schema.json"]
+reviewRequests : []          <- empty
+```
+
+The file is not broken. GitHub's own resolver validates it:
+`GET /repos/shsagnik/OKFdemo/codeowners/errors` returns `{"errors": []}`, which
+is the endpoint that reports an unknown username or one without write access —
+the failure mode that otherwise happens silently.
+
+**No reviewer was requested because GitHub never requests review from the pull
+request author, and the author is the sole code owner.** On this repository
+CODEOWNERS is correctly configured and cannot produce an observable effect. The
+verification demonstrates the limitation rather than confirming the mechanism,
+which is the more useful result: we now know the control is untested here, not
+that it works.
+
+### Transplant requirement — the client repo must be in an organisation
+
+Recorded as instructed, and the verification above is the evidence for it.
+
+On a personal repository there is no second admin, no teams, and CODEOWNERS can
+name only individual users. So:
+
+- The primary/deputy split in `maintainers.yml` has nowhere real to live.
+  `deputy: null` is honest rather than lazy — there is no one to name.
+- If the primary is unavailable, nothing merges.
+- If the primary leaves, nobody can reassign ownership.
+- Self-review is impossible, so a required-review rule either blocks the sole
+  owner entirely or is satisfied by nobody reviewing anything.
+
+Acceptable for a prototype whose purpose is to prove the shape. **Not acceptable
+on the client machine.** The client repository must be in an organisation, so
+that ownership is a team reference rather than a person, and so that a second
+admin exists. When that happens: switch CODEOWNERS to team references and add
+the deputy as a second owner on every path.
+
+This is the second control in two steps that cannot be exercised on a personal
+private repository — step 7 found secret scanning unavailable for the same class
+of reason. The pattern is worth naming for 13–15: **several of the controls this
+plan installs are organisation features, and a personal repo can hold the
+declaration but not the enforcement.**
+
+### Divergence between `main` and the local chain — needs resolving
+
+`main` and the working chain have now diverged in both directions.
+
+- **`main` has** the governance commit and PR #1's merge. It does not have steps
+  2c, 4c, 5, 6 or 7.
+- **The chain has** those five sessions, including this `PROGRESS.md` entry. It
+  does not have CODEOWNERS.
+
+The governance PR was deliberately cut from `origin/main` to keep it minimal —
+merging the chain under a "declare authority" title would have landed four
+sessions of unreviewed work in a governance PR. That was the right call for the
+PR, and it leaves a merge to do.
+
+`PROGRESS.md` will conflict when they meet: both sides appended different
+entries after step 4b. It is an append conflict, resolvable by keeping both in
+order, but somebody has to do it deliberately.
+
+### Does the plan still look right
+
+Yes, with the ordering constraint honoured. One thing to decide before step 10:
+**a required-review rule on this repository will block the only person who can
+merge.** With one admin and no second reviewer, "require review from Code Owners"
+makes `main` unmergeable except by admin bypass — at which point the rule
+records an intention rather than enforcing anything. Worth deciding whether step
+10 enables it and documents the bypass, or declares it and defers enabling until
+the org move.
