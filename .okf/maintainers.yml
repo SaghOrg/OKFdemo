@@ -1,0 +1,24 @@
+# Machine-readable role declaration, so an agent can answer "am I the
+# merge-in-charge?" from the repository rather than from its prompt.
+#
+# The git history of this file is the formal record of who held the role and
+# when. Handover is a pull request to this file, approved by the outgoing
+# holder -- which is what makes the record trustworthy rather than merely
+# present.
+
+merge_authority:
+  primary: shsagnik
+  deputy: null            # no second holder named; see the limitation below
+
+steward: shsagnik
+
+effective_from: 2026-08-25
+
+# LIMITATION, recorded here as well as in _plan/PROGRESS.md because this file is
+# the one an agent reads. This is a personal repository. There is no second
+# admin, no teams, and CODEOWNERS can only name individual users. The
+# primary/deputy split therefore has nowhere real to live: if the primary is
+# unavailable nothing merges, and if the primary leaves nobody can reassign.
+# Acceptable for a prototype. Not acceptable on the client machine, which must
+# be in an organisation so that ownership is a team reference rather than a
+# person.
