@@ -1763,3 +1763,132 @@ identity, no second reviewer and no second admin, a required-review rule has
 nobody who can satisfy it. Step 10 should probably declare the ruleset and
 document what it will do once the org and the bot exist, rather than enabling
 something whose only possible outcome is admin bypass on every merge.
+
+---
+
+## Step 10 — enforcement: BLOCKED. Nothing was enabled.
+
+**Branch:** `enforcement/record-step-10-blocked`, cut from
+`identity/record-step-9-blocked`.
+**Status:** **stopped before making any change**, as instructed. No ruleset, no
+branch protection, no settings altered.
+
+### Prerequisite: satisfied
+
+`.github/CODEOWNERS` is on `origin/main` and GitHub's resolver reports
+`errors: 0`.
+
+### Plan tier: worse than the fallback assumed
+
+The brief anticipated dropping to legacy branch protection on a free plan.
+**Both are gated identically.**
+
+```
+GET /repos/shsagnik/OKFdemo/rulesets
+  "Upgrade to GitHub Pro or make this repository public to enable this feature."
+
+GET /repos/shsagnik/OKFdemo/branches/main/protection
+  "Upgrade to GitHub Pro or make this repository public to enable this feature."
+
+GET /repos/shsagnik/OKFdemo/branches/main
+  {"name": "main", "protected": false}
+```
+
+Legacy branch protection on **private** repositories has always required Pro;
+rulesets inherited the same gate. So the fallback in the brief does not exist
+either. There is no enforcement mechanism available on this repository at all.
+
+(`user.plan` reads empty because the token carries `gist, read:org, repo,
+workflow` and not `read:user`. The two 403-class messages above are the
+authoritative answer regardless.)
+
+### The consequence the brief did not anticipate: step 12 is blocked too
+
+This is the part worth acting on.
+
+- **Step 11 is fine.** Actions is enabled (`{"enabled": true}`) and private repos
+  on Free carry a monthly minutes allowance. CI can be written and will run.
+- **Step 12 cannot be done.** "Make those checks required" means marking a status
+  check as required, and that is a property of a ruleset or branch protection —
+  the exact thing unavailable here.
+
+So CI can be built and will report, but its result cannot gate anything. A red
+check will sit next to a green merge button. That is the same advisory posture
+as the hooks, arrived at from the other direction.
+
+### Four steps, one cause
+
+| Step | Control | Status |
+|---|---|---|
+| 7 | Secret scanning / push protection | Unavailable — needs GHAS on private |
+| 8 | Code-owner review | Declarable, not enforceable — no second human |
+| 9 | Separate bot actor | Blocked — no API to mint an identity |
+| 10 | Ruleset / branch protection | Unavailable — needs Pro, or public |
+| 12 | Required status checks | Blocked by the same gate as 10 |
+
+This is no longer a series of coincidences. **The plan's enforcement layer —
+everything from step 7 onward — is a set of paid or organisation features.** The
+prototype has been able to build every mechanism and enable almost none of them.
+
+That is not a failure of the work. Steps 1–6 produced a validator, a test suite,
+four check scripts and two hooks, all of which run anywhere and are the portable
+part. What steps 7–12 establish is that **the enforcement is bought, not built**,
+and that is a genuine finding for the client conversation.
+
+### Three ways forward — your call, none of them taken
+
+| | Option | Cost | Consequence |
+|---|---|---|---|
+| **a** | **GitHub Pro** | ~$4/month, one seat | Rulesets and branch protection on private repos. Step 10 and 12 proceed as written. Does **not** fix secret scanning (needs GHAS) or the missing second human. |
+| b | Make the repository public | Free | Rulesets, plus free secret scanning and push protection — which would finally let step 7's experiment run properly. **Publishes the corpus**, including the planted fixtures. Reversible in the settings sense, not in the "it was on the internet" sense. |
+| c | Move to an organisation | Free org, or Team at ~$4/user/month | The right destination regardless — step 8 already recorded that the client repo must be in an org. Whether a **Free** org lifts the private-repo gate needs verifying rather than assuming; historically it did not, and Team was required. |
+
+I did not take any of them. (b) in particular is exactly the publication we
+deliberately avoided in step 7, and it is not mine to trade away for a feature.
+
+### The deputy gap, now concrete
+
+Worth recording even though the ruleset was not created, because it is the thing
+that would have bitten immediately.
+
+Had the ruleset been enabled exactly as specified — one approval, code-owner
+review, **no bypass actors** — then on this repository:
+
+- The sole code owner is `shsagnik`.
+- GitHub refuses self-approval (verified verbatim in step 9, HTTP 422).
+- There is no second human with write access, and step 9 established there is no
+  bot either.
+- Therefore **no pull request could ever be approved**, and `main` would accept
+  nothing.
+
+Not "constrained until a second human reviews" — closed, until somebody with
+admin edits or deletes the ruleset. Recoverable, but the only route back is the
+administrative act the ruleset exists to prevent.
+
+The brief says this constraint is correct and intended, and it is — with a
+second human. **The second human is the missing precondition, not the ruleset.**
+Step 15's two-person test needs two people; step 9's bot needs creating; and
+until one of those exists, enabling step 10 would produce a repository where
+every merge is an admin override, which records less than the honour system it
+replaces.
+
+### Unmerged work now waiting on this
+
+Seven local branches carry steps 2c, 4c, 5, 6, 7, and the step 8–10 records.
+`origin/main` is at `61b3778` and still holds the step 4b validator. None of it
+can land through a reviewed PR until there is somebody to review it.
+
+### Does the plan still look right
+
+No, not from step 10 onward, and this is the point to say so rather than at 13.
+
+Steps 1–6 are done and portable. Steps 7–9 are done to the extent the platform
+permits, with the gaps recorded. **Steps 10 and 12 are not doable on this
+repository as configured**, and no amount of care in step 11 changes that.
+
+The plan's own governing principle applies to the plan itself: every rule is
+either enforced or explained, never both. Right now every rule from step 7
+onward is explained and none is enforced. The honest options are to buy the tier,
+publish the repository, or accept that the prototype demonstrates the shape and
+that first real enforcement happens on the client's organisation — and to write
+steps 13–15 around that last reading, which is what the evidence supports.
