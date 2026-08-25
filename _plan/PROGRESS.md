@@ -552,3 +552,123 @@ it is the more convincing of the two.
 It also makes a point worth carrying into steps 13–15: documentation about
 credentials is a place credentials leak, and the check has to cover prose files,
 not just config.
+
+---
+
+## Step 2b — content pass and validator fix
+
+**Branch:** `content/quote-dates-and-parser-fix`, cut from
+`hooks/pre-commit-credential-block`. Four commits: `e000237` validator,
+`eab2107` content pass, `975d473` D2, `9223e01` LEARNINGS.md.
+**Status:** done. **Main now passes its own validator.**
+
+### Before and after
+
+```
+before   VALID=41  INVALID=31  NO_FRONTMATTER=1   exit 1
+after    VALID=72  INVALID=0   NO_FRONTMATTER=0   exit 0
+```
+
+The record count moves 72 → 72, not 71 → 72: `_plan/PROGRESS.md` left the
+denominator when `_plan` joined `SKIP`, and `templates/decision.md` was already
+in it from step 3. 71 concept files plus the template.
+
+Verified from a fresh clone on `/usr/bin/python3` (3.9.6, the macOS system
+Python), not just in this working copy.
+
+### Confirmation: no `generated.at` instant changed
+
+**None.** All 72 compared against `HEAD` by parsing both forms into aware
+datetimes: every one equal. Every offset in the corpus was exactly `+00:00`, so
+`Z` is the same instant with no arithmetic and nothing to round. All 245 other
+date values (`updated`, `stale_after`, `sources[].last_modified`) are
+byte-identical once quotes are ignored.
+
+No date was ambiguous. Every value in the corpus matched one of three exact
+shapes before the pass, and the transform refused to touch anything that did
+not — it was written to stop rather than guess.
+
+### What changed
+
+**1 + 2. Quoting and normalisation.**
+
+```
+generated.at    31  normalised to YYYY-MM-DDTHH:MM:SSZ, and quoted
+generated.at    40  already RFC 3339, quoted
+date values     34  bare values quoted (all sources[].last_modified)
+               212  already quoted, left alone
+```
+
+71 files rewritten; the template was already fully quoted. **Frontmatter only** —
+checked explicitly that every file's body is byte-identical to `HEAD`.
+
+Why quoting rather than reformatting, demonstrated rather than asserted:
+
+```
+at: 2026-08-23T10:37:09Z      -> loads as datetime -> re-serialises as  2026-08-23 10:37:09+00:00
+at: "2026-08-23T10:37:09Z"    -> loads as str      -> re-serialises as '2026-08-23T10:37:09Z'
+```
+
+That is the S4 round-trip, closed. The schema pattern is now a tripwire for it
+rather than the only defence.
+
+Single- and double-quoted values were both left as they stood. The mix is
+cosmetic, and normalising it would have buried a 105-line diff in a 350-line one.
+
+**3.** `_plan` added to `SKIP`, with a comment saying why.
+
+**4.** Trailing comments are now stripped, implementing YAML's actual rule: a
+`#` opens a comment only at the start of a scalar or when preceded by
+whitespace, and never inside a quoted string. Both cases you named are covered
+and tested — `Wint3r#2026` keeps its hash, `/_sources/doc.md#section-3` keeps its
+fragment, `"C#"` is untouched, and `draft  # draft | accepted` is trimmed. Text
+after a closing quote that is not a comment is rejected rather than guessed at.
+Checked against PyYAML on eleven comment cases and on all 72 records: identical.
+
+**5.** `20260324-var008-february-reload-deferred.md` set to
+`status: superseded`. Its `superseded_by` was already populated and its
+replacement already carried the matching `supersedes`. The only status value
+changed. Corpus status counts are now `accepted 8, draft 2, superseded 3` across
+the thirteen records, plus the template at `draft`.
+
+**6.** The S11 bullet in `LEARNINGS.md` committed verbatim — two insertions, zero
+deletions, no rewording, no co-author trailer since it was not written in this
+session.
+
+### Verify by hand
+
+- `python3 tools/validate.py` → `VALID=72 INVALID=0 NO_FRONTMATTER=0`, exit 0.
+- `git diff HEAD~4 --stat` → 73 files: 71 records, `LEARNINGS.md`,
+  `tools/validate.py`.
+- `git log --oneline -4` → the four commits are separable; the content pass and
+  the D2 status change are deliberately in different commits even though they
+  touch the same file, so the one status change can be reviewed on its own.
+- `python3 tools/check_secrets.py --all` → exit 0.
+
+### Noticed, deliberately not fixed
+
+1. **Quote style is mixed** — 125 double-quoted, 71 single-quoted date values,
+   now joined by 105 newly double-quoted ones. All valid, all matching the
+   schema. Left alone deliberately; if you want one style it is a separate
+   mechanical pass, and it is the kind of thing a formatter should own rather
+   than a human.
+2. Everything in section D of `~/Downloads/OKFdemo-open-decisions.md` still
+   stands, except **D2**, which this step closed.
+3. **C1 and C2 from that document are still open** and neither is affected by
+   this step: the `sources: minItems: 1` versus AGENTS.md `sources: []`
+   contradiction, and the credential copies in `_qa/`.
+
+### Does the plan still look right
+
+Yes, and step 5 is now unblocked — main passes, so a pre-push hook running the
+validator will not refuse every push.
+
+Two things worth carrying into step 5. First, the validator has been modified in
+four of the five steps so far and **still has no tests**; this step fixed a
+parser bug found by accident in step 3, which is the second such bug. Before it
+becomes a push gate, a test file over the YAML subset, the fail-closed exits and
+one fixture per schema rule is cheap insurance. Second, `D1` is now the obvious
+next tightening: `stale_after`, `updated` and `sources[].last_modified` still use
+`format: date`, which is annotation-only and therefore unenforced. Every one of
+those 246 values is clean and quoted as of this commit, so converting them to
+patterns costs nothing today and closes the last fail-open in the schema.
