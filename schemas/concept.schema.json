@@ -44,8 +44,8 @@
 
     "status": {
       "type": "string",
-      "description": "Omit when the concept is stable — absent means stable. Use `draft` for a deferred or unresolved matter, `deprecated`/`superseded` when replaced.",
-      "enum": ["draft", "proposed", "accepted", "deprecated", "superseded"]
+      "description": "Omit when the concept is stable — absent means stable. `draft` for an open question or a matter deferred with no decision yet. `accepted` for a decision that stands. `superseded` when a later record replaces this one; set `superseded_by` alongside it.",
+      "enum": ["draft", "accepted", "superseded"]
     },
 
     "stale_after": {
@@ -62,13 +62,13 @@
       "properties": {
         "by": {
           "type": "string",
-          "description": "process:claude-<model>/<stage-name>",
-          "pattern": "^process:claude-[a-z0-9.-]+/[a-z0-9-]+$"
+          "description": "`<mode>:<agent>`, with `/<stage>` where the mode has stages. `process:claude-sonnet/variances` is a transform stage; `live-capture:claude-opus` is a live human capture, which has no stage. The pattern constrains shape only — it does not enumerate modes or agents, so a new mode, or an agent that is not Claude, needs no schema change.",
+          "pattern": "^[a-z][a-z-]*:[a-z0-9.-]+(/[a-z0-9-]+)?$"
         },
         "at": {
           "type": "string",
-          "description": "ISO 8601 timestamp.",
-          "format": "date-time"
+          "description": "RFC 3339 date-time, machine-stamped at write time. Date-time only — a bare date is not accepted, because the machine writing this always knows the time; the date a record refers to belongs in `updated`. Quote the value in YAML: an unquoted timestamp is auto-typed by PyYAML-based tooling and re-serialised space-separated, and this pattern is the tripwire for that round-trip.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
         }
       }
     },
@@ -81,6 +81,67 @@
       "properties": {
         "by": { "type": "string", "minLength": 1 },
         "at": { "type": "string", "format": "date-time" }
+      }
+    },
+
+    "captured_by": {
+      "type": "string",
+      "description": "LOCAL EXTENSION (not OKF). The human who brought this knowledge in — who took the call, sat in the room, or dictated the capture. Distinct from `generated.by`, which names the agent that wrote the file, and from the git author, who may be neither of them.",
+      "minLength": 1
+    },
+
+    "contested": {
+      "type": "array",
+      "description": "LOCAL EXTENSION (not OKF). A dispute over one claim inside this file. Claim-level, not file-level: the record stays `accepted` while a single claim in it is contested. Not for a fact that was replaced by a later one (use `supersedes`/`superseded_by`), not for an open question where nobody asserts a competing value (use `status: draft`), and not for two statements of the same figure that differ only in rounding or precision.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["claim", "positions", "resolution_owner", "resolves_when"],
+        "additionalProperties": false,
+        "properties": {
+          "claim": {
+            "type": "string",
+            "description": "The field or claim in dispute, named in a few words.",
+            "minLength": 1
+          },
+          "positions": {
+            "type": "array",
+            "description": "The competing positions, two or more.",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "required": ["value"],
+              "additionalProperties": false,
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "description": "What this position asserts.",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "string",
+                  "description": "Bundle-relative path to the artifact carrying this position. Omit when the position is not evidenced — never invent provenance.",
+                  "minLength": 1
+                },
+                "held_by": {
+                  "type": "string",
+                  "description": "Who or what holds this position — a person, or a named location inside a document where two parts of one artifact disagree. This is what separates the positions when both cite the same source file.",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "resolution_owner": {
+            "type": "string",
+            "description": "Who is accountable for settling the dispute — not who holds one side of it. Required: write `none recorded` when nobody has been named, so an unowned dispute stays visible instead of being silently absent.",
+            "minLength": 1
+          },
+          "resolves_when": {
+            "type": "string",
+            "description": "The future trigger that would settle this — the check, confirmation or decision that ends the dispute. Required: write `none recorded` when nothing has been identified.",
+            "minLength": 1
+          }
+        }
       }
     },
 
