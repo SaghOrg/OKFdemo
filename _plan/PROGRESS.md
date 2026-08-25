@@ -2006,3 +2006,155 @@ Step 11 was doable and is done. Step 12 is not, for the reason recorded in step
 10. The sequence now has a working, visible, fast CI job whose result binds
 nothing — which is a fair description of where the whole enforcement layer stands
 on a private repository on this tier.
+
+---
+
+## Step 12 — required checks: BLOCKED. The loop does not close.
+
+**Branch:** `enforcement/record-step-12-blocked`, cut from
+`ci/github-actions-validate`.
+**Status:** **nothing was changed.** There is no ruleset to add required checks
+to, because step 10 could not create one.
+
+### Prerequisites
+
+- `validate.yml` has run — twice, on PR #4. Prerequisite satisfied.
+- **The step 10 ruleset does not exist.** Re-checked in case the tier had
+  changed; it has not:
+
+```
+GET /repos/shsagnik/OKFdemo/rulesets
+GET /repos/shsagnik/OKFdemo/branches/main/protection
+  both -> "Upgrade to GitHub Pro or make this repository public"
+GET /repos/shsagnik/OKFdemo/branches/main -> {"protected": false}
+```
+
+Required status checks and "require branches to be up to date" are both
+properties of a ruleset or branch protection. Neither can be created, so neither
+setting has anywhere to live.
+
+### The verification, run anyway — and it is the finding
+
+Opened PR #5 carrying a record with `status: proposed`, a value dropped from the
+enum in step 2.
+
+**Three checks caught it**, which is more than the one the brief predicted:
+
+```
+FAILED: Schema conformance
+   status: 'proposed' is not one of ['draft', 'accepted', 'superseded']
+FAILED: Link resolution        (the standing 18)
+FAILED: Test suite             (its assertion that the real corpus validates)
+```
+
+And then:
+
+```
+mergeable        : MERGEABLE
+mergeStateStatus : UNSTABLE
+```
+
+**`UNSTABLE`, not `BLOCKED`.** A pull request containing a record that fails
+schema validation, with three red checks against it, can be merged. The button
+is green. Closed unmerged; branch deleted.
+
+That is the verification the step asked for, returning the opposite of the
+intended result. The detection works perfectly — every layer fired, including one
+nobody designed for this case. Nothing acts on the detection.
+
+### The point in the loop where it opens
+
+The chain is: **write → hook → push → CI → review → merge.**
+
+Every link works except the last. The checks run, agree with each other, and
+report to a place a second person can see. What is missing is the single setting
+that makes a report a gate — and it is the one setting this tier does not sell.
+
+**"Require branches to be up to date" deserves a specific note**, because the
+brief is right about why it matters and it is the least replaceable thing lost
+here. Nothing else in the stack catches it: a PR that validated cleanly at open,
+a supersession merged in behind it, and now its citations point at a superseded
+fact. The PR is green, the base is wrong, and no check on either side is looking
+at the combination. A hook cannot see it — the hook ran before the other merge
+existed. CI cannot see it either, because CI validated a merge result that was
+correct at the time it was computed. **That failure mode is invisible to
+everything we built and is only caught by the setting we cannot enable.**
+
+---
+
+## What is mechanically enforced, and what rests on judgement
+
+Written for step 14. The editorial rule there is that AGENTS.md keeps only what
+CI cannot check, so this is the boundary.
+
+Read the first table with the caveat above: these checks **run and report**, and
+on this repository nothing stops a merge that ignores them. They are enforced in
+the sense that a machine decides the answer and a human cannot quietly disagree
+with it — the answer is on the record. They are not enforced in the sense of
+being a gate.
+
+### Mechanically checked — remove from AGENTS.md
+
+| Rule | Where | Since |
+|---|---|---|
+| `type` is required on every record | schema | step 2 |
+| No undeclared frontmatter fields | schema `additionalProperties: false` | step 2 |
+| `status` is one of `draft` / `accepted` / `superseded` | schema enum | step 2 |
+| `generated.by` matches `<mode>:<agent>[/<stage>]` | schema pattern | step 2 |
+| `generated.at` is an RFC 3339 UTC date-time | schema pattern | step 2 |
+| `sources` has at least one entry | schema `minItems`, reachable since 4c | steps 2, 4c |
+| `contested` shape, and its four required fields | schema | step 2 |
+| `tags` are unique | schema `uniqueItems` | step 2 |
+| Frontmatter parses at all | `validate.py` | step 1 |
+| Every `sources[].resource` exists under `/_sources/` | `check_sources.py` | step 5 |
+| Every in-bundle markdown link resolves | `check_links.py` | step 5 |
+| Every supersession target exists | `check_supersession.py` | step 5 |
+| `superseded_by` present implies `status: superseded` | `check_supersession.py` | step 6 |
+| No credential-shaped strings in a commit or a diff | `check_secrets.py` | steps 4, 11 |
+| The hooks exist and would arrive executable | `check_hooks.py` | step 11 |
+| The checks themselves still behave | `tests/test_validate.py`, 71 cases | steps 4b, 4c |
+
+### Rests on judgement — AGENTS.md keeps these
+
+No machine can decide any of these. Every one is a question about *meaning*.
+
+| Rule | Why a checker cannot decide it |
+|---|---|
+| **Do not invent provenance** | The schema checks a cited file exists. It cannot check the file *says* what the record claims. This is the single most important rule in the document and the least checkable. |
+| **Separate context provenance from decision provenance** | Whether a source evidences the surrounding discussion or the decision itself is a reading of the source. |
+| **Name the decider, claim nobody else** | `Consulted: none recorded` and a fabricated attendee list are identical to every check we have. |
+| **Say when you don't know** | A gap admitted and a gap silently filled produce the same valid record. |
+| **Prefer the most recent statement of a fact** | `updated` is checkable; whether two statements actually conflict is not. |
+| **Translate vocabulary through the glossary** | "Scheme discount" and "TPR" being the same thing is domain knowledge. |
+| **Show both when two sources conflict and you cannot tell which is current** | `contested`'s *shape* is enforced; whether a genuine dispute exists, and whether it is a dispute rather than a rounding difference, is judgement. Step 4b found the corpus contains no live one. |
+| **`/_sources/` is an archive, not a search target** | Nothing observes what an agent read. |
+| **Stop when you have the answer** | Not observable. |
+| **Supersede, do not overwrite** | The link and status are checked; whether a *new belief* warranted a new record or an edit is judgement. |
+| **A verification field only counts if something fails when it is absent** | The 2c finding. `verified` is schema-shaped and used zero times; the register's `verified: yes` certified a false assertion. |
+
+### The third category — declared, not enforceable here
+
+Neither mechanical nor judgement. These are controls the repository *states* and
+the platform does not apply, and step 14 should say so rather than implying
+either of the other two categories.
+
+| Control | State |
+|---|---|
+| Code-owner review | CODEOWNERS valid on `main`; no reviewer assignable — sole owner cannot self-approve (step 8) |
+| Human decides / agent executes | No separate bot actor exists; a user-owned PAT inverts the split (step 9) |
+| No direct pushes to `main` | No ruleset, no branch protection (step 10) |
+| Required status checks | Blocked by the same gate (step 12) |
+| Branch up to date before merging | Same, and it is the one failure mode nothing else catches |
+| Secret scanning / push protection | Unavailable on a private repo at this tier (step 7) |
+
+### Does the plan still look right
+
+Steps 13–15 are content and instructions, and all three are doable. But step 15
+is a **two-person test run** and there is one person, no second reviewer and no
+bot; it cannot be run as written until an organisation exists.
+
+The honest summary going into step 14: **the mechanical layer is complete and
+portable, the judgement layer is what AGENTS.md is for, and the platform layer is
+declared but inert.** All three belong in the rewrite, clearly separated, because
+a reader who cannot tell which is which will assume the third category behaves
+like the first.
