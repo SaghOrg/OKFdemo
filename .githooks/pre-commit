@@ -1,0 +1,37 @@
+#!/bin/sh
+#
+# Blocks credentials from entering the history. Scans staged content only.
+#
+# Enable it in a fresh clone with:
+#
+#     git config core.hooksPath .githooks
+#
+# Fails closed. If the scanner is missing, or python3 is not available, or the
+# repository root cannot be determined, the commit is refused rather than
+# allowed through unchecked. An exit code of 0 from this hook means the scan
+# ran and found nothing, never that the scan could not run.
+#
+# `git commit --no-verify` still bypasses this, as it bypasses every hook. The
+# check is mirrored in CI so that a bypassed commit is caught before merge.
+
+set -eu
+
+if ! repo_root=$(git rev-parse --show-toplevel 2>/dev/null); then
+    echo "pre-commit: cannot determine the repository root. Refusing the commit." >&2
+    exit 1
+fi
+
+scanner="$repo_root/tools/check_secrets.py"
+
+if [ ! -f "$scanner" ]; then
+    echo "pre-commit: scanner not found at $scanner. Refusing the commit." >&2
+    echo "pre-commit: restore it, or run with --no-verify if you know why it is gone." >&2
+    exit 1
+fi
+
+if ! command -v python3 >/dev/null 2>&1; then
+    echo "pre-commit: python3 not found on PATH. Refusing the commit." >&2
+    exit 1
+fi
+
+exec python3 "$scanner" --staged
