@@ -23,6 +23,27 @@ python3 tools/check_supersession.py
 python3 tools/check_secrets.py --all
 ```
 
+### First, once per clone
+
+```
+git config core.hooksPath .githooks
+```
+
+**Do this before you write anything.** The hooks in `.githooks/` are tracked, but
+git does not use them until you point it at them — `core.hooksPath` is per-clone
+local config and cannot be set by the repository. A fresh clone has no
+protection at all until you run that line.
+
+This is not a hypothetical. The hooks sat in this repository for eight sessions
+with nobody having run it, and roughly a dozen pushes went through unchecked
+because of it. The hook cannot tell you it is missing; that is the whole problem
+with it. `python3 tools/check_hooks.py` confirms the hooks are present and
+executable, but nothing can confirm that *you* enabled them.
+
+What you get for the one line: `pre-commit` refuses a commit containing anything
+credential-shaped, and `pre-push` refuses a push whose content fails validation,
+source resolution, link resolution or supersession integrity.
+
 So the absence of a rule here does not mean it does not exist. It usually means
 a checker owns it.
 
