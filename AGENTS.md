@@ -183,6 +183,34 @@ control.
 Code owners are declared in `.github/CODEOWNERS`. **[declared, not enforced]**
 on this repository, which has a single owner.
 
+### The reviewer merges, not the author
+
+**[declared, not enforced]** Whoever approves the pull request is the one who
+merges it. If you approved it, merge it — do not hand it back to the author to
+merge.
+
+The reason, because the rule on its own tends to lose to instinct:
+
+**In this design the merge is the verification event.** The author cannot approve
+their own pull request, so the approval and the merge together are the only
+record that a second person looked at the work. An author who merges their own
+approved change records themselves verifying themselves, and the log cannot tell
+that apart from a genuine two-person pass. The signal the whole review layer
+exists to produce is destroyed by the last click.
+
+Nothing can enforce this. GitHub's refusal stops the *approval*, not the *merge*
+— the author is free to merge a PR someone else approved, and no check can see
+the difference afterwards. That is precisely why it is written here rather than
+implemented somewhere.
+
+**On the usual objection:** merging does not put your name on someone else's
+work. `git blame` attributes each line to the commit that wrote it, and merging
+does not move that. Demonstrated in this repository, by two different
+people — PR #6 was authored in `5d4b374` by one person and merged in `37a9126`
+by another, and `git blame` on the file it changed assigns every line to
+`5d4b374` and **zero** lines to the merge commit. Declining to merge on blame
+grounds costs the verification record and buys nothing.
+
 ### When a decision is made
 
 1. Create `/decisions/YYYYMMDD-slug.md` from `/templates/decision.md`
