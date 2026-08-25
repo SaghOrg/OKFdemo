@@ -2251,3 +2251,128 @@ rule as stated — keep only what CI cannot check — collapses the second and t
 together, and they are not the same thing. A reader who cannot tell "no machine
 can decide this" from "a machine could decide this but nothing here is running"
 will assume the second is as safe as the first.
+
+---
+
+## Step 14 — AGENTS.md rewritten to judgement only
+
+**Branch:** `agents/rewrite-to-judgement-only` (`6838e36`), cut from
+`learnings/split-prototype-archaeology`.
+**Status:** done. All checks unchanged.
+
+### Line counts
+
+| | Lines | Words |
+|---|---|---|
+| Before | 149 | 1,019 |
+| After | **315** | **2,462** |
+
+**It got longer, and that is worth explaining rather than hiding.** Roughly 40
+lines of enforced rules came out. Far more went in, all of it required by the
+brief: the enforced/explained split had to be explained or a reader would think
+rules had simply been lost; staleness and `contested` are two conventions the
+schema has always had and this file never described; and five LEARNINGS entries
+were promoted with their reasoning intact rather than compressed to a line.
+
+The measure that matters is not length. It is that **every line now earns its
+place by being unenforceable.** A shorter file achieved by cutting explanation
+would have been worse — a rule stated without its reason is a rule the next
+agent will optimise away.
+
+### Removed, paired with the check that now enforces it
+
+| Removed from AGENTS.md | Now enforced by |
+|---|---|
+| "`type` is the only required field" | schema `required: ["type"]` |
+| "Every concept file is markdown with YAML frontmatter" | `validate.py` — no frontmatter is `NO_FRONTMATTER`, exit 1 |
+| "Fill every frontmatter field" | schema `required` + `additionalProperties: false` |
+| "Copy the closest existing file's frontmatter shape" | schema, plus `templates/decision.md` now being conformant (step 3) |
+| `status: deprecated` and the status vocabulary | schema `enum: [draft, accepted, superseded]` |
+| "add a link to the replacement" | `check_supersession.py` — target existence, and `superseded_by` implies `status: superseded` |
+| "If nothing at all is evidenced, leave `sources: []`" | schema `minItems: 1`, reachable since step 4c. Deleted, not moved — the instruction was wrong |
+| "Commit … credentials" | `check_secrets.py`, pre-commit hook and CI |
+| "A concept's `sources` array is empty and you must establish provenance" (a reason to open `/_sources/`) | schema `minItems: 1` makes the state impossible |
+
+### Three the brief expected me to remove, which stayed
+
+Checked against the step 12 inventory rather than the brief's list, as
+instructed. **No check enforces any of these**, so removing them would have
+deleted a real rule:
+
+| Kept | Why |
+|---|---|
+| **Never edit `/_sources/`** (and `/_canon/`) | Nothing compares those directories to a baseline. `check_sources.py` verifies cited files *exist*, not that they are unmodified. A modification there is silent and permanent — the rule now says so explicitly. |
+| **Cross-link in both directions** | Link *resolution* is checked; link *symmetry* is not. Step 5 deliberately excluded backlink symmetry because it needs the S5 ordering rule. A one-directional link is invisible to every tool here. |
+| **One concept per file** | Nothing enforces it. Added the consequence: a file covering two things gets retrieved for one and silently answers about the other. |
+
+"Bundle-relative link format" also stayed, softened to a convention: `check_links.py`
+enforces that a link *resolves*, not that it is written absolute.
+
+### Stale lines fixed
+
+- **Line 127** — `status: deprecated` is gone; zero occurrences remain.
+- **`sources: []`** — clause deleted; zero occurrences remain.
+- **Branch and PR** — rewritten to what actually holds. Nothing prevents a direct
+  push to `main` (marked `[declared, not enforced]`), but **GitHub's refusal to
+  let an author approve their own PR is real** — `422 Review Can not approve your
+  own pull request`, verified in step 9 — and that refusal is named as the thing
+  that makes the human-decides / agent-executes split enforceable rather than
+  conventional.
+
+### The third category, marked in the file
+
+Step 13 flagged that the editorial rule collapses "no machine can decide this"
+with "a machine could, but nothing here is running". The rewrite marks the
+second kind **`[declared, not enforced]`** inline. Without it a reader assumes a
+declared control is as safe as a checked one — which is precisely the mistake
+steps 7 to 12 spent six sessions establishing.
+
+### Five LEARNINGS entries promoted inline
+
+- **S11** → a new section on staleness having two mechanisms. AGENTS.md had
+  nothing on staleness at all.
+- **S5 follow-up** and **S10** → both appended to the cross-linking rule, two
+  sentences each, not a section.
+- **S9** → into the opening section, as the evidence that passing every check
+  says nothing about truth.
+- **S4** → beside "use the template", as why a wrong template produces a
+  convention nobody agreed to rather than one error.
+
+Plus the two step 13 entries, as short rules: verification fields, and never
+using a real fixture value as an illustration.
+
+### `contested` documented, with no worked example
+
+Covered: claim-level not file-level, the record stays `accepted`, every position
+carries a value with `held_by` where known, and both `resolution_owner` and
+`resolves_when` are required with `none recorded` as the honest empty value.
+Also what it is **not** for — supersession, open questions, and rounding.
+
+**No example is given, and the file says why.** The corpus contains no live
+two-sources-assert-incompatible-facts case: every conflict in it is superseded,
+already adjudicated, an open question with no rival value, or a precision
+artifact. The XL-01 discrepancy was excluded explicitly and named in the file as
+the shape *not* to flag.
+
+### D6 — already fixed, no change made
+
+`.github/copilot-instructions.md` is a single line reading "Follow the
+instructions in AGENTS.md at the repository root." It already redirects and
+contains nothing else, matching `CLAUDE.md` and `.cursor/rules/kb.mdc`. Nothing
+to do. D6 can be closed.
+
+### All checks after the rewrite
+
+Unchanged: `VALID=72 INVALID=0`, sources/supersession/hooks/secrets clean, 71
+tests passing, `check_links` still failing on the standing 18. AGENTS.md is in
+`SKIP_NAMES`, so the rewrite could not affect the corpus checks — and did not.
+
+### Does the plan still look right
+
+Step 15 is a two-person test run. There is one person, no second reviewer, and no
+bot identity. **It cannot be run as written.** What can be run is the half that
+does not need a second human: open a PR from a branch, confirm CI reports,
+confirm the author cannot approve it, and stop at the point where a second person
+would act. That demonstrates the mechanism up to the boundary and documents
+exactly where the boundary is — which, given steps 7 to 12, is the honest
+deliverable.
