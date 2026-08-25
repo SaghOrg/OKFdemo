@@ -990,3 +990,122 @@ is only worth having if something fails when it is absent or stale.**
 `redaction/planted-fixture-values` is **not merged**. Until it is, `main` carries
 planted fixture values in five files. Merging it touches `main`, which the
 standing rule reserves, so it is left for an explicit instruction.
+
+---
+
+## Step 4c — make existing checks fire
+
+**Branch:** `fix/empty-flow-collections-and-scanner-tests`, cut from
+`redaction/planted-fixture-values`. Two commits: `96e014b` reader fix,
+`7107a13` scanner tests.
+**Status:** done. Suite is green.
+
+### Full suite
+
+```
+python3 tests/test_validate.py     ->  Ran 55 tests   OK
+python3 tools/validate.py          ->  VALID=72 INVALID=0, exit 0
+python3 tools/check_secrets.py --all ->  exit 0
+```
+
+Verified from a clean clone on `/usr/bin/python3` (3.9.6). **55 tests, 55
+passing, 0 failing.** The step 4b known failure is gone.
+
+| Class | Tests | What |
+|---|---|---|
+| `TestYamlSubset` | 30 | the reader's YAML subset, including the six new empty-collection cases |
+| `TestCredentialScanner` | 9 | the ported matrix and the scanner's integration behaviour |
+| `TestFailsClosed` | 7 | every path that must refuse to report success |
+| `TestSchemaRules` | 4 | fixture-driven, 16 pass and 28 fail fixtures |
+| `TestSkipSet` | 2 | `tests` is skipped; the real corpus still validates |
+| `TestCredentialScannerKnownGaps` | 2 | **documents gaps, not passing behaviour** |
+| `TestCredentialScannerKnownFalsePositives` | 1 | **documents a defect, not passing behaviour** |
+
+Matrix sizes inside those tests: 25 must-block, 14 must-allow, 3 known-gap,
+28 failing fixtures.
+
+### 1. `sources: minItems: 1` is now reachable
+
+The reader accepts `[]` and `{}`, with optional inner whitespace, and nothing
+else. `sources: []` now reports:
+
+```
+SCHEMA  sources: needs at least 1 item(s), found 0
+```
+
+It names the provenance rule. The known-failing test passes and its annotation
+is removed.
+
+**Why the scope is narrow**, as recorded in the commit message: emptiness is the
+only thing a flow collection expresses that block style cannot — there is no way
+to write an empty sequence in block YAML — so `[]` is not a stylistic
+alternative to something already supported, it is the sole spelling of a state a
+schema rule needs to judge. A populated flow collection is a different problem
+entirely (quoting, escaping, nesting, commas) that the reader would have to get
+right or silently misparse, and every non-empty collection in this corpus is
+written in block style. Rejecting the populated form keeps the fail-closed
+property, and the message now names the restriction rather than implying flow
+collections are wholly unsupported.
+
+One consequence: an empty array is now legal wherever the schema permits one, so
+`tags: []` validates. That is correct — the schema should decide which
+collections may be empty, not the parser.
+
+### 2. Credential scanner folded into the same suite
+
+Same file, same harness, stdlib only. Beyond the ported matrix it pins the
+filename rules, the `_sources/`//`_canon/` exclusion, redaction of reported
+values, exit codes 0/1/2, and `--staged` against a real temporary git repository
+in both directions — a secret only in the working tree must not block, a secret
+staged then cleaned from the working tree must still block.
+
+**Every value in the suite is synthetic and invented for it.** None is a planted
+fixture. A test suite quoting the real ones is precisely how they reached the QA
+reports, and step 2c had just finished removing them.
+
+### The three tests that document known behaviour we do not want
+
+Asserted as they behave, not as we wish, and written so that narrowing the gap
+turns them **red** and forces a deliberate decision.
+
+1. **`KnownGaps`** — a bare value in a markdown table cell, in a backticked
+   table cell, and quoted in prose are all missed. These are exactly the shapes
+   step 2c proved escape: every planted value reached the QA reports in one of
+   them and no rule fired. A companion test pins the boundary — the same value
+   in `key=value` form *is* caught — so the gap is characterised, not just
+   noted. Not closed: entropy heuristics false-positive on this corpus's table
+   names and `host:port` strings, and a hook that cries wolf gets bypassed.
+2. **`KnownFalsePositives`** — a redaction marker in assignment form is itself
+   flagged as a credential, because the placeholder pattern has no leading `[`.
+   **Found while writing this suite.** No tracked file trips it today, because
+   step 2c wrote its markers inside backticks; a file that redacted a secret in
+   assignment form would be blocked from commit for containing the redaction of
+   the thing it removed. Out of scope here; one character in the placeholder
+   pattern would fix it.
+
+### Found while writing the tests
+
+The suite's own `test_the_tracked_tree_is_clean` caught **four credential-shaped
+lines in the test file itself** — unmarked provider-token data, a variable
+literally named `secret` (so `secret = ...` matched the generic rule), and a
+docstring quoting an assignment. All fixed by marking the data lines, renaming
+the variable and rewording the prose. The scanner testing its own test file is
+not a trick: it is the same mechanism that caught the step 4 progress report.
+
+### Noticed, deliberately not fixed
+
+1. The `[REDACTED …]` false positive above.
+2. `redaction/planted-fixture-values` is still unmerged, and this branch now sits
+   on top of it. `main` still carries planted fixture values in five files.
+3. Sections C and D of `~/Downloads/OKFdemo-open-decisions-step4b.md` stand,
+   minus the `minItems` item, which this step closed.
+
+### Does the plan still look right
+
+Yes. Both of this step's items were consequences of the step 4b suite existing,
+which is an argument for having built it when we did rather than at step 11.
+
+For step 5: both checks now have tests, so wiring the validator into pre-push is
+a mechanical change to a covered component. Worth deciding before then whether
+the pre-push hook runs the **test suite** as well as the validator — the suite
+is the thing that catches a validator regression, and it takes two seconds.

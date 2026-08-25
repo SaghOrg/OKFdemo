@@ -56,6 +56,14 @@ class YamlError(Exception):
 
 
 KEY_RE = re.compile(r"^([A-Za-z0-9_][A-Za-z0-9_.\-]*)\s*:(?:\s+(.*))?$")
+# Empty flow collections only. A populated flow collection stays unsupported:
+# parsing one properly means quoting, escaping and nesting rules, and the corpus
+# writes every non-empty collection in block style. `[]` and `{}` are admitted
+# because they are the only way YAML can express an emptiness that a schema rule
+# should then judge -- without them `sources: []` died as a syntax error and the
+# `minItems` rule it was meant to trip could never fire.
+EMPTY_SEQ_RE = re.compile(r"^\[\s*\]$")
+EMPTY_MAP_RE = re.compile(r"^\{\s*\}$")
 INT_RE = re.compile(r"^[-+]?[0-9]+$")
 FLOAT_RE = re.compile(r"^[-+]?(?:[0-9]*\.[0-9]+|[0-9]+\.[0-9]*)(?:[eE][-+]?[0-9]+)?$")
 
@@ -105,8 +113,13 @@ def _scalar(token, no):
         if len(token) < 2 or not token.endswith("'"):
             raise YamlError("line %d: unterminated single-quoted string" % no)
         return token[1:-1].replace("''", "'")
+    if EMPTY_SEQ_RE.match(token):
+        return []
+    if EMPTY_MAP_RE.match(token):
+        return {}
     if token[:1] in "[{":
-        raise YamlError("line %d: flow collections are not supported" % no)
+        raise YamlError("line %d: only empty flow collections ([] and {}) "
+                        "are supported" % no)
     if token[:1] in "&*!":
         raise YamlError("line %d: anchors, aliases and tags are not supported" % no)
     if token in (">", "|", ">-", "|-", ">+", "|+"):
