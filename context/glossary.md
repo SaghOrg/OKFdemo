@@ -553,7 +553,7 @@ Runs nightly (not monthly, despite the name) and its output timing is central to
 > with the canon and with her vocabulary everywhere else. But the circulated `.txt` notes for that same
 > meeting attribute this exact line to **Vikram Sethi**
 > (`/_sources/meetings/2026-08-05_dashboard_scope_workshop.txt`, "Vikram Sethi: because in obi e we
-> call it a dashboard page..."). The very next line in the same `.txt` — *"haan i know that is the ob i
+> call it a dashboard page..."). Ten lines further on in the same `.txt` — *"haan i know that is the ob i
 > double e model power bi is different na"* — is also mislabelled Vikram Sethi in the `.txt`, while the
 > `.vtt` correctly attributes it to **`<v Ritwik Ghosh>`**, whose ASR alias "ob i double e" this is (see
 > below). **Do not trust this stretch of the `.txt` for speaker attribution; use the `.vtt`.**

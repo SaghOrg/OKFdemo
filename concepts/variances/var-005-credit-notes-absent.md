@@ -94,7 +94,9 @@ resolved contradiction (see Diagnostic history):
   asks why it isn't fully validated, the honest answer is exactly that").
 - **Validated figure (EM-063, 21-Jul-2026)**: **INR 3.11 Cr** (exact: INR 3,11,20,000), 1,206
   documents, types `RATE_DIFF` and `OFF_INV_ADJ` only — these are the two credit note types that move
-  the revenue line. Total FY26 credit notes across all types: 9,318 documents, 31,204 lines; the
+  the revenue line. Read 3.11 Cr as a floor rather than a total: the 1,206 are the documents that
+  could be tied back to the FY26 trial balance line by line, and EM-063 is explicit that where a
+  document could not be tied it was left out of the count. Total FY26 credit notes across all types: 9,318 documents, 31,204 lines; the
   remaining 8,112 documents (`DAMAGE`, `RETURN`, `SCHEME`, INR 43.70 Cr) settle against provisions or
   the scheme accrual route and do not sit inside the 3.11 Cr figure.
 
