@@ -72,6 +72,8 @@ that knowledge hasn't been written yet. Say so rather than inferring.
 3. `/context/glossary.md` — REQUIRED. The client, the consultants,
    and finance use different words for the same things.
 4. `/index.md`
+5. The open pull requests — `gh pr list --state open`. Titles only, one
+   call. See below for why this is a read step and not a write step.
 
 ## Where to look, in order
 
@@ -80,9 +82,50 @@ that knowledge hasn't been written yet. Say so rather than inferring.
 3. `/decisions/` for why something was chosen
 4. `/log.md` for whether a fact has changed
 5. `/meetings/` for what was said and when
+6. The open pull requests, for what is written but not yet merged
 
-**Stop when you have the answer.** The knowledge base is the answer,
-not a pointer to the answer.
+**Stop when you have the answer — from a source you have confirmed is
+current.** The knowledge base is the answer, not a pointer to the answer.
+But step 6 is what establishes that steps 2–5 are current, so it is not a
+step you reach only after the others fail. Stopping at the first file that
+answers the question is right; stopping before you know whether an open pull
+request rewrites that file is how you deliver a stale answer confidently.
+
+## The working tree is not the whole repository
+
+Everything above is a path. Every tool you have — `rg`, `cat`, the validators —
+reads the branch you happen to have checked out, and is blind by construction to
+work that exists but has not landed. On this engagement that gap is not
+theoretical: concepts get written, decisions get recorded, `/log.md` gets its
+line, and then the whole thing sits in an open pull request for a day or a week
+waiting on a reviewer. During that window the knowledge exists, the author
+believes it is captured, and every search you run returns nothing.
+
+**So a clean search proves the answer is not merged. It does not prove the
+answer does not exist.** Those are different claims and the second one is the
+one people hear.
+
+Sweep the queue:
+
+```
+gh pr list --state open            # titles and branches — the once-per-task sweep
+gh pr view <n> --json title,body   # what a promising one claims to do
+gh pr diff <n>                     # what it actually changes
+git branch --no-merged main        # work that never even reached a PR
+```
+
+Read a pull request with `gh pr diff`. Do not check the branch out to look at
+it — you will strand whatever the user was working on.
+
+**If `gh` is missing, unauthenticated, or errors, say so in your answer.** Not
+as an aside; as part of the answer. An unchecked queue and an empty queue
+produce the same silence, and a reader cannot tell them apart unless you tell
+them. This is the same failure the rest of this file keeps describing: a check
+that did not run looks exactly like a check that passed.
+
+**No checker owns this rule**, and none can. A validator runs against the tree
+it is handed; asking it to account for what is not in that tree is asking it to
+read a repository it cannot see.
 
 ## `/_sources/` is an archive, not a search target
 
@@ -138,10 +181,27 @@ retrieved for one of them and silently answers about the other.
 - **Translate vocabulary through the glossary.** "Scheme discount",
   "trade promotion accrual", and "TPR" are the same thing. "Stockist"
   and "channel partner" both mean distributor.
-- **Say when you don't know.** A missing concept file is normal — this
-  KB is incomplete by design. Do not fill gaps by inference. A gap you admit
-  and a gap you quietly fill produce records that look identical to every
+- **Say when you don't know — after checking the queue, not before.** A
+  missing concept file is normal; this KB is incomplete by design. But
+  "there is no record" and "there is no *merged* record" are different
+  statements, and on a repository with pull requests open at any given moment
+  the second one is usually the true one. Confirm no open PR fills the gap
+  before you report it as a gap. Then do not fill gaps by inference: a gap you
+  admit and a gap you quietly fill produce records that look identical to every
   check that exists; only the second one is a lie.
+- **A question about a person is a question about the queue.** "Did someone
+  set this?", "has anyone updated it?", "is anybody looking at this?", "would a
+  team member have decided this already?" — these are asking where the work is,
+  not what a file says, and the place work sits before it lands is a pull
+  request. Treat that phrasing as a direct instruction to run the sweep and
+  name what you find, including who opened it and when. It reads like
+  conversation rather than a retrieval request, which is exactly why it gets
+  answered out of the working tree and comes back wrong.
+- **Cite an unmerged answer as unmerged.** Give the PR number, its author and
+  its state — "PR #11, opened by X, not merged" — and keep it visibly separate
+  from what the knowledge base already holds. A pull request is a proposal
+  under review; presenting its contents as settled fact skips the review that
+  has not happened yet.
 - **If two sources conflict and you cannot tell which is current, say so
   and show both.** If the disagreement is live rather than settled, record it
   with `contested` — see below.
