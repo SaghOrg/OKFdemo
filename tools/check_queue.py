@@ -49,6 +49,22 @@ TIMEOUT = 60
 MAIN = "origin/main"
 
 
+def safe_console():
+    """Make stdout survive text this console cannot encode.
+
+    A Windows console still defaults to a legacy code page, and printing a
+    pull-request title or a gh error message containing one character it
+    cannot represent raises UnicodeEncodeError. The checker would then die
+    reporting somebody else's punctuation instead of reporting the queue --
+    a check that did not run, wearing the costume of a crash.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, OSError, ValueError):
+            pass  # Python without reconfigure, or a redirected non-tty stream.
+
+
 def die(message):
     sys.stderr.write("check_queue: CANNOT RUN: %s\n" % message)
     raise SystemExit(2)
@@ -125,6 +141,7 @@ def blob_of(rev, path):
 
 
 def main():
+    safe_console()
     git("rev-parse", "--git-dir")
     git("fetch", "--quiet", "origin", "main", check=False)
 

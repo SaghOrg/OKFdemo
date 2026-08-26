@@ -50,6 +50,22 @@ MIN_VERSION = (2, 0, 0)
 problems = []
 
 
+def safe_console():
+    """Make stdout survive text this console cannot encode.
+
+    A Windows console still defaults to a legacy code page, and printing a
+    pull-request title or a gh error message containing one character it
+    cannot represent raises UnicodeEncodeError. The checker would then die
+    reporting somebody else's punctuation instead of reporting the queue --
+    a check that did not run, wearing the costume of a crash.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, OSError, ValueError):
+            pass  # Python without reconfigure, or a redirected non-tty stream.
+
+
 def die(message):
     sys.stderr.write("check_gh: CANNOT RUN: %s\n" % message)
     raise SystemExit(2)
@@ -122,6 +138,47 @@ def report_network(detail):
     )
 
 
+def shell_kind():
+    """Which shell syntax the printed commands should be written in.
+
+    platform.system() alone is not the answer on Windows. Git Bash and WSL are
+    both common on Windows developer machines and both want the POSIX form;
+    only a bare PowerShell or cmd session wants the other one. Git Bash sets
+    MSYSTEM, and WSL reports Linux from platform.system() anyway, so the check
+    is cheap.
+
+    This matters more than it looks: `export X=y` and `cmd < file` are not
+    merely unidiomatic in PowerShell, they are parse errors -- `<` is a
+    reserved operator there. Advice that cannot be pasted is not advice.
+    """
+    if platform.system() != "Windows":
+        return "posix"
+    if os.environ.get("MSYSTEM") or os.environ.get("SHELL"):
+        return "posix"
+    return "powershell"
+
+
+def is_root():
+    """True when the process already has admin rights.
+
+    os.geteuid does not exist on Windows -- calling it there is an
+    AttributeError that takes the whole checker down, which is a poor way to
+    report that gh is missing. Windows elevation is a UAC prompt rather than a
+    command prefix, so there is nothing to prefix and False is the useful
+    answer.
+    """
+    if not hasattr(os, "geteuid"):
+        return False
+    return os.geteuid() == 0
+
+
+def set_env(name, value):
+    """The env-var assignment for the shell we are talking to."""
+    if shell_kind() == "powershell":
+        return '$env:%s = "%s"' % (name, value)
+    return 'export %s="%s"' % (name, value)
+
+
 def platform_key():
     """(os, arch) in the spelling GitHub uses for release assets."""
     system = platform.system()
@@ -141,7 +198,8 @@ def linux_family():
     between them -- os-release says which one owns the system.
     """
     try:
-        with open("/etc/os-release") as handle:
+        with open("/etc/os-release", encoding="utf-8",
+                  errors="replace") as handle:
             text = handle.read().lower()
     except OSError:
         return None
@@ -173,7 +231,7 @@ def install_instructions():
     """
     goos, arch = platform_key()
     has = lambda name: shutil.which(name) is not None
-    root = "" if os.geteuid() == 0 else ("sudo " if has("sudo") else "")
+    root = "" if is_root() else ("sudo " if has("sudo") else "")
 
     preferred = []
     # Homebrew, winget, scoop and choco track upstream within days. The
@@ -228,7 +286,25 @@ def install_instructions():
     else:
         lines.append("No package manager was found on this machine.")
 
-    if shutil.which("curl") and (goos != "linux" or shutil.which("tar")):
+    if shell_kind() == "powershell":
+        # PowerShell 5.1 ships with Windows 10+, so Invoke-WebRequest,
+        # Invoke-RestMethod and Expand-Archive are all present without
+        # installing anything. Nothing here needs admin rights.
+        lines.append("")
+        lines.append("No-admin install into %LOCALAPPDATA%, in PowerShell:")
+        lines.append('  $VER = (Invoke-RestMethod '
+                     '"https://api.github.com/repos/cli/cli/releases/latest").tag_name.TrimStart("v")')
+        lines.append('  $url = "https://github.com/cli/cli/releases/download/'
+                     'v$VER/gh_${VER}_windows_%s.zip"' % arch)
+        lines.append('  Invoke-WebRequest $url -OutFile "$env:TEMP\\gh.zip"')
+        lines.append('  Expand-Archive "$env:TEMP\\gh.zip" '
+                     '-DestinationPath "$env:LOCALAPPDATA\\gh" -Force')
+        lines.append('  $env:PATH = "$env:LOCALAPPDATA\\gh\\bin;$env:PATH"'
+                     '   # add via setx to persist')
+        lines.append("That version lookup uses api.github.com. If the API is blocked but")
+        lines.append("the web host is not, read the version off the releases page instead")
+        lines.append("and substitute it, or download the .msi installer by hand.")
+    elif shutil.which("curl") and (goos != "linux" or shutil.which("tar")):
         asset = "gh_${VER}_%s_%s.%s" % (goos, arch,
                                         "zip" if goos != "linux" else "tar.gz")
         lines.append("")
@@ -238,16 +314,23 @@ def install_instructions():
         lines.append("        | awk -F'/v' '/^location:/{print $2}' | tr -d '\\r\\n')")
         lines.append("  mkdir -p ~/.local/bin")
         if goos == "linux":
-            lines.append("  curl -fsSL \"https://github.com/cli/cli/releases/download/v$VER/%s\" \\"
+            lines.append('  curl -fsSL "https://github.com/cli/cli/releases/download/v$VER/%s" \\'
                          % asset)
             lines.append("        | tar xz -C /tmp")
             lines.append("  mv /tmp/gh_${VER}_%s_%s/bin/gh ~/.local/bin/" % (goos, arch))
         else:
+            # The macOS archive nests everything under gh_<ver>_macOS_<arch>/;
+            # the Windows one does not -- it unpacks straight to bin/gh.exe.
+            # Verified against the published archives, not assumed from the
+            # naming, which is symmetric right up until it isn't.
+            inner = ("bin/gh.exe" if goos == "windows"
+                     else "gh_${VER}_%s_%s/bin/gh" % (goos, arch))
             lines.append("  curl -fsSL -o /tmp/gh.zip \\")
-            lines.append("        \"https://github.com/cli/cli/releases/download/v$VER/%s\"" % asset)
+            lines.append('        "https://github.com/cli/cli/releases/download/v$VER/%s"' % asset)
             lines.append("  unzip -qo /tmp/gh.zip -d /tmp/ghx")
-            lines.append("  mv /tmp/ghx/gh_${VER}_%s_%s/bin/gh ~/.local/bin/" % (goos, arch))
-        lines.append("  export PATH=\"$HOME/.local/bin:$PATH\"   # add to the shell rc to persist")
+            lines.append("  mv /tmp/ghx/%s ~/.local/bin/" % inner)
+        lines.append('  %s   # add to the shell rc to persist'
+                     % set_env("PATH", "$HOME/.local/bin:$PATH"))
         lines.append("Both of those reach github.com. If egress is blocked they will fail too,")
         lines.append("and the answer is the git-only fallback in AGENTS.md, not a retry.")
 
@@ -269,6 +352,7 @@ def report(reason, *remedy):
 
 
 def main():
+    safe_console()
     token_var = next((v for v in ("GH_TOKEN", "GITHUB_TOKEN") if os.environ.get(v)), None)
 
     # 1. Is there a gh at all?
@@ -313,17 +397,23 @@ def main():
                 "gh has credentials it cannot read -- a sandboxed keychain (%s)" % first_line(out),
                 "A sandbox usually cannot open the OS keychain even when the login",
                 "succeeded outside it. Use a token in the environment instead:",
-                "  export GH_TOKEN=<a fine-grained token with `repo` read scope>",
+                "  %s" % set_env("GH_TOKEN", "<fine-grained token, Pull requests: read>"),
                 "Create one at https://github.com/settings/tokens",
             )
         else:
+            # `<` is a reserved operator in PowerShell, so the redirect form
+            # of --with-token is a parse error there rather than a command
+            # that merely fails. Pipe instead.
+            piped = ("Get-Content token.txt | gh auth login --with-token"
+                     if shell_kind() == "powershell"
+                     else "gh auth login --with-token < token.txt")
             report(
                 "gh is installed but not authenticated (%s)" % first_line(out),
                 "Interactive login -- the user must run this themselves, it opens a browser:",
                 "  gh auth login",
                 "Non-interactive, and the right one on a sandboxed or headless machine:",
-                "  export GH_TOKEN=<a fine-grained token with `repo` read scope>",
-                "  # or: gh auth login --with-token < token.txt",
+                "  %s" % set_env("GH_TOKEN", "<fine-grained token, Pull requests: read>"),
+                "  # or: %s" % piped,
                 "Create a token at https://github.com/settings/tokens",
             )
         return finish()
