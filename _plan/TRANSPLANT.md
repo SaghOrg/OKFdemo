@@ -413,8 +413,8 @@ output into a record.
       confirm the push is refused.
 - [ ] **The checks fail closed on an empty repository.** Run each script before
       any records exist. Every one should exit 2 with a message, not 0.
-      *(Known: `check_supersession.py` currently exits 0 on an empty corpus —
-      a fail-open found in Session A and not yet fixed.)*
+      *(All four resolution checks now exit 2 on an empty corpus. `check_supersession.py`
+      exited 0 until the fail-open found by the Session A transplant test was fixed.)*
 
 **Record the result of each, including the ones that pass.** A control verified
 by watching it refuse is a fact. A control verified by reading its configuration

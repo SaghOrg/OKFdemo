@@ -892,6 +892,21 @@ class TestSupersessionCheck(unittest.TestCase):
         self.assertEqual(code, 2, output)
         self.assertIn("CANNOT RUN", output)
 
+    def test_fails_closed_on_an_empty_corpus(self):
+        """Every check must refuse a corpus with no records, not report clean.
+
+        This one did not. It printed files=0 and returned 0, so a repository on
+        its first day got a green tick from a check that examined nothing --
+        found by transplanting the framework into an empty repository, which is
+        the one state this corpus can never be in.
+        """
+        root = build_checks_tree({})
+        self.addCleanup(shutil.rmtree, root, True)
+        code, output = run_check(root, "check_supersession.py")
+        self.assertEqual(code, 2, "empty corpus must fail closed:\n" + output)
+        self.assertIn("CANNOT RUN", output)
+        self.assertIn("found no records", output)
+
     def test_the_real_corpus_passes(self):
         done = subprocess.run(
             [sys.executable, str(REPO / "tools" / "check_supersession.py")],

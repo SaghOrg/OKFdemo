@@ -85,6 +85,9 @@ def main():
             elif not (ROOT / target.lstrip("/")).exists():
                 problems.append((rel, "%s does not exist: %s" % (key, target)))
 
+    if not files:
+        die("found no records to check under %s" % ROOT)
+
     print("SUPERSESSION  links=%d  files=%d  broken=%d  unpaired=%d"
           % (checked, files, len(problems), len(unpaired)))
     for rel, detail in problems:
