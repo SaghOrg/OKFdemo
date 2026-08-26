@@ -139,7 +139,8 @@ the five causes need five different answers:
 
 | What is wrong | What fixes it |
 |---|---|
-| `gh` not on PATH | install it, or fall back to git below |
+| `gh` not on PATH | install it — the preflight prints the command for this machine |
+| installed but older than 2.0.0 | the sweep's `--json` flags do not exist there; reinstall |
 | installed, never logged in | `gh auth login`, or `GH_TOKEN` |
 | logged in, but the credential sits in a keychain the sandbox will not open | `GH_TOKEN` — the login cannot be reused |
 | authenticated, but outbound network denied | nothing local fixes it; ask about egress, or fall back to git |
@@ -151,6 +152,29 @@ searching the working tree and answer from what is merged — is the exact failu
 this whole section exists to prevent, and it is worse than doing nothing because
 it produces a confident answer. Stop, tell the user which of the above you hit,
 and offer to walk them through it.
+
+**When `gh` is missing, install it — but do not install it silently.** The
+preflight does the awkward part for you: it detects the platform, the
+architecture and which package manager is actually present, and prints the one
+command that will work here rather than a menu of six for someone else's
+machine. It also always prints a no-root install into `~/.local/bin`, because
+the machines that most need `gh` are the ones where you cannot become root to
+get it.
+
+Relay what it printed and ask before running anything. Installing software
+changes the user's machine, and that is their call, not a step you take on the
+way to answering a question. Two of them are not yours to run at all:
+
+- **Anything with `sudo`.** It prompts for a password you do not have and
+  should not see. Hand it over.
+- **Anything on a machine where you were not asked to install things.** Offer
+  the command and the one-line reason; if they decline, use the git-only
+  fallback below and say the queue went unswept.
+
+A version too old to run the sweep is the same problem wearing a disguise: an
+old `gh` fails on the `--json` flags with an unrecognised-flag error, which
+reads like a broken command rather than a stale binary. The preflight names the
+floor so that turns into one clear answer.
 
 **Hand interactive commands to the user; do not try to run them yourself.**
 `gh auth login` opens a browser and waits on a device code. You cannot complete
