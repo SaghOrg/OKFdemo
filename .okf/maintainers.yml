@@ -7,22 +7,34 @@
 # present.
 
 merge_authority:
-  primary: shsagnik
-  deputy: Anuraag-Tripathi
+  primary: Anuraag-Tripathi
+  deputy: null            # none held; see the limitation below
 
 steward: shsagnik
 
-effective_from: 2026-08-25
+effective_from: 2026-08-26
+
+# SCOPED TEST, not a permanent handover. Merge authority moves to
+# Anuraag-Tripathi for the queue test, and shsagnik holds none -- not as deputy
+# either. `steward` deliberately does not move: protocol ownership and merge
+# authority are different roles, and only the second one is being exercised
+# here. Reverting is a pull request to this file, like any other change to it.
 
 # LIMITATION, recorded here as well as in _plan/prototype-log.md because this file is
 # the one an agent reads.
 #
-# Partly resolved. A deputy now exists, so review is possible: either holder can
-# approve the other's work, and the primary is no longer a single point of
-# failure for merging.
+# Review is possible: two people have write access and CODEOWNERS names both, so
+# either can approve the other's work. Merge authority is a separate question,
+# and it now rests with one person and no deputy.
 #
-# Still outstanding. This is a personal repository, so both holders are named as
-# individual users rather than as a team, and only the primary is an admin. If
-# the primary leaves, the deputy cannot reassign ownership. The client
-# repository must be in an organisation, so that ownership is a team reference
-# and a second admin exists.
+# Still outstanding, and sharpened by that. A single named merge authority with
+# no deputy is a single point of failure by declaration: if the primary is
+# unavailable, nothing should merge, and there is nobody the protocol permits to
+# step in. Note also what this file cannot do -- shsagnik remains the repository
+# owner and sole admin, so the platform will let him merge whatever he likes
+# regardless of what is written here. This declaration is a statement of intent,
+# not a control, and on this plan nothing makes it one.
+#
+# The client repository must be in an organisation: ownership as a team
+# reference rather than named individuals, a second admin, and a ruleset that
+# makes the declaration binding instead of advisory.
