@@ -11,7 +11,7 @@
 #
 #     git config core.hooksPath .githooks
 #
-# Fails closed. A missing script, an unavailable python3, or an unresolvable
+# Fails closed. A missing script, no available Python 3, or an unresolvable
 # repository root refuses the push. An exit code of 0 means every check ran and
 # passed, never that a check could not run.
 #
@@ -31,8 +31,33 @@ if ! repo_root=$(git rev-parse --show-toplevel 2>/dev/null); then
     exit 1
 fi
 
-if ! command -v python3 >/dev/null 2>&1; then
-    echo "pre-push: python3 not found on PATH. Refusing the push." >&2
+# Resolve a Python 3 interpreter. `python3` is not present on a default
+# Windows install, where it is `python` or the `py` launcher, and Git Bash
+# inherits that. Each candidate is probed for being genuinely Python 3 rather
+# than trusted by name: a `python` can still be Python 2, and the Microsoft
+# Store ships a `python.exe` stub that exists, prints an advert and exits.
+#
+# This stays fail-closed. If no candidate proves itself, the operation is
+# refused, exactly as before -- the list of names got longer, not laxer.
+PY3=""
+for candidate in python3 python py; do
+    command -v "$candidate" >/dev/null 2>&1 || continue
+    if [ "$candidate" = "py" ]; then
+        if py -3 -c 'import sys; sys.exit(0 if sys.version_info[0] == 3 else 1)' \
+                >/dev/null 2>&1; then
+            PY3="py -3"
+            break
+        fi
+    elif "$candidate" -c 'import sys; sys.exit(0 if sys.version_info[0] == 3 else 1)' \
+            >/dev/null 2>&1; then
+        PY3="$candidate"
+        break
+    fi
+done
+
+if [ -z "$PY3" ]; then
+    echo "pre-push: no Python 3 found (tried python3, python, py -3)." >&2
+    echo "pre-push: refusing the push." >&2
     exit 1
 fi
 
@@ -47,7 +72,7 @@ done
 
 failed=""
 for name in $CHECKS; do
-    if ! python3 "$repo_root/tools/$name.py"; then
+    if ! $PY3 "$repo_root/tools/$name.py"; then
         failed="$failed $name"
     fi
 done
@@ -55,7 +80,7 @@ done
 if [ -n "$failed" ]; then
     echo "" >&2
     echo "PUSH BLOCKED. Failing checks:$failed" >&2
-    echo "Run any of them on its own:  python3 tools/<name>.py" >&2
+    echo "Run any of them on its own:  $PY3 tools/<name>.py" >&2
     echo "" >&2
     exit 1
 fi

@@ -22,6 +22,7 @@ recorded mode is the one that matters: it is what a fresh clone receives.
 
 import os
 import pathlib
+import platform
 import subprocess
 import sys
 
@@ -65,6 +66,7 @@ def main():
         recorded[pathlib.PurePosixPath(path).name] = mode
 
     problems = []
+    unchecked = []
 
     for name in EXPECTED:
         if name not in recorded:
@@ -84,13 +86,25 @@ def main():
             problems.append("%s is recorded as %s, not %s -- a fresh clone would "
                             "get it non-executable and git would skip it silently"
                             % (name, mode, EXECUTABLE_MODE))
-        if not os.access(str(path), os.X_OK):
+        # os.access(..., X_OK) is meaningless on Windows: NTFS has no execute
+        # bit, and the call returns True for anything that exists. Running it
+        # there would be a check that cannot fail, which reads as assurance and
+        # provides none -- the failure this repository warns about elsewhere.
+        # The recorded mode above is the one that matters anyway; it is what a
+        # fresh clone receives, on any platform.
+        if platform.system() == "Windows":
+            unchecked.append(name)
+        elif not os.access(str(path), os.X_OK):
             problems.append("%s is not executable in the working tree" % name)
 
     print("HOOKS  expected=%d  present=%d  problems=%d"
           % (len(EXPECTED), len(present), len(problems)))
     for detail in problems:
         print("  %s" % detail)
+    if unchecked:
+        print("  NOTE: on Windows the working-tree executable bit is not a real")
+        print("  property, so it was not checked for: %s" % ", ".join(unchecked))
+        print("  The recorded git mode was checked, and that is the one a clone gets.")
     return 1 if problems else 0
 
 

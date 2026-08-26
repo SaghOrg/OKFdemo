@@ -25,6 +25,20 @@ python3 tools/check_gh.py          # the open-PR queue is reachable from this ma
 python3 tools/check_queue.py       # no open PR's content has already landed in main
 ```
 
+**On Windows, `python3` is usually not the name.** A default install gives you
+`python` and the `py` launcher; `python3` is absent, and Git Bash inherits that.
+Substitute `py -3` or `python` in every command above. The hooks resolve this
+themselves — they try `python3`, `python` and `py -3` and probe each one for
+actually being Python 3, since a `python` can still be Python 2 and the
+Microsoft Store ships a `python.exe` stub that exists and does nothing. They
+still fail closed when none of them proves itself; the list of names got
+longer, not laxer.
+
+The checkers adapt their own output too: `check_gh.py` prints PowerShell when
+that is the shell, and POSIX commands under Git Bash or WSL. This matters
+because `export X=y` and `cmd < file` are not merely unidiomatic in PowerShell,
+they are parse errors.
+
 ### First, once per clone
 
 ```
