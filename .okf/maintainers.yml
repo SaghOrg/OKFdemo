@@ -7,12 +7,18 @@
 # present.
 
 merge_authority:
-  primary: shsagnik
-  deputy: Anuraag-Tripathi
+  primary: Anuraag-Tripathi
+  deputy: shsagnik
 
 steward: shsagnik
 
-effective_from: 2026-08-25
+effective_from: 2026-08-26
+
+# SCOPED TEST, not a permanent handover. Merge authority moves to
+# Anuraag-Tripathi for the queue test; `steward` deliberately does not move.
+# Protocol ownership and merge authority are different roles, and only the
+# second one is being exercised here. Reverting is a pull request to this file,
+# like any other change to it.
 
 # LIMITATION, recorded here as well as in _plan/prototype-log.md because this file is
 # the one an agent reads.
@@ -22,7 +28,10 @@ effective_from: 2026-08-25
 # failure for merging.
 #
 # Still outstanding. This is a personal repository, so both holders are named as
-# individual users rather than as a team, and only the primary is an admin. If
-# the primary leaves, the deputy cannot reassign ownership. The client
-# repository must be in an organisation, so that ownership is a team reference
-# and a second admin exists.
+# individual users rather than as a team, and exactly one of them is an admin --
+# currently the deputy, since the swap above moved merge authority to the holder
+# with write access and left admin where it was. So the primary can merge but
+# cannot reassign ownership, and the deputy can do both. That split is an
+# artefact of a personal repository having a single owner, not a design. The
+# client repository must be in an organisation, so that ownership is a team
+# reference and a second admin exists.
