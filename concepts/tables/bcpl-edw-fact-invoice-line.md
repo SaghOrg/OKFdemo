@@ -135,3 +135,4 @@ The DDL comment following the index creation is: `-- *** THERE IS NO UNIQUE CONS
 
 - [ADR-005 — DATE_KEY on FACT_INVOICE_LINE derived from INVOICE_DT, not CREATED_TS](/decisions/20260506-var002-date-key-fix.md)
 - [ADR-004 — VAR-003 remediation: rebuild MAP_FACT_INVOICE_LINE as a key-based merge](/decisions/20260506-var003-remediation-key-based-merge.md)
+- [ADR-007 — Credit note netting threshold set at INR 25,000 per document](/decisions/20260826-var005-credit-note-netting-threshold.md) — this fact stays gross of credit notes regardless; the threshold is a Finance-side control on the manual net-down outside the warehouse.

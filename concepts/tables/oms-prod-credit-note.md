@@ -105,3 +105,7 @@ There is no FACT_CREDIT_NOTE in BCPL_EDW. Credit notes were not loaded into the 
 ## Referenced by
 
 - [Data Architecture](/context/data-architecture.md)
+
+## Related decisions
+
+- **[ADR-007 — Credit note netting threshold set at INR 25,000 per document](/decisions/20260826-var005-credit-note-netting-threshold.md)** — Finance's manual net-down applies a materiality threshold of INR 25,000 at this table's grain (the credit note document/header), not at line grain. Confirmed verbally by Shalini Iyer, captured 26-Aug-2026.
