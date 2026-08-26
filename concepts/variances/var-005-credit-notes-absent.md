@@ -185,3 +185,4 @@ asserting a deferral decision I did not find evidence for.
 ## Related decisions
 
 - [Go-live dashboard scope reinstated to 9 (D04, D11 return)](/decisions/20260922-dashboard-scope-reinstated-7-to-9.md)
+- [ADR-007 — Credit note netting threshold set at INR 25,000 per document](/decisions/20260826-var005-credit-note-netting-threshold.md) — the materiality threshold Finance applies inside the manual Excel net-down described above. Confirmed verbally by Shalini Iyer, captured 26-Aug-2026, no `_sources/` artifact. Note the open question it raises against this file's own impact figure: whether the INR 3.11 Cr / 1,206 document population was tied out with or without the threshold applied.
