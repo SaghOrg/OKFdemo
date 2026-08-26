@@ -272,12 +272,135 @@ will pass the checker, but write them this way so they survive a file moving.
 **One concept per file.** Nothing enforces this. A file covering two things gets
 retrieved for one of them and silently answers about the other.
 
+## Answer in plain English. Do the machinery out of sight.
+
+The person reading your reply is a consultant or a client stakeholder. They
+asked what the netting threshold is. They did not ask how you found it.
+**Finding the answer is the work. It is not the answer.**
+
+There are two registers here, and everything above this line describes only one
+of them. Both apply to *everything* you say to the user — an answer to a
+question, a report on a file you wrote, a pull request you are handing over.
+The write side has its own version of this, in *Report the write in plain
+English too* below, because that is where it slips most.
+
+**The search belongs in your thinking.** Which directories you read and in what
+order, the `rg` you ran, the frontmatter you checked, the preflight, the sweep,
+the file that turned out to be superseded, the four places you looked before the
+fifth one had it — that is process. Do all of it, exactly as the read protocol
+requires, and do it where the user does not have to watch. A reply that narrates
+the protocol reads as though the protocol were the deliverable.
+
+**The finding belongs in the reply, in the words the user used.** Lead with the
+answer in one sentence. Then the detail that makes it usable — the figure, the
+date, the caveat that changes what they would do. Then one short line saying
+where it came from. Stop.
+
+**Say it the way you would say it out loud.** No file path in the body of a
+sentence, no frontmatter key names, no `VAR-005`-and-nothing-else where "the
+credit-note timing variance (VAR-005)" is what a human would say. Spell out an
+identifier the first time it appears. Default to a few sentences, not a page: if
+the answer is a number and a caveat, that is two sentences and you are finished.
+
+### What plain English does not mean
+
+Simplifying the *language* never simplifies the *claim*. Five things stay in the
+visible reply, always, because each one is about whether the answer is true —
+not about how you found it:
+
+- **Where it came from.** One line at the end: the concept it came from in
+  plain words, then the source artifacts named in that concept's `sources`.
+  "From the credit-note timing variance record, which cites the 14 March
+  reconciliation deck and the finance brain-dump." Provenance is a fact about
+  the answer; keep it, just stop making it the headline.
+- **That something is not merged.** "This isn't settled yet — it's sitting in
+  PR #42, opened by [name], waiting on review" is plain English and loses
+  nothing. Dropping the number, the author or the word "unmerged" to sound
+  smoother is not simplification, it is a different and false claim.
+- **That the queue went unswept.** If the preflight failed, say so in the
+  answer, in one plain sentence: "I couldn't reach the open pull requests —
+  `gh` isn't logged in here — so this is only what's already landed." An
+  unchecked queue and an empty queue produce the same silence, and softening
+  the sentence is exactly how a reader stops hearing it.
+- **That you don't know.** "There's no record of that" — stated plainly, not
+  buried, and never smoothed into a confident-sounding inference. A gap you
+  admit and a gap you quietly fill read identically to every check in this
+  repository. Only the second one is a lie.
+- **That two sources disagree.** Show both and say you cannot tell which is
+  current. "Two numbers, and I can't tell which is live" is simpler English
+  than picking one, not more complicated.
+
+If keeping one of these makes a sentence longer, the sentence gets longer.
+
+### Speak the user's vocabulary, not the repository's
+
+The glossary rule above is a retrieval rule; this is its other half. Translate
+in your head and answer in the words they used. If they said "scheme discount",
+say scheme discount — do not correct them to "trade promotion accrual" because
+that is what the concept file calls it. Mention the equivalence once, and only
+when they need it to read something else: "the KB files this under trade
+promotion accrual, same thing."
+
+### The shape
+
+> **The answer**, in a sentence, in their words.
+>
+> The one or two details that make it actionable — the figure, the date, the
+> caveat, the thing that would change their decision.
+>
+> Any of the five above that apply, plainly stated.
+>
+> *Where it came from* — one line.
+
+What this replaces, so the difference is unmistakable. The figures, the
+placeholders and the artifacts below are invented for the illustration — they
+are not this engagement's values:
+
+**Not this:**
+
+> I ran `python3 tools/check_gh.py` (exit 0), then swept `gh pr list --state
+> open`. I then searched `/concepts/variances/` with ripgrep and read
+> `/concepts/variances/var-005-credit-note-timing.md`, whose `updated`
+> frontmatter is 2026-07-30 and whose `status` is `accepted`. Its `sources`
+> array lists two files. I also checked `/log.md` for supersession and found
+> none. The threshold is ₹50,000. Note PR #42 is open and touches this file.
+
+**This:**
+
+> The netting threshold is ₹50,000 per credit note.
+>
+> One thing to flag: there's an open proposal to change it — PR #42, opened by
+> [name], not merged yet, so treat ₹50,000 as current but not final.
+>
+> *From the credit-note timing variance record (VAR-005), citing the March
+> reconciliation deck and the finance brain-dump.*
+
+Same facts. Same citation. Same unmerged warning. None of the process.
+
+The same swap applies to a write. *"Branched, staged, committed `a4f21c9`,
+pushed, opened PR #43"* is the first version wearing different clothes — see
+the write protocol for what the second version looks like.
+
+### When the process *is* the answer
+
+Drop the register when the user is asking about the machinery rather than
+through it — "why did that fail", "what did you search", "walk me through the
+check", anything about the tooling or this repository's own conventions. Then
+the commands, the exit codes and the paths are the deliverable and belong in the
+reply. Also show a command verbatim whenever the user has to run it themselves:
+a `sudo` install line, `gh auth login`, anything you are handing over. Never
+paraphrase a command they need to type.
+
 ## Answering rules
 
-- **Cite the concept, and its sources.** Name the concept file you
-  answered from, then name the `_sources/` files listed in its
-  `sources` frontmatter. You are citing provenance recorded in the
-  knowledge base, not files you opened.
+Each of these is about whether an answer is *true*. How to word one is the
+section above: plain English, and none of them dropped for the sake of it.
+
+- **Cite the concept, and its sources.** Name the concept you answered from,
+  then the `_sources/` files listed in its `sources` frontmatter. You are
+  citing provenance recorded in the knowledge base, not files you opened. One
+  line at the end of the answer, in prose — not a header, not a table, not
+  interleaved through the reply.
 - **Prefer the most recent statement of a fact.** Dates and scope changed
   repeatedly during this engagement. Check `updated` frontmatter and
   `/log.md` before trusting an early document.
@@ -330,6 +453,71 @@ finds neither: nothing is missing in either case.
 ## Write protocol
 
 You may write to this repo. You must follow this exactly.
+
+### Report the write in plain English too
+
+Everything in *Answer in plain English* applies here, and it is easier to lose
+here — writing produces a stream of git output, and reporting the stream feels
+like reporting the work. It is not. **The user needs to know what changed, what
+it means, and what you need from them.** Branch names, `git add`, hook output,
+validator exit codes and the commit SHA are working notes.
+
+Three surfaces, and they are not the same:
+
+**The reply to the user.** One sentence on what you wrote, in their words, then
+the PR number and what you need from them. Not a transcript.
+
+> Not this: *"Created branch `agents/var005-threshold`, staged 3 files, commit
+> `a4f21c9` passed pre-commit, pushed, `gh pr create` returned #43. Validators
+> exited 0."*
+>
+> This: *"I've written up the netting threshold as a decision record and linked
+> it from the credit-note variance. It's PR #43 — I can't approve my own PR, so
+> it needs your review, and whoever approves it should be the one to merge it."*
+
+**The pull request itself.** A reviewer reads the title and body, not the diff,
+to decide whether to look. Write both for a person: a title that says what
+changed in ordinary words, and a body that says what changed, why, and what the
+reviewer should check hardest. No branch-name titles, no bare slugs, no
+`feat(concepts):` prefixes. Commit messages the same. Where the change rests on
+something a reader would want to know — a decision captured verbally with no
+artifact behind it, a figure that supersedes an older one, a claim you have
+marked contested — say so in the body in a sentence. That is exactly the part a
+reviewer cannot recover from the diff.
+
+**The records themselves do not get this treatment.** Concepts, decision
+records, `/log.md` lines and frontmatter keep the house conventions above —
+template, schema, citation format, supersession, the lot. Plain English governs
+the *wrapper* around the work: your reply, the PR title and body, the commit
+message. It never loosens what goes in a file.
+
+### What stays visible when you write
+
+The five in *What plain English does not mean* still hold. Four more belong to
+writing, and every one of them is a thing the user has to act on:
+
+- **That you cannot approve it, and that the approver merges.** State it plainly
+  every time you hand a PR over — "I can't approve my own PR; whoever approves
+  it should merge it." It is the one control here that is real, and a reply that
+  just says "opened PR #43" invites the user to assume the rest is automatic.
+- **That the queue already had it.** If the sweep found your change already
+  written, say so before anything else and stop: the number, who opened it, and
+  that it needs review rather than rewriting. "This is already done — PR #38,
+  opened by [name]. It's waiting on review, so nothing to write; it needs a
+  look and a merge." Never quietly produce a second copy.
+- **That a decision line is unsourced.** When you capture a verbal sign-off,
+  say in the reply — not only in the record — that nobody minuted it and that
+  you named only the decider. The user is the one who knows whether that is
+  right.
+- **What you did not do.** A file you chose not to touch, a backlink you could
+  not make symmetric, a check that failed, a `sudo` install you did not run. One
+  plain sentence each. Scaling the work down silently is the failure this whole
+  repository is organised against.
+
+If a check failed, the reply says which one and what it said — in plain words
+first, then the exact command if the user needs to re-run it. "The link checker
+is failing on one of the new cross-links — run `python3 tools/check_links.py`
+to see it" is plain English and actionable. Pasting the traceback is neither.
 
 ### Branch, then open a pull request
 

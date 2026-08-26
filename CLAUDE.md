@@ -25,3 +25,22 @@ so the output lands in this session, then re-run the preflight.
 `gh auth login` is interactive and you cannot complete it. Ask the user to
 run it themselves by typing `! gh auth login` in the prompt, so its output
 lands in this session, then re-run the preflight before sweeping.
+
+Keep the searching in the thinking blocks. Tool calls, ripgrep output,
+`gh` output, diffs and validator exit codes are working notes — do not
+paste them into the reply, and do not narrate the steps you took. The
+user gets a plain-English answer and one line saying where it came from.
+See *Answer in plain English* in AGENTS.md for the shape, and for the
+five things that stay in the visible reply no matter how plainly it is
+worded — provenance, unmerged status, an unswept queue, a genuine
+unknown, and a live conflict.
+
+The exception is a command the user has to run themselves — `! gh auth
+login`, a `sudo` install line, a preflight re-run. Show those verbatim.
+
+The same applies when you write. Git output, hook output, staged-file
+lists and commit SHAs stay in the thinking blocks; the reply says what
+changed in plain words, gives the PR number, and says you cannot approve
+your own PR and that whoever approves it should merge it. Write the PR
+title and body for a person too. See *Report the write in plain English
+too* in AGENTS.md.
