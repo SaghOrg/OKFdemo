@@ -1,3 +1,25 @@
+# Prototype build log — historical
+
+**This was `_plan/PROGRESS.md`.** It is the session-by-session record of building
+the enforcement layer on the synthetic prototype: twenty-one entries covering
+what changed, what was verified, what was deliberately left alone, and where the
+plan turned out to be wrong.
+
+**It is history, not instruction, and it does not transplant.** Everything in it
+with ongoing value has been extracted into `/_plan/TRANSPLANT.md` — the ordering
+constraints, the ruleset settings, the gotchas, the enforced-versus-judgement
+boundary, and the design principle for adding new rules. Read that instead.
+
+Kept because the history of how a belief was formed is worth as much as the
+belief, and because several entries record a wrong turn and its correction, which
+a clean summary would erase. Several also record findings against this specific
+corpus that would be actively misleading on a client engagement.
+
+Split out in the same pass, and on the same reasoning, as
+`/_learnings/prototype.md`.
+
+---
+
 # Enforcement layer — progress
 
 One entry per step. Sessions do not share memory; this file is the handover.
