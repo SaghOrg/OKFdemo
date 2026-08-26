@@ -21,6 +21,7 @@ python3 tools/check_sources.py     # every cited source file exists
 python3 tools/check_links.py       # every in-bundle link resolves
 python3 tools/check_supersession.py
 python3 tools/check_secrets.py --all
+python3 tools/check_gh.py          # the open-PR queue is reachable from this machine
 ```
 
 ### First, once per clone
@@ -72,8 +73,11 @@ that knowledge hasn't been written yet. Say so rather than inferring.
 3. `/context/glossary.md` — REQUIRED. The client, the consultants,
    and finance use different words for the same things.
 4. `/index.md`
-5. The open pull requests — `gh pr list --state open`. Titles only, one
-   call. See below for why this is a read step and not a write step.
+5. The open pull requests — `python3 tools/check_gh.py`, then
+   `gh pr list --state open`. Titles only, one call. Run the preflight first:
+   on a locked-down machine the sweep fails in five different ways that all
+   look identical at the call site. See below for why this is a read step and
+   not a write step, and what to do when the preflight fails.
 
 ## Where to look, in order
 
@@ -123,9 +127,67 @@ produce the same silence, and a reader cannot tell them apart unless you tell
 them. This is the same failure the rest of this file keeps describing: a check
 that did not run looks exactly like a check that passed.
 
-**No checker owns this rule**, and none can. A validator runs against the tree
-it is handed; asking it to account for what is not in that tree is asking it to
-read a repository it cannot see.
+### When `gh` cannot run — check first, then help fix it
+
+Run `python3 tools/check_gh.py` before the sweep, not after it fails. It exits
+0 when the queue is reachable and 1 with a named reason and a remedy when it is
+not. On a heavily sandboxed machine the second outcome is the common one, and
+the five causes need five different answers:
+
+| What is wrong | What fixes it |
+|---|---|
+| `gh` not on PATH | install it, or fall back to git below |
+| installed, never logged in | `gh auth login`, or `GH_TOKEN` |
+| logged in, but the credential sits in a keychain the sandbox will not open | `GH_TOKEN` — the login cannot be reused |
+| authenticated, but outbound network denied | nothing local fixes it; ask about egress, or fall back to git |
+| authenticated and online, but the token lacks scope | `gh auth refresh -s repo` |
+| no GitHub remote configured | `git remote -v`, `gh repo set-default` |
+
+**Do not route around a failed preflight.** The tempting recovery — fall back to
+searching the working tree and answer from what is merged — is the exact failure
+this whole section exists to prevent, and it is worse than doing nothing because
+it produces a confident answer. Stop, tell the user which of the above you hit,
+and offer to walk them through it.
+
+**Hand interactive commands to the user; do not try to run them yourself.**
+`gh auth login` opens a browser and waits on a device code. You cannot complete
+it, and attempting it inside a sandbox hangs until it times out. Give the user
+the command to run in their own shell and wait for them to confirm. The
+non-interactive path is the one to prefer on these machines anyway:
+
+```
+export GH_TOKEN=<fine-grained token, Pull requests: read>   # or gh auth login --with-token
+python3 tools/check_gh.py                                    # confirm before re-sweeping
+```
+
+**Trust the preflight over `gh`'s own diagnosis on the network case.** With
+outbound traffic blocked, `gh auth status` reports `The token in keyring is
+invalid` and tells you to re-authenticate. That is wrong, and following it costs
+a login that cannot succeed for the same reason the first call didn't.
+`check_gh.py` opens a TCP connection itself and separates the two.
+
+**The git-only fallback**, when the API is unreachable but git transport is not:
+
+```
+git fetch origin
+git ls-remote origin 'refs/pull/*/head'      # every PR ref, over git, no API
+git merge-base --is-ancestor <sha> origin/main   # exit 0 = merged, 1 = not
+git branch --no-merged main
+```
+
+This is strictly worse than `gh` and you must say so when you use it: `refs/pull`
+persists after a pull request closes, so a ref that is not an ancestor of `main`
+is *unmerged*, which covers both open and closed-without-merge. It over-reports
+rather than missing things, which is the right direction for this failure, but
+it gives you no title, no author, no state and no body — so you can report that
+unmerged work touching a file exists, and not what it claims to do.
+
+**A checker now owns part of this rule, and it is important to know which
+part.** `check_gh.py` can confirm the queue is *reachable*. Nothing can confirm
+you swept it, read what you found, or let it change your answer — a validator
+runs against the tree it is handed, and asking it to account for what is not in
+that tree is asking it to read a repository it cannot see. Reachability is
+mechanical. Whether you looked is not.
 
 ## `/_sources/` is an archive, not a search target
 
