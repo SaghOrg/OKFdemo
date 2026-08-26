@@ -30,18 +30,33 @@ jobs:
     # the checks ran on without anything in this file changing.
     runs-on: ubuntu-24.04
 
+    strategy:
+      # Every version reports. One failing leg should not hide the others --
+      # knowing it breaks on the floor but passes on current is the useful
+      # result, and fail-fast would throw that away.
+      fail-fast: false
+      matrix:
+        # The floor validate.py declares, the version shipped as
+        # /usr/bin/python3 on the authors' machines, the previous single pin,
+        # and a current release. The stdlib-only constraint is what makes this
+        # transplantable to a locked-down client machine; an untested floor is
+        # a claim, not a fact.
+        python: ['3.8', '3.9', '3.11', '3.13']
+
+    name: checks (python ${{ matrix.python }})
+
     steps:
       - name: Check out the pull request
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
         with:
           # Full history: --diff compares against the merge base, which a
           # shallow clone does not have.
           fetch-depth: 0
 
       - name: Pin the interpreter
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5
         with:
-          python-version: '3.11'
+          python-version: ${{ matrix.python }}
 
       - name: Record what we are running on
         shell: bash
