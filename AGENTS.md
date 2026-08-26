@@ -22,6 +22,7 @@ python3 tools/check_links.py       # every in-bundle link resolves
 python3 tools/check_supersession.py
 python3 tools/check_secrets.py --all
 python3 tools/check_gh.py          # the open-PR queue is reachable from this machine
+python3 tools/check_queue.py       # no open PR's content has already landed in main
 ```
 
 ### First, once per clone
@@ -119,7 +120,9 @@ git branch --no-merged main        # work that never even reached a PR
 ```
 
 Read a pull request with `gh pr diff`. Do not check the branch out to look at
-it — you will strand whatever the user was working on.
+it — you will strand whatever the user was working on. And if what you find is
+the change you were about to make yourself, do not copy it out of the diff —
+see *When the queue already has your change* in the write protocol.
 
 **If `gh` is missing, unauthenticated, or errors, say so in your answer.** Not
 as an aside; as part of the answer. An unchecked queue and an empty queue
@@ -333,6 +336,66 @@ by another, and `git blame` on the file it changed assigns every line to
 `5d4b374` and **zero** lines to the merge commit. Declining to merge on blame
 grounds costs the verification record and buys nothing.
 
+### When the queue already has your change, merge it — do not take its contents
+
+The read protocol sends you to the queue *before* you write, so the queue will
+sometimes already hold the thing you were about to do. That is the sweep
+working. What happens next is where it goes wrong.
+
+**Do not take the content out of an open pull request.** Not `git cherry-pick`
+onto your branch, and not retyping what `gh pr diff` showed you into a file of
+your own. Both feel like progress — the change is correct, you have it in front
+of you, and reproducing it is faster than waiting on a reviewer. Both are the
+same mistake in different clothes.
+
+**It skips the review, which is the same defect as merging your own work.** The
+section above exists because the merge is the verification event. Content that
+arrives by cherry-pick arrives having been approved by nobody, and it arrives
+looking exactly like ordinary authored work — there is no marker on it, and no
+check that can find one. Self-merging at least leaves an approval record with
+the wrong name on it. This leaves none at all.
+
+**It strands the pull request, and the queue fills with ghosts.** The content is
+now in `main` and the PR is still open, and nothing about the queue shows that
+the second fact has stopped meaning anything. It cannot be reviewed into
+anything; merging it would change nothing. Do this a few times and the queue is
+mostly dead entries, and a queue that is mostly dead entries is one nobody
+sweeps — which disables the read protocol that sent you there in the first
+place.
+
+**And it moves the attribution that merging preserves.** The section above
+demonstrates that merging leaves `git blame` pointing at the authoring commit.
+Cherry-picking does the opposite, measured on this repository: PR #11's decision
+record is 167 lines, and after a cherry-pick every one of them is attributed to
+the new commit and **zero** to `5fafb1c0`, the commit that actually wrote them.
+The objection that does not apply to merging applies squarely here.
+
+So, when the sweep finds it:
+
+- **Say what you found, before doing anything.** "PR #N, opened by X, already
+  does this" — number, author, state, per the citation rule above.
+- **If it is complete, it needs review and a merge, not a rewrite.** You cannot
+  approve it; that refusal is the control. Stop and hand it to the user. Your
+  change is done — it is sitting in someone's queue.
+- **If it is incomplete, add to that branch.** Branch from the PR head and
+  target the PR, or push to it. One reviewable unit stays one reviewable unit.
+  Starting a parallel branch forks the review and guarantees a conflict.
+- **If it is wrong or abandoned, say so and stop.** Then it needs closing, and
+  closing someone else's pull request is the user's call, not yours. Say that
+  plainly rather than routing around it with a fresh PR.
+
+The one legitimate reason to take a PR's commits is that you need its work *as a
+base* to build on. Then branch from the PR head and target the PR — that keeps
+the dependency visible. Copying it into a branch that targets `main` hides it.
+
+`python3 tools/check_queue.py` finds the aftermath: an open pull request whose
+content is already in `main`, by patch-id or by file-for-file comparison, so
+the two routes above are both caught. It reports the evidence, not the intent —
+a faithful retype and a cherry-pick are indistinguishable afterwards, which is
+itself the point. **It will not catch a partial copy**, where some of the PR's
+files were taken and some were not: the PR still has real work left, so it is
+not yet a ghost, and telling those apart needs a judgement no check makes.
+
 ### When a decision is made
 
 1. Create `/decisions/YYYYMMDD-slug.md` from `/templates/decision.md`
@@ -475,6 +538,8 @@ a password sitting in a table cell or in prose.
 - Commit media, or personal data that is not already in the fixtures
 - Invent a table name, person, date, or figure not present in the repo
 - Attribute a decision to a meeting, mail or deck that did not produce it
+- Cherry-pick or retype content out of an open pull request instead of getting
+  it merged — it lands unreviewed work and leaves the PR open forever
 
 ## Engagement quick facts
 
