@@ -14,7 +14,7 @@ steward: shsagnik
 
 effective_from: 2026-08-25
 
-# LIMITATION, recorded here as well as in _plan/PROGRESS.md because this file is
+# LIMITATION, recorded here as well as in _plan/prototype-log.md because this file is
 # the one an agent reads.
 #
 # Partly resolved. A deputy now exists, so review is possible: either holder can

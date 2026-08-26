@@ -44,22 +44,81 @@ That constraint exists so the checks run on a locked-down client machine with
 whatever Python is already present, and it is verified in CI against 3.8, 3.9,
 3.11 and 3.13.
 
-### Stays behind
+### Does not cross — the exclusion list
 
-| Path | Why |
-|---|---|
-| `concepts/`, `decisions/`, `meetings/`, `context/`, `index.md`, `log.md` | The corpus. Synthetic. The client's own records replace it entirely. |
-| `_sources/` (67 files, 2.2 MB) | Raw artifacts of a fictional engagement. Contains the planted credential and PII fixtures. |
-| `_canon/` (14 files) | Build inputs for generating the synthetic corpus. Meaningless elsewhere. |
-| `_qa/` (8 files) | Prototype QA output. Also carries copies of the planted fixture values. |
-| `_plan/` | Including this file and `PROGRESS.md`. Build archaeology of the prototype. |
-| `_learnings/prototype.md` | How the synthetic corpus was generated. History, not instruction. |
-| `LEARNINGS.md` | **Judgement call.** The nine forward-looking entries are engagement-agnostic and worth carrying; strip anything referring to this prototype's specifics. Decide deliberately rather than copying wholesale. |
-| `templates/decision.md` | Carry the *shape*, rewrite the content. |
+Two different reasons, and they are not interchangeable. **The first two are a
+security boundary. The rest are a size-and-relevance decision.** Treat them
+differently: a relevance call can be revisited; a security boundary should not be
+crossed "just to have an example."
 
-**Do not copy `_sources/` or `_qa/` "just to have an example."** They contain
-deliberately planted credentials and PII. They are fake, but a client repository
-containing anything credential-shaped is a conversation nobody needs to have.
+#### Excluded as a security boundary — never copy, not even a sample
+
+| Path | Size | Why |
+|---|---|---|
+| `_sources/` | 67 files, 2.2 MB | **Holds the planted credential and PII fixtures themselves.** `db_config_snippet.properties` carries two plaintext database passwords, `CH-02` a mobile number, `EM-084` a personal email address, and the `DOC-01.docx` and `XL-01.xlsx` binaries carry an Aadhaar-format ID and a masked bank fragment inside their OOXML. Also the largest thing in the repository by a wide margin. |
+| `_canon/` | 14 files, 468 KB | **Re-registers all five planted values across three files** — `pii_plant_register.csv` is the register itself, and `BRIEF.md` and `fact_ownership.csv` each restate the values. Verified: those three still contain them today. |
+
+Both are excluded from `check_secrets.py` by design (`EXCLUDED_PREFIXES`), because
+they are this prototype's fixture archive. **That exclusion is exactly what makes
+copying them dangerous**: the scanner is configured never to look at them, so
+nothing would object if they arrived somewhere else.
+
+Worth being accurate about the actual risk. The values are synthetic and
+unusable — a `.example` TLD that cannot receive mail, `.local` hostnames that do
+not resolve, a pre-masked account number. Nobody gets into anything with them.
+The reason to exclude is not compromise; it is that a client repository
+containing credential-shaped strings is a conversation nobody needs to have, and
+one that would have to be had before anyone read a line of the knowledge base.
+
+**A note on `_qa/`, which is *not* in this category and easily assumed to be.**
+It quoted all five planted values as bare literals in tables and prose — and was
+redacted in step 2c, so its three reports now carry
+`[REDACTED — planted fixture PII-N, …]` markers instead (22 of them). It is
+excluded below on relevance, not security. The reason this is worth stating: the
+values escaped into `_qa/` in the first place because a QA process quoted them as
+evidence, and `check_secrets.py` still does **not** catch that shape — bare
+values in table cells are not assignment-shaped, which is a documented gap.
+Verified just now: scanning a redacted `_qa/` report directly returns exit 0.
+**Anything that quotes a fixture value as evidence will pass the scanner.**
+
+#### Excluded on size and relevance — revisit if you want to
+
+| Path | Size | Why |
+|---|---|---|
+| `_qa/` | 8 files, 100 KB | Prototype QA output against a corpus that will not exist. Redacted, so not a security boundary — but of no use elsewhere. |
+| `_plan/prototype-log.md` | 2,401 lines | The session-by-session build log. Everything with ongoing value has been lifted into this document; what remains records wrong turns and corrections against a corpus that will not exist. |
+| `_plan/TRANSPLANT.md` | this file | Crosses as a *checklist to execute*, not a file to commit. Once the client repository is configured, its content is history too. |
+| `_learnings/prototype.md` | 1 file | How the synthetic corpus was generated. Already split out of the read path on this reasoning. |
+| `concepts/`, `decisions/`, `meetings/`, `context/`, `index.md`, `log.md` | 76 files | The corpus. Synthetic. Replaced entirely by the client's records. |
+| `templates/decision.md` | 1 file | Carry the *shape*; rewrite the content for the engagement. |
+| `LEARNINGS.md` | 25 lines, 9 entries | **Judgement call, decide deliberately.** The entries are engagement-agnostic and several are the most valuable output of the exercise. But some cite this prototype's specifics — record counts, branch names, `PR #6`. Carry the rules, rewrite the evidence. |
+
+### Nothing in the framework reads from an excluded directory — confirmed
+
+Checked by inspection and by the Session A transplant test.
+
+Every reference to `_sources`, `_canon`, `_qa`, `_plan`, `_learnings`,
+`_snapshots`, `_build` or `templates` inside `tools/`, `tests/`, `schemas/` or
+`.githooks/` is one of four kinds:
+
+1. **A name in an exclusion set** — `SKIP` in `validate.py`, `EXCLUDED_PREFIXES`
+   in `check_secrets.py`, `RESOLUTION_SKIP` in the three resolution checks. These
+   are names to skip. If the directory does not exist, nothing happens.
+2. **A comment or docstring** — documentation, no runtime effect.
+3. **The `/_sources/` prefix constant** in `check_sources.py`, which builds a
+   path from what a *record cites* and tests `.exists()`. This is a dependency on
+   the **naming convention**, not on this repository's archive. A client repo
+   with its own `_sources/` satisfies it.
+4. **A false positive** — `_canonical()` in `validate.py` contains the string
+   `canon`.
+
+**No read call is scoped to an excluded directory.** The tree walk in each script
+filters by `SKIP` / `RESOLUTION_SKIP` before opening anything.
+
+Verified empirically: the framework was copied into an empty repository with no
+`_sources/`, `_canon/`, `_qa/`, `_plan/` or `_learnings/` at all, and run against
+three states. With three records and a `_sources/` directory it returns six green
+checks and 75 passing tests. The excluded directories are not load-bearing.
 
 ### Known adaptation points
 
@@ -360,3 +419,110 @@ output into a record.
 **Record the result of each, including the ones that pass.** A control verified
 by watching it refuse is a fact. A control verified by reading its configuration
 is a claim, and this build-out is largely a catalogue of the difference.
+
+---
+
+## 9. What is mechanically enforced, and what rests on judgement
+
+Carried from the prototype build log. Use it when adapting `AGENTS.md`: the
+editorial rule is that it keeps only what CI cannot check, and this is where that
+boundary was drawn. The rules are engagement-agnostic; the file paths are not.
+
+Read the first table with the caveat above: these checks **run and report**, and
+on this repository nothing stops a merge that ignores them. They are enforced in
+the sense that a machine decides the answer and a human cannot quietly disagree
+with it — the answer is on the record. They are not enforced in the sense of
+being a gate.
+
+### Mechanically checked — remove from AGENTS.md
+
+| Rule | Where | Since |
+|---|---|---|
+| `type` is required on every record | schema | step 2 |
+| No undeclared frontmatter fields | schema `additionalProperties: false` | step 2 |
+| `status` is one of `draft` / `accepted` / `superseded` | schema enum | step 2 |
+| `generated.by` matches `<mode>:<agent>[/<stage>]` | schema pattern | step 2 |
+| `generated.at` is an RFC 3339 UTC date-time | schema pattern | step 2 |
+| `sources` has at least one entry | schema `minItems`, reachable since 4c | steps 2, 4c |
+| `contested` shape, and its four required fields | schema | step 2 |
+| `tags` are unique | schema `uniqueItems` | step 2 |
+| Frontmatter parses at all | `validate.py` | step 1 |
+| Every `sources[].resource` exists under `/_sources/` | `check_sources.py` | step 5 |
+| Every in-bundle markdown link resolves | `check_links.py` | step 5 |
+| Every supersession target exists | `check_supersession.py` | step 5 |
+| `superseded_by` present implies `status: superseded` | `check_supersession.py` | step 6 |
+| No credential-shaped strings in a commit or a diff | `check_secrets.py` | steps 4, 11 |
+| The hooks exist and would arrive executable | `check_hooks.py` | step 11 |
+| The checks themselves still behave | `tests/test_validate.py`, 71 cases | steps 4b, 4c |
+
+### Rests on judgement — AGENTS.md keeps these
+
+No machine can decide any of these. Every one is a question about *meaning*.
+
+| Rule | Why a checker cannot decide it |
+|---|---|
+| **Do not invent provenance** | The schema checks a cited file exists. It cannot check the file *says* what the record claims. This is the single most important rule in the document and the least checkable. |
+| **Separate context provenance from decision provenance** | Whether a source evidences the surrounding discussion or the decision itself is a reading of the source. |
+| **Name the decider, claim nobody else** | `Consulted: none recorded` and a fabricated attendee list are identical to every check we have. |
+| **Say when you don't know** | A gap admitted and a gap silently filled produce the same valid record. |
+| **Prefer the most recent statement of a fact** | `updated` is checkable; whether two statements actually conflict is not. |
+| **Translate vocabulary through the glossary** | "Scheme discount" and "TPR" being the same thing is domain knowledge. |
+| **Show both when two sources conflict and you cannot tell which is current** | `contested`'s *shape* is enforced; whether a genuine dispute exists, and whether it is a dispute rather than a rounding difference, is judgement. Step 4b found the corpus contains no live one. |
+| **`/_sources/` is an archive, not a search target** | Nothing observes what an agent read. |
+| **Stop when you have the answer** | Not observable. |
+| **Supersede, do not overwrite** | The link and status are checked; whether a *new belief* warranted a new record or an edit is judgement. |
+| **A verification field only counts if something fails when it is absent** | The 2c finding. `verified` is schema-shaped and used zero times; the register's `verified: yes` certified a false assertion. |
+
+### The third category — declared, not enforceable here
+
+Neither mechanical nor judgement. These are controls the repository *states* and
+the platform does not apply, and step 14 should say so rather than implying
+either of the other two categories.
+
+| Control | State |
+|---|---|
+| Code-owner review | CODEOWNERS valid on `main`; no reviewer assignable — sole owner cannot self-approve (step 8) |
+| Human decides / agent executes | No separate bot actor exists; a user-owned PAT inverts the split (step 9) |
+| No direct pushes to `main` | No ruleset, no branch protection (step 10) |
+| Required status checks | Blocked by the same gate (step 12) |
+| Branch up to date before merging | Same, and it is the one failure mode nothing else catches |
+| Secret scanning / push protection | Unavailable on a private repo at this tier (step 7) |
+
+---
+
+## 10. Adding a rule later: one script per invariant family
+
+When a new rule is needed, the question is whether it goes in the schema or in a
+script, and whether it gets its own script. The precedent, from adding the
+supersession status invariant:
+
+**Extend the existing script for that family** rather than adding a new one. The
+rule was one of a family, and the family belongs together.
+
+Cross-field rules found while looking, as asked:
+
+| # | Rule | Holds on `main` | Expressible in JSON Schema? |
+|---|---|---|---|
+| 1 | `superseded_by` ⇒ `status: superseded` | yes | yes, `dependentRequired` |
+| 2 | `status: superseded` ⇒ `superseded_by` | yes | yes, `dependentRequired` |
+| 3 | `supersedes` ⇒ target's `superseded_by` points back | yes, 0 violations | **no** — needs a second document |
+| 4 | `supersedes` ⇒ target's `status` is `superseded` | yes, 0 violations | **no** — needs a second document |
+
+**This changes the calculus in the opposite direction to the one anticipated.**
+Finding three more rules would normally argue for implementing the keyword
+properly. It does not here, because **half the family is out of JSON Schema's
+reach entirely** — it validates one document at a time and cannot follow
+`supersedes` into the record being superseded. Implementing `dependentRequired`
+would buy rules 1 and 2 and leave 3 and 4 needing a script anyway, so the schema
+engine would grow, get its own tests, and the family would still be split across
+two places.
+
+The answer to "a growing pile of one-off scripts" is not a schema keyword. It is
+**one script per invariant family**: `check_supersession.py` owns all four
+supersession rules, `check_links.py` owns link resolution, `check_sources.py`
+owns provenance resolution. That keeps the tool count flat as rules are added.
+
+**Rules 3 and 4 were found, not built** — the instruction was to stop and say so.
+Both hold on `main` today. They are one small function in the script that
+already loads every record, and they close the supersede protocol's remaining
+mechanical claims.
