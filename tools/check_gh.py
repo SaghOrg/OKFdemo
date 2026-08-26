@@ -50,6 +50,47 @@ MIN_VERSION = (2, 0, 0)
 problems = []
 
 
+def find_gh():
+    """Resolve the gh executable, including common Windows install locations.
+
+    On Windows, GitHub CLI is often installed under Program Files by the MSI or
+    package managers, but the current session PATH may not have picked up the
+    shim yet. Reporting "not installed" in that case is wrong; the checker only
+    needs an executable it can invoke, not a perfectly configured shell.
+    """
+    found = shutil.which("gh")
+    if found is not None:
+        return found
+
+    if platform.system() != "Windows":
+        return None
+
+    candidates = []
+    for base in filter(None, (
+        os.environ.get("ProgramFiles"),
+        os.environ.get("ProgramW6432"),
+    )):
+        candidates.append(os.path.join(base, "GitHub CLI", "gh.exe"))
+
+    local = os.environ.get("LOCALAPPDATA")
+    if local:
+        candidates.extend((
+            os.path.join(local, "Programs", "GitHub CLI", "gh.exe"),
+            os.path.join(local, "Microsoft", "WinGet", "Links", "gh.exe"),
+            os.path.join(local, "gh", "bin", "gh.exe"),
+        ))
+
+    seen = set()
+    for candidate in candidates:
+        folded = os.path.normcase(candidate)
+        if folded in seen:
+            continue
+        seen.add(folded)
+        if os.path.isfile(candidate):
+            return candidate
+    return None
+
+
 def safe_console():
     """Make stdout survive text this console cannot encode.
 
@@ -354,13 +395,14 @@ def report(reason, *remedy):
 def main():
     safe_console()
     token_var = next((v for v in ("GH_TOKEN", "GITHUB_TOKEN") if os.environ.get(v)), None)
+    gh = find_gh()
 
     # 1. Is there a gh at all?
-    if shutil.which("gh") is None:
+    if gh is None:
         report("gh is not installed -- it is not on PATH", *install_instructions())
         return finish()
 
-    code, out = run("gh", "--version")
+    code, out = run(gh, "--version")
     if code is None or code != 0:
         report(
             "gh is on PATH but will not run (%s)" % first_line(out),
@@ -381,7 +423,7 @@ def main():
 
     # 2. Is it authenticated? This is local -- it reads config and keychain, and
     #    on a sandboxed machine the keychain read is itself a common failure.
-    code, out = run("gh", "auth", "status")
+    code, out = run(gh, "auth", "status")
     if code != 0:
         ok, detail = api_reachable()
         if not ok:
@@ -421,7 +463,7 @@ def main():
     # 3. Does this directory resolve to a GitHub repo, and does the API answer?
     #    One call tests network egress, token validity and remote configuration
     #    together, which is fine -- they are distinguished by the error text.
-    code, out = run("gh", "repo", "view", "--json", "nameWithOwner", "-q", ".nameWithOwner")
+    code, out = run(gh, "repo", "view", "--json", "nameWithOwner", "-q", ".nameWithOwner")
     if code != 0:
         ok, detail = api_reachable()
         if looks_like_network(out) or not ok:
@@ -444,7 +486,7 @@ def main():
 
     # 4. And the actual call the read protocol makes. Authentication can be
     #    valid while the token lacks the scope to list pull requests.
-    code, out = run("gh", "pr", "list", "--state", "open", "--limit", "1")
+    code, out = run(gh, "pr", "list", "--state", "open", "--limit", "1")
     if code != 0:
         report(
             "gh is authenticated for %s but cannot list pull requests (%s)" % (repo, first_line(out)),
