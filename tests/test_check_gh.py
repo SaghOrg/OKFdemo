@@ -48,12 +48,13 @@ class InstallAdviceTest(unittest.TestCase):
         platform.system = self.system
         platform.machine = self.machine
 
-    def advise(self, system, machine, present, family=None, euid=1000):
+    def advise(self, system, machine, present, family=None, euid=1000, env=None):
         platform.system = lambda: system
         platform.machine = lambda: machine
         self.cg.shutil.which = lambda n: ("/usr/bin/" + n) if n in present else None
         self.cg.linux_family = lambda: family
         self.cg.os.geteuid = lambda: euid
+        self.cg.os.environ = {} if env is None else env
         return "\n".join(self.cg.install_instructions())
 
     # -- the manager chosen for the platform --------------------------------
@@ -130,6 +131,105 @@ class InstallAdviceTest(unittest.TestCase):
         ):
             text = self.advise(system, machine, present)
             self.assertIn("https://github.com/cli/cli#installation", text)
+
+
+class WindowsTest(unittest.TestCase):
+    """Windows is not a Unix with different slashes.
+
+    Three things break there and none of them announce themselves as a Windows
+    problem: os.geteuid does not exist, `export X=y` and `cmd < file` are parse
+    errors in PowerShell rather than failing commands, and the Windows release
+    archive does not nest under a version directory the way the others do.
+    """
+
+    def setUp(self):
+        self.cg = load()
+        self.system, self.machine = platform.system, platform.machine
+
+    def tearDown(self):
+        platform.system, platform.machine = self.system, self.machine
+
+    def advise(self, present, env=None, machine="AMD64"):
+        platform.system = lambda: "Windows"
+        platform.machine = lambda: machine
+        self.cg.shutil.which = lambda n: ("C:\\bin\\" + n) if n in present else None
+        self.cg.os.environ = {} if env is None else env
+        return "\n".join(self.cg.install_instructions())
+
+    def test_is_root_does_not_explode_without_geteuid(self):
+        # The real failure: AttributeError takes down the whole checker, so it
+        # reports nothing at all rather than reporting that gh is missing.
+        real = self.cg.os
+        class NoGeteuid:
+            def __getattr__(self, name):
+                if name == "geteuid":
+                    raise AttributeError("no geteuid on Windows")
+                return getattr(real, name)
+        self.cg.os = NoGeteuid()
+        try:
+            self.assertFalse(self.cg.is_root())
+        finally:
+            self.cg.os = real
+
+    def test_bare_powershell_gets_powershell_syntax(self):
+        text = self.advise({"winget"})
+        self.assertIn("winget install --id GitHub.cli", text)
+        self.assertIn("$env:LOCALAPPDATA", text)
+        # The two constructs that are parse errors in PowerShell.
+        self.assertNotIn("export ", text)
+        self.assertNotIn("~/.local/bin", text)
+
+    def test_git_bash_on_windows_gets_posix_syntax(self):
+        text = self.advise({"curl", "tar"}, env={"MSYSTEM": "MINGW64"})
+        self.assertIn("export PATH=", text)
+        self.assertNotIn("$env:LOCALAPPDATA", text)
+
+    def test_windows_archive_has_no_version_directory(self):
+        # Verified against the real published zip: it unpacks to bin/gh.exe,
+        # while macOS and linux nest under gh_<ver>_<os>_<arch>/.
+        text = self.advise({"curl", "tar"}, env={"MSYSTEM": "MINGW64"})
+        self.assertIn("/tmp/ghx/bin/gh.exe", text)
+        self.assertNotIn("gh_${VER}_windows_amd64/bin", text)
+
+    def test_windows_arm64_asset_name(self):
+        text = self.advise({"winget"}, machine="ARM64")
+        self.assertIn("gh_${VER}_windows_arm64.zip", text)
+
+    def test_no_sudo_prefix_is_ever_emitted_on_windows(self):
+        text = self.advise({"winget", "scoop", "choco"})
+        self.assertNotIn("sudo", text)
+
+
+class ShellKindTest(unittest.TestCase):
+    def setUp(self):
+        self.cg = load()
+        self.system = platform.system
+
+    def tearDown(self):
+        platform.system = self.system
+
+    def kind(self, system, env):
+        platform.system = lambda: system
+        self.cg.os.environ = env
+        return self.cg.shell_kind()
+
+    def test_unix_is_always_posix(self):
+        self.assertEqual(self.kind("Linux", {}), "posix")
+        self.assertEqual(self.kind("Darwin", {}), "posix")
+
+    def test_bare_windows_is_powershell(self):
+        self.assertEqual(self.kind("Windows", {}), "powershell")
+
+    def test_git_bash_and_wsl_shells_are_posix(self):
+        self.assertEqual(self.kind("Windows", {"MSYSTEM": "MINGW64"}), "posix")
+        self.assertEqual(self.kind("Windows", {"SHELL": "/bin/bash"}), "posix")
+
+    def test_set_env_matches_the_shell(self):
+        platform.system = lambda: "Windows"
+        self.cg.os.environ = {}
+        self.assertEqual(self.cg.set_env("GH_TOKEN", "x"), '$env:GH_TOKEN = "x"')
+        platform.system = lambda: "Linux"
+        self.assertEqual(self.cg.set_env("GH_TOKEN", "x"), 'export GH_TOKEN="x"')
 
 
 class VersionGateTest(unittest.TestCase):
