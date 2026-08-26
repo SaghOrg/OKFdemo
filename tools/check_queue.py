@@ -49,6 +49,40 @@ TIMEOUT = 60
 MAIN = "origin/main"
 
 
+def find_gh():
+    found = shutil.which("gh")
+    if found is not None:
+        return found
+
+    if sys.platform != "win32":
+        return None
+
+    candidates = []
+    for base in filter(None, (
+        os.environ.get("ProgramFiles"),
+        os.environ.get("ProgramW6432"),
+    )):
+        candidates.append(os.path.join(base, "GitHub CLI", "gh.exe"))
+
+    local = os.environ.get("LOCALAPPDATA")
+    if local:
+        candidates.extend((
+            os.path.join(local, "Programs", "GitHub CLI", "gh.exe"),
+            os.path.join(local, "Microsoft", "WinGet", "Links", "gh.exe"),
+            os.path.join(local, "gh", "bin", "gh.exe"),
+        ))
+
+    seen = set()
+    for candidate in candidates:
+        folded = os.path.normcase(candidate)
+        if folded in seen:
+            continue
+        seen.add(folded)
+        if os.path.isfile(candidate):
+            return candidate
+    return None
+
+
 def safe_console():
     """Make stdout survive text this console cannot encode.
 
@@ -97,8 +131,9 @@ def open_pull_requests():
     over-reports -- stated in the output rather than hidden, since a false
     alarm here is much cheaper than a missed ghost.
     """
-    if shutil.which("gh"):
-        code, out, _ = run("gh", "pr", "list", "--state", "open",
+    gh = find_gh()
+    if gh:
+        code, out, _ = run(gh, "pr", "list", "--state", "open",
                            "--json", "number,title,author", check=False)
         if code == 0:
             try:

@@ -156,6 +156,9 @@ proposed anywhere in the sources read for this file. Ananya Krishnan's own words
 steering committee are the clearest statement of where this stands: "I do not have a plan to put in
 front of you today that I would stand behind."
 
+Operational update captured directly in this knowledge base (no source artifact attached yet):
+Finance has confirmed the manual netting threshold is now **INR 25,000**.
+
 ## Comparison against the canon register
 
 `variance_register_canon.csv` states the same mechanism (no `FACT_CREDIT_NOTE`, `STG_CREDIT_NOTE`
