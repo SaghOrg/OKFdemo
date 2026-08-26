@@ -17,6 +17,11 @@ Run `python3 tools/check_gh.py` before that sweep. If it exits non-zero,
 relay the reason and remedy it prints and offer to walk the user through
 the fix — do not quietly fall back to searching the working tree.
 
+When it reports `gh` is missing or too old, it prints the install command
+for this machine. Show it, say what it will do, and ask before running it.
+Never run a `sudo` line yourself — ask the user to run it with `! <command>`
+so the output lands in this session, then re-run the preflight.
+
 `gh auth login` is interactive and you cannot complete it. Ask the user to
 run it themselves by typing `! gh auth login` in the prompt, so its output
 lands in this session, then re-run the preflight before sweeping.

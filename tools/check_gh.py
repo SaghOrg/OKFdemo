@@ -30,6 +30,8 @@ belongs to the agent and to the user, and lives in AGENTS.md.
 """
 
 import os
+import platform
+import re
 import shutil
 import socket
 import subprocess
@@ -37,6 +39,12 @@ import sys
 import urllib.parse
 
 TIMEOUT = 20
+
+# The read protocol calls `gh pr list --json ...` and `gh pr diff`. Distribution
+# packages run years behind, and an old gh does not fail with a version error --
+# it fails with an unrecognised-flag error, which reads like a broken command
+# rather than a stale binary. Naming the floor turns that into one clear answer.
+MIN_VERSION = (2, 0, 0)
 
 # Set when the sweep cannot run. Each entry is (reason, remedy-lines).
 problems = []
@@ -114,6 +122,148 @@ def report_network(detail):
     )
 
 
+def platform_key():
+    """(os, arch) in the spelling GitHub uses for release assets."""
+    system = platform.system()
+    machine = platform.machine().lower()
+    arch = "arm64" if machine in ("arm64", "aarch64") else "amd64"
+    if system == "Darwin":
+        return "macOS", arch
+    if system == "Windows":
+        return "windows", arch
+    return "linux", arch
+
+
+def linux_family():
+    """Which package manager this distribution actually uses.
+
+    Several can be installed at once, so presence on PATH is not enough to pick
+    between them -- os-release says which one owns the system.
+    """
+    try:
+        with open("/etc/os-release") as handle:
+            text = handle.read().lower()
+    except OSError:
+        return None
+    fields = dict(
+        (line.split("=", 1)[0], line.split("=", 1)[1].strip().strip('"'))
+        for line in text.splitlines() if "=" in line
+    )
+    ident = " ".join((fields.get("id", ""), fields.get("id_like", "")))
+    for family, markers in (
+        ("apt", ("debian", "ubuntu", "mint", "pop")),
+        ("dnf", ("fedora", "rhel", "centos", "rocky", "alma")),
+        ("pacman", ("arch", "manjaro")),
+        ("zypper", ("suse", "opensuse")),
+        ("apk", ("alpine",)),
+    ):
+        if any(marker in ident for marker in markers):
+            return family
+    return None
+
+
+def install_instructions():
+    """The command for *this* machine, not a menu of commands for some machine.
+
+    A list of six package managers is not an instruction; the reader still has
+    to work out which line is theirs, and on a locked-down box the answer is
+    often none of them. So: probe what is actually here, lead with that, and
+    always carry the no-root path, because the machines that most need gh
+    installed are the ones where you cannot become root to do it.
+    """
+    goos, arch = platform_key()
+    has = lambda name: shutil.which(name) is not None
+    root = "" if os.geteuid() == 0 else ("sudo " if has("sudo") else "")
+
+    preferred = []
+    # Homebrew, winget, scoop and choco track upstream within days. The
+    # distribution repositories are the ones that ship a gh old enough to fail
+    # the version gate, so only they get the warning.
+    lags = False
+    if goos == "macOS":
+        if has("brew"):
+            preferred.append("brew install gh")
+        elif has("port"):
+            preferred.append("%sport install gh" % root)
+            lags = True
+    elif goos == "windows":
+        for tool, command in (("winget", "winget install --id GitHub.cli"),
+                              ("scoop", "scoop install gh"),
+                              ("choco", "choco install gh")):
+            if has(tool):
+                preferred.append(command)
+    else:
+        family = linux_family()
+        candidates = (
+            ("apt", "%sapt install gh" % root),
+            ("dnf", "%sdnf install gh" % root),
+            ("yum", "%syum install gh" % root),
+            ("pacman", "%spacman -S github-cli" % root),
+            ("zypper", "%szypper install gh" % root),
+            ("apk", "%sapk add github-cli" % root),
+        )
+        for tool, command in candidates:
+            if tool == family and has(tool):
+                preferred.append(command)
+                lags = True
+        if not preferred:
+            for tool, command in candidates:
+                if has(tool):
+                    preferred.append(command)
+                    lags = True
+                    break
+
+    lines = []
+    if preferred:
+        lines.append("This machine has a package manager. Ask the user to run:")
+        for command in preferred:
+            lines.append("  %s" % command)
+        if any(command.startswith("sudo ") for command in preferred):
+            lines.append("(That needs sudo and will prompt for a password, so the user must")
+            lines.append(" run it themselves -- do not try to run it for them.)")
+        if lags:
+            lines.append("Distribution packages often ship a gh older than %d.%d.%d. If the"
+                         % MIN_VERSION)
+            lines.append("installed version fails this check, use the no-root install below.")
+    else:
+        lines.append("No package manager was found on this machine.")
+
+    if shutil.which("curl") and (goos != "linux" or shutil.which("tar")):
+        asset = "gh_${VER}_%s_%s.%s" % (goos, arch,
+                                        "zip" if goos != "linux" else "tar.gz")
+        lines.append("")
+        lines.append("No-root install into ~/.local/bin -- needs no sudo, and is the one")
+        lines.append("that works on a locked-down machine:")
+        lines.append("  VER=$(curl -fsSI https://github.com/cli/cli/releases/latest \\")
+        lines.append("        | awk -F'/v' '/^location:/{print $2}' | tr -d '\\r\\n')")
+        lines.append("  mkdir -p ~/.local/bin")
+        if goos == "linux":
+            lines.append("  curl -fsSL \"https://github.com/cli/cli/releases/download/v$VER/%s\" \\"
+                         % asset)
+            lines.append("        | tar xz -C /tmp")
+            lines.append("  mv /tmp/gh_${VER}_%s_%s/bin/gh ~/.local/bin/" % (goos, arch))
+        else:
+            lines.append("  curl -fsSL -o /tmp/gh.zip \\")
+            lines.append("        \"https://github.com/cli/cli/releases/download/v$VER/%s\"" % asset)
+            lines.append("  unzip -qo /tmp/gh.zip -d /tmp/ghx")
+            lines.append("  mv /tmp/ghx/gh_${VER}_%s_%s/bin/gh ~/.local/bin/" % (goos, arch))
+        lines.append("  export PATH=\"$HOME/.local/bin:$PATH\"   # add to the shell rc to persist")
+        lines.append("Both of those reach github.com. If egress is blocked they will fail too,")
+        lines.append("and the answer is the git-only fallback in AGENTS.md, not a retry.")
+
+    lines.append("")
+    lines.append("Full instructions: https://github.com/cli/cli#installation")
+    lines.append("Offline: download the %s %s package on a machine that has network"
+                 % (goos, arch))
+    lines.append("and copy it across; gh is a single static binary and needs no runtime.")
+    return lines
+
+
+def parse_version(text):
+    match = re.search(r"gh version (\d+)\.(\d+)\.(\d+)", text)
+    return tuple(int(part) for part in match.groups()) if match else None
+
+
 def report(reason, *remedy):
     problems.append((reason, remedy))
 
@@ -123,12 +273,7 @@ def main():
 
     # 1. Is there a gh at all?
     if shutil.which("gh") is None:
-        report(
-            "gh is not on PATH",
-            "Install it: `brew install gh` (macOS), `sudo apt install gh` (Debian/Ubuntu),",
-            "or see https://github.com/cli/cli#installation for an offline package.",
-            "If the sandbox forbids installing, use the git-only fallback in AGENTS.md.",
-        )
+        report("gh is not installed -- it is not on PATH", *install_instructions())
         return finish()
 
     code, out = run("gh", "--version")
@@ -137,6 +282,16 @@ def main():
             "gh is on PATH but will not run (%s)" % first_line(out),
             "The binary is present but unusable -- often a sandbox blocking exec or a",
             "broken install. Reinstall, or use the git-only fallback in AGENTS.md.",
+        )
+        return finish()
+
+    found = parse_version(out)
+    if found is not None and found < MIN_VERSION:
+        report(
+            "gh %s is too old -- the sweep needs %s or newer"
+            % (".".join(str(n) for n in found),
+               ".".join(str(n) for n in MIN_VERSION)),
+            *install_instructions()
         )
         return finish()
 
